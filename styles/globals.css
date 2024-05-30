@@ -1,5 +1,11 @@
 @import url("@fontsource-variable/inter");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-  
+
+button:focus, button:focus-visible, svg:focus, svg:focus-visible {
+    outline: none;
+    --tw-ring-color: none !important;
+    --tw-ring-width: 0;
+}

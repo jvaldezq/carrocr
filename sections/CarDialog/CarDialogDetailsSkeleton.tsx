@@ -1,6 +1,6 @@
 import {Skeleton} from "@/components/ui/skeleton";
 
-export const CarDialogDetailsLoader = () => {
+export const CarDialogDetailsSkeleton = () => {
     return <article
         className='text-tertiary grid grid-cols-1 md:grid-cols-2 gap-3 justify-center items-start animate-fade animate-once animate-duration-[600ms] animate-delay-0 animate-ease-linear'>
         <Skeleton className="h-3 w-10 md:col-span-2 bg-primary/[0.2] dark:bg-primary/[0.7]"/>
