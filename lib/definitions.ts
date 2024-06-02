@@ -1,13 +1,13 @@
 export interface Car {
-    id: string;
+    id: number;
     model: string;
-    brand: string;
+    trim: string;
+    make: string;
     thumbnail: string;
     images: string[];
-    link: string;
     year: number;
     price: number;
-    km: number;
-    transmission: string;
+    mileage: number;
+    transType: string;
     verified: boolean;
 }

@@ -1,15 +1,18 @@
 "use client"
 
-import {ReactNode} from "react"
+import {ReactNode, useCallback} from "react"
 import {
-    NavigationMenu,
-    NavigationMenuContent,
-    NavigationMenuIndicator,
-    NavigationMenuItem,
-    NavigationMenuList,
-    NavigationMenuTrigger
-} from "@/components/ui/navigation-menu"
-import Link from "next/link";
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuGroup,
+    DropdownMenuItem,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import {LoginOutlineIcon} from "@/icons/LoginOutlineIcon";
+import {HelpIcon} from "@/icons/HelpIcon";
+import {ContactOutlineIcon} from "@/icons/ContactOutlineIcon";
+import {authConfig} from "@/store/authStore";
 
 interface ProfileMenuDrawerProps {
     children: ReactNode
@@ -17,28 +20,35 @@ interface ProfileMenuDrawerProps {
 
 export const ProfileMenuDrawer = (props: ProfileMenuDrawerProps) => {
     const {children} = props
+
+    const handleLogIn = useCallback(() => {
+        authConfig.set({isLogInOpen: true});
+    }, []);
+
     return (
-        <NavigationMenu>
-            <NavigationMenuList>
-                <NavigationMenuItem>
-                    <NavigationMenuTrigger
-                        className="bg-transparent hover:bg-transparent">{children}</NavigationMenuTrigger>
-                    <NavigationMenuContent className='right-0'>
-                        <ul className="grid grid-cols-1 gap-3 p-4 w-[700px]">
-                            <li>
-                                <Link href="hello"> hello</Link>
-                            </li>
-                            <li>
-                                <Link href="hello"> hello</Link>
-                            </li>
-                            <li>
-                                <Link href="hello"> hello</Link>
-                            </li>
-                        </ul>
-                        <NavigationMenuIndicator className="hidden"/>
-                    </NavigationMenuContent>
-                </NavigationMenuItem>
-            </NavigationMenuList>
-        </NavigationMenu>
+        <DropdownMenu>
+            <DropdownMenuTrigger>{children}</DropdownMenuTrigger>
+            <DropdownMenuContent className="w-fit" collisionPadding={20}>
+                {/*<DropdownMenuLabel></DropdownMenuLabel>*/}
+                <DropdownMenuGroup>
+                    <DropdownMenuItem className='cursor-pointer' onClick={handleLogIn}>
+                        <LoginOutlineIcon className="mr-2 h-5 w-5"/>
+                        <span className="text-tertiary">Ingreso / Registro</span>
+                    </DropdownMenuItem>
+                </DropdownMenuGroup>
+                <DropdownMenuSeparator/>
+                <DropdownMenuGroup>
+                    <DropdownMenuItem className='cursor-pointer'>
+                        <HelpIcon className="mr-2 h-5 w-5"/>
+                        <span className="text-tertiary">Como publicar?</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem className='cursor-pointer'>
+                        <ContactOutlineIcon className="mr-2 h-5 w-5"/>
+                        <span className="text-tertiary">Contactanos</span>
+                    </DropdownMenuItem>
+                </DropdownMenuGroup>
+
+            </DropdownMenuContent>
+        </DropdownMenu>
     )
 }

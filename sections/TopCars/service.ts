@@ -1,8 +1,16 @@
-import axios from "axios";
 import type {Car} from "@/lib/definitions";
+import {serverApi} from "@/lib/serverApi";
 
 export const fetchTopCars = async (): Promise<Car[]> => {
-    // TODO - Implement API call
-    const cars = await axios.get("https://6635443d9bb0df2359a44894.mockapi.io/api/v1/top-cars");
-    return cars.data;
+    try {
+        const cars = await serverApi.get("/listing/mini", {
+            params: {
+                premium: true,
+            },
+        });
+        return cars.data;
+    } catch (error) {
+        console.error("Failed to fetch top cars", error);
+        return [];
+    }
 };

@@ -12,10 +12,6 @@ export const TopCarsSkeleton = () => {
                 <CardSkeleton/>
                 <CardSkeleton/>
                 <CardSkeleton/>
-                <CardSkeleton/>
-                <CardSkeleton/>
-                <CardSkeleton/>
-                <CardSkeleton/>
             </div>
         </section>
     );

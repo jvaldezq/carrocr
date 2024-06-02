@@ -28,6 +28,9 @@ const config = {
                 secondary: "#F5F5F7",
                 tertiary: "#50514F",
                 quaternary: "#F8F7FF",
+                persianBlue: "#1E40AF",
+                jewel: "#166534",
+                oldBrick: "#991B1B",
                 verified: '#0284c7'
             },
             keyframes: {
