@@ -11,7 +11,7 @@ import {previewConfig} from "@/store/previewStore";
 
 
 export default function CarDialogDetails(props: Car) {
-    const {brand, model, thumbnail, images, year, price, id} = props;
+    const {make, model, thumbnail, images, year, price, id} = props;
 
     return (<article
         className='text-tertiary grid grid-cols-1 md:grid-cols-2 gap-3 justify-center items-start animate-fade animate-once animate-duration-[600ms] animate-delay-0 animate-ease-linear relative'>
@@ -24,7 +24,7 @@ export default function CarDialogDetails(props: Car) {
         <div className='mb-2 flex flex-col md:flex-row justify-between items-start md:items-end md:col-span-2'>
             <h1 className="text-xl font-semibold">
                 {model}
-                <span className="text-sm font-medium pl-2">({brand})</span>
+                <span className="text-sm font-medium pl-2">({make})</span>
             </h1>
         </div>
         <div>
