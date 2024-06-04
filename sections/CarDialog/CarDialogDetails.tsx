@@ -11,7 +11,7 @@ import {previewConfig} from "@/store/previewStore";
 
 
 export default function CarDialogDetails(props: Car) {
-    const {make, model, thumbnail, images, year, price, id} = props;
+    const {make, model, thumbnail, images, year, priceDollars, id} = props;
 
     return (<article
         className='text-tertiary grid grid-cols-1 md:grid-cols-2 gap-3 justify-center items-start animate-fade animate-once animate-duration-[600ms] animate-delay-0 animate-ease-linear relative'>
@@ -70,7 +70,7 @@ export default function CarDialogDetails(props: Car) {
                 </div>
             </div>
             <h2 className="text-xl font-semibold my-2 text-primary text-center">
-                {USDFormatter(price)}
+                {USDFormatter(priceDollars)}
             </h2>
             <Link key={id} href={`/car/${id}`} onClick={() => previewConfig.set({id: null})}
                   className='text-primary px-4 py-2 rounded border-primary flex align-middle self-end w-fit ring-0 dark:focus-visible:ring-0 bg-primary/[0.3] focus-visible:ring-0 focus-visible:ring-offset-0'

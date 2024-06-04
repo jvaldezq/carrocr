@@ -6,8 +6,13 @@ export interface Car {
     thumbnail: string;
     images: string[];
     year: number;
-    price: number;
+    priceDollars: number;
     mileage: number;
     transType: string;
-    verified: boolean;
+    acctVerified: boolean;
+    acctID: number,
+    condition: string,
+    transGears: number,
+    priceColones: number,
+    priceExchange: number,
 }
