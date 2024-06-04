@@ -32,7 +32,8 @@ export default function CarDialogDetails(props: Car) {
         engineTqNm,
         driveSystemAlt,
         driveSystem,
-        mileage
+        mileage,
+        transGears
     } = props;
 
     return (<article
@@ -92,9 +93,12 @@ export default function CarDialogDetails(props: Car) {
                     <TransmissionIcon/>
                 </div>
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-2 py-2'>
-                    <p className='text-sm font-light'>Tipo: <span className='text-base'>{transType}</span></p>
+                    <p className='text-sm font-light'>Tipo: <span
+                        className='text-base'>{transType}</span></p>
                     <p className='text-sm font-light'>Sistema: <span
                         className='text-base'>{driveSystem} ({driveSystemAlt})</span></p>
+                    <p className='text-sm font-light'>Velocidades: <span
+                        className='text-base'>{transGears}</span></p>
                 </div>
             </div>
             <h2 className="text-xl font-semibold my-2 text-primary text-center">

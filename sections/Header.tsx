@@ -9,7 +9,8 @@ export const Header = () => {
         <header
             className="flex justify-between items-center py-3 px-4 gap-4 fixed top-0 z-10 w-full bg-secondary/[0.9] shadow-sm">
             <Link key='Home' href="/">
-                <Image className="hidden md:flex aspect-auto" src={LogoImage} alt="Carro CR Logo" priority={true}/>
+                <Image className="hidden md:flex aspect-auto object-cover" src={LogoImage} alt="Carro CR Logo"
+                       priority={true}/>
             </Link>
             <Search/>
             <ProfileMenu/>

@@ -24,9 +24,10 @@ function LogInContent() {
         <Dialog open={!!$authConfig.isLogInOpen} onOpenChange={onClose} modal={true}>
             <DialogOverlay className="bg-secondary/[0.1]"/>
             <DialogContent
-                className="max-w-[95%] w-full h-full md:w-fit md:h-fit max-h-[90%] overflow-scroll dark:bg-secondary rounded-2xl flex flex-col gap-4 justify-center items-center"
+                className="max-w-[95%] md:min-w-[400px] md:min-h-[400px] w-full h-fit md:w-fit md:h-fit max-h-[90%] overflow-scroll dark:bg-secondary rounded-2xl flex flex-col gap-4 justify-center items-center"
             >
-                <Image className="object-cover aspect-auto mt-4" src={LogoImage} alt="Carro CR Logo" priority={true}/>
+                <Image className="object-cover aspect-auto" src={LogoImage} alt="Carro CR Logo" priority={true}/>
+                <p className='text-tertiary font-base text-xl'>Ingresar o registrarse</p>
                 <LoginForm onSubmit={onSubmit}/>
             </DialogContent>
         </Dialog>
