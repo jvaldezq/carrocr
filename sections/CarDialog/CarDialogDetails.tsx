@@ -63,7 +63,7 @@ export default function CarDialogDetails(props: Car) {
                 </div>
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-2 py-2'>
                     <p className='text-sm font-light'>Kilometraje: <span
-                        className='text-base'>{NumberFormatter(mileage)} kms</span>
+                        className='text-base'>{NumberFormatter(mileage)}km</span>
                     </p>
                     <p className='text-sm font-light'>Calificación: <span className='text-base'>{condition}</span>
                     </p>
