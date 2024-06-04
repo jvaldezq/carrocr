@@ -8,22 +8,44 @@ import {USDFormatter} from "@/lib/NumberFormats";
 import {Car} from "@/lib/definitions";
 import Link from 'next/link';
 import {previewConfig} from "@/store/previewStore";
+import CarPlaceholderImage from "@/assets/car-placeholder.webp";
 
 
 export default function CarDialogDetails(props: Car) {
-    const {make, model, thumbnail, images, year, priceDollars, id} = props;
-
+    const {
+        make,
+        model,
+        thumbnail = CarPlaceholderImage.src,
+        images,
+        year,
+        priceDollars,
+        id,
+        engineSizeCC,
+        fuelType,
+        economyL100Km,
+        transType,
+        acctVerified,
+        trim,
+        engineHp,
+        condition,
+        engineCylinders,
+        engineTqNm
+    } = props;
+    
     return (<article
         className='text-tertiary grid grid-cols-1 md:grid-cols-2 gap-3 justify-center items-start animate-fade animate-once animate-duration-[600ms] animate-delay-0 animate-ease-linear relative'>
 
-        <h5 className='absolute top-[-10px] right-5 md:top-5 md:right-0 flex gap-2 text-verified text-sm font-bold border-verified border rounded-2xl p-2 bg-verified/[0.1] '>
-            <VerifiedIcon/>
-            VENDEDOR VERIFICADO
-        </h5>
+        {
+            acctVerified &&
+            <h5 className='absolute top-[-10px] right-5 md:top-5 md:right-0 flex gap-2 text-verified text-sm font-bold border-verified border rounded-2xl p-2 bg-verified/[0.1] '>
+                <VerifiedIcon/>
+                VENDEDOR VERIFICADO
+            </h5>
+        }
         <h1 className="text-lg font-medium md:col-span-2">{year}</h1>
         <div className='mb-2 flex flex-col md:flex-row justify-between items-start md:items-end md:col-span-2'>
             <h1 className="text-xl font-semibold">
-                {model}
+                {trim} {model}
                 <span className="text-sm font-medium pl-2">({make})</span>
             </h1>
         </div>
@@ -37,10 +59,10 @@ export default function CarDialogDetails(props: Car) {
                     <CarRepairIcon/>
                 </div>
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-2 py-2'>
-                    <p className='text-sm font-light'>Kilometraje: <span className='text-base'>76,000 kms</span>
+                    <p className='text-sm font-light'>Kilometraje: <span
+                        className='text-base'>76,000 kms (Missing)</span>
                     </p>
-                    <p className='text-sm font-light'>Calificación: <span className='text-base'>8<span
-                        className='text-xs'>/10</span></span>
+                    <p className='text-sm font-light'>Calificación: <span className='text-base'>{condition}</span>
                     </p>
                 </div>
             </div>
@@ -50,13 +72,15 @@ export default function CarDialogDetails(props: Car) {
                     <EngineIcon/>
                 </div>
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-2 py-2'>
-                    <p className='text-sm font-light'>Tamaño: <span className='text-base'>2000cc</span></p>
-                    <p className='text-sm font-light'>Cilindros: <span className='text-base'>4</span></p>
-                    <p className='text-sm font-light'>Fuerza: <span className='text-base'>450HP</span></p>
-                    <p className='text-sm font-light'>Torque: <span className='text-base'>700N</span></p>
-                    <p className='text-sm font-light'>Combustible: <span className='text-base'>Eléctrico</span>
+                    <p className='text-sm font-light'>Tamaño: <span className='text-base'>{engineSizeCC}cc</span></p>
+                    <p className='text-sm font-light'>Cilindros: <span className='text-base'>{engineCylinders}</span>
                     </p>
-                    <p className='text-sm font-light'>Economía: <span className='text-base'>262 Wh/km</span></p>
+                    <p className='text-sm font-light'>Fuerza: <span className='text-base'>{engineHp}HP</span></p>
+                    <p className='text-sm font-light'>Torque: <span className='text-base'>{engineTqNm}N</span></p>
+                    <p className='text-sm font-light'>Combustible: <span className='text-base'>{fuelType}</span>
+                    </p>
+                    <p className='text-sm font-light'>Economía: <span className='text-base'>{economyL100Km} Km/L</span>
+                    </p>
                 </div>
             </div>
             <div className='grid grid-cols-1 gap-1 divide-y mt-4'>
@@ -65,8 +89,8 @@ export default function CarDialogDetails(props: Car) {
                     <TransmissionIcon/>
                 </div>
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-2 py-2'>
-                    <p className='text-sm font-light'>Tipo: <span className='text-base'>Automático</span></p>
-                    <p className='text-sm font-light'>Sistema: <span className='text-base'>AWD</span></p>
+                    <p className='text-sm font-light'>Tipo: <span className='text-base'>{transType}</span></p>
+                    <p className='text-sm font-light'>Sistema: <span className='text-base'>AWD (Missing)</span></p>
                 </div>
             </div>
             <h2 className="text-xl font-semibold my-2 text-primary text-center">

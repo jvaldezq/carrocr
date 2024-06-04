@@ -22,9 +22,9 @@ export default function Card(props: Car) {
 
     return (
         <article
-            className="animate-fade animate-once animate-duration-700 animate-delay-0 cursor-pointer"
+            className="animate-fade animate-once animate-duration-700 animate-delay-0 cursor-pointer relative"
         >
-            <Carousel images={[thumbnail, ...images]} model={model}/>
+            <Carousel images={[thumbnail, ...images]} model={model} id={+id}/>
             {acctVerified && <VerifiedIcon className="absolute top-1 left-1"/>}
             <div className="mt-2 grid grid-cols-2 text-tertiary relative">
                 <h1 className="text-base font-semibold col-span-2 opacity-95 text-balance">

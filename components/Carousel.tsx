@@ -2,25 +2,27 @@ import * as React from "react";
 import {Carousel as CarouselShad, CarouselContent, CarouselItem,} from "@/components/ui/carousel";
 import {SwipeIcon} from "@/icons/SwipeIcon";
 import CardTrigger from "@/components/Card/CardTrigger";
+import Image from 'next/image'
 
 interface Props {
     images: string[];
     model: string;
+    id?: number;
 }
 
 export const Carousel = (props: Props) => {
-    const {images, model} = props;
+    const {images, model, id} = props;
     return (
         <CarouselShad className="w-full basis-full">
             <CarouselContent>
                 {images?.map((image, index) => (
                     <CarouselItem key={index} className='relative'>
-                        <img
+                        <Image
                             className="rounded-2xl aspect-square object-cover"
                             src={image}
                             alt={model}
                         />
-                        <CardTrigger id={1}/>
+                        {id && <CardTrigger id={id}/>}
                     </CarouselItem>
                 ))}
             </CarouselContent>
