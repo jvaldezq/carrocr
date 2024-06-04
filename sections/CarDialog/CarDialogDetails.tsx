@@ -4,7 +4,7 @@ import {TransmissionIcon} from "@/icons/TransmissionIcon";
 import {CarRepairIcon} from "@/icons/CarRepairIcon";
 import {VerifiedIcon} from "@/icons/VerifiedIcon";
 import {Carousel} from "@/components/Carousel";
-import {USDFormatter} from "@/lib/NumberFormats";
+import {NumberFormatter, USDFormatter} from "@/lib/NumberFormats";
 import {Car} from "@/lib/definitions";
 import Link from 'next/link';
 import {previewConfig} from "@/store/previewStore";
@@ -29,9 +29,12 @@ export default function CarDialogDetails(props: Car) {
         engineHp,
         condition,
         engineCylinders,
-        engineTqNm
+        engineTqNm,
+        driveSystemAlt,
+        driveSystem,
+        mileage
     } = props;
-    
+
     return (<article
         className='text-tertiary grid grid-cols-1 md:grid-cols-2 gap-3 justify-center items-start animate-fade animate-once animate-duration-[600ms] animate-delay-0 animate-ease-linear relative'>
 
@@ -60,7 +63,7 @@ export default function CarDialogDetails(props: Car) {
                 </div>
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-2 py-2'>
                     <p className='text-sm font-light'>Kilometraje: <span
-                        className='text-base'>76,000 kms (Missing)</span>
+                        className='text-base'>{NumberFormatter(mileage)} kms</span>
                     </p>
                     <p className='text-sm font-light'>Calificación: <span className='text-base'>{condition}</span>
                     </p>
@@ -90,7 +93,8 @@ export default function CarDialogDetails(props: Car) {
                 </div>
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-2 py-2'>
                     <p className='text-sm font-light'>Tipo: <span className='text-base'>{transType}</span></p>
-                    <p className='text-sm font-light'>Sistema: <span className='text-base'>AWD (Missing)</span></p>
+                    <p className='text-sm font-light'>Sistema: <span
+                        className='text-base'>{driveSystem} ({driveSystemAlt})</span></p>
                 </div>
             </div>
             <h2 className="text-xl font-semibold my-2 text-primary text-center">

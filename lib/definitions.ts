@@ -30,4 +30,6 @@ export interface Car {
     economyL100Km: number;
     econCityL100Km: number;
     econHwL100Km: number;
+    driveSystem: string;
+    driveSystemAlt: string;
 }
