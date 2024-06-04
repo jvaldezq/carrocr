@@ -13,6 +13,7 @@ import {LoginOutlineIcon} from "@/icons/LoginOutlineIcon";
 import {HelpIcon} from "@/icons/HelpIcon";
 import {ContactOutlineIcon} from "@/icons/ContactOutlineIcon";
 import {authConfig} from "@/store/authStore";
+import Link from 'next/link';
 
 interface ProfileMenuDrawerProps {
     children: ReactNode
@@ -38,14 +39,18 @@ export const ProfileMenuDrawer = (props: ProfileMenuDrawerProps) => {
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator/>
                 <DropdownMenuGroup>
-                    <DropdownMenuItem className='cursor-pointer'>
-                        <HelpIcon className="mr-2 h-5 w-5"/>
-                        <span className="text-tertiary">Como publicar?</span>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem className='cursor-pointer'>
-                        <ContactOutlineIcon className="mr-2 h-5 w-5"/>
-                        <span className="text-tertiary">Contactanos</span>
-                    </DropdownMenuItem>
+                    <Link key="how" href="/how">
+                        <DropdownMenuItem className='cursor-pointer'>
+                            <HelpIcon className="mr-2 h-5 w-5"/>
+                            <span className="text-tertiary">Como publicar?</span>
+                        </DropdownMenuItem>
+                    </Link>
+                    <Link key="how" href="/contact">
+                        <DropdownMenuItem className='cursor-pointer'>
+                            <ContactOutlineIcon className="mr-2 h-5 w-5"/>
+                            <span className="text-tertiary">Contactanos</span>
+                        </DropdownMenuItem>
+                    </Link>
                 </DropdownMenuGroup>
 
             </DropdownMenuContent>
