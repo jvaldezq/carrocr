@@ -21,7 +21,7 @@ const config = {
         },
         extend: {
             fontFamily: {
-                sans: ["Inter Variable", "sans-serif"],
+                sans: ["Roboto", "sans-serif"],
             },
             colors: {
                 primary: "#38638E",

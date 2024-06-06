@@ -1,4 +1,4 @@
-@import url("@fontsource-variable/inter");
+@import url("@fontsource/roboto");
 
 @tailwind base;
 @tailwind components;

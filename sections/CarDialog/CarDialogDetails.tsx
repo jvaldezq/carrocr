@@ -59,7 +59,7 @@ export default function CarDialogDetails(props: Car) {
         <div className='flex flex-col'>
             <div className='grid grid-cols-1 gap-1 divide-y mt-4 md:mt-0'>
                 <div className='flex items-center gap-2'>
-                    <h3 className="text-sm font-medium">Estado</h3>
+                    <h3 className="text-sm font-bold">Estado</h3>
                     <CarRepairIcon/>
                 </div>
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-2 py-2'>
@@ -72,7 +72,7 @@ export default function CarDialogDetails(props: Car) {
             </div>
             <div className='grid grid-cols-1 gap-1 divide-y mt-4'>
                 <div className='flex items-center gap-2'>
-                    <h3 className="text-sm font-medium">Motor</h3>
+                    <h3 className="text-sm font-bold">Motor</h3>
                     <EngineIcon/>
                 </div>
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-2 py-2'>
@@ -89,7 +89,7 @@ export default function CarDialogDetails(props: Car) {
             </div>
             <div className='grid grid-cols-1 gap-1 divide-y mt-4'>
                 <div className='flex items-center gap-2'>
-                    <h3 className="text-sm font-medium">Transmisión</h3>
+                    <h3 className="text-sm font-bold">Transmisión</h3>
                     <TransmissionIcon/>
                 </div>
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-2 py-2'>

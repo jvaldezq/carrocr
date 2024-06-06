@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@fontsource-variable/inter": "^5.0.17",
+    "@fontsource/roboto": "^5.0.13",
     "@hookform/resolvers": "^3.4.2",
     "@nanostores/react": "^0.7.1",
     "@radix-ui/react-dialog": "^1.0.5",
