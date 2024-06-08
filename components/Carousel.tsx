@@ -18,8 +18,10 @@ export const Carousel = (props: Props) => {
                 {images?.map((image, index) => (
                     <CarouselItem key={index} className='relative'>
                         <Image
-                            className="rounded-2xl aspect-square object-cover"
+                            className="rounded-2xl aspect-square object-cover w-full h-full"
                             src={image}
+                            width={640}
+                            height={360}
                             alt={model}
                         />
                         {id && <CardTrigger id={id}/>}
