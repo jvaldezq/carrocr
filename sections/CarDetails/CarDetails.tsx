@@ -10,7 +10,7 @@ export default async function CarDetails({id}: CarDetailsProps) {
     return (
         <section
             className="px-4 mt-8">
-            {data?.toString()}
+            {JSON.stringify(data)}
         </section>
     );
 };
