@@ -4,21 +4,21 @@ import {SwipeIcon} from "@/icons/SwipeIcon";
 import CardTrigger from "@/components/Card/CardTrigger";
 import Image from 'next/image'
 
-interface Props {
+interface Props extends Omit<React.HTMLAttributes<HTMLDivElement>, "id"> {
     images: string[];
     model: string;
     id?: number;
 }
 
 export const Carousel = (props: Props) => {
-    const {images, model, id} = props;
+    const {images, model, id, ...rest} = props;
     return (
-        <CarouselShad className="w-full basis-full">
+        <CarouselShad className="w-full basis-full" {...rest}>
             <CarouselContent>
                 {images?.map((image, index) => (
                     <CarouselItem key={index} className='relative'>
                         <Image
-                            className="rounded-2xl aspect-square object-cover w-full h-full"
+                            className="rounded-2xl aspect-video object-cover w-full h-full"
                             src={image}
                             width={640}
                             height={360}

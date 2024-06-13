@@ -1,4 +1,5 @@
 import {fetchCarById} from "@/sections/CarDetails/service";
+import {Carousel} from "@/components/Carousel";
 
 interface CarDetailsProps {
     id: string;
@@ -6,11 +7,12 @@ interface CarDetailsProps {
 
 export default async function CarDetails({id}: CarDetailsProps) {
     const data = await fetchCarById(id);
+    const {thumbnail, images, model} = data;
 
     return (
         <section
             className="px-4 mt-8">
-            {JSON.stringify(data)}
+            <Carousel images={[thumbnail, ...images]} model={model} className="md:hidden"/>
         </section>
     );
 };
