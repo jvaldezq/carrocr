@@ -5,9 +5,11 @@ import {CarRepairIcon} from "@/icons/CarRepairIcon";
 import {Carousel} from "@/components/Carousel";
 import {NumberFormatter, USDFormatter} from "@/lib/NumberFormats";
 import {Car} from "@/lib/definitions";
-import Link from 'next/link';
-import {previewConfig} from "@/store/previewStore";
 import CarPlaceholderImage from "@/assets/car-placeholder.webp";
+import {previewConfig} from "@/store/previewStore";
+import Link from "next/link";
+import {SellerIcon} from "@/icons/SellerIcon";
+import {VerifiedIcon} from "@/icons/VerifiedIcon";
 
 
 export default function CarDialogDetails(props: Car) {
@@ -49,6 +51,11 @@ export default function CarDialogDetails(props: Car) {
             </div>
         </div>
         <Carousel images={[thumbnail, ...images]} model={model}/>
+        <Link key={id} href={`/car/${id}`} onClick={() => previewConfig.set({id: null})}
+              className='text-primary  justify-self-end px-4 py-2 rounded border-primary flex align-middle self-end w-fit ring-0 dark:focus-visible:ring-0 bg-primary/[0.1] focus-visible:ring-0 focus-visible:ring-offset-0'
+        >
+            Ver anuncio
+        </Link>
         <div className='flex flex-col'>
             <div className='grid grid-cols-1 gap-1 divide-y mt-4 md:mt-0'>
                 <div className='flex items-center gap-2'>
@@ -101,11 +108,21 @@ export default function CarDialogDetails(props: Car) {
                         className='text-base font-normal'>{transGears}</span></p>
                 </div>
             </div>
-            <Link key={id} href={`/car/${id}`} onClick={() => previewConfig.set({id: null})}
-                  className='text-primary px-4 py-2 rounded border-primary flex align-middle self-end w-fit ring-0 dark:focus-visible:ring-0 bg-primary/[0.3] focus-visible:ring-0 focus-visible:ring-offset-0'
-            >
-                Ver más
-            </Link>
+            <div className='grid grid-cols-1 gap-1 divide-y mt-4'>
+                <div className='flex items-center gap-2'>
+                    <h3 className="text-base font-bold">Vendedor</h3>
+                    <SellerIcon/>
+                </div>
+                <div className='grid grid-cols-1 gap-2 py-2'>
+                    <p className='text-sm font-light'>Jordan Valdez</p>
+                    {acctVerified &&
+                        <p className='text-sm font-light flex'>Verificado
+                            <VerifiedIcon/>
+                        </p>
+                    }
+
+                </div>
+            </div>
         </div>
     </article>)
 }
