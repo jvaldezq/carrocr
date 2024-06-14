@@ -3,7 +3,7 @@ import Card from "@/components/Card/Card";
 
 export default async function TopCars() {
     const data = await fetchTopCars();
-
+    
     return (
         <section
             className="px-4 mt-8">
