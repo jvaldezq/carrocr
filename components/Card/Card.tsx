@@ -23,6 +23,7 @@ export default function Card(props: Car) {
     return (
         <article
             className="animate-fade animate-once animate-duration-700 animate-delay-0 cursor-pointer relative"
+            id={`car-${id}`}
         >
             <Carousel images={[thumbnail, ...images]} model={model} id={+id}/>
             <div className="mt-2 grid grid-cols-1 text-tertiary relative">

@@ -2,7 +2,7 @@
 import {Dialog, DialogContent, DialogOverlay} from "@/components/ui/dialog";
 import {useCallback} from "react";
 import {authConfig} from "@/store/authStore";
-import {QueryClient, QueryClientProvider} from "react-query";
+import {QueryCache, QueryClient, QueryClientProvider} from "@tanstack/react-query";
 import {useStore} from "@nanostores/react";
 import LogoImage from "@/assets/carrocr-logo.webp";
 import Image from "next/image";
@@ -35,7 +35,13 @@ function LogInContent() {
 }
 
 export default function LogInDialog() {
-    const queryClient = new QueryClient();
+    const queryClient = new QueryClient({
+        queryCache: new QueryCache({
+            onError: error => {
+                console.error('Error:', error)
+            }
+        })
+    });
     return (
         <QueryClientProvider client={queryClient}>
             <LogInContent/>

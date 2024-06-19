@@ -20,8 +20,8 @@ export const Carousel = (props: Props) => {
                         <Image
                             className="rounded-2xl aspect-video object-cover w-full h-full"
                             src={image}
-                            width={640}
-                            height={360}
+                            width={800}
+                            height={450}
                             alt={model}
                         />
                         {id && <CardTrigger id={id}/>}

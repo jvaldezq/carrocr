@@ -1,6 +1,6 @@
 import axios from "axios";
 import type {Car} from "@/lib/definitions";
-import {useQuery} from "react-query";
+import {useQuery} from "@tanstack/react-query";
 
 const fetchCarById = async (id: number | null): Promise<Car> => {
     // TODO - Implement API call
@@ -8,9 +8,11 @@ const fetchCarById = async (id: number | null): Promise<Car> => {
     return cars.data[0];
 };
 
-export const useGetCar = (uuid: number | null) => {
-    return useQuery(["car", uuid], () => fetchCarById(uuid), {
-        enabled: !!uuid,
-        staleTime: 1000 * 60 * 5,
-    });
-};
+export const useGetCar = (uuid: number | null) => useQuery({
+    queryKey: ["car"],
+    staleTime: 0,
+    enabled: !!uuid,
+    queryFn: () => fetchCarById(uuid),
+    retry: 2,
+    refetchOnReconnect: false,
+});

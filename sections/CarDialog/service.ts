@@ -1,5 +1,5 @@
 import type {Car} from "@/lib/definitions";
-import {useQuery} from "react-query";
+import {useQuery} from "@tanstack/react-query";
 import {serverApi} from "@/lib/serverApi";
 
 const fetchCarById = async (id: number | null): Promise<Car> => {
@@ -7,12 +7,11 @@ const fetchCarById = async (id: number | null): Promise<Car> => {
     return cars.data;
 };
 
-export const useGetCar = (uuid: number | null) => {
-    return useQuery(["car", uuid], () => fetchCarById(uuid), {
-        enabled: !!uuid,
-        staleTime: 1000 * 60 * 5,
-        onError: (error) => {
-            console.error("Error fetching car", error);
-        }
-    });
-};
+export const useGetCar = (uuid: number | null) => useQuery({
+    queryKey: ["car"],
+    staleTime: 0,
+    enabled: !!uuid,
+    queryFn: () => fetchCarById(uuid),
+    retry: 2,
+    refetchOnReconnect: false,
+});

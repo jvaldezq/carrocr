@@ -1,6 +1,6 @@
 "use client";
 
-import {Button} from "@/components/ui/button";
+import Link from "next/link";
 
 interface CarEntryWrapperProps {
     children: React.ReactNode;
@@ -16,8 +16,9 @@ export const CarEntryWrapper = (props: CarEntryWrapperProps) => {
                 <hr className="h-[5px] bg-tertiary/[0.1] rounded animate-fade-left animate-once animate-duration-500 animate-delay-300 animate-ease-linear"/>
                 <hr className="h-[5px] bg-tertiary/[0.1] rounded animate-fade-left animate-once animate-duration-500 animate-delay-[600ms] animate-ease-linear"/>
             </div>
-            <Button
-                className='bg-primary text-lg w-fit self-end animate-fade animate-once animate-duration-500 animate-delay-1000 animate-ease-linear'>SIGUIENTE</Button>
+            <Link
+                href='/car-entry/create'
+                className='bg-primary rounded py-1 px-2 text-secondary text-lg w-fit self-end animate-fade animate-once animate-duration-500 animate-delay-1000 animate-ease-linear'>SIGUIENTE</Link>
         </div>
     </>
 }

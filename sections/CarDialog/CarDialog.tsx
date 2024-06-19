@@ -6,13 +6,13 @@ import {previewConfig} from "@/store/previewStore";
 import {useGetCar} from "@/sections/CarDialog/service";
 import {CarDialogDetailsSkeleton} from "@/sections/CarDialog/CarDialogDetailsSkeleton";
 import CarDialogDetails from "@/sections/CarDialog/CarDialogDetails";
-import {QueryClient, QueryClientProvider} from "react-query";
+import {QueryCache, QueryClient, QueryClientProvider} from "@tanstack/react-query";
 
 function CarDialogContent() {
     const $previewConfig = useStore(previewConfig);
 
     const {data, isLoading} = useGetCar($previewConfig?.id || 0);
-    
+
     const onClose = useCallback(() => {
         previewConfig.set({id: null});
     }, []);
@@ -30,7 +30,13 @@ function CarDialogContent() {
 }
 
 export default function CarDialog() {
-    const queryClient = new QueryClient();
+    const queryClient = new QueryClient({
+        queryCache: new QueryCache({
+            onError: error => {
+                console.error('Error:', error)
+            }
+        })
+    });
     return (
         <QueryClientProvider client={queryClient}>
             <CarDialogContent/>
