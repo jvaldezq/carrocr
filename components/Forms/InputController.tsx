@@ -18,9 +18,9 @@ export const InputController = (props: InputControllerProps) => {
         control={control}
         rules={rules}
         render={({field: {onChange}, fieldState: {error}}) => {
-            return <div><Input className='focus-visible:ring-primary focus-visible:ring-1' type={type}
-                               placeholder={placeholder} name={name} onChange={onChange}
-            />
+            return <div>
+                <Input className='focus-visible:ring-primary focus-visible:ring-1' type={type}
+                       placeholder={placeholder} name={name} onChange={onChange}/>
                 <p className='text-xs text-error font-base mt-1'>{error?.message}</p>
             </div>
         }}

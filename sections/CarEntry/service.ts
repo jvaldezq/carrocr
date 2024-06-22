@@ -30,10 +30,10 @@ export const useGetMakes = () => useQuery({
 });
 
 export const useGetModels = (makeid: number) => useQuery({
-    queryKey: ["models"],
+    queryKey: ["models", makeid],
     enabled: !!makeid,
     queryFn: () => fetchModels(makeid),
-    // staleTime: 1000 * 60 * 60 * 24,
+    staleTime: 1000 * 60 * 60 * 24,
     retry: 2,
-    // refetchOnReconnect: false,
+    refetchOnReconnect: false,
 });

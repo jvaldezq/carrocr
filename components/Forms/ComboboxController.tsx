@@ -11,8 +11,8 @@ import {InputLoader} from "@/components/InputLoader";
 interface ComboboxControllerProps {
     control: Control<any>;
     name: string;
-    type: string;
     placeholder: string;
+    label: string;
     rules?: ValidationRule<any>;
     data: ComboBoxList[];
     isLoading?: boolean;
@@ -30,6 +30,7 @@ interface OptionListProps {
     setSelectedOption: (option: ComboBoxList | null) => void;
     data: ComboBoxList[];
     onChange: (value: string) => void;
+    value: string;
 }
 
 interface CompProps {
@@ -40,21 +41,22 @@ interface CompProps {
     placeholder: string;
     selectedOption: ComboBoxList | null;
     open: boolean;
+    value: string;
 }
 
 
-const OptionList = ({setOpen, setSelectedOption, data, onChange}: OptionListProps) => {
+const OptionList = ({setOpen, setSelectedOption, data, onChange, value}: OptionListProps) => {
+    console.log('HELLO', value);
     return (<Command>
         <CommandInput placeholder="Estado del filtro..."/>
         <CommandList>
-            <CommandEmpty>No results found.</CommandEmpty>
+            <CommandEmpty>No results found. {value} +</CommandEmpty>
             <CommandGroup>
                 {data.map((option) => (<CommandItem
                     key={option.value}
                     value={option.value}
                     onSelect={(value) => {
                         const selected = data.find((option) => option.value === value);
-                        console.log(selected)
                         onChange(`${selected?.id}`);
                         setSelectedOption(selected || null)
                         setOpen(false)
@@ -68,71 +70,83 @@ const OptionList = ({setOpen, setSelectedOption, data, onChange}: OptionListProp
 }
 
 const DesktopComp = ({
-                         open, setOpen, selectedOption, setSelectedOption, placeholder, data, onChange
+                         open, setOpen, selectedOption, setSelectedOption, placeholder, data, onChange, value
                      }: CompProps) => {
     return <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
-            <Button variant="outline" className="w-fit justify-start">
+            <Button variant="outline"
+                    className="w-full justify-start text-tertiary text-xs">
                 {selectedOption ? <>{selectedOption.label}</> : <>{placeholder}</>}
             </Button>
         </PopoverTrigger>
         <PopoverContent className="w-fit p-0" align="start">
-            <OptionList setOpen={setOpen} setSelectedOption={setSelectedOption} data={data} onChange={onChange}/>
+            <OptionList setOpen={setOpen} setSelectedOption={setSelectedOption} data={data} onChange={onChange}
+                        value={value}/>
         </PopoverContent>
     </Popover>;
 }
 
 const MobileComp = ({
-                        open, setOpen, selectedOption, setSelectedOption, placeholder, data, onChange
+                        open, setOpen, selectedOption, setSelectedOption, placeholder, data, onChange, value
                     }: CompProps) => {
     return <Drawer open={open} onOpenChange={setOpen}>
         <DrawerTrigger asChild>
-            <Button variant="outline" className="w-fit justify-start">
+            <Button variant="outline"
+                    className="justify-start w-full text-tertiary text-xs">
                 {selectedOption ? <>{selectedOption.label}</> : <>{placeholder}</>}
             </Button>
         </DrawerTrigger>
         <DrawerContent>
             <div className="mt-4 border-t">
-                <OptionList setOpen={setOpen} setSelectedOption={setSelectedOption} data={data} onChange={onChange}/>
+                <OptionList setOpen={setOpen} setSelectedOption={setSelectedOption} data={data} onChange={onChange}
+                            value={value}/>
             </div>
         </DrawerContent>
     </Drawer>;
 }
 
 export const ComboboxController = (props: ComboboxControllerProps) => {
-    const {control, name, placeholder, type, rules, data, isLoading = false, show = true} = props;
+    const {control, name, placeholder, label, rules, data, isLoading = false, show = true} = props;
     const [open, setOpen] = useState(false)
     const isDesktop = useMediaQuery("(min-width: 768px)")
     const [selectedOption, setSelectedOption] = useState<ComboBoxList | null>(null)
 
     if (!show) return null;
-    if (isLoading) return <InputLoader/>;
 
     return <Controller
         name={name}
         control={control}
         rules={rules}
-        render={({field: {onChange}, fieldState: {error}}) => {
-            return <>
-                {isDesktop ? <DesktopComp
-                    open={open}
-                    setOpen={setOpen}
-                    selectedOption={selectedOption}
-                    setSelectedOption={setSelectedOption}
-                    placeholder={placeholder}
-                    data={data}
-                    onChange={onChange}
-                /> : <MobileComp
-                    open={open}
-                    setOpen={setOpen}
-                    selectedOption={selectedOption}
-                    setSelectedOption={setSelectedOption}
-                    placeholder={placeholder}
-                    data={data}
-                    onChange={onChange}
-                />}
+        render={({field: {onChange, value}, fieldState: {error}}) => {
+            return <div className='animate-fade-left animate-once animate-duration-500 animate-ease-linear'>
+                {selectedOption ?
+                    <p className='text-tertiary text-xs animate-fade-down animate-once animate-duration-500 animate-delay-300 animate-ease-linear'>{label}</p> :
+                    <p className='text-tertiary text-xs'>Seleccione {label}</p>}
+                {isLoading ? <InputLoader/> :
+                    <>
+                        {isDesktop ? <DesktopComp
+                            open={open}
+                            setOpen={setOpen}
+                            selectedOption={selectedOption}
+                            setSelectedOption={setSelectedOption}
+                            placeholder={placeholder}
+                            data={data}
+                            onChange={onChange}
+                            value={value}
+                        /> : <MobileComp
+                            open={open}
+                            setOpen={setOpen}
+                            selectedOption={selectedOption}
+                            setSelectedOption={setSelectedOption}
+                            placeholder={placeholder}
+                            data={data}
+                            onChange={onChange}
+                            value={value}
+                        />}
+                    </>
+                }
                 <p className='text-xs text-error font-base mt-1'>{error?.message}</p>
-            </>
+            </div>
         }}
     />
 }
