@@ -64,11 +64,11 @@ export const CreateCarContent = () => {
 
     const cardData = {
         id: 0,
-        model: dataModels?.find((modelItem) => modelItem.id === parseInt(model))?.name || '',
+        model: dataModels?.find((modelItem) => modelItem.value === parseInt(model))?.name || '',
         trim: '',
         images: [],
         thumbnail: CarPlaceholderImage.src,
-        make: dataMakes?.find((makeItem) => makeItem.id === parseInt(make))?.name || '',
+        make: dataMakes?.find((makeItem) => makeItem.value === parseInt(make))?.name || '',
         year: 0,
         priceDollars: 0,
         mileage: 0,

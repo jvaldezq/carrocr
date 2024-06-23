@@ -7,6 +7,7 @@ import {Drawer, DrawerContent, DrawerTrigger,} from "@/components/ui/drawer"
 import {Popover, PopoverContent, PopoverTrigger,} from "@/components/ui/popover"
 import {useState} from "react";
 import {InputLoader} from "@/components/InputLoader";
+import {AddIcon} from "@/icons/AddIcon";
 
 interface ComboboxControllerProps {
     control: Control<any>;
@@ -46,11 +47,12 @@ interface CompProps {
 
 
 const OptionList = ({setOpen, setSelectedOption, data, onChange, value}: OptionListProps) => {
-    console.log('HELLO', value);
+    const [search, setSearch] = useState('')
     return (<Command>
-        <CommandInput placeholder="Estado del filtro..."/>
+        <CommandInput placeholder="Estado del filtro..." onValueChange={setSearch}/>
         <CommandList>
-            <CommandEmpty>No results found. {value} +</CommandEmpty>
+            <CommandEmpty className='flex justify-center items-center gap-2 py-2 text-sm text-tertiary'>{search}
+                <AddIcon/></CommandEmpty>
             <CommandGroup>
                 {data.map((option) => (<CommandItem
                     key={option.value}
