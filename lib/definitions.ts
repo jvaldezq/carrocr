@@ -32,4 +32,15 @@ export interface Car {
     econHwL100Km: number;
     driveSystem: string;
     driveSystemAlt: string;
+    img1FronL: string,
+    img2FronR: string,
+    img3RearL: string,
+    img4RearR: string,
+    img5IntDash: string,
+    img6IntClust: string,
+    img7IntRad: string,
+    img8IntSeatF: string,
+    img9IntSeatB: string,
+    img10IntTrun: string,
+    img11Engine: string
 }

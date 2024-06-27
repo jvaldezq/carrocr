@@ -4,7 +4,7 @@ import {CarDetailsSkeleton} from "@/sections/CarDetails/CarDetailsSkeleton";
 
 export default function Car({params}: { params: { id: string } }) {
     return (
-        <main className="min-h-dvh pt-20">
+        <main className="min-h-dvh">
             <Suspense fallback={<CarDetailsSkeleton/>}>
                 <CarDetails id={params.id}/>
             </Suspense>
