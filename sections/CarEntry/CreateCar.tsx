@@ -17,7 +17,7 @@ export interface CreateCarInputs {
     model: string;
     trim: string;
     year: string;
-    plate: string;
+    license: string;
 }
 
 const schema = yup
@@ -26,7 +26,7 @@ const schema = yup
         model: yup.string().required('El modelo es requerido').typeError('El modelo es requerido'),
         trim: yup.string().required('La edición es requerido').typeError('La edición es requerido'),
         year: yup.string().required('El año es requerido').typeError('El año es requerido'),
-        plate: yup.string().required('La placa es requerido').typeError('La placa es requerido'),
+        license: yup.string().required('La placa es requerido').typeError('La placa es requerido'),
     })
     .required()
 
@@ -103,7 +103,7 @@ export const CreateCarContent = () => {
                                     rules={{required: true}} data={models} isLoading={isModelsLoading} show={!!model}/>
                 <InputController control={control} name='year' type='year' placeholder='2024'
                                  label='Año' rules={{required: true}} show={!!trim}/>
-                <InputController control={control} name='plate' type='plate' placeholder='CRT-123'
+                <InputController control={control} name='license' type='license' placeholder='CRT-123'
                                  label='Placa' rules={{required: true}} show={!!year}/>
             </form>
             <Card {...cardData}/>
