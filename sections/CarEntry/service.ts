@@ -9,12 +9,12 @@ interface MakesResult {
 }
 
 export const fetchMakes = async (): Promise<MakesResult[]> => {
-    const makes = await serverApi.get('/data/make');
+    const makes = await serverApi.get('/make');
     return makes.data;
 };
 
 export const fetchModels = async (makeid: number): Promise<MakesResult[]> => {
-    const makes = await serverApi.get('/data/model', {
+    const makes = await serverApi.get('/model', {
         params: {
             makeid
         }

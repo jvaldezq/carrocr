@@ -29,7 +29,7 @@ export const Carousel = (props: Props) => {
                 ))}
             </CarouselContent>
             {images.length > 1 && (
-                <SwipeIcon className="absolute m-auto bottom-1 left-0 right-0 opacity-50"/>
+                <SwipeIcon className="absolute m-auto bottom-1 right-1"/>
             )}
         </CarouselShad>
     );

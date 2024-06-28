@@ -52,7 +52,7 @@ export default function CarDialogDetails(props: Car) {
         </div>
         <Carousel images={[thumbnail, ...images]} model={model}/>
         <Link key={id} href={`/car/${id}`} onClick={() => previewConfig.set({id: null})}
-              className='text-primary  justify-self-end px-4 py-2 rounded border-primary flex align-middle self-end w-fit ring-0 dark:focus-visible:ring-0 bg-primary/[0.1] focus-visible:ring-0 focus-visible:ring-offset-0'
+              className='text-secondary justify-self-end px-4 py-2 rounded border-primary flex align-middle self-end w-fit ring-0 dark:focus-visible:ring-0 bg-primary focus-visible:ring-0 focus-visible:ring-offset-0'
         >
             Ver anuncio
         </Link>

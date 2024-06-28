@@ -13,20 +13,22 @@ import {Car} from "@/lib/definitions";
 import {InputController} from "@/components/Forms/InputController";
 
 export interface CreateCarInputs {
-    make: string;
-    model: string;
-    trim: string;
+    makeId: string;
+    modelId: string;
+    trimId: string;
+    bodyId: string;
     year: string;
-    plate: string;
+    license: string;
 }
 
 const schema = yup
     .object({
-        make: yup.string().required('La marca es requerido').typeError('La marca es requerido'),
-        model: yup.string().required('El modelo es requerido').typeError('El modelo es requerido'),
-        trim: yup.string().required('La edición es requerido').typeError('La edición es requerido'),
+        makeId: yup.string().required('La marca es requerido').typeError('La marca es requerido'),
+        modelId: yup.string().required('El modelo es requerido').typeError('El modelo es requerido'),
+        trimId: yup.string().required('La edición es requerido').typeError('La edición es requerido'),
+        bodyId: yup.string().required('La carrocería es requerido').typeError('La carrocería es requerido'),
         year: yup.string().required('El año es requerido').typeError('El año es requerido'),
-        plate: yup.string().required('La placa es requerido').typeError('La placa es requerido'),
+        license: yup.string().required('La placa es requerido').typeError('La placa es requerido'),
     })
     .required()
 
@@ -37,23 +39,28 @@ export const CreateCarContent = () => {
         resolver: yupResolver(schema),
         mode: 'onChange',
         defaultValues: {
-            make: '',
-            model: ''
+            makeId: '',
+            modelId: '',
+            trimId: '',
+            bodyId: '',
+            year: '',
+            license: ''
         }
     });
 
     const {data: dataMakes, isLoading: isMakesLoading} = useGetMakes();
-    const make = watch('make');
-    const {data: dataModels, isLoading: isModelsLoading} = useGetModels(parseInt(make));
-    const model = watch('model');
-    const trim = watch('trim');
+    const makeId = watch('makeId');
+    const {data: dataModels, isLoading: isModelsLoading} = useGetModels(parseInt(makeId));
+    const modelId = watch('modelId');
+    const trimId = watch('trimId');
+    const bodyId = watch('bodyId');
     const year = watch('year');
 
     useEffect(() => {
-        if (make) {
-            resetField('model', {defaultValue: ''});
+        if (makeId) {
+            resetField('modelId', {defaultValue: ''});
         }
-    }, [make, resetField])
+    }, [makeId, resetField])
     const makes = useMemo(() => dataMakes?.map((make) => ({
         value: make.name,
         label: make.name,
@@ -73,11 +80,11 @@ export const CreateCarContent = () => {
 
     const cardData = {
         id: 0,
-        model: dataModels?.find((modelItem) => modelItem.value === parseInt(model))?.name || '',
-        trim: dataModels?.find((modelItem) => modelItem.value === parseInt(model))?.name || '', //TODO need to integrate trims
+        model: dataModels?.find((modelItem) => modelItem.value === parseInt(modelId))?.name || '',
+        trim: dataModels?.find((modelItem) => modelItem.value === parseInt(modelId))?.name || '', //TODO need to integrate trims
         images: [],
         thumbnail: CarPlaceholderImage.src,
-        make: dataMakes?.find((makeItem) => makeItem.value === parseInt(make))?.name || '',
+        make: dataMakes?.find((makeItem) => makeItem.value === parseInt(makeId))?.name || '',
         year: year,
         priceDollars: 0,
         mileage: 0,
@@ -95,15 +102,18 @@ export const CreateCarContent = () => {
             vehículo.</p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
             <form onSubmit={handleSubmit(onSubmit)} className='grid grid-cols-1 md:grid-cols-3 gap-4 w-full h-fit'>
-                <ComboboxController control={control} name='make' placeholder='Marca' label='Marca'
+                <ComboboxController control={control} name='makeId' placeholder='Marca' label='Marca'
                                     rules={{required: true}} data={makes} isLoading={isMakesLoading}/>
-                <ComboboxController control={control} name='model' placeholder='Modelo' label='Modelo'
-                                    rules={{required: true}} data={models} isLoading={isModelsLoading} show={!!make}/>
-                <ComboboxController control={control} name='trim' placeholder='Edición' label='Edición'
-                                    rules={{required: true}} data={models} isLoading={isModelsLoading} show={!!model}/>
+                <ComboboxController control={control} name='modelId' placeholder='Modelo' label='Modelo'
+                                    rules={{required: true}} data={models} isLoading={isModelsLoading} show={!!makeId}/>
+                <ComboboxController control={control} name='trimId' placeholder='Edición' label='Edición'
+                                    rules={{required: true}} data={models} isLoading={isModelsLoading}
+                                    show={!!modelId}/>
+                <ComboboxController control={control} name='bodyId' placeholder='Sistema' label='Sistema'
+                                    rules={{required: true}} data={models} isLoading={isModelsLoading} show={!!trimId}/>
                 <InputController control={control} name='year' type='year' placeholder='2024'
-                                 label='Año' rules={{required: true}} show={!!trim}/>
-                <InputController control={control} name='plate' type='plate' placeholder='CRT-123'
+                                 label='Año' rules={{required: true}} show={!!bodyId}/>
+                <InputController control={control} name='license' type='license' placeholder='CRT-123'
                                  label='Placa' rules={{required: true}} show={!!year}/>
             </form>
             <Card {...cardData}/>
