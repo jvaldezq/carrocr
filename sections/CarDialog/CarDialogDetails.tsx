@@ -37,6 +37,37 @@ export default function CarDialogDetails(props: Car) {
         transGears
     } = props;
 
+
+    const baseArticles = [{
+        title: 'Kilometraje', value: mileage ? `${NumberFormatter(mileage)}km` : 'No especificado'
+    }, {
+        title: 'Calificación', value: condition ?? 'No especificado'
+    }]
+
+    const engineArticles = [{
+        title: 'Tamaño', value: engineSizeCC ? `${engineSizeCC}cc` : 'No especificado'
+    }, {
+        title: 'Cilindros', value: engineCylinders ?? 'No especificado'
+    }, {
+        title: 'Fuerza', value: engineHp ? `${engineHp}HP` : 'No especificado'
+    }, {
+        title: 'Torque', value: engineTqNm ? `${engineTqNm}Nm` : 'No especificado'
+    }, {
+        title: 'Combustible', value: fuelType ?? 'No especificado'
+    }, {
+        title: 'Economía', value: economyL100Km ? `${economyL100Km} Km/L` : 'No especificado'
+    },];
+
+    const transmissionArticles = [{
+        title: 'Transmisión', value: transType ?? 'No especificado'
+    }, {
+        title: 'Sistema',
+        value: driveSystem || driveSystemAlt ? `${driveSystem} (${driveSystemAlt})` : 'No especificado'
+    }, {
+        title: 'Velocidades', value: transGears ?? 'No especificado'
+    }]
+
+
     return (<article
         className='text-tertiary grid grid-cols-1 gap-3 animate-fade animate-once animate-duration-[600ms] animate-delay-0 animate-ease-linear relative'>
         <div className='flex flex-col justify-between items-start'>
@@ -62,13 +93,14 @@ export default function CarDialogDetails(props: Car) {
                     <h3 className="text-base font-bold">Estado</h3>
                     <CarRepairIcon/>
                 </div>
-                <div className='grid grid-cols-1 md:grid-cols-2 gap-2 py-2'>
-                    <p className='text-sm font-light'>Kilometraje: <span
-                        className='text-base font-normal'>{NumberFormatter(mileage)}km</span>
-                    </p>
-                    <p className='text-sm font-light'>Calificación: <span
-                        className='text-base font-normal'>{condition}</span>
-                    </p>
+                <div className='grid grid-cols-2 gap-2 py-2'>
+                    {baseArticles.map((article, index) => {
+                        if (!article.value) return null;
+                        return (<article key={index}>
+                            <p className="text-xs font-light">{article.title}</p>
+                            <h3 className='text-base font-normal'>{article.value}</h3>
+                        </article>)
+                    })}
                 </div>
             </div>
             <div className='grid grid-cols-1 gap-1 divide-y mt-4'>
@@ -76,22 +108,14 @@ export default function CarDialogDetails(props: Car) {
                     <h3 className="text-base font-bold">Motor</h3>
                     <EngineIcon/>
                 </div>
-                <div className='grid grid-cols-1 md:grid-cols-2 gap-2 py-2'>
-                    <p className='text-sm font-light'>Tamaño: <span
-                        className='text-base font-normal'>{engineSizeCC}cc</span></p>
-                    <p className='text-sm font-light'>Cilindros: <span
-                        className='text-base font-normal'>{engineCylinders}</span>
-                    </p>
-                    <p className='text-sm font-light'>Fuerza: <span
-                        className='text-base font-normal'>{engineHp}HP</span></p>
-                    <p className='text-sm font-light'>Torque: <span
-                        className='text-base font-normal'>{engineTqNm}Nm</span></p>
-                    <p className='text-sm font-light'>Combustible: <span
-                        className='text-base font-normal'>{fuelType}</span>
-                    </p>
-                    <p className='text-sm font-light'>Economía: <span
-                        className='text-base font-normal'>{economyL100Km} Km/L</span>
-                    </p>
+                <div className='grid grid-cols-2 gap-2 py-2'>
+                    {engineArticles.map((article, index) => {
+                        if (!article.value) return null;
+                        return (<article key={index}>
+                            <p className="text-xs font-light">{article.title}</p>
+                            <h3 className='text-base font-normal'>{article.value}</h3>
+                        </article>)
+                    })}
                 </div>
             </div>
             <div className='grid grid-cols-1 gap-1 divide-y mt-4'>
@@ -99,13 +123,14 @@ export default function CarDialogDetails(props: Car) {
                     <h3 className="text-base font-bold">Transmisión</h3>
                     <TransmissionIcon/>
                 </div>
-                <div className='grid grid-cols-1 md:grid-cols-2 gap-2 py-2'>
-                    <p className='text-sm font-light'>Tipo: <span
-                        className='text-base font-normal'>{transType}</span></p>
-                    <p className='text-sm font-light'>Sistema: <span
-                        className='text-base font-normal'>{driveSystem} ({driveSystemAlt})</span></p>
-                    <p className='text-sm font-light'>Velocidades: <span
-                        className='text-base font-normal'>{transGears}</span></p>
+                <div className='grid grid-cols-2 gap-2 py-2'>
+                    {transmissionArticles.map((article, index) => {
+                        if (!article.value) return null;
+                        return (<article key={index}>
+                            <p className="text-xs font-light">{article.title}</p>
+                            <h3 className='text-base font-normal'>{article.value}</h3>
+                        </article>)
+                    })}
                 </div>
             </div>
             <div className='grid grid-cols-1 gap-1 divide-y mt-4'>
@@ -115,11 +140,9 @@ export default function CarDialogDetails(props: Car) {
                 </div>
                 <div className='grid grid-cols-1 gap-2 py-2'>
                     <p className='text-sm font-light'>Jordan Valdez</p>
-                    {acctVerified &&
-                        <p className='text-sm font-light flex'>Verificado
-                            <VerifiedIcon/>
-                        </p>
-                    }
+                    {acctVerified && <p className='text-sm font-light flex'>Verificado
+                        <VerifiedIcon/>
+                    </p>}
 
                 </div>
             </div>

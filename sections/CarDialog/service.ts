@@ -1,9 +1,9 @@
 import type {Car} from "@/lib/definitions";
 import {useQuery} from "@tanstack/react-query";
-import {serverApi} from "@/lib/serverApi";
+import {clientApi} from "@/lib/clientApi";
 
 const fetchCarById = async (id: number | null): Promise<Car> => {
-    const cars = await serverApi.get(`/listing/preview/${id}`);
+    const cars = await clientApi.get(`/listing/preview/${id}`);
     return cars.data;
 };
 

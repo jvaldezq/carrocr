@@ -1,4 +1,9 @@
+import Image from 'next/image'
+import Link from "next/link";
+
 interface ContactInfoProps {
+    acctId: number;
+    isDealer: boolean;
     acctVerified: boolean;
     thumbnail: string | null;
     contactName: string;
@@ -7,40 +12,42 @@ interface ContactInfoProps {
 }
 
 export const ContactInfo = (props: ContactInfoProps) => {
-    const {acctVerified, thumbnail, contactName, contactEmail, contactPhone} = props
-    return (
-        <div
-            className="grid grid-cols-2 gap-2 justify-center items-center text-tertiary w-full justify-self-center">
-            <div className="flex flex-col gap-1 justify-center items-center text-center relative">
-                {/*TODO need to add logic if it has profile picture render it if not initials*/}
-                {/*<Image*/}
-                {/*    className="object-cover aspect-auto rounded-full"*/}
-                {/*    src={thumbnail ?? CarPlaceholderImage}*/}
-                {/*    alt="Carro principal"*/}
-                {/*    width={80}*/}
-                {/*    height={80}*/}
-                {/*/>*/}
-                <div
-                    className='h-20 w-20 rounded-full font-semibold bg-primary/[0.5] text-white flex justify-center items-center'>
-                    {contactName.split(' ')
-                        .map(word => word[0].toUpperCase())
-                        .join('')}
-                </div>
-                <div>
-                    <h4 className='font-medium text-lg'>{contactName}</h4>
-                    {acctVerified && <h4 className="font-medium text-xs text-info">Verificado</h4>}
-                </div>
-            </div>
-            <div className="grid grid-cols-1 divide-y text-tertiary font-light gap-1">
-                <div>
-                    <p className="text-xs">Email</p>
-                    <h3 className="text-base font-normal">{contactEmail}</h3>
-                </div>
-                <div className="pt-1">
-                    <p className="text-xs">Telefono</p>
-                    <h3 className="text-base font-normal">{contactPhone}</h3>
-                </div>
+    const {acctVerified, thumbnail, contactName, contactEmail, contactPhone, acctId, isDealer} = props
+    const route = isDealer ? 'dealer' : 'seller'
+    return (<div
+        className="flex flex-col justify-start gap-4 text-tertiary rounded-2xl bg-primary/[0.07] p-5">
+        <div className="flex gap-4 self-start items-center">
+            {thumbnail ? <Image
+                className="object-cover aspect-auto rounded-full"
+                src={thumbnail}
+                alt="Carro principal"
+                width={80}
+                height={80}
+            /> : <div
+                className='h-20 w-20 rounded-full font-semibold bg-primary/[0.5] text-white flex justify-center items-center'>
+                {contactName.split(' ')
+                    .map(word => word[0].toUpperCase())
+                    .join('')}
+            </div>}
+            <div>
+                <h4 className='font-medium text-lg'>{contactName}</h4>
+                {acctVerified && <h4 className="font-medium text-xs text-info">Verificado</h4>}
             </div>
         </div>
-    )
+        <div className="grid lg:grid-cols-2 gap-4 text-tertiary font-light">
+            <article>
+                <p className="text-sm">Correo Electrónico</p>
+                <h3 className="text-lg font-normal text-pretty break-words">{contactEmail}</h3>
+            </article>
+            <article>
+                <p className="text-sm">Teléfono</p>
+                <h3 className="text-lg font-normal text-pretty break-words">{contactPhone}</h3>
+            </article>
+        </div>
+        <Link key={acctId} href={`/${route}/${acctId}`}
+              className='text-secondary px-4 py-2 rounded border-primary flex align-middle md:self-end w-fit ring-0 dark:focus-visible:ring-0 bg-primary focus-visible:ring-0 focus-visible:ring-offset-0'
+        >
+            Ver perfil
+        </Link>
+    </div>)
 }

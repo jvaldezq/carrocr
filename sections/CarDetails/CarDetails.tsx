@@ -4,14 +4,17 @@ import {Carousel} from "@/components/Carousel";
 import {NumberFormatter, USDFormatter} from "@/lib/NumberFormats";
 import CarPlaceholderImage from "@/assets/car-placeholder.webp";
 import EnginePlaceholderImage from "@/assets/engine-placeholder.webp";
+import {ContactInfo} from "@/sections/CarDetails/ContactInfo";
 
 // TODO need to integrate this
 const ContactInfoData = {
-    contactName: 'Autos Amigos',
-    contactEmail: 'jordan@email.com',
+    acctId: 1,
+    contactName: 'Jordan Valdez',
+    contactEmail: 'jordanf.valdez@gmail.com',
     contactPhone: '(506) 8392-9383',
     acctVerified: true,
-    thumbnail: null
+    thumbnail: 'https://lh3.googleusercontent.com/a/ACg8ocKGe-GWHQ4Uw46TgcZQetQAr3mge2_62FoGHFfRsN-v4O1D2z9d=s192-c-mo',
+    isDealer: false
 }
 
 interface CarDetailsProps {
@@ -20,20 +23,13 @@ interface CarDetailsProps {
 
 export default async function CarDetails({id}: CarDetailsProps) {
     const data = await fetchCarById(id);
-    // console.log('data', data);
     const {
-        thumbnail,
-        img1FronL,
-        img2FronR,
-        img4RearR,
-        img5IntDash,
         model,
         priceDollars,
         mileage,
         fuelType,
         make,
         year,
-        acctVerified,
         transType,
         driveSystemAlt,
         driveSystem,
@@ -44,8 +40,18 @@ export default async function CarDetails({id}: CarDetailsProps) {
         engineHp,
         engineTqNm,
         economyL100Km,
+        trim,
+        thumbnail,
+        img1FronL,
+        img2FronR,
+        img4RearR,
+        img5IntDash,
+        img6IntClust,
+        img7IntRad,
+        img8IntSeatF,
+        img9IntSeatB,
+        img10IntTrun,
         img11Engine,
-        trim
     } = data;
 
     const baseArticles = [{
@@ -61,7 +67,7 @@ export default async function CarDetails({id}: CarDetailsProps) {
         value: driveSystem || driveSystemAlt ? `${driveSystem} (${driveSystemAlt})` : 'No especificado'
     }, {
         title: 'Velocidades', value: transGears ?? 'No especificado'
-    }]
+    }];
 
     const engineArticles = [{
         title: 'Tamaño', value: engineSizeCC ? `${engineSizeCC}cc` : 'No especificado'
@@ -75,36 +81,36 @@ export default async function CarDetails({id}: CarDetailsProps) {
         title: 'Combustible', value: fuelType ?? 'No especificado'
     }, {
         title: 'Economía', value: economyL100Km ? `${economyL100Km} Km/L` : 'No especificado'
-    },]
+    }];
 
-    return (<section>
+    return (<section className="flex flex-col gap-10 pb-10">
         <div className='hidden md:grid grid-cols-3 gap-4 justify-between'>
             <Image
-                className="object-cover aspect-auto rounded-2xl w-full"
+                className="object-cover aspect-auto rounded-2xl w-full h-[300px]"
                 src={img1FronL ?? CarPlaceholderImage}
                 alt="Carro Frontal Delante Izquierdo"
-                width={1024}
-                height={768}
+                width={540}
+                height={375}
             />
             <Image
-                className="object-cover aspect-auto rounded-2xl w-full"
+                className="object-cover aspect-auto rounded-2xl w-full h-[300px]"
                 src={thumbnail ?? CarPlaceholderImage}
                 alt="Carro Interior Dash"
-                width={1024}
-                height={768}
+                width={540}
+                height={375}
             />
             <Image
-                className="object-cover aspect-auto rounded-2xl w-full"
+                className="object-cover aspect-auto rounded-2xl w-full h-[300px]"
                 src={img4RearR ?? CarPlaceholderImage}
                 alt="Carro Trasero Derecho"
-                width={1024}
-                height={768}
+                width={540}
+                height={375}
             />
         </div>
         <div className='flex md:hidden'>
             <Carousel images={[img1FronL, thumbnail, img2FronR]} model={model}/>
         </div>
-        <div className="flex flex-col  text-tertiary my-8">
+        <div className="flex flex-col  text-tertiary">
             <h1 className="text-2xl opacity-95 flex">{make} {model} <strong
                 className='ml-1'>{year} </strong>
             </h1>
@@ -112,7 +118,7 @@ export default async function CarDetails({id}: CarDetailsProps) {
                 {trim}
             </h1>
         </div>
-        <div className='grid grid-cols-1 md:grid-cols-2 gap-4 my-8'>
+        <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
             <div
                 className="grid grid-cols-2 lg:grid-cols-3 gap-4 text-tertiary font-light lg:justify-items-center items-center">
                 {baseArticles.map((article, index) => {
@@ -124,20 +130,19 @@ export default async function CarDetails({id}: CarDetailsProps) {
                 })}
             </div>
             <Image
-                className="object-cover aspect-auto rounded-2xl w-full max-h-[405px]"
+                className="object-cover aspect-auto rounded-2xl w-full h-[405px]"
                 src={img5IntDash ?? CarPlaceholderImage}
                 alt="Carro principal"
-                width={1024}
+                width={720}
                 height={405}
             />
         </div>
-
-        <div className='flex flex-col-reverse md:grid md:grid-cols-2 gap-4 mt-10'>
+        <div className='flex flex-col-reverse md:grid md:grid-cols-2 gap-4'>
             <Image
-                className="object-cover aspect-auto rounded-2xl w-full max-h-[405px]"
+                className="object-cover aspect-auto rounded-2xl w-full h-[405px]"
                 src={img11Engine ?? EnginePlaceholderImage}
                 alt="Carro motor"
-                width={1024}
+                width={720}
                 height={405}
             />
             <div
@@ -150,6 +155,62 @@ export default async function CarDetails({id}: CarDetailsProps) {
                     </article>)
                 })}
             </div>
+        </div>
+        <div className='hidden md:grid grid-cols-2 gap-4 justify-between'>
+            <Image
+                className="object-cover aspect-auto rounded-2xl w-full h-[405px]"
+                src={img6IntClust ?? CarPlaceholderImage}
+                alt="Carro Frontal Delante Izquierdo"
+                width={720}
+                height={405}
+            />
+            <Image
+                className="object-cover aspect-auto rounded-2xl w-full h-[405px]"
+                src={img7IntRad ?? CarPlaceholderImage}
+                alt="Carro Interior Dash"
+                width={720}
+                height={405}
+            />
+            <Image
+                className="object-cover aspect-auto rounded-2xl w-full h-[405px]"
+                src={img8IntSeatF ?? CarPlaceholderImage}
+                alt="Carro Trasero Derecho"
+                width={720}
+                height={405}
+            />
+            <Image
+                className="object-cover aspect-auto rounded-2xl w-full h-[405px]"
+                src={img10IntTrun ?? CarPlaceholderImage}
+                alt="Carro Trasero Derecho"
+                width={720}
+                height={405}
+            />
+        </div>
+        <div className='flex md:hidden'>
+            <Carousel images={[img6IntClust, img7IntRad, img8IntSeatF, img9IntSeatB, img10IntTrun]} model={model}/>
+        </div>
+        <div className="flex flex-col-reverse md:grid md:grid-cols-3 gap-4">
+            <div className="md:col-span-2">
+                <div className="flex flex-col text-tertiary my-8">
+                    <h1 className="text-lg opacity-95 flex font-semibold">Especificaciones de Fábrica
+                    </h1>
+                    <h1 className="text-base">
+                        Esta información es de referencia y no refleja el estado actual del
+                        vehículo en venta.
+                    </h1>
+                </div>
+                <div
+                    className="grid grid-cols-2 lg:grid-cols-3 gap-4 text-tertiary font-light items-center">
+                    {engineArticles.map((article, index) => {
+                        if (!article.value) return null;
+                        return (<article key={index}>
+                            <p className="text-sm">{article.title}</p>
+                            <h3 className="text-lg font-normal">{article.value}</h3>
+                        </article>)
+                    })}
+                </div>
+            </div>
+            <ContactInfo {...ContactInfoData}/>
         </div>
     </section>);
 };
