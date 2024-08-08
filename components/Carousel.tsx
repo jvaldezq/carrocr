@@ -14,7 +14,7 @@ export const Carousel = (props: Props) => {
     const {images, model, id, ...rest} = props;
     const data = images.filter(item => item !== null);
     return (
-        <CarouselShad className="w-full basis-full group" {...rest}>
+        <CarouselShad className="w-full h-fit basis-full group" {...rest}>
             <CarouselContent>
                 {data?.map((image, index) => {
                     return (
@@ -33,7 +33,7 @@ export const Carousel = (props: Props) => {
             </CarouselContent>
             {data.length > 1 && (
                 <SwipeIcon
-                    className="absolute m-auto bottom-1 right-1 group-hover:animate-wiggle group-hover:animate-once group-hover:animate-duration-500 group-hover:animate-delay-0 group-hover:animate-ease-linear"/>
+                    className="absolute m-auto bottom-2 right-0 left-0 group-hover:animate-shake group-hover:animate-once group-hover:animate-duration-1000 group-hover:animate-delay-0 group-hover:animate-ease-linear"/>
             )}
         </CarouselShad>
     );

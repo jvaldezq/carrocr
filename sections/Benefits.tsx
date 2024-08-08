@@ -20,7 +20,7 @@ const BENEFITS_DATA = [
 ];
 export const Benefits = () => {
     return (
-        <section id='benefits' className='max-w-screen-2xl mx-auto px-4 mt-16'>
+        <section id='benefits' className='max-w-screen-3xl mx-auto px-4 mt-16'>
             <h2 className="text-tertiary font-light text-sm">BENEFICIOS</h2>
             <h4 className="text-primary font-bold text-2xl mt-4">Por qué elegirnos</h4>
 

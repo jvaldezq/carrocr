@@ -1,6 +1,4 @@
 'use client';
-import {EngineIcon} from "@/icons/EngineIcon";
-import {TransmissionIcon} from "@/icons/TransmissionIcon";
 import {CarRepairIcon} from "@/icons/CarRepairIcon";
 import {Carousel} from "@/components/Carousel";
 import {NumberFormatter, USDFormatter} from "@/lib/NumberFormats";
@@ -8,9 +6,18 @@ import {Car} from "@/lib/definitions";
 import CarPlaceholderImage from "@/assets/car-placeholder.webp";
 import {previewConfig} from "@/store/previewStore";
 import Link from "next/link";
-import {SellerIcon} from "@/icons/SellerIcon";
-import {VerifiedIcon} from "@/icons/VerifiedIcon";
+import Image from "next/image";
 
+// TODO need to integrate this
+const ContactInfoData = {
+    acctId: 1,
+    contactName: 'Jordan Valdez',
+    contactEmail: 'jordanf.valdez@gmail.com',
+    contactPhone: '(506) 8392-9383',
+    acctVerified: true,
+    thumbnail: 'https://media.licdn.com/dms/image/C4E03AQGe8yTcqObEog/profile-displayphoto-shrink_800_800/0/1542814433921?e=1728518400&v=beta&t=8a0wBtjGSnnTa-dXhACJfmLSrM47F-DD5HVZR0y2mEE',
+    isDealer: false
+}
 
 export default function CarDialogDetails(props: Car) {
     const {
@@ -71,9 +78,12 @@ export default function CarDialogDetails(props: Car) {
     return (<article
         className='text-tertiary grid grid-cols-1 gap-3 animate-fade animate-once animate-duration-[600ms] animate-delay-0 animate-ease-linear relative'>
         <div className='flex flex-col justify-between items-start'>
-            <h1 className="text-lg font-semibold">{make} {model} ({year})</h1>
+            {/*<h1 className="text-lg font-semibold">{make} {model} ({year})</h1>*/}
+            <h1 className="text-2xl opacity-95 flex">{make} {model} <strong
+                className='ml-1'>{year} </strong>
+            </h1>
             <div className='flex grow justify-between w-full'>
-                <h1 className="text-xl font-medium">
+                <h1 className="text-xl">
                     {trim}
                 </h1>
                 <h2 className="text-xl font-semibold text-primary text-center">
@@ -82,11 +92,34 @@ export default function CarDialogDetails(props: Car) {
             </div>
         </div>
         <Carousel images={[thumbnail, ...images]} model={model}/>
-        <Link key={id} href={`/car/${id}`} onClick={() => previewConfig.set({id: null})}
-              className='text-secondary justify-self-end px-4 py-2 rounded border-primary flex align-middle self-end w-fit ring-0 dark:focus-visible:ring-0 bg-primary focus-visible:ring-0 focus-visible:ring-offset-0'
-        >
-            Ver anuncio
-        </Link>
+        <div className="flex gap-4 md:flex-row justify-between items-center">
+            <div
+                className="text-tertiary rounded-xl bg-primary/[0.07] p-3 w-fit">
+                <div className="flex gap-2 self-start items-center">
+                    {ContactInfoData.thumbnail ? <Image
+                        className="object-cover aspect-auto rounded-full"
+                        src={ContactInfoData.thumbnail}
+                        alt="Imagen de perfil"
+                        width={40}
+                        height={40}
+                    /> : <div
+                        className='h-20 w-20 rounded-full font-semibold bg-primary/[0.5] text-white flex justify-center items-center'>
+                        {ContactInfoData.contactName.split(' ')
+                            .map(word => word[0].toUpperCase())
+                            .join('')}
+                    </div>}
+                    <div>
+                        <h4 className='font-medium text-base'>{ContactInfoData.contactName}</h4>
+                        {acctVerified && <h4 className="font-medium text-xs text-info">Verificado</h4>}
+                    </div>
+                </div>
+            </div>
+            <Link key={id} href={`/car/${id}`} onClick={() => previewConfig.set({id: null})}
+                  className='text-secondary px-4 py-2 rounded border-primary flex w-fit ring-0 dark:focus-visible:ring-0 bg-primary focus-visible:ring-0 focus-visible:ring-offset-0'
+            >
+                Ver más
+            </Link>
+        </div>
         <div className='flex flex-col'>
             <div className='grid grid-cols-1 gap-1 divide-y mt-4 md:mt-0'>
                 <div className='flex items-center gap-2'>
@@ -101,49 +134,6 @@ export default function CarDialogDetails(props: Car) {
                             <h3 className='text-base font-normal'>{article.value}</h3>
                         </article>)
                     })}
-                </div>
-            </div>
-            <div className='grid grid-cols-1 gap-1 divide-y mt-4'>
-                <div className='flex items-center gap-2'>
-                    <h3 className="text-base font-bold">Motor</h3>
-                    <EngineIcon/>
-                </div>
-                <div className='grid grid-cols-2 gap-2 py-2'>
-                    {engineArticles.map((article, index) => {
-                        if (!article.value) return null;
-                        return (<article key={index}>
-                            <p className="text-xs font-light">{article.title}</p>
-                            <h3 className='text-base font-normal'>{article.value}</h3>
-                        </article>)
-                    })}
-                </div>
-            </div>
-            <div className='grid grid-cols-1 gap-1 divide-y mt-4'>
-                <div className='flex items-center gap-2'>
-                    <h3 className="text-base font-bold">Transmisión</h3>
-                    <TransmissionIcon/>
-                </div>
-                <div className='grid grid-cols-2 gap-2 py-2'>
-                    {transmissionArticles.map((article, index) => {
-                        if (!article.value) return null;
-                        return (<article key={index}>
-                            <p className="text-xs font-light">{article.title}</p>
-                            <h3 className='text-base font-normal'>{article.value}</h3>
-                        </article>)
-                    })}
-                </div>
-            </div>
-            <div className='grid grid-cols-1 gap-1 divide-y mt-4'>
-                <div className='flex items-center gap-2'>
-                    <h3 className="text-base font-bold">Vendedor</h3>
-                    <SellerIcon/>
-                </div>
-                <div className='grid grid-cols-1 gap-2 py-2'>
-                    <p className='text-sm font-light'>Jordan Valdez</p>
-                    {acctVerified && <p className='text-sm font-light flex'>Verificado
-                        <VerifiedIcon/>
-                    </p>}
-
                 </div>
             </div>
         </div>

@@ -26,13 +26,13 @@ export default function Card(props: Car) {
             id={`car-${id}`}
         >
             <Carousel images={[thumbnail, ...images]} model={model} id={+id}/>
-            <div className="mt-2 grid grid-cols-1 text-tertiary relative">
-                <p className="text-sm opacity-95 flex">{make} {model} <strong
+            <div className="mt-2 grid grid-cols-2 text-tertiary relative">
+                <p className="text-sm opacity-95 flex col-span-full">{make} {model} <strong
                     className='ml-1'>{year}</strong> {acctVerified &&
                     <VerifiedIcon/>}</p>
                 {trim &&
-                    <h1 className="text-sm font-medium opacity-95 text-balance">{trim}</h1>}
-                {transType && <p className="text-sm opacity-95">{transType}</p>}
+                    <h1 className="text-sm font-medium opacity-95 text-balance col-span-full">{trim}</h1>}
+                {transType && <p className="text-sm opacity-95 col-span-full">{transType}</p>}
                 {mileage > 0 && <p className="text-sm opacity-95">{NumberFormatter(mileage)}km</p>}
                 <h1 className="text-base font-semibold text-right">{USDFormatter(priceDollars)}</h1>
                 <CardTrigger id={+id}/>

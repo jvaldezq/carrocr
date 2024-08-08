@@ -2,7 +2,7 @@
 const nextConfig = {
     images: {
         unoptimized: true,
-        domains: ['listings-prod.tcimg.net', 'www.edmunds.com', 'static.cargurus.com'],
+        domains: ['listings-prod.tcimg.net', 'www.edmunds.com', 'static.cargurus.com', 'media.licdn.com'],
         remotePatterns: [{
             protocol: 'https', hostname: 'www.edmunds.com', port: '', pathname: '/**',
         }],

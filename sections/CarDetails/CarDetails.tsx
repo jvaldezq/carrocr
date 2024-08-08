@@ -13,7 +13,7 @@ const ContactInfoData = {
     contactEmail: 'jordanf.valdez@gmail.com',
     contactPhone: '(506) 8392-9383',
     acctVerified: true,
-    thumbnail: 'https://lh3.googleusercontent.com/a/ACg8ocKGe-GWHQ4Uw46TgcZQetQAr3mge2_62FoGHFfRsN-v4O1D2z9d=s192-c-mo',
+    thumbnail: 'https://media.licdn.com/dms/image/C4E03AQGe8yTcqObEog/profile-displayphoto-shrink_800_800/0/1542814433921?e=1728518400&v=beta&t=8a0wBtjGSnnTa-dXhACJfmLSrM47F-DD5HVZR0y2mEE',
     isDealer: false
 }
 
@@ -84,7 +84,7 @@ export default async function CarDetails({id}: CarDetailsProps) {
     }];
 
     return (<section className="flex flex-col gap-10 pb-10">
-        <div className='hidden md:grid grid-cols-3 gap-4 justify-between'>
+        <div className='hidden lg:grid grid-cols-3 gap-4 justify-between'>
             <Image
                 className="object-cover aspect-auto rounded-2xl w-full h-[300px]"
                 src={img1FronL ?? CarPlaceholderImage}
@@ -107,18 +107,28 @@ export default async function CarDetails({id}: CarDetailsProps) {
                 height={375}
             />
         </div>
-        <div className='flex md:hidden'>
+        <div className='flex lg:hidden'>
             <Carousel images={[img1FronL, thumbnail, img2FronR]} model={model}/>
         </div>
-        <div className="flex flex-col  text-tertiary">
-            <h1 className="text-2xl opacity-95 flex">{make} {model} <strong
-                className='ml-1'>{year} </strong>
-            </h1>
-            <h1 className="text-xl">
-                {trim}
-            </h1>
+        <div className="text-tertiary grid md:grid-cols-2 gap-4 items-center justify-items-center">
+            <div className="flex flex-col items-center justify-center">
+                <h1 className="text-2xl opacity-95 flex text-center">{make} {model} <strong
+                    className='ml-1'>{year} </strong>
+                </h1>
+                <h1 className="text-xl  text-center">
+                    {trim}
+                </h1>
+            </div>
+            <ContactInfo {...ContactInfoData}/>
         </div>
         <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+            <Image
+                className="object-cover aspect-auto rounded-2xl w-full h-[405px]"
+                src={img5IntDash ?? CarPlaceholderImage}
+                alt="Carro principal"
+                width={720}
+                height={405}
+            />
             <div
                 className="grid grid-cols-2 lg:grid-cols-3 gap-4 text-tertiary font-light lg:justify-items-center items-center">
                 {baseArticles.map((article, index) => {
@@ -129,22 +139,8 @@ export default async function CarDetails({id}: CarDetailsProps) {
                     </article>)
                 })}
             </div>
-            <Image
-                className="object-cover aspect-auto rounded-2xl w-full h-[405px]"
-                src={img5IntDash ?? CarPlaceholderImage}
-                alt="Carro principal"
-                width={720}
-                height={405}
-            />
         </div>
         <div className='flex flex-col-reverse md:grid md:grid-cols-2 gap-4'>
-            <Image
-                className="object-cover aspect-auto rounded-2xl w-full h-[405px]"
-                src={img11Engine ?? EnginePlaceholderImage}
-                alt="Carro motor"
-                width={720}
-                height={405}
-            />
             <div
                 className="grid grid-cols-2 lg:grid-cols-3 gap-4 text-tertiary font-light lg:justify-items-center items-center">
                 {engineArticles.map((article, index) => {
@@ -155,8 +151,15 @@ export default async function CarDetails({id}: CarDetailsProps) {
                     </article>)
                 })}
             </div>
+            <Image
+                className="object-cover aspect-auto rounded-2xl w-full h-[405px]"
+                src={img11Engine ?? EnginePlaceholderImage}
+                alt="Carro motor"
+                width={720}
+                height={405}
+            />
         </div>
-        <div className='hidden md:grid grid-cols-2 gap-4 justify-between'>
+        <div className='hidden lg:grid grid-cols-3 gap-4 justify-between'>
             <Image
                 className="object-cover aspect-auto rounded-2xl w-full h-[405px]"
                 src={img6IntClust ?? CarPlaceholderImage}
@@ -186,11 +189,11 @@ export default async function CarDetails({id}: CarDetailsProps) {
                 height={405}
             />
         </div>
-        <div className='flex md:hidden'>
+        <div className='flex lg:hidden'>
             <Carousel images={[img6IntClust, img7IntRad, img8IntSeatF, img9IntSeatB, img10IntTrun]} model={model}/>
         </div>
-        <div className="flex flex-col-reverse md:grid md:grid-cols-3 gap-4">
-            <div className="md:col-span-2">
+        <div className="flex flex-col gap-4">
+            <div>
                 <div className="flex flex-col text-tertiary my-8">
                     <h1 className="text-lg opacity-95 flex font-semibold">Especificaciones de Fábrica
                     </h1>
@@ -210,7 +213,6 @@ export default async function CarDetails({id}: CarDetailsProps) {
                     })}
                 </div>
             </div>
-            <ContactInfo {...ContactInfoData}/>
         </div>
     </section>);
 };
