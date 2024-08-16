@@ -3,6 +3,9 @@ import {serverApi} from "@/lib/serverApi";
 
 export const fetchCarById = async (id: string): Promise<Car> => {
     return await serverApi({
-        path: `/listing/${id}`
+        path: `/listing/${id}`,
+        params: {
+            approvedTF: true,
+        }
     }) as Promise<Car>;
 };

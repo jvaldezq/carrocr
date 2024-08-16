@@ -77,7 +77,7 @@ const DesktopComp = ({
     return <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
             <Button variant="outline"
-                    className="w-full justify-start text-tertiary text-xs">
+                    className="w-full justify-start text-tertiary text-xs overflow-hidden">
                 {selectedOption ? <>{selectedOption.label}</> : <>{placeholder}</>}
             </Button>
         </PopoverTrigger>
@@ -113,6 +113,8 @@ export const ComboboxController = (props: ComboboxControllerProps) => {
     const isDesktop = useMediaQuery("(min-width: 768px)")
     const [selectedOption, setSelectedOption] = useState<ComboBoxList | null>(null)
 
+    const isRequired = rules?.required;
+
     if (!show) return null;
 
     return <Controller
@@ -122,8 +124,10 @@ export const ComboboxController = (props: ComboboxControllerProps) => {
         render={({field: {onChange, value}, fieldState: {error}}) => {
             return <div className='animate-fade-left animate-once animate-duration-500 animate-ease-linear'>
                 {selectedOption ?
-                    <p className='text-tertiary text-xs animate-fade-down animate-once animate-duration-500 animate-delay-300 animate-ease-linear'>{label}</p> :
-                    <p className='text-tertiary text-xs'>Seleccione {label}</p>}
+                    <p className='text-tertiary text-xs animate-fade-down animate-once animate-duration-500 animate-delay-300 animate-ease-linear'>{label} {isRequired &&
+                        <span className="text-red-500"> *</span>}</p> :
+                    <p className='text-tertiary text-xs'>Seleccione {label} {isRequired &&
+                        <span className="text-red-500"> *</span>}</p>}
                 {isLoading ? <InputLoader/> :
                     <>
                         {isDesktop ? <DesktopComp

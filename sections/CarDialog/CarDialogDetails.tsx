@@ -28,20 +28,12 @@ export default function CarDialogDetails(props: Car) {
         year,
         priceDollars,
         id,
-        engineSizeCC,
         fuelType,
-        economyL100Km,
         transType,
         acctVerified,
         trim,
-        engineHp,
         condition,
-        engineCylinders,
-        engineTqNm,
-        driveSystemAlt,
-        driveSystem,
         mileage,
-        transGears
     } = props;
 
 
@@ -49,40 +41,43 @@ export default function CarDialogDetails(props: Car) {
         title: 'Kilometraje', value: mileage ? `${NumberFormatter(mileage)}km` : 'No especificado'
     }, {
         title: 'Calificación', value: condition ?? 'No especificado'
-    }]
-
-    const engineArticles = [{
-        title: 'Tamaño', value: engineSizeCC ? `${engineSizeCC}cc` : 'No especificado'
     }, {
-        title: 'Cilindros', value: engineCylinders ?? 'No especificado'
-    }, {
-        title: 'Fuerza', value: engineHp ? `${engineHp}HP` : 'No especificado'
-    }, {
-        title: 'Torque', value: engineTqNm ? `${engineTqNm}Nm` : 'No especificado'
-    }, {
-        title: 'Combustible', value: fuelType ?? 'No especificado'
-    }, {
-        title: 'Economía', value: economyL100Km ? `${economyL100Km} Km/L` : 'No especificado'
-    },];
-
-    const transmissionArticles = [{
         title: 'Transmisión', value: transType ?? 'No especificado'
     }, {
-        title: 'Sistema',
-        value: driveSystem || driveSystemAlt ? `${driveSystem} (${driveSystemAlt})` : 'No especificado'
-    }, {
-        title: 'Velocidades', value: transGears ?? 'No especificado'
+        title: 'Combustible', value: fuelType ?? 'No especificado'
     }]
+
+    // const engineArticles = [{
+    //     title: 'Tamaño', value: engineSizeCC ? `${engineSizeCC}cc` : 'No especificado'
+    // }, {
+    //     title: 'Cilindros', value: engineCylinders ?? 'No especificado'
+    // }, {
+    //     title: 'Fuerza', value: engineHp ? `${engineHp}HP` : 'No especificado'
+    // }, {
+    //     title: 'Torque', value: engineTqNm ? `${engineTqNm}Nm` : 'No especificado'
+    // }, {
+    //     title: 'Combustible', value: fuelType ?? 'No especificado'
+    // }, {
+    //     title: 'Economía', value: economyL100Km ? `${economyL100Km} Km/L` : 'No especificado'
+    // },];
+    //
+    // const transmissionArticles = [{
+    //     title: 'Transmisión', value: transType ?? 'No especificado'
+    // }, {
+    //     title: 'Sistema',
+    //     value: driveSystem || driveSystemAlt ? `${driveSystem} (${driveSystemAlt})` : 'No especificado'
+    // }, {
+    //     title: 'Velocidades', value: transGears ?? 'No especificado'
+    // }]
 
 
     return (<article
         className='text-tertiary grid grid-cols-1 gap-3 animate-fade animate-once animate-duration-[600ms] animate-delay-0 animate-ease-linear relative'>
         <div className='flex flex-col justify-between items-start'>
-            {/*<h1 className="text-lg font-semibold">{make} {model} ({year})</h1>*/}
             <h1 className="text-2xl opacity-95 flex">{make} {model} <strong
                 className='ml-1'>{year} </strong>
             </h1>
-            <div className='flex grow justify-between w-full'>
+            <div className='flex grow justify-between gap-4 w-full'>
                 <h1 className="text-xl">
                     {trim}
                 </h1>
@@ -91,7 +86,7 @@ export default function CarDialogDetails(props: Car) {
                 </h2>
             </div>
         </div>
-        <Carousel images={[thumbnail, ...images]} model={model}/>
+        <Carousel images={[thumbnail, ...images]} model={model} showDots={true}/>
         <div className="flex gap-4 md:flex-row justify-between items-center">
             <div
                 className="text-tertiary rounded-xl bg-primary/[0.07] p-3 w-fit">

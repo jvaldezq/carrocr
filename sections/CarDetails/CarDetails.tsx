@@ -108,7 +108,7 @@ export default async function CarDetails({id}: CarDetailsProps) {
             />
         </div>
         <div className='flex lg:hidden'>
-            <Carousel images={[img1FronL, thumbnail, img2FronR]} model={model}/>
+            <Carousel images={[img1FronL, thumbnail, img2FronR]} model={model} showIcon={true}/>
         </div>
         <div className="text-tertiary grid md:grid-cols-2 gap-4 items-center justify-items-center">
             <div className="flex flex-col items-center justify-center">

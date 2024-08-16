@@ -1,6 +1,6 @@
 interface ServerApiProps {
     path: string;
-    params?: string | string[][] | Record<string, string> | URLSearchParams | undefined;
+    params?: any; //TODO NEED TO FIX TYPE
     method?: 'GET' | 'POST' | 'PUT' | 'DELETE';
     revalidate?: number;
 }

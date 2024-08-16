@@ -1,6 +1,15 @@
+"use client";
 import Link from 'next/link';
+import {usePathname} from "next/navigation";
 
 export const Footer = () => {
+    const pathname = usePathname();
+    const condition = pathname.includes('/car-entry');
+
+    if (condition) {
+        return null;
+    }
+
     return (
         <footer className="border-t w-full flex">
             <div
