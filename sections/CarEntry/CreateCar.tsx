@@ -76,11 +76,11 @@ export const CreateCarContent = () => {
     }, [makeId, makes, modelId, models, trimId, trims, year]);
 
     return <section
-        className='h-full max-w-screen-xl mx-auto flex flex-col gap-2 items-center justify-items-center px-4 pt-6 pb-20 overflow-scroll'>
+        className='h-full max-w-screen-xl mx-auto flex flex-col gap-2 items-center justify-items-center px-4 pt-6 pb-20'>
         <h1 className="text-2xl font-bold text-primary">¡Vamos a empezar!</h1>
         <p className="text-base text-tertiary text-opacity-95">Para comenzar, necesitamos la información básica de tu
             vehículo.</p>
-        <div className="flex flex-col gap-8 mt-8 justify-center items-center">
+        <div className="flex flex-col gap-8 mt-8 justify-center items-center w-full">
             <form id="car-entry" onSubmit={handleSubmit(onSubmit)}
                   className='grid grid-cols-1 md:grid-cols-3 gap-4 w-full h-fit'>
                 <ComboboxController control={control} name='makeId' placeholder='Marca' label='Marca'

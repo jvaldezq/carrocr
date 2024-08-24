@@ -1,46 +1,73 @@
 export interface Car {
     id: number;
-    model: string;
+    condition: string;
     trim: string;
+    model: string;
     make: string;
-    thumbnail: string;
-    images: string[];
-    year: number;
     priceDollars: number;
+    priceColones: number;
+    priceExchange: number;
+    year: number;
     mileage: number;
+    thumbnail: string;
+    img1FronL: string;
+    img2FronR: string;
+    imgFronC: string;
+    imgSideL: string;
+    imgSideR: string;
+    img3RearL: string;
+    img4RearR: string;
+    imgRearC: string;
+    img5IntDash: string;
+    img6IntClust: string;
+    img7IntRad: string;
+    img8IntSeatF: string;
+    img9IntSeatB: string;
+    img10IntTrun: string;
+    img11Engine: string;
     transType: string;
-    acctVerified: boolean;
-    acctID: number,
-    condition: string,
-    transGears: number,
-    priceColones: number,
-    priceExchange: number,
     fuelType: string;
-    engineSizeLiters: number;
-    engineSizeCC: number;
-    engineCylinders: string;
-    engineHp: number;
-    engineHpRPM: number;
-    engineTqFtLbs: number;
-    engineTqNm: number;
-    engineTqRPM: number;
-    economyMpg: number;
-    econCityMpg: number;
-    econHwMpg: number;
-    economyL100Km: number;
-    econCityL100Km: number;
-    econHwL100Km: number;
-    driveSystem: string;
-    driveSystemAlt: string;
-    img1FronL: string,
-    img2FronR: string,
-    img3RearL: string,
-    img4RearR: string,
-    img5IntDash: string,
-    img6IntClust: string,
-    img7IntRad: string,
-    img8IntSeatF: string,
-    img9IntSeatB: string,
-    img10IntTrun: string,
-    img11Engine: string
+    bodyName: string;
+    driveType: string;
+    sellerComment: null;
+    approvalStageID: number;
+    acctVerified: boolean;
+    images: string[];
+    factorySpecifications: FactorySpecification;
+}
+
+export interface FactorySpecification {
+    fuelType: string;
+    fuelGrade: string;
+    liters: number;
+    cylinderCount: string;
+    horsepower: number;
+    horsepowerRPM: number;
+    torque: number;
+    torqueRPM: number;
+    valveCount: number;
+    camTimingType: string;
+    camType: string;
+    mpgCombine: number;
+    mpgCity: number;
+    mpgHighway: number;
+    doorCount: number;
+    seatCount: number;
+    groundHeight: number;
+    length: number;
+    width: number;
+    height: number;
+    curbWeight: number;
+    payloadLbs: number;
+    towingLbs: number;
+    driveName: string;
+    driveNameAbbr: string;
+    driveAbbr: string;
+    driveNameSpanish: null;
+    transName: string;
+    transGearCount: string;
+    transNameAbbr: string;
+    transNameSpanish: null;
+    fuelCapLiters: string;
+    superFuelTF: string;
 }

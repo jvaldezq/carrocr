@@ -13,6 +13,9 @@ import {FUEL_TYPES} from "@/lib/fuelTypes";
 import {FileInputController} from "@/components/Forms/FileInputController";
 import CarPlaceholderImage from "@/assets/car-placeholder.webp";
 import Image from "next/image";
+import {Accordion, AccordionContent, AccordionItem, AccordionTrigger,} from "@/components/ui/accordion"
+import {CheckSquareIcon} from "@/icons/CheckSquare";
+import {cn} from "@/lib/utils";
 
 export interface CreateCarInputs {
     condition?: string;
@@ -36,6 +39,26 @@ export interface FilesProps {
     img11Engine?: Blob | MediaSource,
 }
 
+interface FilesListProps {
+    name: keyof FilesProps;
+    label: string;
+    disclaimer?: boolean;
+}
+
+const filesList: FilesListProps[] = [
+    {name: 'img1FronL', label: 'Frente Izquierdo'},
+    {name: 'img2FronR', label: 'Frente Derecho'},
+    {name: 'img3RearL', label: 'Trasero Izquierdo'},
+    {name: 'img4RearR', label: 'Trasero Derecho'},
+    {name: 'img5IntDash', label: 'Tablero', disclaimer: true},
+    {name: 'img6IntClust', label: 'Velocímetro', disclaimer: true},
+    {name: 'img7IntRad', label: 'Radio', disclaimer: true},
+    {name: 'img8IntSeatF', label: 'Asiento Delantero', disclaimer: true},
+    {name: 'img9IntSeatB', label: 'Asiento Trasero', disclaimer: true},
+    {name: 'img10IntTrun', label: 'Maletero', disclaimer: true},
+    {name: 'img11Engine', label: 'Motor', disclaimer: true},
+];
+
 const defaultValues = {}
 
 export const StepTwoContent = () => {
@@ -51,14 +74,10 @@ export const StepTwoContent = () => {
     const handleFileChange = useCallback((e: ChangeEvent<HTMLInputElement>, name: keyof FilesProps) => {
         if (e.target.files && e.target.files[0]) {
             setFiles((prevFiles) => ({
-                ...prevFiles,
-                [name]: e?.target?.files?.[0]!,
+                ...prevFiles, [name]: e?.target?.files?.[0]!,
             }));
         }
     }, []);
-
-    console.log('files', files);
-    // URL.createObjectURL(e?.target?.files?.[0]!)
 
     const onSubmit: SubmitHandler<CreateCarInputs> = useCallback((data) => {
         const formData = {
@@ -76,21 +95,20 @@ export const StepTwoContent = () => {
             img10IntTrun: "http://bmcloud9.com/images/carrocr/sampleCar/embossed/trunk-negate.jpg",
             img11Engine: "http://bmcloud9.com/images/carrocr/sampleCar/embossed/engine-negate.jpg",
         }
-        // createListing(data).then(() => {
+        // createListing(formData).then(() => {
         //     console.log(data)
         //     console.log('success');
         // });
-
     }, []);
 
     return <section
-        className='h-full max-w-screen-xl mx-auto flex flex-col gap-2 items-center justify-items-center px-4 pt-6 pb-20 overflow-scroll'>
+        className='h-full max-w-screen-xl mx-auto flex flex-col gap-2 items-center justify-items-center px-4 pt-6'>
         <h1 className="text-2xl font-bold text-primary">Detalles de tu vehículo</h1>
         <p className="text-base text-tertiary text-opacity-95">Para que nuestro equipo pueda revisar tu vehículo,
             necesitamos que nos brindes la mayor cantidad de detalles posible. Esto también aumentará su visibilidad.
             Podrás completar la información de tu vehículo en cualquier momento en el futuro.</p>
 
-        <div className="flex flex-col gap-8 mt-8 w-full">
+        <div className="flex flex-col gap-8 mt-8 w-full pb-20">
             <form id="car-entry" onSubmit={handleSubmit(onSubmit)}
                   className='grid grid-cols-1 md:grid-cols-4 gap-4 w-full h-fit'>
                 <ComboboxController control={control} name='fuelType' placeholder='Combustible'
@@ -102,18 +120,48 @@ export const StepTwoContent = () => {
                                  label='Kilometraje'/>
                 <InputController control={control} name='piriceColones' type='priceColones' placeholder='Precio'
                                  label='Precio'/>
-
-                <FileInputController className="col-span-2" name='img1FronL' type='file'
-                                     placeholder='Frontal' label='Frontal' onChange={handleFileChange}
-                                     file={files?.img1FronL}/>
-                <Image
-                    className="rounded-2xl aspect-square object-cover justify-self-center self-center col-span-2"
-                    src={CarPlaceholderImage}
-                    alt="Placeholder Frente Delantero"
-                    height={200}
-                />
-
             </form>
+            <h1 className="text-2xl font-bold text-primary">Fotografías</h1>
+            <p className="flex gap-2 items-center text-base text-tertiary text-opacity-95">
+                <CheckSquareIcon
+                    id="check-square"
+                    className={cn(
+                        "transition-all duration-500",
+                        'opacity-15 text-error'
+                    )}/>
+                Las imágenes con los siguientes íconos son obligatorias para enviar la revisión.</p>
+            <Accordion type="single" collapsible className="w-full">
+                {
+                    filesList.map(({name, label, disclaimer}) => (<AccordionItem value={name} key={name}>
+                        <AccordionTrigger className="text-tertiary [&[data-state=open]>#check-square]:rotate-0">
+                            <p className="flex gap-2 items-center">
+                                <CheckSquareIcon
+                                    id="check-square"
+                                    className={cn(
+                                        "transition-all duration-500",
+                                        files?.[name] ? 'text-success' : disclaimer ? 'opacity-15' : 'opacity-15 text-error'
+                                    )}/>
+                                {label}
+                            </p>
+                        </AccordionTrigger>
+                        <AccordionContent>
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 w-full">
+                                <Image
+                                    className="object-cover aspect-auto rounded-2xl justify-self-center self-center w-full h-[405px] animate-fade-right animate-once animate-duration-500 animate-ease-linear"
+                                    src={CarPlaceholderImage}
+                                    alt="Placeholder Frente Delantero"
+                                    width={720}
+                                    height={405}
+                                />
+
+                                <FileInputController name={name} type='file'
+                                                     label='Frente Delantero' onChange={handleFileChange}
+                                                     file={files?.[name]}/>
+                            </div>
+                        </AccordionContent>
+                    </AccordionItem>))
+                }
+            </Accordion>
         </div>
 
         <div id="car-entry-footer" className="fixed flex flex-col bottom-0 justify-end w-full py-2 px-4 bg-secondary">

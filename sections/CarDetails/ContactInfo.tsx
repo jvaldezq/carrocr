@@ -15,7 +15,7 @@ export const ContactInfo = (props: ContactInfoProps) => {
     const {acctVerified, thumbnail, contactName, contactEmail, contactPhone, acctId, isDealer} = props
     const route = isDealer ? 'dealer' : 'seller'
     return (<div
-        className="flex flex-col justify-start gap-4 text-tertiary rounded-2xl bg-primary/[0.07] p-5 w-full">
+        className="flex flex-col justify-start gap-4 text-tertiary rounded-2xl border-primary/[0.1] border border-solid shadow-sm p-5 w-full">
         <div className="flex gap-4 self-start items-center">
             {thumbnail ? <Image
                 className="object-cover aspect-auto rounded-full"

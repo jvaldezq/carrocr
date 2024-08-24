@@ -1,7 +1,7 @@
 'use client';
 import {CarRepairIcon} from "@/icons/CarRepairIcon";
 import {Carousel} from "@/components/Carousel";
-import {NumberFormatter, USDFormatter} from "@/lib/NumberFormats";
+import {CRCFormatter, NumberFormatter} from "@/lib/NumberFormats";
 import {Car} from "@/lib/definitions";
 import CarPlaceholderImage from "@/assets/car-placeholder.webp";
 import {previewConfig} from "@/store/previewStore";
@@ -47,29 +47,6 @@ export default function CarDialogDetails(props: Car) {
         title: 'Combustible', value: fuelType ?? 'No especificado'
     }]
 
-    // const engineArticles = [{
-    //     title: 'Tamaño', value: engineSizeCC ? `${engineSizeCC}cc` : 'No especificado'
-    // }, {
-    //     title: 'Cilindros', value: engineCylinders ?? 'No especificado'
-    // }, {
-    //     title: 'Fuerza', value: engineHp ? `${engineHp}HP` : 'No especificado'
-    // }, {
-    //     title: 'Torque', value: engineTqNm ? `${engineTqNm}Nm` : 'No especificado'
-    // }, {
-    //     title: 'Combustible', value: fuelType ?? 'No especificado'
-    // }, {
-    //     title: 'Economía', value: economyL100Km ? `${economyL100Km} Km/L` : 'No especificado'
-    // },];
-    //
-    // const transmissionArticles = [{
-    //     title: 'Transmisión', value: transType ?? 'No especificado'
-    // }, {
-    //     title: 'Sistema',
-    //     value: driveSystem || driveSystemAlt ? `${driveSystem} (${driveSystemAlt})` : 'No especificado'
-    // }, {
-    //     title: 'Velocidades', value: transGears ?? 'No especificado'
-    // }]
-
 
     return (<article
         className='text-tertiary grid grid-cols-1 gap-3 animate-fade animate-once animate-duration-[600ms] animate-delay-0 animate-ease-linear relative'>
@@ -82,7 +59,7 @@ export default function CarDialogDetails(props: Car) {
                     {trim}
                 </h1>
                 <h2 className="text-xl font-semibold text-primary text-center">
-                    {USDFormatter(priceDollars)}
+                    {CRCFormatter(priceDollars)}
                 </h2>
             </div>
         </div>
