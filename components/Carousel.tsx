@@ -44,6 +44,7 @@ export const Carousel = (props: Props) => {
                         width={800}
                         height={450}
                         alt={model}
+                        loading="lazy"
                     />
                     {id && <CardTrigger id={id}/>}
                 </CarouselItem>)
