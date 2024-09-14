@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@auth0/nextjs-auth0": "^3.5.0",
     "@fontsource/roboto": "^5.0.13",
     "@hookform/resolvers": "^3.4.2",
     "@nanostores/react": "^0.7.1",

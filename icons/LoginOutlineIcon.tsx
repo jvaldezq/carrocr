@@ -2,9 +2,19 @@ import type {HTMLAttributes} from "react";
 
 export const LoginOutlineIcon = (props: HTMLAttributes<HTMLOrSVGElement>) => {
     return (
-        <svg {...props} xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-            <path fill="#50514F"
-                  d="M11.98 20v-1h6.405q.23 0 .423-.192t.192-.424V5.616q0-.231-.192-.424T18.384 5h-6.403V4h6.404q.69 0 1.152.463T20 5.616v12.769q0 .69-.463 1.153T18.385 20zm-.71-4.461l-.703-.72l2.32-2.319H4.019v-1h8.868l-2.32-2.32l.702-.718L14.808 12z"/>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" {...props}>
+            <g fill="none" stroke="#50514F" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                <path stroke-dasharray="48" stroke-dashoffset="48"
+                      d="M8 5v-1c0 -0.55 0.45 -1 1 -1h9c0.55 0 1 0.45 1 1v16c0 0.55 -0.45 1 -1 1h-9c-0.55 0 -1 -0.45 -1 -1v-1">
+                    <animate fill="freeze" attributeName="stroke-dashoffset" dur="0.6s" values="48;0"/>
+                </path>
+                <path stroke-dasharray="12" stroke-dashoffset="12" d="M4 12h11">
+                    <animate fill="freeze" attributeName="stroke-dashoffset" begin="0.7s" dur="0.2s" values="12;0"/>
+                </path>
+                <path stroke-dasharray="8" stroke-dashoffset="8" d="M15 12l-3.5 -3.5M15 12l-3.5 3.5">
+                    <animate fill="freeze" attributeName="stroke-dashoffset" begin="0.9s" dur="0.2s" values="8;0"/>
+                </path>
+            </g>
         </svg>
     );
 };
