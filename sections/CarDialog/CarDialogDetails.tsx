@@ -37,7 +37,7 @@ export default function CarDialogDetails(props: Car) {
         mileage,
     } = props;
     const {user} = useUser();
-    const isBlurred = user ? undefined : 'blur-sm';
+    const isBlurred = user ? undefined : 'relative blur justify-center items-center';
 
 
     const baseArticles = [{
@@ -69,8 +69,8 @@ export default function CarDialogDetails(props: Car) {
         <Carousel images={[thumbnail, ...images]} model={model} showDots={true}/>
         <div className="flex gap-4 md:flex-row justify-between items-center">
             <div
-                className={`text-tertiary rounded-xl bg-primary/[0.07] p-3 w-fit ${isBlurred}`}>
-                <div className="flex gap-2 self-start items-center">
+                className="text-tertiary rounded-xl bg-primary/[0.07] p-3 w-fit relative flex justify-center items-center">
+                <div className={`flex gap-2 self-start items-center ${isBlurred}`}>
                     {ContactInfoData.thumbnail ? <Image
                         className="object-cover aspect-auto rounded-full"
                         src={ContactInfoData.thumbnail}
@@ -89,6 +89,12 @@ export default function CarDialogDetails(props: Car) {
                             <h4 className="font-medium text-xs text-info">{isBlurred ? 'No disponible' : 'Verificado'}</h4>}
                     </div>
                 </div>
+                {
+                    isBlurred &&
+                    <Link key="login" href="/api/auth/login" className="absolute text-primary font-semibold">
+                        Iniciar sesión
+                    </Link>
+                }
             </div>
             <Link key={id} href={`/car/${id}`} onClick={() => previewConfig.set({id: null})}
                   className='text-secondary px-4 py-2 rounded border-primary flex w-fit ring-0 dark:focus-visible:ring-0 bg-primary focus-visible:ring-0 focus-visible:ring-offset-0'
