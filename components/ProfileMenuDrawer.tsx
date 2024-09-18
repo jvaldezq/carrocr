@@ -22,9 +22,8 @@ interface ProfileMenuDrawerProps {
 
 export const ProfileMenuDrawer = (props: ProfileMenuDrawerProps) => {
     const {user} = useUser();
-    const {children} = props
-
     console.log('user', user)
+    const {children} = props
 
     return (<DropdownMenu>
         <DropdownMenuTrigger>{children}</DropdownMenuTrigger>

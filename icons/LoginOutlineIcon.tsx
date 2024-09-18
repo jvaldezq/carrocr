@@ -3,7 +3,7 @@ import type {HTMLAttributes} from "react";
 export const LoginOutlineIcon = (props: HTMLAttributes<HTMLOrSVGElement>) => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" {...props}>
-            <g fill="none" stroke="#50514F" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+            <g fill="none" stroke="#50514F" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2">
                 <path stroke-dasharray="48" stroke-dashoffset="48"
                       d="M8 5v-1c0 -0.55 0.45 -1 1 -1h9c0.55 0 1 0.45 1 1v16c0 0.55 -0.45 1 -1 1h-9c-0.55 0 -1 -0.45 -1 -1v-1">
                     <animate fill="freeze" attributeName="stroke-dashoffset" dur="0.6s" values="48;0"/>

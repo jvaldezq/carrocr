@@ -7,6 +7,7 @@ import CarPlaceholderImage from "@/assets/car-placeholder.webp";
 import {previewConfig} from "@/store/previewStore";
 import Link from "next/link";
 import Image from "next/image";
+import {useUser} from "@auth0/nextjs-auth0/client";
 
 // TODO need to integrate this
 const ContactInfoData = {
@@ -35,6 +36,8 @@ export default function CarDialogDetails(props: Car) {
         condition,
         mileage,
     } = props;
+    const {user} = useUser();
+    const isBlurred = user ? undefined : 'blur-sm';
 
 
     const baseArticles = [{
@@ -66,7 +69,7 @@ export default function CarDialogDetails(props: Car) {
         <Carousel images={[thumbnail, ...images]} model={model} showDots={true}/>
         <div className="flex gap-4 md:flex-row justify-between items-center">
             <div
-                className="text-tertiary rounded-xl bg-primary/[0.07] p-3 w-fit">
+                className={`text-tertiary rounded-xl bg-primary/[0.07] p-3 w-fit ${isBlurred}`}>
                 <div className="flex gap-2 self-start items-center">
                     {ContactInfoData.thumbnail ? <Image
                         className="object-cover aspect-auto rounded-full"
@@ -81,8 +84,9 @@ export default function CarDialogDetails(props: Car) {
                             .join('')}
                     </div>}
                     <div>
-                        <h4 className='font-medium text-base'>{ContactInfoData.contactName}</h4>
-                        {acctVerified && <h4 className="font-medium text-xs text-info">Verificado</h4>}
+                        <h4 className='font-medium text-base'>{isBlurred ? "No disponible" : ContactInfoData.contactName}</h4>
+                        {acctVerified &&
+                            <h4 className="font-medium text-xs text-info">{isBlurred ? 'No disponible' : 'Verificado'}</h4>}
                     </div>
                 </div>
             </div>

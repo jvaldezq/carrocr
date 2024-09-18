@@ -1,3 +1,6 @@
+import {getSession} from "@auth0/nextjs-auth0";
+import jwt from 'jsonwebtoken';
+
 interface ServerApiProps {
     path: string;
     params?: any; //TODO NEED TO FIX TYPE
@@ -7,10 +10,17 @@ interface ServerApiProps {
 
 export const serverApi = async (props: ServerApiProps) => {
     try {
+        const user = await getSession();
+        const secret = process.env.NEXT_CUSTOM_JWT_SECRET as string;
+        const payload = {...user};
+        const token = jwt.sign(payload, secret, {expiresIn: 900});
         const {path, params, method = 'GET', revalidate = 60} = props;
         const parameters = params ? `?${new URLSearchParams(params).toString()}` : '';
+        
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${path}${parameters}`, {
-            method, next: {revalidate},
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            }, method, next: {revalidate},
         });
 
         if (!res.ok) {
