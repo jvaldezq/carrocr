@@ -23,15 +23,6 @@ export async function generateMetadata(
         trim,
         transType,
         condition,
-        // priceDollars,
-        // priceColones,
-        // priceExchange,
-        // mileage,
-        // engineSizeLiters,
-        // engineCylinders,
-        // engineHp,
-        // fuelType,
-        // econHwMpg
     } = data;
 
     const title = `${year} ${make} ${model} ${trim} - Transmisión ${transType}, Condición ${condition}`;

@@ -39,7 +39,7 @@ export interface Car {
 export interface FactorySpecification {
     fuelType: string;
     fuelGrade: string;
-    liters: number;
+    cubicCentimeters: number;
     cylinderCount: string;
     horsepower: number;
     horsepowerRPM: number;
@@ -58,8 +58,8 @@ export interface FactorySpecification {
     width: number;
     height: number;
     curbWeight: number;
-    payloadLbs: number;
-    towingLbs: number;
+    payloadCap: number;
+    towingCap: number;
     driveName: string;
     driveNameAbbr: string;
     driveAbbr: string;
@@ -69,5 +69,5 @@ export interface FactorySpecification {
     transNameAbbr: string;
     transNameSpanish: null;
     fuelCapLiters: string;
-    superFuelTF: string;
+    superFuel: string;
 }

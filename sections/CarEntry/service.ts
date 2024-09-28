@@ -42,14 +42,9 @@ export const createListing = async (data: CreateCarInputs): Promise<MakesResult[
 };
 
 export const useGetMakes = () => {
-    const {data, isLoading} = useQuery({
+    return useQuery({
         queryKey: ["makes"], queryFn: fetchMakes, staleTime: 1000 * 60 * 60 * 24, retry: 2,
     });
-    return {
-        data: data?.map((make) => ({
-            value: make.name, label: make.name, id: make.value
-        })), isLoading
-    }
 };
 
 export const useGetTypeBodies = () => {

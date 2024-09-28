@@ -3,12 +3,9 @@
 import {SubmitHandler, useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import {useCallback, useMemo} from "react";
+import {useCallback} from "react";
 import {QueryCache, QueryClient, QueryClientProvider} from "@tanstack/react-query";
 import {useCreateMutation, useGetMakes, useGetModels, useGetTrims, useGetTypeBodies} from "@/sections/CarEntry/service";
-import Card from "@/components/Card/Card";
-import CarPlaceholderImage from "@/assets/car-placeholder.webp";
-import {Car} from "@/lib/definitions";
 import {Button} from "@/components/ui/button";
 import {useRouter} from "next/navigation";
 import {CreateCarWrapper} from "@/sections/CarEntry/CreateCarWrapper";
@@ -61,17 +58,17 @@ export const CreateCarContent = () => {
         });
     }, [createListing, router]);
 
-    const cardData = useMemo(() => {
-        return {
-            model: models?.find((model) => model.id === +modelId)?.label || '',
-            trim: trims?.find((trim) => trim.id === +trimId)?.label || '',
-            thumbnail: CarPlaceholderImage.src,
-            make: makes?.find((make) => make?.id === +makeId)?.label || '',
-            year: year,
-            transType: '',
-            acctVerified: false,
-        } as unknown as Car
-    }, [makeId, makes, modelId, models, trimId, trims, year]);
+    // const cardData = useMemo(() => {
+    //     return {
+    //         model: models?.find((model) => model.id === +modelId)?.label || '',
+    //         trim: trims?.find((trim) => trim.id === +trimId)?.label || '',
+    //         thumbnail: CarPlaceholderImage.src,
+    //         make: makes?.find((make) => make?.id === +makeId)?.label || '',
+    //         year: year,
+    //         transType: '',
+    //         acctVerified: false,
+    //     } as unknown as Car
+    // }, [makeId, makes, modelId, models, trimId, trims, year]);
 
     return <section
         className='h-full max-w-screen-xl mx-auto flex flex-col gap-2 items-center justify-items-center px-4 pt-6 pb-20'>
@@ -101,7 +98,7 @@ export const CreateCarContent = () => {
             <div
                 className="grid grid-cols-1 md:grid-cols-3">
                 <div className='col-start-2'>
-                    <Card {...cardData}/>
+                    {/*<Card {...cardData}/>*/}
                 </div>
             </div>
         </div>

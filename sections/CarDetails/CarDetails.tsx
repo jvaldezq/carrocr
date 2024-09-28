@@ -85,7 +85,7 @@ export default async function CarDetails({id}: CarDetailsProps) {
         factorySpecifications,
     } = data;
     const {
-        liters,
+        cubicCentimeters,
         cylinderCount,
         horsepower,
         horsepowerRPM,
@@ -99,12 +99,12 @@ export default async function CarDetails({id}: CarDetailsProps) {
         width,
         height,
         curbWeight,
-        payloadLbs,
-        towingLbs,
+        payloadCap,
+        towingCap,
         groundHeight,
         fuelCapLiters,
         camType,
-        superFuelTF,
+        superFuel,
     } = factorySpecifications;
 
     const baseArticles: ArticleProps[] = [{
@@ -141,9 +141,9 @@ export default async function CarDetails({id}: CarDetailsProps) {
         isFactory: true,
         icon: <GroundHeightIcon/>
     }, {
-        title: 'Carga útil', value: payloadLbs ? `${payloadLbs}kg` : 'N/A', isFactory: true, icon: <PayloadLbsIcon/>
+        title: 'Carga útil', value: payloadCap ? `${payloadCap}kg` : 'N/A', isFactory: true, icon: <PayloadLbsIcon/>
     }, {
-        title: 'Remolque', value: towingLbs ? `${towingLbs}kg` : 'N/A', isFactory: true, icon: <TowingLbsIcon/>
+        title: 'Remolque', value: towingCap ? `${towingCap}kg` : 'N/A', isFactory: true, icon: <TowingLbsIcon/>
     }, {
         title: 'Tanque combustible',
         value: fuelCapLiters ? `${fuelCapLiters}L` : 'N/A',
@@ -152,7 +152,10 @@ export default async function CarDetails({id}: CarDetailsProps) {
     }];
 
     const engineArticles: ArticleProps[] = [{
-        title: 'Tamaño', value: liters ? `${liters}cc` : 'N/A', isFactory: true, icon: <EngineLitersIcon/>
+        title: 'Tamaño',
+        value: cubicCentimeters ? `${cubicCentimeters}cc` : 'N/A',
+        isFactory: true,
+        icon: <EngineLitersIcon/>
     }, {
         title: 'Cilindros', value: cylinderCount ?? 'N/A', isFactory: true, icon: <CylinderIcon/>
     }, {
@@ -172,7 +175,7 @@ export default async function CarDetails({id}: CarDetailsProps) {
     }, {
         title: 'Válvulas', value: valveCount ? `${valveCount} (${camType})` : 'N/A', isFactory: true, icon: <ValveIcon/>
     }, {
-        title: 'Gasolina Súper', value: superFuelTF ?? 'N/A', isFactory: true, icon: <SuperFuelIcon/>
+        title: 'Gasolina Súper', value: superFuel ?? 'N/A', isFactory: true, icon: <SuperFuelIcon/>
     }];
 
     return (<section className="flex flex-col gap-5 pb-10">

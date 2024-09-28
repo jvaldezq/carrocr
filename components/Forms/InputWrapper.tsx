@@ -52,9 +52,9 @@ export const InputWrapper = forwardRef((props: InputWrapperProps, ref: Forwarded
             {(left || top) && (
                 <label
                     className={cn(
-                        'text-sm font-medium leading-6 text-n900',
+                        'text-sm font-medium leading-6 text-primary',
                         labelClassName,
-                        touched && error ? 'text-r300' : '',
+                        touched && error ? 'text-error' : '',
                     )}
                     htmlFor={name}
                 >
@@ -79,7 +79,7 @@ export const InputWrapper = forwardRef((props: InputWrapperProps, ref: Forwarded
                     {label}
                 </label>
             )}
-            {top && touched && error && <div className="text-r300 text-xs mt-1">{error}</div>}
+            {top && touched && error && <div className="text-error text-xs mt-1">{error}</div>}
         </div>
     );
 });

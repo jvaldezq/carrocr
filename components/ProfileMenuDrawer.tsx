@@ -22,7 +22,6 @@ interface ProfileMenuDrawerProps {
 
 export const ProfileMenuDrawer = (props: ProfileMenuDrawerProps) => {
     const {user} = useUser();
-    console.log('user', user)
     const {children} = props
 
     return (<DropdownMenu>
@@ -66,12 +65,12 @@ export const ProfileMenuDrawer = (props: ProfileMenuDrawerProps) => {
                     </DropdownMenuItem>
                 </Link>
                 {
-                    user && <Link key="how" href="/api/auth/logout">
+                    user && <a key="how" href="/api/auth/logout">
                         <DropdownMenuItem className='cursor-pointer'>
                             <LoginOutlineIcon className="mr-2 h-5 w-5 rotate-180"/>
                             <span className="text-tertiary">Logout</span>
                         </DropdownMenuItem>
-                    </Link>
+                    </a>
                 }
             </DropdownMenuGroup>
 
