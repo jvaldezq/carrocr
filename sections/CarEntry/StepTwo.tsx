@@ -26,17 +26,17 @@ export interface CreateCarInputs {
 
 export interface FilesProps {
     thumbnail?: Blob | MediaSource,
-    img1FronL?: Blob | MediaSource,
-    img2FronR?: Blob | MediaSource,
-    img3RearL?: Blob | MediaSource,
-    img4RearR?: Blob | MediaSource,
-    img5IntDash?: Blob | MediaSource,
-    img6IntClust?: Blob | MediaSource,
-    img7IntRad?: Blob | MediaSource,
-    img8IntSeatF?: Blob | MediaSource,
-    img9IntSeatB?: Blob | MediaSource,
-    img10IntTrun?: Blob | MediaSource,
-    img11Engine?: Blob | MediaSource,
+    imgBodyFL?: Blob | MediaSource,
+    imgBodyFR?: Blob | MediaSource,
+    imgBodyRL?: Blob | MediaSource,
+    imgBodyRR?: Blob | MediaSource,
+    imgInteriorDash?: Blob | MediaSource,
+    imgInteriorCluster?: Blob | MediaSource,
+    imgInteriorRadio?: Blob | MediaSource,
+    imgInteriorSeatF?: Blob | MediaSource,
+    imgInteriorSeatR?: Blob | MediaSource,
+    imgInteriorTrunk?: Blob | MediaSource,
+    imgEngine?: Blob | MediaSource,
 }
 
 interface FilesListProps {
@@ -46,17 +46,17 @@ interface FilesListProps {
 }
 
 const filesList: FilesListProps[] = [
-    {name: 'img1FronL', label: 'Frente Izquierdo'},
-    {name: 'img2FronR', label: 'Frente Derecho'},
-    {name: 'img3RearL', label: 'Trasero Izquierdo'},
-    {name: 'img4RearR', label: 'Trasero Derecho'},
-    {name: 'img5IntDash', label: 'Tablero', disclaimer: true},
-    {name: 'img6IntClust', label: 'Velocímetro', disclaimer: true},
-    {name: 'img7IntRad', label: 'Radio', disclaimer: true},
-    {name: 'img8IntSeatF', label: 'Asiento Delantero', disclaimer: true},
-    {name: 'img9IntSeatB', label: 'Asiento Trasero', disclaimer: true},
-    {name: 'img10IntTrun', label: 'Maletero', disclaimer: true},
-    {name: 'img11Engine', label: 'Motor', disclaimer: true},
+    {name: 'imgBodyFL', label: 'Frente Izquierdo'},
+    {name: 'imgBodyFR', label: 'Frente Derecho'},
+    {name: 'imgBodyRL', label: 'Trasero Izquierdo'},
+    {name: 'imgBodyRR', label: 'Trasero Derecho'},
+    {name: 'imgInteriorDash', label: 'Tablero', disclaimer: true},
+    {name: 'imgInteriorCluster', label: 'Velocímetro', disclaimer: true},
+    {name: 'imgInteriorRadio', label: 'Radio', disclaimer: true},
+    {name: 'imgInteriorSeatF', label: 'Asiento Delantero', disclaimer: true},
+    {name: 'imgInteriorSeatR', label: 'Asiento Trasero', disclaimer: true},
+    {name: 'imgInteriorTrunk', label: 'Maletero', disclaimer: true},
+    {name: 'imgEngine', label: 'Motor', disclaimer: true},
 ];
 
 const defaultValues = {}
@@ -83,17 +83,17 @@ export const StepTwoContent = () => {
         const formData = {
             ...data,
             thumbnail: "https://static.cargurus.com/images/forsale/2024/04/18/07/55/2017_porsche_911-pic-6771499861641859342-1024x768.jpeg",
-            img1FronL: "https://static.cargurus.com/images/forsale/2024/04/18/07/55/2017_porsche_911-pic-6771499861641859342-1024x768.jpeg",
-            img2FronR: "https://static.cargurus.com/images/forsale/2024/04/18/07/55/2017_porsche_911-pic-1511291335503804214-1024x768.jpeg",
-            img3RearL: "https://static.cargurus.com/images/forsale/2024/04/18/07/55/2017_porsche_911-pic-987520084229423317-1024x768.jpeg",
-            img4RearR: "https://static.cargurus.com/images/forsale/2024/04/18/07/55/2017_porsche_911-pic-7723154306807153330-1024x768.jpeg",
-            img5IntDash: "https://static.cargurus.com/images/forsale/2024/04/18/07/55/2017_porsche_911-pic-3019843391839520986-1024x768.jpeg",
-            img6IntClust: "https://static.cargurus.com/images/forsale/2024/04/18/07/55/2017_porsche_911-pic-4078727408758134758-1024x768.jpeg",
-            img7IntRad: "http://bmcloud9.com/images/carrocr/sampleCar/embossed/dashInfotrainment-negate.jpg",
-            img8IntSeatF: "http://bmcloud9.com/images/carrocr/sampleCar/embossed/seatFront-negate.jpg",
-            img9IntSeatB: "http://bmcloud9.com/images/carrocr/sampleCar/embossed/seatRear-negate.jpg",
-            img10IntTrun: "http://bmcloud9.com/images/carrocr/sampleCar/embossed/trunk-negate.jpg",
-            img11Engine: "http://bmcloud9.com/images/carrocr/sampleCar/embossed/engine-negate.jpg",
+            imgBodyFL: "https://static.cargurus.com/images/forsale/2024/04/18/07/55/2017_porsche_911-pic-6771499861641859342-1024x768.jpeg",
+            imgBodyFR: "https://static.cargurus.com/images/forsale/2024/04/18/07/55/2017_porsche_911-pic-1511291335503804214-1024x768.jpeg",
+            imgBodyRL: "https://static.cargurus.com/images/forsale/2024/04/18/07/55/2017_porsche_911-pic-987520084229423317-1024x768.jpeg",
+            imgBodyRR: "https://static.cargurus.com/images/forsale/2024/04/18/07/55/2017_porsche_911-pic-7723154306807153330-1024x768.jpeg",
+            imgInteriorDash: "https://static.cargurus.com/images/forsale/2024/04/18/07/55/2017_porsche_911-pic-3019843391839520986-1024x768.jpeg",
+            imgInteriorCluster: "https://static.cargurus.com/images/forsale/2024/04/18/07/55/2017_porsche_911-pic-4078727408758134758-1024x768.jpeg",
+            imgInteriorRadio: "http://bmcloud9.com/images/carrocr/sampleCar/embossed/dashInfotrainment-negate.jpg",
+            imgInteriorSeatF: "http://bmcloud9.com/images/carrocr/sampleCar/embossed/seatFront-negate.jpg",
+            imgInteriorSeatR: "http://bmcloud9.com/images/carrocr/sampleCar/embossed/seatRear-negate.jpg",
+            imgInteriorTrunk: "http://bmcloud9.com/images/carrocr/sampleCar/embossed/trunk-negate.jpg",
+            imgEngine: "http://bmcloud9.com/images/carrocr/sampleCar/embossed/engine-negate.jpg",
         }
         // createListing(formData).then(() => {
         //     console.log(data)

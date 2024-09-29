@@ -10,21 +10,21 @@ export interface Car {
     year: number;
     mileage: number;
     thumbnail: string;
-    img1FronL: string;
-    img2FronR: string;
-    imgFronC: string;
-    imgSideL: string;
-    imgSideR: string;
-    img3RearL: string;
-    img4RearR: string;
-    imgRearC: string;
-    img5IntDash: string;
-    img6IntClust: string;
-    img7IntRad: string;
-    img8IntSeatF: string;
-    img9IntSeatB: string;
-    img10IntTrun: string;
-    img11Engine: string;
+    imgBodyFL: string;
+    imgBodyFR: string;
+    imgBodyFC: string;
+    imgBodySL: string;
+    imgBodySR: string;
+    imgBodyRL: string;
+    imgBodyRR: string;
+    imgBodyRC: string;
+    imgInteriorDash: string;
+    imgInteriorCluster: string;
+    imgInteriorRadio: string;
+    imgInteriorSeatF: string;
+    imgInteriorSeatR: string;
+    imgInteriorTrunk: string;
+    imgEngine: string;
     transType: string;
     fuelType: string;
     bodyName: string;
@@ -34,6 +34,12 @@ export interface Car {
     acctVerified: boolean;
     images: string[];
     factorySpecifications: FactorySpecification;
+    negotiableTF: boolean;
+    allowTradeTF: boolean;
+    inspectionMonth: string;
+    inspectionYear: string;
+    restrictionDay: string;
+    comments: string;
 }
 
 export interface FactorySpecification {

@@ -4,6 +4,7 @@ import SimilarCars from "@/sections/SimilarCars/SimilarCars";
 import {SimilarCarsSkeleton} from "@/sections/SimilarCars/SimilarCarsSkeleton";
 import {CheckIcon} from "@/icons/CheckIcon";
 import {CloseIcon} from "@/icons/CloseIcon";
+import CarDialog from "@/sections/CarDialog/CarDialog";
 
 interface SellerProps {
     params: { id: string }
@@ -99,5 +100,6 @@ export default function Seller({params}: SellerProps) {
                 <SimilarCars/>
             </Suspense>
         </section>
+        <CarDialog/>
     </main>);
 }

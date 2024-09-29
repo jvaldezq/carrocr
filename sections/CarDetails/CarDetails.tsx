@@ -3,7 +3,7 @@ import Image from 'next/image'
 import {Carousel} from "@/components/Carousel";
 import {CRCFormatter, NumberFormatter} from "@/lib/NumberFormats";
 import CarPlaceholderImage from "@/assets/car-placeholder.webp";
-import {ContactInfo} from "@/sections/CarDetails/ContactInfo";
+import ContactInfo from "@/sections/CarDetails/ContactInfo";
 import {QualificationIcon} from "@/icons/QualificationIcon";
 import {FuelIcon} from "@/icons/FuelIcon";
 import {SystemIcon} from "@/icons/SystemIcon";
@@ -65,24 +65,30 @@ export default async function CarDetails({id}: CarDetailsProps) {
         condition,
         trim,
         thumbnail,
-        img1FronL,
-        imgFronC,
-        img2FronR,
-        imgSideL,
-        imgSideR,
-        img4RearR,
-        imgRearC,
-        img3RearL,
-        img5IntDash,
-        img6IntClust,
-        img7IntRad,
-        img8IntSeatF,
-        img9IntSeatB,
-        img10IntTrun,
-        img11Engine,
+        imgBodyFL,
+        imgBodyFC,
+        imgBodyFR,
+        imgBodySL,
+        imgBodySR,
+        imgBodyRR,
+        imgBodyRC,
+        imgBodyRL,
+        imgInteriorDash,
+        imgInteriorCluster,
+        imgInteriorRadio,
+        imgInteriorSeatF,
+        imgInteriorSeatR,
+        imgInteriorTrunk,
+        imgEngine,
         bodyName,
         driveType,
         factorySpecifications,
+        negotiableTF,
+        allowTradeTF,
+        inspectionMonth,
+        inspectionYear,
+        restrictionDay,
+        comments
     } = data;
     const {
         cubicCentimeters,
@@ -178,32 +184,46 @@ export default async function CarDetails({id}: CarDetailsProps) {
         title: 'Gasolina Súper', value: superFuel ?? 'N/A', isFactory: true, icon: <SuperFuelIcon/>
     }];
 
+    const generalArticles: ArticleProps[] = [{
+        title: 'Negociable', value: negotiableTF ? 'Sí' : 'No', isFactory: false,
+    }, {
+        title: 'Se recibe vehículo', value: allowTradeTF ? 'Sí' : 'No', isFactory: false,
+    }, {
+        title: 'Inspección vehicular',
+        value: inspectionMonth || inspectionYear ? `${inspectionMonth}/${inspectionYear}` : 'N/A',
+        isFactory: false,
+    }, {
+        title: 'Restricción vehicular', value: restrictionDay ?? 'N/A', isFactory: false,
+    }, {
+        title: 'Comentarios del vendedor', value: comments ?? 'N/A', isFactory: false, className: 'col-span-2'
+    }];
+
     return (<section className="flex flex-col gap-5 pb-10">
         <div className='hidden lg:grid grid-cols-3 gap-5 justify-between'>
             <Image
                 className="object-cover aspect-auto rounded-2xl w-full h-[300px]"
-                src={img1FronL ?? CarPlaceholderImage}
+                src={imgBodyFL ?? CarPlaceholderImage}
                 alt="Carro Frontal Delante Izquierdo"
                 width={540}
                 height={375}
             />
             <Image
                 className="object-cover aspect-auto rounded-2xl w-full h-[300px]"
-                src={imgFronC ?? CarPlaceholderImage}
+                src={imgBodyFC ?? CarPlaceholderImage}
                 alt="Carro Interior Dash"
                 width={540}
                 height={375}
             />
             <Image
                 className="object-cover aspect-auto rounded-2xl w-full h-[300px]"
-                src={img2FronR ?? CarPlaceholderImage}
+                src={imgBodyFR ?? CarPlaceholderImage}
                 alt="Carro Trasero Derecho"
                 width={540}
                 height={375}
             />
         </div>
         <div className='flex lg:hidden'>
-            <Carousel images={[img1FronL, thumbnail, img2FronR]} model={model} showDots={true}/>
+            <Carousel images={[imgBodyFL, thumbnail, imgBodyFR]} model={model} showDots={true}/>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div
@@ -221,7 +241,7 @@ export default async function CarDetails({id}: CarDetailsProps) {
         <div className='grid grid-cols-1 md:grid-cols-2 gap-5'>
             <Image
                 className="object-cover aspect-auto rounded-2xl w-full h-[405px]"
-                src={imgSideL ?? CarPlaceholderImage}
+                src={imgBodySL ?? CarPlaceholderImage}
                 alt="Carro principal"
                 width={720}
                 height={405}
@@ -240,10 +260,11 @@ export default async function CarDetails({id}: CarDetailsProps) {
                 })}
             </div>
         </div>
+
         <div className='flex flex-col-reverse md:grid md:grid-cols-2 gap-5'>
             <div
-                className="grid grid-cols-2 lg:grid-cols-3 gap-5 font-light lg:justify-items-center items-start md:items-center text-center bg-tertiary p-4 rounded-2xl text-quaternary">
-                {dymentionsArticles.map((article, index) => {
+                className="grid grid-cols-2 gap-5 font-light lg:justify-items-center items-start md:items-center text-center bg-tertiary p-4 rounded-2xl text-quaternary">
+                {generalArticles.map((article, index) => {
                     if (!article.value) return null;
                     return (<article key={index}
                                      className={`flex flex-col gap-2 w-full justify-center items-center ${article?.className}`}>
@@ -256,16 +277,17 @@ export default async function CarDetails({id}: CarDetailsProps) {
             </div>
             <Image
                 className="object-cover aspect-auto rounded-2xl w-full h-[405px]"
-                src={imgSideR ?? CarPlaceholderImage}
+                src={imgBodyRR ?? CarPlaceholderImage}
                 alt="Carro motor"
                 width={720}
                 height={405}
             />
         </div>
+
         <div className='grid grid-cols-1 md:grid-cols-2 gap-5'>
             <Image
                 className="object-cover aspect-auto rounded-2xl w-full h-[405px]"
-                src={img11Engine ?? CarPlaceholderImage}
+                src={imgEngine ?? CarPlaceholderImage}
                 alt="Carro principal"
                 width={720}
                 height={405}
@@ -284,24 +306,48 @@ export default async function CarDetails({id}: CarDetailsProps) {
                 })}
             </div>
         </div>
+
+        <div className='flex flex-col-reverse md:grid md:grid-cols-2 gap-5'>
+            <div
+                className="grid grid-cols-2 lg:grid-cols-3 gap-5 font-light lg:justify-items-center items-start md:items-center text-center bg-tertiary p-4 rounded-2xl text-quaternary">
+                {dymentionsArticles.map((article, index) => {
+                    if (!article.value) return null;
+                    return (<article key={index}
+                                     className={`flex flex-col gap-2 w-full justify-center items-center ${article?.className}`}>
+                        {article.icon}
+                        <p className="text-sm flex justify-center items-center gap-2">{article.title}
+                        </p>
+                        <h3 className="text-lg font-normal bg-quaternary text-tertiary px-4 py-2 rounded-2xl w-full">{article?.value}</h3>
+                    </article>)
+                })}
+            </div>
+            <Image
+                className="object-cover aspect-auto rounded-2xl w-full h-[405px]"
+                src={imgBodySR ?? CarPlaceholderImage}
+                alt="Carro motor"
+                width={720}
+                height={405}
+            />
+        </div>
+
         <div className='hidden lg:grid grid-cols-3 gap-5 justify-between'>
             <Image
                 className="object-cover aspect-auto rounded-2xl w-full h-[405px]"
-                src={img3RearL ?? CarPlaceholderImage}
+                src={imgBodyRL ?? CarPlaceholderImage}
                 alt="Carro Frontal Delante Izquierdo"
                 width={720}
                 height={405}
             />
             <Image
                 className="object-cover aspect-auto rounded-2xl w-full h-[405px]"
-                src={imgRearC ?? CarPlaceholderImage}
+                src={imgBodyRC ?? CarPlaceholderImage}
                 alt="Carro Interior Dash"
                 width={720}
                 height={405}
             />
             <Image
                 className="object-cover aspect-auto rounded-2xl w-full h-[405px]"
-                src={img4RearR ?? CarPlaceholderImage}
+                src={imgBodyRR ?? CarPlaceholderImage}
                 alt="Carro Trasero Derecho"
                 width={720}
                 height={405}
@@ -309,42 +355,42 @@ export default async function CarDetails({id}: CarDetailsProps) {
 
             <Image
                 className="object-cover aspect-auto rounded-2xl w-full h-[405px]"
-                src={img5IntDash ?? CarPlaceholderImage}
+                src={imgInteriorDash ?? CarPlaceholderImage}
                 alt="Carro Trasero Derecho"
                 width={720}
                 height={405}
             />
             <Image
                 className="object-cover aspect-auto rounded-2xl w-full h-[405px]"
-                src={img6IntClust ?? CarPlaceholderImage}
+                src={imgInteriorCluster ?? CarPlaceholderImage}
                 alt="Carro Trasero Derecho"
                 width={720}
                 height={405}
             />
             <Image
                 className="object-cover aspect-auto rounded-2xl w-full h-[405px]"
-                src={img7IntRad ?? CarPlaceholderImage}
+                src={imgInteriorRadio ?? CarPlaceholderImage}
                 alt="Carro Trasero Derecho"
                 width={720}
                 height={405}
             />
             <Image
                 className="object-cover aspect-auto rounded-2xl w-full h-[405px]"
-                src={img8IntSeatF ?? CarPlaceholderImage}
+                src={imgInteriorSeatF ?? CarPlaceholderImage}
                 alt="Carro Trasero Derecho"
                 width={720}
                 height={405}
             />
             <Image
                 className="object-cover aspect-auto rounded-2xl w-full h-[405px]"
-                src={img9IntSeatB ?? CarPlaceholderImage}
+                src={imgInteriorSeatR ?? CarPlaceholderImage}
                 alt="Carro Trasero Derecho"
                 width={720}
                 height={405}
             />
             <Image
                 className="object-cover aspect-auto rounded-2xl w-full h-[405px]"
-                src={img10IntTrun ?? CarPlaceholderImage}
+                src={imgInteriorTrunk ?? CarPlaceholderImage}
                 alt="Carro Trasero Derecho"
                 width={720}
                 height={405}
@@ -352,7 +398,7 @@ export default async function CarDetails({id}: CarDetailsProps) {
         </div>
         <div className='flex lg:hidden'>
             <Carousel
-                images={[img3RearL, imgRearC, img4RearR, img5IntDash, img6IntClust, img7IntRad, img8IntSeatF, img9IntSeatB, img10IntTrun]}
+                images={[imgBodyRL, imgBodyRC, imgBodyRR, imgInteriorDash, imgInteriorCluster, imgInteriorRadio, imgInteriorSeatF, imgInteriorSeatR, imgInteriorTrunk]}
                 model={model} showDots={true}/>
         </div>
     </section>);
