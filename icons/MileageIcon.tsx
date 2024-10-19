@@ -2,7 +2,7 @@ import type {HTMLAttributes} from "react";
 
 export const MileageIcon = (props: HTMLAttributes<HTMLOrSVGElement>) => {
     return (
-        <svg version="1.1" viewBox="0 0 2048 2048" width="20" height="20" xmlns="http://www.w3.org/2000/svg" {...props}>
+        <svg version="1.1" viewBox="0 0 2048 2048" width="40" height="40" xmlns="http://www.w3.org/2000/svg" {...props}>
             <path fill="#1E40AF" transform="translate(1,725)"
                   d="m0 0h2e3l20 1 10 4 9 8 6 10v554l-3 3-7 9-9 6-7 2-128 1h-1854l-15-1-10-4-9-8-6-10v-574zm66 65-2 1-1 466 1468 1 3-1v-467zm1535 0-1 1-1 14v452h65l-1-28v-19l2-25 4-24 6-23 6-17 9-20 10-17 10-13 9-10 8-8 13-9 17-9 14-4 17-2 18 1 15 4 16 7 12 8 13 11 8 8 13 18 9 16 8 17 7 20 7 28 3 20 1 12v58h64v-467h-62l-1 1-3 26-4 22-6 23-8 21-8 16-8 14-9 12-8 9v2h-2l-5 5-8 7-13 8-15 7-16 4-7 1h-18l-15-3-16-6-15-9-11-9-10-10-9-11-10-15-11-21-8-21-7-27-4-25-2-19-1-2zm128 0-1 1 1 15 5 26 8 24 11 21 7 9 5 6 11 8 6 3 5 1h7l10-3 10-7 5-4 10-13 10-19 5-13 6-23 4-26v-6zm60 303-9 2-10 6-11 11-10 15-8 17-6 18-4 16-3 23-1 14 1 25 2 17h121l2-10 1-10v-32l-3-24-4-18-7-21-8-16-7-11-9-10-7-6-8-4-8-2z"/>
             <path fill="#1E40AF" transform="translate(601,826)"
