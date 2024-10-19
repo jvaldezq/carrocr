@@ -227,14 +227,14 @@ export default async function CarDetails({id}: CarDetailsProps) {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div
-                className="flex flex-col items-center justify-center bg-tertiary w-full h-full rounded-2xl text-quaternary p-4">
+                className="flex flex-col items-center justify-center border-primary/[0.1] border border-solid shadow-sm w-full h-full rounded-2xl text-tertiary p-4">
                 <h1 className="text-2xl opacity-95 flex text-center">{make} {model} <strong
                     className='ml-1'>{year} </strong>
                 </h1>
                 <h1 className="text-xl  text-center">
                     {trim}
                 </h1>
-                <h1 className="text-3xl mt-4 rounded-2xl bg-quaternary text-tertiary px-4 py-2">{CRCFormatter(priceDollars)}</h1>
+                <h1 className="text-3xl mt-4 rounded-2xl text-tertiary border-primary/[0.1] border border-solid shadow-sm px-4 py-2">{CRCFormatter(priceDollars)}</h1>
             </div>
             <ContactInfo {...ContactInfoData}/>
         </div>
@@ -247,15 +247,15 @@ export default async function CarDetails({id}: CarDetailsProps) {
                 height={405}
             />
             <div
-                className="grid grid-cols-2 lg:grid-cols-3 gap-5 font-light lg:justify-items-center items-start md:items-center text-center bg-primary p-4 rounded-2xl text-quaternary">
+                className="grid grid-cols-2 lg:grid-cols-3 gap-4 font-light items-center text-center">
                 {baseArticles.map((article, index) => {
                     if (!article.value) return null;
                     return (<article key={index}
-                                     className={`flex flex-col gap-2 w-full justify-center items-center ${article?.className}`}>
-                        {article.icon}
-                        <p className="text-sm flex justify-center items-center gap-2">{article.title}
+                                     className={`flex flex-col gap-2 w-full h-full justify-center items-center border-primary/[0.1] border border-solid shadow-sm px-4 py-2 rounded-2xl transition-all hover:shadow-lg hover:scale-105 ${article?.className}`}>
+                            {article.icon}
+                        <p className="text-sm font-normal flex justify-center items-center gap-2 text-tertiary/[0.8]">{article.title}
                         </p>
-                        <h3 className="text-lg font-normal bg-quaternary text-primary px-4 py-2 rounded-2xl w-full">{article.value}</h3>
+                        <h3 className="text-md font-medium text-tertiary rounded-2xl w-full">{article.value}</h3>
                     </article>)
                 })}
             </div>
@@ -263,7 +263,7 @@ export default async function CarDetails({id}: CarDetailsProps) {
 
         <div className='flex flex-col-reverse md:grid md:grid-cols-2 gap-5'>
             <div
-                className="grid grid-cols-2 gap-5 font-light lg:justify-items-center items-start md:items-center text-center bg-tertiary p-4 rounded-2xl text-quaternary">
+                className="grid grid-cols-2 gap-5 font-light lg:justify-items-center items-start md:items-center text-center border-primary/[0.1] border border-solid shadow-sm p-4 rounded-2xl text-tertiary">
                 {generalArticles.map((article, index) => {
                     if (!article.value) return null;
                     return (<article key={index}
@@ -271,7 +271,7 @@ export default async function CarDetails({id}: CarDetailsProps) {
                         {article.icon}
                         <p className="text-sm flex justify-center items-center gap-2">{article.title}
                         </p>
-                        <h3 className="text-lg font-normal bg-quaternary text-tertiary px-4 py-2 rounded-2xl w-full">{article?.value}</h3>
+                        <h3 className="text-lg font-normal bg-tertiary text-secondary px-4 py-2 rounded-2xl w-full">{article?.value}</h3>
                     </article>)
                 })}
             </div>
@@ -293,7 +293,7 @@ export default async function CarDetails({id}: CarDetailsProps) {
                 height={405}
             />
             <div
-                className="grid grid-cols-2 lg:grid-cols-3 gap-5 font-light lg:justify-items-center items-start md:items-center text-center bg-primary p-4 rounded-2xl text-quaternary">
+                className="grid grid-cols-2 lg:grid-cols-3 gap-5 font-light lg:justify-items-center items-start md:items-center text-center border-primary/[0.1] border border-solid shadow-sm p-4 rounded-2xl text-primary">
                 {engineArticles.map((article, index) => {
                     if (!article.value) return null;
                     return (<article key={index}
@@ -301,7 +301,7 @@ export default async function CarDetails({id}: CarDetailsProps) {
                         {article.icon}
                         <p className="text-sm flex justify-center items-center gap-2">{article.title}
                         </p>
-                        <h3 className="text-lg font-normal bg-quaternary text-primary px-4 py-2 rounded-2xl w-full">{article?.value}</h3>
+                        <h3 className="text-lg font-normal text-secondary bg-primary px-4 py-2 rounded-2xl w-full">{article?.value}</h3>
                     </article>)
                 })}
             </div>
@@ -309,7 +309,7 @@ export default async function CarDetails({id}: CarDetailsProps) {
 
         <div className='flex flex-col-reverse md:grid md:grid-cols-2 gap-5'>
             <div
-                className="grid grid-cols-2 lg:grid-cols-3 gap-5 font-light lg:justify-items-center items-start md:items-center text-center bg-tertiary p-4 rounded-2xl text-quaternary">
+                className="grid grid-cols-2 lg:grid-cols-3 gap-5 font-light lg:justify-items-center items-start md:items-center text-center border-primary/[0.1] border border-solid p-4 rounded-2xl text-tertiary">
                 {dymentionsArticles.map((article, index) => {
                     if (!article.value) return null;
                     return (<article key={index}
@@ -317,7 +317,7 @@ export default async function CarDetails({id}: CarDetailsProps) {
                         {article.icon}
                         <p className="text-sm flex justify-center items-center gap-2">{article.title}
                         </p>
-                        <h3 className="text-lg font-normal bg-quaternary text-tertiary px-4 py-2 rounded-2xl w-full">{article?.value}</h3>
+                        <h3 className="text-lg font-normal bg-tertiary text-secondary px-4 py-2 rounded-2xl w-full">{article?.value}</h3>
                     </article>)
                 })}
             </div>

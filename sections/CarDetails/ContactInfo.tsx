@@ -28,7 +28,7 @@ export default async function ContactInfo(props: ContactInfoProps) {
                 width={80}
                 height={80}
             /> : <div
-                className='h-20 w-20 rounded-full font-semibold bg-primary/[0.5] text-white flex justify-center items-center'>
+                className='h-16 w-16 rounded-full font-semibold bg-tertiary text-white flex justify-center items-center'>
                 {contactName.split(' ')
                     .map(word => word[0].toUpperCase())
                     .join('')}
