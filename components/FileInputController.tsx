@@ -1,8 +1,8 @@
 'use client';
 import {ValidationRule} from "react-hook-form";
 import {cn} from "@/lib/utils";
-import {ChangeEvent, DragEvent, useMemo, useState} from "react";
-import {FilesProps} from "@/sections/CarEntry/StepTwo";
+import {DragEvent, useMemo, useState} from "react";
+// import {FilesProps} from "@/sections/CarEntry/StepTwo";
 import Image from "next/image";
 import {CloudIcon} from "@/icons/CloudIcon";
 
@@ -13,12 +13,12 @@ interface FileInputControllerProps {
     show?: boolean;
     label?: string;
     className?: string;
-    onChange: (e: ChangeEvent<HTMLInputElement>, name: keyof FilesProps) => void;
+    // onChange: (e: ChangeEvent<HTMLInputElement>, name: keyof FilesProps) => void;
     file?: Blob | MediaSource;
 }
 
 export const FileInputController = (props: FileInputControllerProps) => {
-    const {name, onChange, rules, show = true, label, className, file} = props;
+    const {name, rules, show = true, label, className, file} = props;
     const isRequired = rules?.required;
     const [isDragging, setIsDragging] = useState(false);
 
@@ -35,7 +35,7 @@ export const FileInputController = (props: FileInputControllerProps) => {
         e.preventDefault();
         setIsDragging(false);
         if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-            onChange({target: {files: e.dataTransfer.files}} as ChangeEvent<HTMLInputElement>, name as keyof FilesProps);
+            // onChange({target: {files: e.dataTransfer.files}} as ChangeEvent<HTMLInputElement>, name as keyof FilesProps);
         }
     };
 
@@ -88,8 +88,8 @@ export const FileInputController = (props: FileInputControllerProps) => {
                         <p className="mb-2 text-sm text-tertiary"><span
                             className="font-semibold">Haz clic para subir</span> o arrastra y suelta</p>
                     </div>
-                    <input id={`dropzone-file-${name}`} type="file" className="hidden" name={name}
-                           onChange={(e) => onChange(e, name as keyof FilesProps)} accept="image/*"/>
+                    {/*<input id={`dropzone-file-${name}`} type="file" className="hidden" name={name}*/}
+                    {/*       onChange={(e) => onChange(e, name as keyof FilesProps)} accept="image/*"/>*/}
                 </label>
             </div>}
 

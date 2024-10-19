@@ -1,7 +1,6 @@
 import {ProfileOutlineIcon} from "@/icons/ProfileOutlineIcon";
 import {MenuOutlineIcon} from "@/icons/MenuOutlineIcon";
 import {ProfileMenuDrawer} from "@/components/ProfileMenuDrawer";
-import LogInDialog from "@/sections/LogInDialog/LogInDialog";
 
 export const ProfileMenu = () => {
     return <section>
@@ -12,6 +11,5 @@ export const ProfileMenu = () => {
                 <ProfileOutlineIcon/>
             </div>
         </ProfileMenuDrawer>
-        <LogInDialog/>
     </section>
 }

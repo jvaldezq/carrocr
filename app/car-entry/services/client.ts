@@ -1,6 +1,6 @@
 import {useMutation, useQuery} from '@tanstack/react-query';
 import {clientApi} from "@/lib/clientApi";
-import {CreateCarInputs} from "@/sections/CarEntry/CreateCar";
+import {CreateCarFormProps} from "@/app/car-entry/forms/CreateCarForm";
 
 interface MakesResult {
     id: number;
@@ -11,11 +11,6 @@ interface MakesResult {
 export const fetchMakes = async (): Promise<MakesResult[]> => {
     const makes = await clientApi.get('/makes');
     return makes.data;
-};
-
-export const fetchTypeBodies = async (): Promise<MakesResult[]> => {
-    const response = await clientApi.get('/body');
-    return response.data;
 };
 
 export const fetchModels = async (makeid: number): Promise<MakesResult[]> => {
@@ -36,7 +31,7 @@ export const fetchTrims = async (modelId: number): Promise<MakesResult[]> => {
     return trim.data;
 };
 
-export const createListing = async (data: CreateCarInputs): Promise<MakesResult[]> => {
+export const createListing = async (data: CreateCarFormProps): Promise<MakesResult[]> => {
     const newListing = await clientApi.post('/listing/create/s1', data);
     return newListing.data;
 };
@@ -47,19 +42,8 @@ export const useGetMakes = () => {
     });
 };
 
-export const useGetTypeBodies = () => {
-    const {data, isLoading} = useQuery({
-        queryKey: ["typeBody"], queryFn: fetchTypeBodies, staleTime: 1000 * 60 * 60 * 24, retry: 2,
-    });
-    return {
-        data: data?.map((make) => ({
-            value: make.name, label: make.name, id: make.id
-        })), isLoading
-    }
-};
-
 export const useGetModels = (makeid: number) => {
-    const {data, isLoading} = useQuery({
+    return useQuery({
         queryKey: ["models", makeid],
         enabled: !!makeid,
         queryFn: () => fetchModels(makeid),
@@ -67,15 +51,10 @@ export const useGetModels = (makeid: number) => {
         retry: 2,
         refetchOnReconnect: false,
     });
-    return {
-        data: data?.map((make) => ({
-            value: make.name, label: make.name, id: make.value
-        })), isLoading
-    }
 }
 
 export const useGetTrims = (modelId: number) => {
-    const {data, isLoading} = useQuery({
+    return useQuery({
         queryKey: ["trims", modelId],
         enabled: !!modelId,
         queryFn: () => fetchTrims(modelId),
@@ -83,19 +62,12 @@ export const useGetTrims = (modelId: number) => {
         retry: 2,
         refetchOnReconnect: false,
     });
-
-    return {
-        data: data?.map((make) => ({
-            value: make.name, label: make.name, id: make.value
-        })), isLoading
-    }
 }
 
 export const useCreateMutation = () => {
     return useMutation({
-        mutationFn: (data: CreateCarInputs) => {
+        mutationFn: (data: CreateCarFormProps) => {
             return createListing(data);
-        },
-        mutationKey: ['listing-create'],
+        }, mutationKey: ['listing-create'],
     });
 };

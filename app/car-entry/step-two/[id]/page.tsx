@@ -1,5 +1,5 @@
 import type {Metadata} from "next";
-import StepTwo from "@/sections/CarEntry/StepTwo";
+// import StepTwo from "@/sections/CarEntry/StepTwo";
 
 export const metadata: Metadata = {
     title: 'Carro CR - Agregar auto',
@@ -8,6 +8,6 @@ export const metadata: Metadata = {
 
 export default function Create() {
     return (<main className="h-full min-h-dvh pt-20">
-        <StepTwo/>
+        {/*<StepTwo/>*/}
     </main>);
 }

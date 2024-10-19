@@ -1,6 +1,5 @@
 import LogoImage from '@/assets/carrocr-logo.webp';
 import Image from 'next/image'
-import {Search} from "@/components/Header/Search";
 import {ProfileMenu} from "@/components/Header/ProfileMenu";
 import Link from 'next/link';
 
@@ -12,7 +11,7 @@ export const Header = () => {
                 <Image className="flex aspect-auto object-cover" src={LogoImage} alt="Carro CR Logo"
                        priority={true}/>
             </Link>
-            <Search/>
+            {/*<Search/>*/}
             <ProfileMenu/>
         </header>
     )

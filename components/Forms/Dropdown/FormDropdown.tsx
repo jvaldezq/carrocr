@@ -1,4 +1,4 @@
-import {InputHTMLAttributes, useState} from "react";
+import {ForwardedRef, forwardRef, InputHTMLAttributes, useState} from "react";
 import {InputWrapper, InputWrapperProps} from "@/components/Forms/InputWrapper";
 import {CombinedInputProps} from "@/components/Forms/types";
 import {Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList,} from "@/components/ui/command"
@@ -14,11 +14,12 @@ interface IProps extends CombinedInputProps<string>, Omit<InputWrapperProps, 'ch
     }[];
     isLoading?: boolean;
     disabled?: boolean;
+    onFilter?: (value: string, key: string) => void;
+    secondaryAction?: React.ReactNode;
 }
 
-export const FormDropdown = (props: IProps) => {
+export const FormDropdown = forwardRef((props: IProps, ref: ForwardedRef<HTMLInputElement>) => {
     const {
-        className,
         label,
         labelClassName,
         labelPosition,
@@ -32,10 +33,10 @@ export const FormDropdown = (props: IProps) => {
         options,
         isLoading,
         disabled,
-        ...rest
+        onFilter,
+        secondaryAction,
     } = props;
     const [open, setOpen] = useState(false)
-    const [search, setSearch] = useState('')
     const {onChange, value} = input;
     const isDesktop = useMediaQuery("(min-width: 768px)")
     const valueLabel = options?.find(option => option?.id == value)?.name
@@ -52,25 +53,28 @@ export const FormDropdown = (props: IProps) => {
         {isDesktop ? <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
                 {isLoading ? <InputLoader/> : <Button disabled={disabled} variant="outline"
-                                                      className="w-full justify-start text-tertiary text-xs overflow-hidden">
+                                                      className="w-full justify-between text-tertiary text-xs overflow-hidden">
                     {valueLabel ? valueLabel : placeholder}
+                    {secondaryAction}
                 </Button>}
 
             </PopoverTrigger>
             <PopoverContent className="w-fit p-0" align="start">
                 <Command>
-                    <CommandInput placeholder="Estado del filtro..." onValueChange={setSearch}/>
+                    <CommandInput placeholder="Estado del filtro..." ref={ref}/>
                     <CommandList>
                         <CommandEmpty
-                            className='flex justify-center items-center gap-2 py-2 text-sm text-tertiary'>No se
-                            encontraron resultados.</CommandEmpty>
+                            className='flex justify-center items-center gap-2 py-2 text-sm text-tertiary'>Sin
+                            resultados</CommandEmpty>
                         <CommandGroup>
                             {options?.map((option) => (<CommandItem
+                                className="cursor-pointer"
                                 key={option.id}
-                                value={`${option.id}`}
-                                onSelect={(value) => {
-                                    onChange(value);
-                                    setOpen(false)
+                                value={option.name}
+                                onSelect={() => {
+                                    onChange(option.id);
+                                    setOpen(false);
+                                    onFilter && onFilter(option.id, name);
                                 }}
                             >
                                 {option.name}
@@ -89,18 +93,19 @@ export const FormDropdown = (props: IProps) => {
             <DrawerContent>
                 <div className="mt-4 border-t">
                     <Command>
-                        <CommandInput placeholder="Estado del filtro..." onValueChange={setSearch}/>
+                        <CommandInput placeholder="Estado del filtro..." ref={ref}/>
                         <CommandList>
                             <CommandEmpty
-                                className='flex justify-center items-center gap-2 py-2 text-sm text-tertiary'>No se
-                                encontraron resultados.</CommandEmpty>
+                                className='flex justify-center items-center gap-2 py-2 text-sm text-tertiary'>Sin
+                                resultados</CommandEmpty>
                             <CommandGroup>
                                 {options?.map((option) => (<CommandItem
                                     key={option.id}
-                                    value={`${option.id}`}
-                                    onSelect={(value) => {
-                                        onChange(value);
-                                        setOpen(false)
+                                    value={option.name}
+                                    onSelect={() => {
+                                        onChange(option.id);
+                                        setOpen(false);
+                                        onFilter && onFilter(option.id, name);
                                     }}
                                 >
                                     {option.name}
@@ -111,6 +116,7 @@ export const FormDropdown = (props: IProps) => {
                 </div>
             </DrawerContent>
         </Drawer>}
-
     </InputWrapper>
-}
+});
+
+FormDropdown.displayName = 'FormDropdown';
