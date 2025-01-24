@@ -18,7 +18,7 @@ const BENEFITS_DATA = [
         class: 'text-oldBrick bg-oldBrick/[0.2]'
     }
 ];
-export const Benefits = () => {
+export const Benefits2 = () => {
     return (
         <section id='benefits' className='max-w-screen-3xl mx-auto px-4 mt-16'>
             <h2 className="text-tertiary font-light text-sm">BENEFICIOS</h2>

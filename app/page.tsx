@@ -2,8 +2,9 @@ import TopCars from "@/sections/TopCars/TopCars";
 import {Suspense} from "react";
 import {TopCarsSkeleton} from "@/sections/TopCars/TopCarsSkeleton";
 import CarDialog from "@/sections/CarDialog/CarDialog";
-import {Benefits} from "@/sections/Benefits";
 import {Metadata} from "next";
+import Hero from "@/components/Hero";
+import Benefits from "@/components/Benefits";
 
 export const metadata: Metadata = {
     title: 'Carro CR - Home',
@@ -13,6 +14,7 @@ export const metadata: Metadata = {
 export default function Home() {
     return (
         <main className="min-h-dvh pt-20">
+            <Hero/>
             <Suspense fallback={<TopCarsSkeleton/>}>
                 <TopCars/>
             </Suspense>

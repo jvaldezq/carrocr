@@ -1,5 +1,6 @@
 "use client";
-import Link from 'next/link';
+import React from 'react';
+import {Car, Facebook, Instagram, Mail, Twitter} from 'lucide-react';
 import {usePathname} from "next/navigation";
 
 export const Footer = () => {
@@ -11,25 +12,59 @@ export const Footer = () => {
     }
 
     return (
-        <footer className="border-t w-full flex">
-            <div
-                className="container max-w-7xl px-4 py-4 mt-2 mx-auto flex flex-col items-center sm:flex-row sm:justify-between">
-                <div className="flex flex-col items-center sm:items-start space-y-2">
-                    <Link key='Home' href="/" className="text-lg font-semibold text-primary" prefetch={false}>
-                        Carro CR
-                    </Link>
-                    <p className="text-sm text-muted-foreground text-tertiary">&copy; 2024 Carrocr. Reservados todos los
-                        derechos.</p>
+        <footer className="bg-tertiary text-white">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+                    <div>
+                        <div className="flex items-center">
+                            <Car className="h-8 w-8" />
+                            <span className="ml-2 text-xl font-bold">AutoFinder</span>
+                        </div>
+                        <p className="mt-4 text-sm text-gray-300">
+                            Your trusted platform for finding quality used cars in your area.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
+                        <ul className="space-y-2">
+                            <li><a href="#" className="text-gray-300 hover:text-white">Home</a></li>
+                            <li><a href="#" className="text-gray-300 hover:text-white">About Us</a></li>
+                            <li><a href="#" className="text-gray-300 hover:text-white">Cars</a></li>
+                            <li><a href="#" className="text-gray-300 hover:text-white">Contact</a></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 className="text-lg font-semibold mb-4">Contact Us</h3>
+                        <ul className="space-y-2">
+                            <li className="flex items-center">
+                                <Mail className="h-5 w-5 mr-2" />
+                                <a href="mailto:info@autofinder.com" className="text-gray-300 hover:text-white">
+                                    info@autofinder.com
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 className="text-lg font-semibold mb-4">Follow Us</h3>
+                        <div className="flex space-x-4">
+                            <a href="#" className="text-gray-300 hover:text-white">
+                                <Facebook className="h-6 w-6" />
+                            </a>
+                            <a href="#" className="text-gray-300 hover:text-white">
+                                <Twitter className="h-6 w-6" />
+                            </a>
+                            <a href="#" className="text-gray-300 hover:text-white">
+                                <Instagram className="h-6 w-6" />
+                            </a>
+                        </div>
+                    </div>
                 </div>
-                <div className="flex items-center space-x-4 mt-4 sm:mt-0 text-tertiary">
-                    <Link href="/privacy-policy" className="text-sm text-muted-foreground hover:underline"
-                          prefetch={false}>
-                        Política de privacidad
-                    </Link>
-                    <Link href="/terms-and-conditions" className="text-sm text-muted-foreground hover:underline"
-                          prefetch={false}>
-                        Términos de servicio
-                    </Link>
+
+                <div className="mt-8 pt-8 border-t border-gray-700 text-center text-sm text-gray-300">
+                    <p>&copy; {new Date().getFullYear()} AutoFinder. All rights reserved.</p>
                 </div>
             </div>
         </footer>

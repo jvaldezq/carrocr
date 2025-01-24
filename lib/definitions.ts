@@ -40,6 +40,12 @@ export interface Car {
     inspectionYear: string;
     restrictionDay: string;
     comments: string;
+    location: Location;
+}
+
+export interface  Location {
+    city: string;
+    state: string;
 }
 
 export interface FactorySpecification {

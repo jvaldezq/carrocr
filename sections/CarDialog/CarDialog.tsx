@@ -12,6 +12,7 @@ function CarDialogContent() {
     const $previewConfig = useStore(previewConfig);
 
     const {data, isLoading} = useGetCar($previewConfig?.id || 0);
+    console.log('data', data);
 
     const onClose = useCallback(() => {
         previewConfig.set({id: null});
