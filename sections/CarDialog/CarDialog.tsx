@@ -21,7 +21,7 @@ function CarDialogContent() {
     return (
         <Dialog open={!!$previewConfig.id} onOpenChange={onClose}>
             <DialogContent
-                className="max-w-[95%] h-fit lg:max-w-[850px] max-h-[90%] overflow-scroll dark:bg-white color-primary rounded-2xl"
+                className="max-w-[95%] h-fit lg:max-w-[850px] max-h-[90%] overflow-scroll dark:bg-white color-primary rounded-2xl p-0"
             >
                 {isLoading && <CarDialogDetailsSkeleton/>}
                 {data && <CarDialogDetails {...data}/>}

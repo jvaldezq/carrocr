@@ -12,10 +12,11 @@ interface Props extends Omit<HTMLAttributes<HTMLDivElement>, "id"> {
     id?: number;
     showDots?: boolean;
     showIcon?: boolean;
+    rounded?: boolean;
 }
 
 export const Carousel = (props: Props) => {
-    const {images, model, id, showDots = false, showIcon = false, ...rest} = props;
+    const {images, model, id, showDots = false, showIcon = false, rounded = true, ...rest} = props;
     const [api, setApi] = useState<CarouselApi>()
     const [current, setCurrent] = useState(0)
     const [count, setCount] = useState(0)
@@ -39,7 +40,7 @@ export const Carousel = (props: Props) => {
             {data?.map((image, index) => {
                 return (<CarouselItem key={index} className='relative'>
                     <Image
-                        className="rounded-2xl aspect-video object-cover w-full h-full"
+                        className={`aspect-video object-cover w-full h-full ${rounded ? 'rounded-2xl' : ''}`}
                         src={image}
                         width={800}
                         height={450}

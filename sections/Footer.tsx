@@ -18,7 +18,7 @@ export const Footer = () => {
                     <div>
                         <div className="flex items-center">
                             <Car className="h-8 w-8" />
-                            <span className="ml-2 text-xl font-bold">AutoFinder</span>
+                            <span className="ml-2 text-xl font-bold">CARROCR</span>
                         </div>
                         <p className="mt-4 text-sm text-gray-300">
                             Your trusted platform for finding quality used cars in your area.

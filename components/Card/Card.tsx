@@ -13,11 +13,12 @@ export default function Card(props: Car) {
         priceDollars,
         mileage,
         acctVerified,
-        location,
+        state,
+        city,
     } = props;
 
     return (
-        <div className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer relative"
+        <div className="bg-white animate-fade animate-once animate-duration-700 animate-delay-0 rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer relative"
              id={`car-${id}`}>
             <div className="relative aspect-[16/9]">
                 <img
@@ -53,7 +54,7 @@ export default function Card(props: Car) {
                     </div>
                     <div className="flex items-center text-sm text-tertiary">
                         <MapPin className="h-4 w-4 mr-2"/>
-                        {`${location?.city}, ${location?.state}`}
+                        {`${city}, ${state}`}
                     </div>
                 </div>
             </div>
