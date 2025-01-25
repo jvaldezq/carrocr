@@ -4,7 +4,7 @@ import CarPlaceholderImage from "@/assets/car-placeholder.webp";
 import {useUser} from "@auth0/nextjs-auth0/client";
 import {Carousel} from "@/components/Carousel";
 import {Activity, ArrowRight, CircleDollarSign, ReceiptText, Settings} from 'lucide-react';
-import {CRCFormatter, NumberFormatter} from "@/lib/NumberFormats";
+import {MoneyFormatter, NumberFormatter} from "@/lib/NumberFormats";
 import Link from "next/link";
 import {previewConfig} from "@/store/previewStore";
 
@@ -15,7 +15,8 @@ export default function CarDialogDetails(props: Car) {
         thumbnail = CarPlaceholderImage.src,
         images,
         year,
-        priceDollars,
+        price,
+        currency,
         id,
         transType,
         trim,
@@ -76,7 +77,7 @@ export default function CarDialogDetails(props: Car) {
                             <CircleDollarSign className="h-5 w-5 text-primary"/>
                             <div>
                                 <p className="text-sm text-tertiary">Precio</p>
-                                <p className="font-medium">{CRCFormatter(priceDollars)}</p>
+                                <p className="font-medium">{MoneyFormatter(price, currency)}</p>
                             </div>
                         </div>
                     </div>

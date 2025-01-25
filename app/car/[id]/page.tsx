@@ -15,7 +15,6 @@ export async function generateMetadata(
     // read route params
     const id = params.id
     const data = await fetchCarById(id);
-    console.log('data', data);
 
     const {
         year,

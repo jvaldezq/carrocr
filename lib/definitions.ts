@@ -1,12 +1,13 @@
+import {CURRENCIES} from "@/lib/NumberFormats";
+
 export interface Car {
     id: number;
     condition: string;
     trim: string;
     model: string;
     make: string;
-    priceDollars: number;
-    priceColones: number;
-    priceExchange: number;
+    price: number;
+    currency: CURRENCIES;
     year: number;
     mileage: number;
     thumbnail: string;

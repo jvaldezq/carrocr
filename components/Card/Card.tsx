@@ -1,6 +1,6 @@
 import type {Car} from "@/lib/definitions";
 import {ArrowRight, Calendar, MapPin, ShieldCheck} from 'lucide-react';
-import {CRCFormatter} from "@/lib/NumberFormats";
+import {MoneyFormatter} from "@/lib/NumberFormats";
 import CardTrigger from "@/components/Card/CardTrigger";
 import Link from "next/link";
 import Image from "next/image";
@@ -12,7 +12,8 @@ export default function Card(props: Car) {
         thumbnail,
         make,
         year,
-        priceDollars,
+        price,
+        currency,
         acctVerified,
         state,
     } = props;
@@ -39,12 +40,14 @@ export default function Card(props: Car) {
 
             <div className="p-4">
                 <div className="flex justify-between gap-2">
-                    <h3 className="text-lg font-semibold text-tertiary">{`${make} ${model}`}</h3>
+                    <h3 className="text-lg font-semibold text-tertiary">{`${make} ${model}`}
+                        {/*<span className="text-primary text-sm">{trim}</span>*/}
+                    </h3>
                 </div>
 
                 <div className="mt-2 space-y-2">
                     <div className="flex items-center text-sm font-semibold text-primary">
-                        {CRCFormatter(priceDollars)}
+                        {MoneyFormatter(price, currency)}
                     </div>
                     <div className="flex items-center text-sm text-tertiary">
                         <Calendar className="h-4 w-4 mr-2"/>

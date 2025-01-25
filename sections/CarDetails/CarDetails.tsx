@@ -1,7 +1,7 @@
 import {fetchCarById} from "@/sections/CarDetails/service";
 import Image from 'next/image'
 import {Carousel} from "@/components/Carousel";
-import {CRCFormatter, NumberFormatter} from "@/lib/NumberFormats";
+import {MoneyFormatter, NumberFormatter} from "@/lib/NumberFormats";
 import CarPlaceholderImage from "@/assets/car-placeholder.webp";
 import ContactInfo from "@/sections/CarDetails/ContactInfo";
 import {QualificationIcon} from "@/icons/QualificationIcon";
@@ -56,7 +56,8 @@ export default async function CarDetails({id}: CarDetailsProps) {
     const data = await fetchCarById(id);
     const {
         model,
-        priceDollars,
+        price,
+        currency,
         mileage,
         fuelType,
         make,
@@ -234,7 +235,7 @@ export default async function CarDetails({id}: CarDetailsProps) {
                 <h1 className="text-xl  text-center">
                     {trim}
                 </h1>
-                <h1 className="text-3xl mt-4 rounded-2xl text-tertiary border-primary/[0.1] border border-solid shadow-sm px-4 py-2">{CRCFormatter(priceDollars)}</h1>
+                <h1 className="text-3xl mt-4 rounded-2xl text-tertiary border-primary/[0.1] border border-solid shadow-sm px-4 py-2">{MoneyFormatter(price, currency)}</h1>
             </div>
             <ContactInfo {...ContactInfoData}/>
         </div>

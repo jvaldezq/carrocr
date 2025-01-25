@@ -1,16 +1,24 @@
-export const USDFormatter = (number: number) => {
-    const options = {style: "currency", currency: "USD"};
-    const formatter = new Intl.NumberFormat("en-US", options);
-    return formatter.format(number);
+export enum CURRENCIES {
+    CRC = 'CRC',
+    USD = 'USD',
+}
+
+export const LOCALES: Record<CURRENCIES, string> = {
+    [CURRENCIES.CRC]: 'es-CR',
+    [CURRENCIES.USD]: 'en-US',
 };
 
-export const CRCFormatter = (number: number) => {
-    const options = {style: "currency", currency: "CRC"};
-    const formatter = new Intl.NumberFormat("es-CR", options);
-    return formatter.format(number);
+const currencyFormatters: Record<CURRENCIES, Intl.NumberFormat> = {
+    [CURRENCIES.CRC]: new Intl.NumberFormat(LOCALES[CURRENCIES.CRC], { style: "currency", currency: CURRENCIES.CRC }),
+    [CURRENCIES.USD]: new Intl.NumberFormat(LOCALES[CURRENCIES.USD], { style: "currency", currency: CURRENCIES.USD }),
 };
 
-export const NumberFormatter = (number: number) => {
-    const formatter = new Intl.NumberFormat();
-    return formatter.format(number);
+export const MoneyFormatter = (number: number, currency: CURRENCIES = CURRENCIES.CRC): string => {
+    return currencyFormatters[currency].format(number);
+};
+
+const numberFormatter = new Intl.NumberFormat();
+
+export const NumberFormatter = (number: number): string => {
+    return numberFormatter.format(number);
 };
