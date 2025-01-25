@@ -3,8 +3,9 @@ import {Car} from "@/lib/definitions";
 import CarPlaceholderImage from "@/assets/car-placeholder.webp";
 import {useUser} from "@auth0/nextjs-auth0/client";
 import {Carousel} from "@/components/Carousel";
-import {Activity, CircleDollarSign, ReceiptText, Settings} from 'lucide-react';
-import {CRCFormatter} from "@/lib/NumberFormats";
+import {Activity, CircleDollarSign, LayoutTemplate, ReceiptText, Settings} from 'lucide-react';
+import {CRCFormatter, NumberFormatter} from "@/lib/NumberFormats";
+import Link from "next/link";
 
 // TODO need to integrate this
 const ContactInfoData = {
@@ -26,9 +27,7 @@ export default function CarDialogDetails(props: Car) {
         year,
         priceDollars,
         id,
-        fuelType,
         transType,
-        acctVerified,
         trim,
         condition,
         mileage,
@@ -40,7 +39,7 @@ export default function CarDialogDetails(props: Car) {
     return (
         <div className="overflow-y-auto">
             {/* Header */}
-            <div className="flex flex-col px-4 pt-4 border-b">
+            <div className="flex flex-col p-4 border-b">
                 <h2 className="text-2xl font-bold text-tertiary">
                     {make} {model}
                     <span className="text-sm font-light">{year}</span>
@@ -52,7 +51,7 @@ export default function CarDialogDetails(props: Car) {
             <Carousel images={[thumbnail, ...images]} model={model} rounded={false} showDots={true}/>
 
             {/* Car Details */}
-            <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="p-4 grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-4">
                     <h3 className="text-lg font-semibold text-tertiary">
                         Vehicle Details
@@ -71,7 +70,7 @@ export default function CarDialogDetails(props: Car) {
                             <Activity className="h-5 w-5 text-primary"/>
                             <div>
                                 <p className="text-sm text-tertiary">Mileage</p>
-                                <p className="font-medium">{mileage.toLocaleString()} km</p>
+                                <p className="font-medium">{NumberFormatter(mileage)} km</p>
                             </div>
                         </div>
 
@@ -94,37 +93,12 @@ export default function CarDialogDetails(props: Car) {
                 </div>
 
                 <div className="space-y-4">
-                    <h3 className="text-lg font-semibold text-tertiary">
-                        Seller Information
-                    </h3>
-                    {/*<div*/}
-                    {/*    className="text-tertiary rounded-xl bg-primary/[0.07] p-3 w-fit relative flex justify-center items-center">*/}
-                    {/*    <div className={`flex gap-2 self-start items-center ${isBlurred}`}>*/}
-                    {/*        {ContactInfoData.thumbnail ? <Image*/}
-                    {/*            className="object-cover aspect-auto rounded-full"*/}
-                    {/*            src={ContactInfoData.thumbnail}*/}
-                    {/*            alt="Imagen de perfil"*/}
-                    {/*            width={40}*/}
-                    {/*            height={40}*/}
-                    {/*        /> : <div*/}
-                    {/*            className='h-20 w-20 rounded-full font-semibold bg-primary/[0.5] text-white flex justify-center items-center'>*/}
-                    {/*            {ContactInfoData.contactName.split(' ')*/}
-                    {/*                .map(word => word[0].toUpperCase())*/}
-                    {/*                .join('')}*/}
-                    {/*        </div>}*/}
-                    {/*        <div>*/}
-                    {/*            <h4 className='font-medium text-base'>{isBlurred ? "No disponible" : ContactInfoData.contactName}</h4>*/}
-                    {/*            {acctVerified &&*/}
-                    {/*                <h4 className="font-medium text-xs text-info">{isBlurred ? 'No disponible' : 'Verificado'}</h4>}*/}
-                    {/*        </div>*/}
-                    {/*    </div>*/}
-                    {/*    {*/}
-                    {/*        isBlurred &&*/}
-                    {/*        <Link key="login" href="/api/auth/login" className="absolute text-primary font-semibold">*/}
-                    {/*            Iniciar sesión*/}
-                    {/*        </Link>*/}
-                    {/*    }*/}
-                    {/*</div>*/}
+                    <Link key={id} href={`/car/${id}`}
+                          className="w-full h-full bg-primary text-white flex flex-col gap-2 items-center
+                   px-2 py-1 rounded-lg font-medium justify-center">
+                        <LayoutTemplate className="h-10 w-10"/>
+                        Mas detalles
+                    </Link>
                 </div>
             </div>
         </div>)
