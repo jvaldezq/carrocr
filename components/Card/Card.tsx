@@ -1,8 +1,9 @@
 import type {Car} from "@/lib/definitions";
-import {Calendar, LayoutTemplate, MapPin, ShieldCheck} from 'lucide-react';
+import {ArrowRight, Calendar, MapPin, ShieldCheck} from 'lucide-react';
 import {CRCFormatter} from "@/lib/NumberFormats";
 import CardTrigger from "@/components/Card/CardTrigger";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Card(props: Car) {
     const {
@@ -12,20 +13,20 @@ export default function Card(props: Car) {
         make,
         year,
         priceDollars,
-        mileage,
         acctVerified,
         state,
-        city,
     } = props;
 
     return (
         <div className="bg-white animate-fade animate-once animate-duration-700 animate-delay-0 rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer relative"
              id={`car-${id}`}>
             <div className="relative aspect-[16/9]">
-                <img
+                <Image
                     src={thumbnail}
                     alt={`${make} ${model}`}
                     className="w-full h-full object-cover rounded-t-lg"
+                    width={620}
+                    height={350}
                 />
                 {
                     acctVerified &&
@@ -52,12 +53,12 @@ export default function Card(props: Car) {
                     <div className="flex w-full gap-1 items-center justify-between text-sm text-tertiary">
                         <div className="flex">
                             <MapPin className="h-4 w-4 mr-2"/>
-                            {`${city}, ${state}`}
+                            {state}
                         </div>
                         <div className="flex gap-1">
                             <Link key={id} href={`/car/${id}`}
                                   className="border border-primary text-primary px-2 py-1 rounded-lg text-sm flex items-center z-40 transition-all hover:scale-110">
-                                <LayoutTemplate className="h-4 w-4"/>
+                                <ArrowRight className="h-4 w-4"/>
                             </Link>
                         </div>
                     </div>
@@ -65,22 +66,5 @@ export default function Card(props: Car) {
             </div>
             <CardTrigger id={+id}/>
         </div>
-        // <article
-        //     className="animate-fade animate-once animate-duration-700 animate-delay-0 cursor-pointer relative"
-        //     id={`car-${id}`}
-        // >
-        //     <Carousel images={[thumbnail, ...images]} model={model} id={+id} showIcon={true}/>
-        //     <div className="mt-2 grid grid-cols-2 text-tertiary relative">
-        //         <p className="text-sm opacity-95 flex col-span-full">{make} {model} <strong
-        //             className='ml-1'>{year}</strong> {acctVerified &&
-        //             <VerifiedIcon/>}</p>
-        //         {trim &&
-        //             <h1 className="text-sm font-medium opacity-95 text-balance col-span-full">{trim}</h1>}
-        //         {transType && <p className="text-sm opacity-95 col-span-full">{transType}</p>}
-        //         {mileage > 0 && <p className="text-sm opacity-95">{NumberFormatter(mileage)}km</p>}
-        //         {priceDollars && <h1 className="text-base font-semibold text-right">{CRCFormatter(priceDollars)}</h1>}
-        //         <CardTrigger id={+id}/>
-        //     </div>
-        // </article>
     );
 };

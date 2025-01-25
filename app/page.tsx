@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 export default function Home() {
     return (
-        <main className="min-h-dvh pt-20">
+        <main className="min-h-dvh pt-[60px]">
             <Hero/>
             <Suspense fallback={<TopCarsSkeleton/>}>
                 <TopCars/>

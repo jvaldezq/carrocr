@@ -21,7 +21,7 @@ export const Footer = () => {
                             <span className="ml-2 text-xl font-bold">CARROCR</span>
                         </div>
                         <p className="mt-4 text-sm text-gray-300">
-                            Your trusted platform for finding quality used cars in your area.
+                            Su plataforma de confianza para encontrar autos usados de calidad en su área. Con anuncios rigurosamente verificados.
                         </p>
                     </div>
 

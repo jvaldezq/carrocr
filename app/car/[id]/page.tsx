@@ -36,7 +36,7 @@ export async function generateMetadata(
 
 export default function Car({params}: CarProps) {
     return (
-        <main className="min-h-dvh max-w-screen-2xl mx-auto px-4 pt-20">
+        <main className="min-h-dvh max-w-screen-2xl mx-auto px-2 pt-20">
             <Suspense fallback={<CarDetailsSkeleton/>}>
                 <CarDetails id={params.id}/>
             </Suspense>

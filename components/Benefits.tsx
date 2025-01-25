@@ -5,31 +5,31 @@ export default function Benefits() {
     const benefits = [
         {
             icon: Shield,
-            title: 'Verified Listings',
-            description: 'All our listings are thoroughly verified for your peace of mind',
+            title: 'Anuncios verificados',
+            description: 'Todos los anuncios son rigurosamente verificados, asegurando su calidad y autenticidad.',
         },
         {
             icon: ThumbsUp,
-            title: 'Quality Guaranteed',
-            description: 'Every car meets our strict quality standards',
+            title: 'Calidad garantizada',
+            description: 'Cada anuncio cumple con nuestros estrictos estándares de calidad.',
         },
         {
             icon: Clock,
-            title: 'Quick Process',
-            description: 'Find and purchase your car in record time',
+            title: 'Proceso rápido',
+            description: 'Encuentra y contacta con el propietario en tiempo récord',
         },
         {
             icon: HeartHandshake,
-            title: 'Trusted Sellers',
-            description: 'Connect with reliable and verified sellers',
+            title: 'Vendedores de confianza',
+            description: 'Conéctese con vendedores confiables y verificados',
         },
     ];
 
     return (
-        <div className="bg-secondary py-16">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="py-16">
+            <div className="px-2">
                 <h2 className="text-3xl font-bold text-center text-tertiary mb-12">
-                    Why Choose Us
+                    ¿Por qué elegirnos?
                 </h2>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -39,7 +39,7 @@ export default function Benefits() {
                             className="text-center p-6 bg-white rounded-lg shadow-md"
                         >
                             <div className="inline-flex items-center justify-center w-12 h-12 bg-primary rounded-full mb-4">
-                                <benefit.icon className="h-6 w-6 text-white" />
+                                <benefit.icon className="h-6 w-6 text-secondary" />
                             </div>
                             <h3 className="text-lg font-semibold text-tertiary mb-2">
                                 {benefit.title}
