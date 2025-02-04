@@ -225,7 +225,7 @@ export default async function CarDetails({id}: CarDetailsProps) {
 
                         <div className="mt-6">
                             <Link key={accountData.id} href={`/seller/${accountData.id}`}
-                                  className="w-full px-4 py-2 border border-primary text-primary rounded-lg hover:bg-primary/10 transition-colors"
+                                  className="w-full flex justify-center px-4 py-2 border border-primary text-primary rounded-lg hover:bg-primary/10 transition-colors"
                             >
                                 Ver perfil
                             </Link>

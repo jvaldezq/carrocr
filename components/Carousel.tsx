@@ -116,7 +116,9 @@ export const Carousel = (props: Props) => {
                                 className={`flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-all
                     ${current === index + 1 ? 'border-primary' : 'border-transparent hover:border-primary/50'}`}
                             >
-                                <img
+                                <Image
+                                    height={76}
+                                    width={76}
                                     src={image}
                                     alt={`${index}-carro-mini`}
                                     className="w-full h-full object-cover"
