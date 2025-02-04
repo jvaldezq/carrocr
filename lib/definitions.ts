@@ -10,22 +10,9 @@ export interface Car {
     currency: CURRENCIES;
     year: number;
     mileage: number;
+    mileageType: string;
     thumbnail: string;
-    imgBodyFL: string;
-    imgBodyFR: string;
-    imgBodyFC: string;
-    imgBodySL: string;
-    imgBodySR: string;
-    imgBodyRL: string;
-    imgBodyRR: string;
-    imgBodyRC: string;
-    imgInteriorDash: string;
-    imgInteriorCluster: string;
-    imgInteriorRadio: string;
-    imgInteriorSeatF: string;
-    imgInteriorSeatR: string;
-    imgInteriorTrunk: string;
-    imgEngine: string;
+    images: string[];
     transType: string;
     fuelType: string;
     bodyName: string;
@@ -33,7 +20,6 @@ export interface Car {
     sellerComment: null;
     approvalStageID: number;
     acctVerified: boolean;
-    images: string[];
     factorySpecifications: FactorySpecification;
     negotiableTF: boolean;
     allowTradeTF: boolean;
@@ -43,40 +29,56 @@ export interface Car {
     comments: string;
     city: string;
     state: string;
+    accountData: AccountData;
+}
+
+export interface AccountData {
+    id: number,
+    acctFullName: string,
+    email: string,
+    phone: string,
+    acctVerified: boolean
+    picture: string,
 }
 
 export interface FactorySpecification {
-    fuelType: string;
-    fuelGrade: string;
-    cubicCentimeters: number;
-    cylinderCount: string;
-    horsepower: number;
-    horsepowerRPM: number;
-    torque: number;
-    torqueRPM: number;
-    valveCount: number;
-    camTimingType: string;
-    camType: string;
-    mpgCombine: number;
-    mpgCity: number;
-    mpgHighway: number;
-    doorCount: number;
-    seatCount: number;
-    groundHeight: number;
-    length: number;
-    width: number;
-    height: number;
-    curbWeight: number;
-    payloadCap: number;
-    towingCap: number;
-    driveName: string;
-    driveNameAbbr: string;
-    driveAbbr: string;
-    driveNameSpanish: null;
-    transName: string;
-    transGearCount: string;
-    transNameAbbr: string;
-    transNameSpanish: null;
-    fuelCapLiters: string;
-    superFuel: string;
+    engine: {
+        cubicCentimeters: number;
+        cylinderCount: string;
+        horsepower: number;
+        horsepowerRPM: number;
+        torque: number;
+        torqueRPM: number;
+        valveCount: number;
+        camType: string;
+        superFuel: string;
+    };
+    dimensions: {
+        length: number;
+        width: number;
+        height: number;
+        groundHeight: number;
+    };
+    economy: {
+        mpgCombine: number;
+        mpgCity: number;
+        mpgHighway: number;
+    };
+    capacity: {
+        doorCount: number;
+        seatCount: number;
+        curbWeight: number;
+        grossWeight: number;
+        payloadCap: number;
+        towingCap: number;
+        cargoCapLiters: number;
+        fuelCapLiters: number;
+    };
+}
+
+export enum  APPROVAL_STAGE {
+    DRAFT = 'DRAFT',
+    REVIEW = 'REVIEW',
+    DENY = 'DENY',
+    PUBLISHED = 'PUBLISHED',
 }

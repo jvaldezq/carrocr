@@ -1,55 +1,27 @@
 import {fetchCarById} from "@/sections/CarDetails/service";
-import Image from 'next/image'
-import {Carousel} from "@/components/Carousel";
+import {
+    Activity,
+    Ban,
+    Box,
+    Calendar,
+    CalendarClock,
+    Car,
+    DollarSign,
+    Fuel,
+    Handshake,
+    Mail,
+    MapPin,
+    Phone,
+    Settings,
+    Shield
+} from 'lucide-react';
 import {MoneyFormatter, NumberFormatter} from "@/lib/NumberFormats";
-import CarPlaceholderImage from "@/assets/car-placeholder.webp";
-import ContactInfo from "@/sections/CarDetails/ContactInfo";
-import {QualificationIcon} from "@/icons/QualificationIcon";
-import {FuelIcon} from "@/icons/FuelIcon";
-import {SystemIcon} from "@/icons/SystemIcon";
-import {TransmissionIcon} from "@/icons/TransmissionIcon";
-import {EconomyIcon} from "@/icons/EconomyIcon";
-import {DoorsIcon} from "@/icons/DoorsIcon";
-import {SeatsIcon} from "@/icons/SeatsIcon";
-import {StyleIcon} from "@/icons/StyleIcon";
-import {WeightIcon} from "@/icons/WeightIcon";
-import {LengthIcon} from "@/icons/LengthIcon";
-import {WidthIcon} from "@/icons/WidthIcon";
-import {HeightIcon} from "@/icons/HeightIcon";
-import {GroundHeightIcon} from "@/icons/GroundHeightIcon";
-import {MileageIcon} from "@/icons/MileageIcon";
-import {PayloadLbsIcon} from "@/icons/PayloadLbsIcon";
-import {TowingLbsIcon} from "@/icons/TowingLbsIcon";
-import {GasTankIcon} from "@/icons/GasTankIcon";
-import {EngineLitersIcon} from "@/icons/EngineLitersIcon";
-import {CylinderIcon} from "@/icons/CylinderIcon";
-import {HorsePowerIcon} from "@/icons/HorsePowerIcon";
-import {RPMIcon} from "@/icons/RPMIcon";
-import {ValveIcon} from "@/icons/ValveIcon";
-import {NmIcon} from "@/icons/NmIcon";
-import {SuperFuelIcon} from "@/icons/SuperFuelIcon";
-
-// TODO need to integrate this
-const ContactInfoData = {
-    acctId: 1,
-    contactName: 'Jordan Valdez',
-    contactEmail: 'jordanf.valdez@gmail.com',
-    contactPhone: '(506) 8392-9383',
-    acctVerified: true,
-    thumbnail: 'https://media.licdn.com/dms/image/C4E03AQGe8yTcqObEog/profile-displayphoto-shrink_800_800/0/1542814433921?e=1728518400&v=beta&t=8a0wBtjGSnnTa-dXhACJfmLSrM47F-DD5HVZR0y2mEE',
-    isDealer: false
-}
+import {Carousel} from "@/components/Carousel";
+import {FactorySpecifications} from "@/sections/CarDetails/FactorySpecifications";
+import Link from "next/link";
 
 interface CarDetailsProps {
     id: string;
-}
-
-interface ArticleProps {
-    title: string;
-    value: string | number;
-    isFactory?: boolean;
-    className?: string;
-    icon?: JSX.Element;
 }
 
 export default async function CarDetails({id}: CarDetailsProps) {
@@ -65,342 +37,201 @@ export default async function CarDetails({id}: CarDetailsProps) {
         transType,
         condition,
         trim,
-        thumbnail,
-        imgBodyFL,
-        imgBodyFC,
-        imgBodyFR,
-        imgBodySL,
-        imgBodySR,
-        imgBodyRR,
-        imgBodyRC,
-        imgBodyRL,
-        imgInteriorDash,
-        imgInteriorCluster,
-        imgInteriorRadio,
-        imgInteriorSeatF,
-        imgInteriorSeatR,
-        imgInteriorTrunk,
-        imgEngine,
+        mileageType,
+        state,
         bodyName,
         driveType,
-        factorySpecifications,
+        images,
         negotiableTF,
         allowTradeTF,
-        inspectionMonth,
+        factorySpecifications,
         inspectionYear,
         restrictionDay,
-        comments
+        sellerComment,
+        accountData
     } = data;
-    const {
-        cubicCentimeters,
-        cylinderCount,
-        horsepower,
-        horsepowerRPM,
-        torque,
-        torqueRPM,
-        mpgCombine,
-        doorCount,
-        seatCount,
-        valveCount,
-        length,
-        width,
-        height,
-        curbWeight,
-        payloadCap,
-        towingCap,
-        groundHeight,
-        fuelCapLiters,
-        camType,
-        superFuel,
-    } = factorySpecifications;
 
-    const baseArticles: ArticleProps[] = [{
-        title: 'Kilometraje', value: mileage ? `${NumberFormatter(mileage)}km` : 'N/A', icon: <MileageIcon/>
-    }, {
-        title: 'Calificación', value: condition ?? 'N/A', icon: <QualificationIcon/>
-    }, {
-        title: 'Combustible', value: fuelType ?? 'N/A', icon: <FuelIcon/>
-    }, {
-        title: 'Economía', value: mpgCombine ? `${mpgCombine}Km/L` : 'N/A', isFactory: true, icon: <EconomyIcon/>
-    }, {
-        title: 'Transmisión', value: transType ?? 'N/A', icon: <TransmissionIcon/>
-    }, {
-        title: 'Sistema', value: driveType ?? 'N/A', icon: <SystemIcon/>
-    }, {
-        title: 'Puertas', value: doorCount ? doorCount : 'N/A', isFactory: true, icon: <DoorsIcon/>
-    }, {
-        title: 'Asientos', value: seatCount ? seatCount : 'N/A', isFactory: true, icon: <SeatsIcon/>
-    }, {
-        title: 'Estilo', value: bodyName ?? 'N/A', className: 'col-span-2 md:col-auto', icon: <StyleIcon/>
-    }];
-
-    const dymentionsArticles: ArticleProps[] = [{
-        title: 'Peso', value: curbWeight ? `${curbWeight}kg` : 'N/A', isFactory: true, icon: <WeightIcon/>
-    }, {
-        title: 'Largo', value: length ? `${length}cm` : 'N/A', isFactory: true, icon: <LengthIcon/>
-    }, {
-        title: 'Ancho', value: width ? `${width}cm` : 'N/A', isFactory: true, icon: <WidthIcon/>
-    }, {
-        title: 'Alto', value: height ? `${height}cm` : 'N/A', isFactory: true, icon: <HeightIcon/>
-    }, {
-        title: 'Altura al suelo',
-        value: groundHeight ? `${groundHeight}cm` : 'N/A',
-        isFactory: true,
-        icon: <GroundHeightIcon/>
-    }, {
-        title: 'Carga útil', value: payloadCap ? `${payloadCap}kg` : 'N/A', isFactory: true, icon: <PayloadLbsIcon/>
-    }, {
-        title: 'Remolque', value: towingCap ? `${towingCap}kg` : 'N/A', isFactory: true, icon: <TowingLbsIcon/>
-    }, {
-        title: 'Tanque combustible',
-        value: fuelCapLiters ? `${fuelCapLiters}L` : 'N/A',
-        isFactory: true,
-        icon: <GasTankIcon/>
-    }];
-
-    const engineArticles: ArticleProps[] = [{
-        title: 'Tamaño',
-        value: cubicCentimeters ? `${cubicCentimeters}cc` : 'N/A',
-        isFactory: true,
-        icon: <EngineLitersIcon/>
-    }, {
-        title: 'Cilindros', value: cylinderCount ?? 'N/A', isFactory: true, icon: <CylinderIcon/>
-    }, {
-        title: 'Fuerza HP',
-        value: horsepower || horsepowerRPM ? `${horsepower}hp` : 'N/A',
-        isFactory: true,
-        icon: <HorsePowerIcon/>
-    }, {
-        title: 'Fuerza RPM',
-        value: horsepower || horsepowerRPM ? `${horsepowerRPM}rpm` : 'N/A',
-        isFactory: true,
-        icon: <RPMIcon/>
-    }, {
-        title: 'Torque Nm', value: torque || torqueRPM ? `${torque}Nm` : 'N/A', isFactory: true, icon: <NmIcon/>
-    }, {
-        title: 'Torque RPM', value: torque || torqueRPM ? `${torqueRPM}rpm` : 'N/A', isFactory: true, icon: <RPMIcon/>
-    }, {
-        title: 'Válvulas', value: valveCount ? `${valveCount} (${camType})` : 'N/A', isFactory: true, icon: <ValveIcon/>
-    }, {
-        title: 'Gasolina Súper', value: superFuel ?? 'N/A', isFactory: true, icon: <SuperFuelIcon/>
-    }];
-
-    const generalArticles: ArticleProps[] = [{
-        title: 'Negociable', value: negotiableTF ? 'Sí' : 'No', isFactory: false,
-    }, {
-        title: 'Se recibe vehículo', value: allowTradeTF ? 'Sí' : 'No', isFactory: false,
-    }, {
-        title: 'Inspección vehicular',
-        value: inspectionMonth || inspectionYear ? `${inspectionMonth}/${inspectionYear}` : 'N/A',
-        isFactory: false,
-    }, {
-        title: 'Restricción vehicular', value: restrictionDay ?? 'N/A', isFactory: false,
-    }, {
-        title: 'Comentarios del vendedor', value: comments ?? 'N/A', isFactory: false, className: 'col-span-2'
-    }];
-
-    return (<section className="flex flex-col gap-5 pb-10">
-        <div className='hidden lg:grid grid-cols-3 gap-5 justify-between'>
-            <Image
-                className="object-cover aspect-auto rounded-2xl w-full h-[300px]"
-                src={imgBodyFL ?? CarPlaceholderImage}
-                alt="Carro Frontal Delante Izquierdo"
-                width={540}
-                height={375}
-            />
-            <Image
-                className="object-cover aspect-auto rounded-2xl w-full h-[300px]"
-                src={imgBodyFC ?? CarPlaceholderImage}
-                alt="Carro Interior Dash"
-                width={540}
-                height={375}
-            />
-            <Image
-                className="object-cover aspect-auto rounded-2xl w-full h-[300px]"
-                src={imgBodyFR ?? CarPlaceholderImage}
-                alt="Carro Trasero Derecho"
-                width={540}
-                height={375}
-            />
-        </div>
-        <div className='flex lg:hidden'>
-            <Carousel images={[imgBodyFL, thumbnail, imgBodyFR]} model={model} showDots={true}/>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            <div
-                className="flex flex-col items-center justify-center border-primary/[0.1] border border-solid shadow-sm w-full h-full rounded-2xl text-tertiary p-4">
-                <h1 className="text-2xl opacity-95 flex text-center">{make} {model} <strong
-                    className='ml-1'>{year} </strong>
-                </h1>
-                <h1 className="text-xl  text-center">
-                    {trim}
-                </h1>
-                <h1 className="text-3xl mt-4 rounded-2xl text-tertiary border-primary/[0.1] border border-solid shadow-sm px-4 py-2">{MoneyFormatter(price, currency)}</h1>
+    return (<section className="pb-10">
+            {/* Title Section */}
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
+                <div>
+                    <div className="flex flex-col md:flex-row md:items-center gap-2">
+                        <h1 className="text-3xl font-bold text-tertiary">
+                            {make} {model} {trim}
+                        </h1>
+                        <span className="px-2 hidden md:block py-1 bg-primary/10 text-primary rounded-md text-sm font-medium w-fit">
+                {condition}
+              </span>
+                    </div>
+                    <p className="text-xl text-primary mt-2">{year}</p>
+                    <span className="px-2 py-1 bg-primary/10 text-primary rounded-md text-sm font-medium w-fit mt-4 md:hidden block">
+                {condition}
+              </span>
+                </div>
+                <div className="mt-4 md:mt-0 text-right">
+                    <p className="text-3xl font-bold text-primary">
+                        {MoneyFormatter(price, currency)}
+                    </p>
+                </div>
             </div>
-            <ContactInfo {...ContactInfoData}/>
+
+        <div className="mb-8">
+        <Carousel images={images} model={model} showArrows={true} preview={true} imageClass="md:h-[30rem] md:object-none"  />
         </div>
-        <div className='grid grid-cols-1 md:grid-cols-2 gap-5'>
-            <Image
-                className="object-cover aspect-auto rounded-2xl w-full h-[405px]"
-                src={imgBodySL ?? CarPlaceholderImage}
-                alt="Carro principal"
-                width={720}
-                height={405}
-            />
-            <div
-                className="grid grid-cols-2 lg:grid-cols-3 gap-4 text-center">
-                {baseArticles.map((article, index) => {
-                    if (!article.value) return null;
-                    return (<article key={index}
-                                     className={`flex flex-col gap-0.5 w-full h-full justify-center items-center border-tertiary/[0.1] border border-solid shadow-sm rounded-2xl transition-all hover:shadow-lg hover:scale-105 py-2 ${article?.className}`}>
-                            {article.icon}
-                        <p className="text-sm font-normal text-tertiary/[0.7] w-full pt-2">{article.title}
-                        </p>
-                        <h3 className="text-md font-medium text-tertiary w-full">{article.value}</h3>
-                    </article>)
-                })}
+
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                {/* Main Info */}
+                <div className="lg:col-span-2 space-y-8">
+                    {/* Key Details */}
+                    <section className="bg-white rounded-lg shadow-md p-6">
+                        <h2 className="text-xl font-semibold text-tertiary mb-4">Detalles del vehículo</h2>
+                        <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+                            <div className="flex items-center gap-3">
+                                <Calendar className="h-5 w-5 text-primary" />
+                                <div>
+                                    <p className="text-sm text-tertiary">Año</p>
+                                    <p className="font-medium">{year}</p>
+                                </div>
+                            </div>
+                            <div className="flex items-center gap-3">
+                                <Activity className="h-5 w-5 text-primary" />
+                                <div>
+                                    <p className="text-sm text-tertiary">Kilometraje</p>
+                                    <p className="font-medium">{`${NumberFormatter(mileage)} ${mileageType}`}</p>
+                                </div>
+                            </div>
+                            <div className="flex items-center gap-3">
+                                <Settings className="h-5 w-5 text-primary" />
+                                <div>
+                                    <p className="text-sm text-tertiary">Transmisión</p>
+                                    <p className="font-medium">{transType}</p>
+                                </div>
+                            </div>
+                            <div className="flex items-center gap-3">
+                                <Fuel className="h-5 w-5 text-primary" />
+                                <div>
+                                    <p className="text-sm text-tertiary">Tipo de combustible</p>
+                                    <p className="font-medium">{fuelType}</p>
+                                </div>
+                            </div>
+                            <div className="flex items-center gap-3">
+                                <Car className="h-5 w-5 text-primary" />
+                                <div>
+                                    <p className="text-sm text-tertiary">Tipo de Tracción</p>
+                                    <p className="font-medium">{driveType}</p>
+                                </div>
+                            </div>
+                            <div className="flex items-center gap-3">
+                                <Box className="h-5 w-5 text-primary" />
+                                <div>
+                                    <p className="text-sm text-tertiary">Tipo de Carrocería</p>
+                                    <p className="font-medium">{bodyName}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Listing Details */}
+                    <section className="bg-white rounded-lg shadow-md p-6">
+                        <h2 className="text-xl font-semibold text-tertiary mb-4">Detalles del anuncio</h2>
+                        <div className="space-y-4">
+                            <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+                                <div className="flex items-center gap-3">
+                                    <MapPin className="h-5 w-5 text-primary" />
+                                    <div>
+                                        <p className="text-sm text-tertiary">Ubicación</p>
+                                        <p className="font-medium">{state}</p>
+                                    </div>
+                                </div>
+                                <div className="flex items-center gap-3">
+                                    <Handshake className="h-5 w-5 text-primary" />
+                                    <div>
+                                        <p className="text-sm text-tertiary">Intercambio</p>
+                                        <p className="font-medium">{allowTradeTF ? 'Sí' : 'No'}</p>
+                                    </div>
+                                </div>
+                                <div className="flex items-center gap-3">
+                                    <DollarSign className="h-5 w-5 text-primary" />
+                                    <div>
+                                        <p className="text-sm text-tertiary">Precio Negociable</p>
+                                        <p className="font-medium">{negotiableTF ? 'Sí' : 'No'}</p>
+                                    </div>
+                                </div>
+                                <div className="flex items-center gap-3">
+                                    <CalendarClock className="h-5 w-5 text-primary" />
+                                    <div>
+                                        <p className="text-sm text-tertiary">Inspección Válida Hasta</p>
+                                        <p className="font-medium">{inspectionYear}</p>
+                                    </div>
+                                </div>
+                                <div className="flex items-center gap-3">
+                                    <Ban className="h-5 w-5 text-primary" />
+                                    <div>
+                                        <p className="text-sm text-tertiary">Día de Restricción</p>
+                                        {/*TODO Integrate*/}
+                                        <p className="font-medium">{restrictionDay ?? 'Lunes'}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {sellerComment && (
+                                <div className="mt-6">
+                                    <h3 className="text-lg font-medium text-tertiary mb-2">Observaciones del Vendedor</h3>
+                                    <p className="text-tertiary bg-quaternary p-4 rounded-lg">
+                                        {sellerComment}
+                                    </p>
+                                </div>
+                            )}
+                        </div>
+                    </section>
+                    <FactorySpecifications {...factorySpecifications} />
+                </div>
+
+                {/* Seller Info */}
+                <div className="lg:col-span-1">
+                    <section className="bg-white rounded-lg shadow-md p-6 sticky top-16">
+                        <div className="flex items-center gap-4 mb-6">
+                            <img
+                                src={accountData.picture}
+                                alt={accountData.acctFullName}
+                                className="w-16 h-16 rounded-full"
+                            />
+                            <div>
+
+                                <h3 className="text-lg font-semibold text-tertiary">{accountData.acctFullName}</h3>
+                                {accountData.acctVerified && (
+                                    <div className="flex items-center text-verified text-sm">
+                                        <Shield className="h-4 w-4 mr-1" />
+                                        Verificado
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+
+                        <div className="space-y-4">
+                            <div className="flex items-center gap-3">
+                                <Mail className="h-5 w-5 text-primary" />
+                                <a href={`mailto:${accountData.email}`} className="text-tertiary hover:text-primary transition-colors">
+                                    {accountData.email}
+                                </a>
+                            </div>
+                            <div className="flex items-center gap-3">
+                                <Phone className="h-5 w-5 text-primary" />
+                                <a href={`tel:${accountData.phone}`} className="text-tertiary hover:text-primary transition-colors">
+                                    {accountData.phone}
+                                </a>
+                            </div>
+                        </div>
+
+                        <div className="mt-6">
+                            <Link key={accountData.id} href={`/seller/${accountData.id}`}
+                                  className="w-full px-4 py-2 border border-primary text-primary rounded-lg hover:bg-primary/10 transition-colors"
+                            >
+                                Ver perfil
+                            </Link>
+                        </div>
+                    </section>
+                </div>
             </div>
-        </div>
-
-        <div className='flex flex-col-reverse md:grid md:grid-cols-2 gap-5'>
-            <div
-                className="grid grid-cols-2 gap-4 text-center">
-                {generalArticles.map((article, index) => {
-                    if (!article.value) return null;
-                    return (<article key={index}
-                                     className={`flex flex-col gap-0.5 w-full h-full justify-center items-center border-tertiary/[0.1] border border-solid shadow-sm rounded-2xl transition-all hover:shadow-lg hover:scale-105 py-2 ${article?.className}`}>
-                        {article.icon}
-                        <p className="text-sm font-normal text-tertiary/[0.7] w-full pt-2">{article.title}
-                        </p>
-                        <h3 className="text-md font-medium text-tertiary w-full">{article.value}</h3>
-                    </article>)
-                })}
-            </div>
-            <Image
-                className="object-cover aspect-auto rounded-2xl w-full h-[405px]"
-                src={imgBodyRR ?? CarPlaceholderImage}
-                alt="Carro motor"
-                width={720}
-                height={405}
-            />
-        </div>
-
-        <div className='grid grid-cols-1 md:grid-cols-2 gap-5'>
-            <Image
-                className="object-cover aspect-auto rounded-2xl w-full h-[405px]"
-                src={imgEngine ?? CarPlaceholderImage}
-                alt="Carro principal"
-                width={720}
-                height={405}
-            />
-            <div
-                className="grid grid-cols-2 lg:grid-cols-3 gap-4 text-center">
-                {engineArticles.map((article, index) => {
-                    if (!article.value) return null;
-                    return (<article key={index}
-                                     className={`flex flex-col gap-0.5 w-full h-full justify-center items-center border-tertiary/[0.1] border border-solid shadow-sm rounded-2xl transition-all hover:shadow-lg hover:scale-105 py-2 ${article?.className}`}>
-                        {article.icon}
-                        <p className="text-sm font-normal text-tertiary/[0.7] w-full pt-2">{article.title}
-                        </p>
-                        <h3 className="text-md font-medium text-tertiary w-full">{article.value}</h3>
-                    </article>)
-                })}
-            </div>
-        </div>
-
-        <div className='flex flex-col-reverse md:grid md:grid-cols-2 gap-5'>
-            <div
-                className="grid grid-cols-2 lg:grid-cols-3 gap-4 text-center">
-                {dymentionsArticles.map((article, index) => {
-                    if (!article.value) return null;
-                    return (<article key={index}
-                                     className={`flex flex-col gap-0.5 w-full h-full justify-center items-center border-tertiary/[0.1] border border-solid shadow-sm rounded-2xl transition-all hover:shadow-lg hover:scale-105 py-2 ${article?.className}`}>
-                        {article.icon}
-                        <p className="text-sm font-normal text-tertiary/[0.7] w-full pt-2">{article.title}
-                        </p>
-                        <h3 className="text-md font-medium text-tertiary w-full">{article.value}</h3>
-                    </article>)
-                })}
-            </div>
-            <Image
-                className="object-cover aspect-auto rounded-2xl w-full h-[405px]"
-                src={imgBodySR ?? CarPlaceholderImage}
-                alt="Carro motor"
-                width={720}
-                height={405}
-            />
-        </div>
-
-        <div className='hidden lg:grid grid-cols-3 gap-5 justify-between'>
-            <Image
-                className="object-cover aspect-auto rounded-2xl w-full h-[405px]"
-                src={imgBodyRL ?? CarPlaceholderImage}
-                alt="Carro Frontal Delante Izquierdo"
-                width={720}
-                height={405}
-            />
-            <Image
-                className="object-cover aspect-auto rounded-2xl w-full h-[405px]"
-                src={imgBodyRC ?? CarPlaceholderImage}
-                alt="Carro Interior Dash"
-                width={720}
-                height={405}
-            />
-            <Image
-                className="object-cover aspect-auto rounded-2xl w-full h-[405px]"
-                src={imgBodyRR ?? CarPlaceholderImage}
-                alt="Carro Trasero Derecho"
-                width={720}
-                height={405}
-            />
-
-            <Image
-                className="object-cover aspect-auto rounded-2xl w-full h-[405px]"
-                src={imgInteriorDash ?? CarPlaceholderImage}
-                alt="Carro Trasero Derecho"
-                width={720}
-                height={405}
-            />
-            <Image
-                className="object-cover aspect-auto rounded-2xl w-full h-[405px]"
-                src={imgInteriorCluster ?? CarPlaceholderImage}
-                alt="Carro Trasero Derecho"
-                width={720}
-                height={405}
-            />
-            <Image
-                className="object-cover aspect-auto rounded-2xl w-full h-[405px]"
-                src={imgInteriorRadio ?? CarPlaceholderImage}
-                alt="Carro Trasero Derecho"
-                width={720}
-                height={405}
-            />
-            <Image
-                className="object-cover aspect-auto rounded-2xl w-full h-[405px]"
-                src={imgInteriorSeatF ?? CarPlaceholderImage}
-                alt="Carro Trasero Derecho"
-                width={720}
-                height={405}
-            />
-            <Image
-                className="object-cover aspect-auto rounded-2xl w-full h-[405px]"
-                src={imgInteriorSeatR ?? CarPlaceholderImage}
-                alt="Carro Trasero Derecho"
-                width={720}
-                height={405}
-            />
-            <Image
-                className="object-cover aspect-auto rounded-2xl w-full h-[405px]"
-                src={imgInteriorTrunk ?? CarPlaceholderImage}
-                alt="Carro Trasero Derecho"
-                width={720}
-                height={405}
-            />
-        </div>
-        <div className='flex lg:hidden'>
-            <Carousel
-                images={[imgBodyRL, imgBodyRC, imgBodyRR, imgInteriorDash, imgInteriorCluster, imgInteriorRadio, imgInteriorSeatF, imgInteriorSeatR, imgInteriorTrunk]}
-                model={model} showDots={true}/>
-        </div>
     </section>);
 };
