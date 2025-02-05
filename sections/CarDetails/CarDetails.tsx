@@ -19,6 +19,7 @@ import {MoneyFormatter, NumberFormatter} from "@/lib/NumberFormats";
 import {Carousel} from "@/components/Carousel";
 import {FactorySpecifications} from "@/sections/CarDetails/FactorySpecifications";
 import Link from "next/link";
+import Image from "next/image";
 
 interface CarDetailsProps {
     id: string;
@@ -191,10 +192,12 @@ export default async function CarDetails({id}: CarDetailsProps) {
                 <div className="lg:col-span-1">
                     <section className="bg-white rounded-lg shadow-md p-6 sticky top-16">
                         <div className="flex items-center gap-4 mb-6">
-                            <img
+                            <Image
+                                height={64}
+                                width={64}
                                 src={accountData.picture}
                                 alt={accountData.acctFullName}
-                                className="w-16 h-16 rounded-full"
+                                className="rounded-full"
                             />
                             <div>
 

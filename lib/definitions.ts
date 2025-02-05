@@ -82,3 +82,9 @@ export enum  APPROVAL_STAGE {
     DENY = 'DENY',
     PUBLISHED = 'PUBLISHED',
 }
+
+export enum  VERIFICATIONS_TRANSLATIONS {
+    identification = 'Identification',
+    email = 'Correo Electrónico',
+    phone = 'Teléfono',
+}
