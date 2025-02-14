@@ -20,7 +20,6 @@ export const FormSwitch = forwardRef((props: FormSwitchProps, ref: ForwardedRef<
         label,
         labelClassName,
         labelPosition,
-        loading,
         name,
         placeholder,
         input,
@@ -51,7 +50,6 @@ export const FormSwitch = forwardRef((props: FormSwitchProps, ref: ForwardedRef<
             label={label}
             labelClassName={labelClassName}
             labelPosition={labelPosition}
-            loading={loading}
             wrapperClassName={wrapperClassName}
             childrenClassName={childrenClassName}
             meta={meta}

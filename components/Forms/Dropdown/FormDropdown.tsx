@@ -23,7 +23,6 @@ export const FormDropdown = forwardRef((props: IProps, ref: ForwardedRef<HTMLInp
         label,
         labelClassName,
         labelPosition,
-        loading,
         name,
         placeholder,
         input,
@@ -46,7 +45,6 @@ export const FormDropdown = forwardRef((props: IProps, ref: ForwardedRef<HTMLInp
         label={label}
         labelClassName={labelClassName}
         labelPosition={labelPosition}
-        loading={loading}
         wrapperClassName={wrapperClassName}
         childrenClassName={childrenClassName}
         meta={meta}>

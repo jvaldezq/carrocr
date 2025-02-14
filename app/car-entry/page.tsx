@@ -1,4 +1,4 @@
-import {CreateCar} from "@/app/car-entry/forms/CreateCar";
+import {CarEntryDialog} from "@/app/car-entry/CarEntryDialog";
 
 export default function CarEntry() {
     return (<section
@@ -7,7 +7,7 @@ export default function CarEntry() {
             <h1 className="text-2xl font-medium text-tertiary">Creación de anuncio</h1>
             <p className="text-tertiary">La información sensible del vehículo no se compartirá públicamente; su uso será
                 estrictamente interno.</p>
-            <CreateCar/>
+            <CarEntryDialog />
         </div>
     </section>);
 }

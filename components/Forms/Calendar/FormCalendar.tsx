@@ -20,7 +20,6 @@ export const FormCalendar = forwardRef((props: FormCalendarProps, ref: Forwarded
         label,
         labelClassName,
         labelPosition,
-        loading,
         name,
         placeholder,
         input,
@@ -38,7 +37,6 @@ export const FormCalendar = forwardRef((props: FormCalendarProps, ref: Forwarded
             label={label}
             labelClassName={labelClassName}
             labelPosition={labelPosition}
-            loading={loading}
             wrapperClassName={wrapperClassName}
             childrenClassName={childrenClassName}
             meta={meta}

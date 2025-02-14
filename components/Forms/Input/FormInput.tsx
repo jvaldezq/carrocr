@@ -1,11 +1,11 @@
 'use client';
 
-import {ChangeEvent, ForwardedRef, forwardRef, InputHTMLAttributes, useCallback, useEffect, useRef} from 'react';
-import IMask from 'imask';
+import {ChangeEvent, ForwardedRef, forwardRef, InputHTMLAttributes, useCallback, useRef} from 'react';
 import {CombinedInputProps} from '../types';
 import {InputWrapper, InputWrapperProps} from '../InputWrapper';
 import {cn} from "@/lib/utils";
 import {Input} from "@/components/ui/input";
+import {InputLoading} from "@/components/Forms/InputLoading";
 
 export interface FormInputProps
     extends CombinedInputProps<string>,
@@ -21,7 +21,6 @@ export const FormInput = forwardRef((props: FormInputProps, ref: ForwardedRef<HT
         label,
         labelClassName,
         labelPosition,
-        loading,
         name,
         placeholder,
         input,
@@ -30,19 +29,11 @@ export const FormInput = forwardRef((props: FormInputProps, ref: ForwardedRef<HT
         childrenClassName,
         icon,
         mask,
+        isLoading,
         ...rest
     } = props;
-    const {touched, error} = meta || {};
     const {onChange, ...inputRest} = input;
     const myRef = useRef<HTMLInputElement | null>(null);
-
-    useEffect(() => {
-        if (myRef?.current) {
-            if (mask) {
-                IMask(myRef.current, typeof mask === 'string' ? {mask: mask} : mask);
-            }
-        }
-    }, [mask]);
 
     const myOnChange = useCallback(
         (e: ChangeEvent<HTMLInputElement>) => {
@@ -57,11 +48,14 @@ export const FormInput = forwardRef((props: FormInputProps, ref: ForwardedRef<HT
             label={label}
             labelClassName={labelClassName}
             labelPosition={labelPosition}
-            loading={loading}
             wrapperClassName={wrapperClassName}
             childrenClassName={childrenClassName}
             meta={meta}
+            disabled={rest.disabled}
         >
+            {
+                isLoading ? <InputLoading /> :
+                    <>
             <Input
                 name={name}
                 className={cn(className)}
@@ -79,6 +73,8 @@ export const FormInput = forwardRef((props: FormInputProps, ref: ForwardedRef<HT
                 {...rest}
             />
             {icon}
+                    </>
+            }
         </InputWrapper>
     );
 });

@@ -13,7 +13,7 @@ const currencyFormatters: Record<CURRENCIES, Intl.NumberFormat> = {
     [CURRENCIES.USD]: new Intl.NumberFormat(LOCALES[CURRENCIES.USD], { style: "currency", currency: CURRENCIES.USD }),
 };
 
-export const MoneyFormatter = (number: number, currency: CURRENCIES = CURRENCIES.CRC): string => {
+export const MoneyFormatter = (number: number = 0, currency: CURRENCIES = CURRENCIES.CRC): string => {
     return currencyFormatters[currency].format(number);
 };
 
