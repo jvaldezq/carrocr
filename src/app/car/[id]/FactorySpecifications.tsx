@@ -49,7 +49,7 @@ const tooltips = {
   },
 };
 
-interface Props extends FactorySpecification {}
+type Props = FactorySpecification;
 
 export const FactorySpecifications = (props: Props) => {
   const { engine, economy, dimensions, capacity } = props;

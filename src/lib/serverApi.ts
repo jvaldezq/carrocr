@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 
 interface ServerApiProps {
   path: string;
-  params?: any; //TODO NEED TO FIX TYPE
+  params?: never; //TODO NEED TO FIX TYPE
   method?: 'GET' | 'POST' | 'PUT' | 'DELETE';
   revalidate?: number;
 }

@@ -17,8 +17,6 @@ import {
   Trash2,
   XCircle,
 } from 'lucide-react';
-import { CURRENCIES } from '@/lib/NumberFormats';
-import Card from '@/components/Card';
 
 const mockSeller = {
   acctVerified: true,
@@ -100,56 +98,6 @@ const mockSeller = {
     },
   ],
 };
-
-interface Listing {
-  id: number;
-  make: string;
-  model: string;
-  year: number;
-  price: number;
-  mileage: number;
-  thumbnail: string;
-  location: string;
-  verified: boolean;
-  status: 'published' | 'draft' | 'pending';
-  views: number;
-  inquiries: number;
-  lastUpdated: string;
-}
-
-interface SellerAdminPageProps {
-  seller: {
-    acctVerified: boolean;
-    email: string;
-    phone: string;
-    picture: string;
-    fullName: string;
-    memberSince: string;
-    isDealership: boolean;
-    dealershipDetails?: {
-      address: string;
-      googleMapsUrl: string;
-      openingHours: string;
-      hasOperatingPermit: boolean;
-      permitNumber?: string;
-    };
-    verificationStatus: {
-      identification: boolean;
-      email: boolean;
-      phone: boolean;
-    };
-    statistics: {
-      totalListings: number;
-      totalSold: number;
-      totalViews: number;
-      totalInquiries: number;
-      responseRate: number;
-      avgResponseTime: string;
-    };
-    listings: Listing[];
-  };
-}
-
 type TabType = 'dashboard' | 'listings' | 'profile';
 type ListingTabType = 'published' | 'draft' | 'pending';
 
@@ -359,37 +307,35 @@ export default function SellerAdmin() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredListings.map((listing) => (
           <div key={listing.id} className="relative">
-            <Card
-              thumbnail={listing.thumbnail}
-              make={listing.make}
-              model={listing.model}
-              price={listing.price}
-              year={listing.year}
-              id={0}
-              condition={''}
-              trim={''}
-              currency={CURRENCIES.CRC}
-              mileage={0}
-              mileageType={''}
-              images={[]}
-              transType={''}
-              fuelType={''}
-              bodyName={''}
-              driveType={''}
-              sellerComment={null}
-              approvalStageID={0}
-              acctVerified={false}
-              negotiableTF={false}
-              allowTradeTF={false}
-              inspectionMonth={''}
-              inspectionYear={''}
-              restrictionDay={''}
-              comments={''}
-              city={''}
-              state={''}
-              factorySpecifications={{} as any}
-              accountData={{} as any}
-            />
+            {/*<Card*/}
+            {/*  thumbnail={listing.thumbnail}*/}
+            {/*  make={listing.make}*/}
+            {/*  model={listing.model}*/}
+            {/*  price={listing.price}*/}
+            {/*  year={listing.year}*/}
+            {/*  id={0}*/}
+            {/*  condition={''}*/}
+            {/*  trim={''}*/}
+            {/*  currency={CURRENCIES.CRC}*/}
+            {/*  mileage={0}*/}
+            {/*  mileageType={''}*/}
+            {/*  images={[]}*/}
+            {/*  transType={''}*/}
+            {/*  fuelType={''}*/}
+            {/*  bodyName={''}*/}
+            {/*  driveType={''}*/}
+            {/*  sellerComment={null}*/}
+            {/*  approvalStageID={0}*/}
+            {/*  acctVerified={false}*/}
+            {/*  negotiableTF={false}*/}
+            {/*  allowTradeTF={false}*/}
+            {/*  inspectionMonth={''}*/}
+            {/*  inspectionYear={''}*/}
+            {/*  restrictionDay={''}*/}
+            {/*  comments={''}*/}
+            {/*  city={''}*/}
+            {/*  state={''}*/}
+            {/*/>*/}
             <div className="absolute top-2 right-2 flex gap-2">
               <div
                 className={`flex items-center gap-1 px-2 py-1 rounded-full text-sm bg-white shadow-md ${getStatusColor(listing.status)}`}

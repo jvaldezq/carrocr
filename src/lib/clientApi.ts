@@ -1,9 +1,13 @@
 'use client';
 import axios from 'axios';
 
-const token = localStorage.getItem(
-  process.env.NEXT_PUBLIC_LOCAL_STORAGE_TOKEN || 'carrocr_token',
-);
+let token;
+
+if (typeof window !== 'undefined') {
+  token = localStorage.getItem(
+    process.env.NEXT_PUBLIC_LOCAL_STORAGE_TOKEN || 'carrocr_token',
+  );
+}
 
 export const clientApi = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,

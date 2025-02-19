@@ -17,53 +17,6 @@ import { Carousel } from '@/components/Carousel';
 import SellerCars from '@/app/seller/[id]/SellerCars';
 import Image from 'next/image';
 import { VERIFICATIONS_TRANSLATIONS } from '@/lib/definitions';
-
-interface SellerProps {
-  id: string;
-}
-
-interface SellerProfilePageProps {
-  seller: {
-    id: number;
-    acctVerified: boolean;
-    email: string;
-    phone: string;
-    picture: string;
-    fullName: string;
-    memberSince: string;
-    isDealership: boolean;
-    dealershipDetails?: {
-      locationImages: string[];
-      hasOperatingPermit: boolean;
-      permitNumber?: string;
-      address: string;
-      googleMapsUrl: string;
-      openingHours: string;
-    };
-    verificationStatus: {
-      identification: boolean;
-      email: boolean;
-      phone: boolean;
-    };
-    statistics: {
-      totalListings: number;
-      totalSold: number;
-      totalViews: number;
-    };
-    listings: Array<{
-      id: number;
-      make: string;
-      model: string;
-      year: number;
-      price: number;
-      mileage: number;
-      thumbnail: string;
-      location: string;
-      verified: boolean;
-    }>;
-  };
-}
-
 const SELLER_DATA = {
   id: 1,
   acctVerified: true,
@@ -98,7 +51,7 @@ const SELLER_DATA = {
   },
 };
 
-export default function SellerDetails(props: SellerProps) {
+export default function SellerDetails() {
   const {
     id,
     picture,

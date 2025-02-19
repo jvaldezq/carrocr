@@ -58,7 +58,7 @@ interface ListingData {
   fuelType: string;
   driveType: string;
   images: ListingImages;
-  accountData: any;
+  accountData: unknown;
 }
 
 // Constants for form options
@@ -161,11 +161,11 @@ export default function Details({ id }: Props) {
   const onBack = () => {
     console.log('Navigating back to listings');
   };
-  const onSave = (data: any) => {
+  const onSave = (data: unknown) => {
     console.log('Saving listing:', data);
   };
 
-  const onSubmitForReview = (data: any) => {
+  const onSubmitForReview = (data: unknown) => {
     console.log('Submitting for review:', data);
   };
 
@@ -191,7 +191,7 @@ export default function Details({ id }: Props) {
     return Math.round((completedFields / requiredFields.length) * 100);
   };
 
-  const handleChange = (field: keyof ListingData, value: any) => {
+  const handleChange = (field: keyof ListingData, value: unknown) => {
     setListing((prev) => ({ ...prev, [field]: value }));
   };
 
@@ -501,7 +501,7 @@ export default function Details({ id }: Props) {
         </h2>
         <div>
           <label className="block text-sm font-medium text-tertiary mb-2">
-            Seller's Comment
+            Sellers Comment
           </label>
           <textarea
             value={listing.sellerComment || ''}

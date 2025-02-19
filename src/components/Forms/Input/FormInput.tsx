@@ -19,7 +19,6 @@ export interface FormInputProps
     Omit<InputWrapperProps, 'children'>,
     Omit<InputHTMLAttributes<HTMLInputElement>, 'label' | 'name' | 'onChange'> {
   icon?: JSX.Element;
-  mask?: string | object;
 }
 
 export const FormInput = forwardRef(
@@ -36,7 +35,6 @@ export const FormInput = forwardRef(
       wrapperClassName,
       childrenClassName,
       icon,
-      mask,
       isLoading,
       ...rest
     } = props;

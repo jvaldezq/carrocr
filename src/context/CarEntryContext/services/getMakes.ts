@@ -1,10 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { clientApi } from '@/lib/clientApi';
 
-enum MAKESENUM {
-  OTHER = 'OTHER',
-}
-
 interface ResultType {
   label: string;
   value: string | number;

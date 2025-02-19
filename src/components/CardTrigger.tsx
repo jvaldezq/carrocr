@@ -12,7 +12,7 @@ export default function CardTrigger(props: CardTriggerProps) {
 
   const handleClick = useCallback(() => {
     setId(id);
-  }, [id]);
+  }, [id, setId]);
 
   return (
     <div

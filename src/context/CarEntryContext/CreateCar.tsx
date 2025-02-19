@@ -108,7 +108,7 @@ export const CreateCar = () => {
   );
 };
 
-interface FormProps extends FormRenderProps<CarFormProps> {}
+type FormProps = FormRenderProps<CarFormProps>;
 
 export const CarForm = (props: FormProps) => {
   const { handleSubmit, values, valid, dirty } = props;

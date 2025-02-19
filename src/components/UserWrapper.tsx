@@ -11,9 +11,11 @@ export const UserWrapper = async (props: Props) => {
 
   try {
     accessToken = await getAccessToken({
-      // @ts-ignore
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
       audience: process.env.AUTH0_AUDIENCE || '',
     });
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {}
 
   return (

@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import type { Metadata, ResolvingMetadata } from 'next';
+import type { Metadata } from 'next';
 import { CarDetailsSkeleton } from './CarDetailsSkeleton';
 import CarDetails from '@/app/car/[id]/CarDetails';
 import { fetchCarById } from '@/app/car/[id]/service/fetchCarById';
@@ -9,10 +9,7 @@ type Props = {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
-export async function generateMetadata(
-  { params, searchParams }: Props,
-  parent: ResolvingMetadata,
-): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const id = (await params).id;
 
   const data = await fetchCarById(id);

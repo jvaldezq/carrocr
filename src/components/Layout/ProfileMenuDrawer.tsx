@@ -52,8 +52,16 @@ export const ProfileMenuDrawer = (props: ProfileMenuDrawerProps) => {
               </DropdownMenuItem>
             </div>
           )}
+          {user && (
+            <a key="how" href="/api/auth/logout">
+              <DropdownMenuItem className="cursor-pointer">
+                <LogIn className="mr-2 h-5 text-tertiary rotate-180" />
+                <span className="text-tertiary">Logout</span>
+              </DropdownMenuItem>
+            </a>
+          )}
         </DropdownMenuGroup>
-        <DropdownMenuSeparator />
+        <DropdownMenuSeparator className="bg-primary" />
         <DropdownMenuGroup>
           <Link key="how" href="/how">
             <DropdownMenuItem className="cursor-pointer">
@@ -67,14 +75,6 @@ export const ProfileMenuDrawer = (props: ProfileMenuDrawerProps) => {
               <span className="text-tertiary">Contactanos</span>
             </DropdownMenuItem>
           </Link>
-          {user && (
-            <a key="how" href="/api/auth/logout">
-              <DropdownMenuItem className="cursor-pointer">
-                <LogIn className="mr-2 h-5 text-tertiary rotate-180" />
-                <span className="text-tertiary">Logout</span>
-              </DropdownMenuItem>
-            </a>
-          )}
         </DropdownMenuGroup>
       </DropdownMenuContent>
     </DropdownMenu>

@@ -8,7 +8,9 @@ import {
   useEffect,
 } from 'react';
 
-type UserContextType = {};
+type UserContextType = {
+  token?: string;
+};
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
@@ -26,7 +28,7 @@ interface Props {
 }
 
 export const UserContextProvider: FC<Props> = ({ children, accessToken }) => {
-  const [token, setToken] = useState(accessToken);
+  const [token] = useState(accessToken);
 
   useEffect(() => {
     if (token) {
@@ -37,5 +39,7 @@ export const UserContextProvider: FC<Props> = ({ children, accessToken }) => {
     }
   }, [token]);
 
-  return <UserContext.Provider value={{}}>{children}</UserContext.Provider>;
+  return (
+    <UserContext.Provider value={{ token }}>{children}</UserContext.Provider>
+  );
 };

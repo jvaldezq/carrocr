@@ -1,6 +1,5 @@
 'use client';
 import { Car } from '@/lib/definitions';
-import { useUser } from '@auth0/nextjs-auth0/client';
 import { Carousel } from '@/components/Carousel';
 import {
   Activity,
@@ -29,10 +28,6 @@ export default function CarDialogDetails(props: Car) {
     mileage,
   } = props;
   const { clearId } = usePreview();
-  const { user } = useUser();
-  const isBlurred = user
-    ? undefined
-    : 'relative blur justify-center items-center';
 
   return (
     <div className="overflow-y-auto">

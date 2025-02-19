@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { ReactNode } from 'react';
 
 import { QueryWrapper } from '@/components/QueryWrapper';
