@@ -1,9 +1,9 @@
 import { useMutation } from '@tanstack/react-query';
-import { clientApi } from '@/lib/clientApi';
+import { protectedAxios } from '@/lib/clientApi';
 import { CarFormProps } from '@/context/CarEntryContext/CreateCar';
 
 export const createListing = async (data: CarFormProps): Promise<number> => {
-  const res = await clientApi.post('/listing', data);
+  const res = await protectedAxios.post('/listing', data);
   return res.data;
 };
 

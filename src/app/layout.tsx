@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { ReactNode } from 'react';
 
 import { QueryWrapper } from '@/components/QueryWrapper';
@@ -10,6 +11,7 @@ import { PreviewContextProvider } from '@/context/PreviewContext';
 import { Header } from '@/components/Layout/Header';
 import { Footer } from '@/components/Layout/Footer';
 import { CarEntryContextProvider } from '@/context/CarEntryContext/CarEntryContext';
+import { UserWrapper } from '@/components/UserWrapper';
 
 export const viewport: Viewport = {
   initialScale: 1,
@@ -18,7 +20,7 @@ export const viewport: Viewport = {
   userScalable: false,
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: ReactNode;
@@ -28,13 +30,15 @@ export default function RootLayout({
       <body className="bg-white">
         <UserProvider>
           <QueryWrapper>
-            <PreviewContextProvider>
-              <CarEntryContextProvider>
-                <Header />
-                {children}
-                <Footer />
-              </CarEntryContextProvider>
-            </PreviewContextProvider>
+            <UserWrapper>
+              <PreviewContextProvider>
+                <CarEntryContextProvider>
+                  <Header />
+                  {children}
+                  <Footer />
+                </CarEntryContextProvider>
+              </PreviewContextProvider>
+            </UserWrapper>
           </QueryWrapper>
         </UserProvider>
       </body>

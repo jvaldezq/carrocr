@@ -22,7 +22,6 @@ import { useCreateMutation } from '@/context/CarEntryContext/services/postListin
 import { useCarEntry } from '@/context/CarEntryContext/CarEntryContext';
 
 export interface CarFormProps {
-  acctId?: number; // TODO remove when adding auth to the request
   makeId?: number;
   modelId?: number;
   trimId?: number;
@@ -31,6 +30,7 @@ export interface CarFormProps {
 }
 
 export const CreateCar = () => {
+  const { close } = useCarEntry();
   const {
     mutateAsync: createListing,
     isPending,
@@ -51,11 +51,9 @@ export const CreateCar = () => {
       setTimeout(() => {
         setProgress(75);
       }, 3000);
-      createListing({
-        ...data,
-        acctId: 4,
-      }).then((res: number) => {
+      createListing(data).then((res: number) => {
         setProgress(100);
+        close();
         router.push(`/draft/${res}`);
       });
     },
