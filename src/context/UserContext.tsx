@@ -1,15 +1,10 @@
 'use client';
-import {
-  createContext,
-  useContext,
-  FC,
-  ReactNode,
-  useState,
-  useEffect,
-} from 'react';
+import { createContext, useContext, FC, ReactNode, useState } from 'react';
+import axios from 'axios';
 
 type UserContextType = {
   token?: string;
+  protectedAxios?: axios.AxiosInstance;
 };
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -30,16 +25,17 @@ interface Props {
 export const UserContextProvider: FC<Props> = ({ children, accessToken }) => {
   const [token] = useState(accessToken);
 
-  useEffect(() => {
-    if (token) {
-      localStorage.setItem(
-        process.env.NEXT_PUBLIC_LOCAL_STORAGE_TOKEN || 'carrocr_token',
-        token,
-      );
-    }
-  }, [token]);
+  const protectedAxios = axios.create({
+    baseURL: process.env.NEXT_PUBLIC_API_URL,
+    headers: {
+      Authorization: token ? `Bearer ${token}` : '',
+      'Content-Type': 'application/json',
+    },
+  });
 
   return (
-    <UserContext.Provider value={{ token }}>{children}</UserContext.Provider>
+    <UserContext.Provider value={{ token, protectedAxios }}>
+      {children}
+    </UserContext.Provider>
   );
 };
