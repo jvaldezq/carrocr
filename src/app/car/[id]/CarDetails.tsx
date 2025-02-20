@@ -8,6 +8,7 @@ import {
   DollarSign,
   Fuel,
   Handshake,
+  LogIn,
   Mail,
   MapPin,
   Phone,
@@ -21,6 +22,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { fetchCarById } from '@/app/car/[id]/service/fetchCarById';
 import { FactorySpecifications } from '@/app/car/[id]/FactorySpecifications';
+import { getSession } from '@auth0/nextjs-auth0';
 
 interface CarDetailsProps {
   id: string;
@@ -28,6 +30,7 @@ interface CarDetailsProps {
 
 export default async function CarDetails({ id }: CarDetailsProps) {
   const data = await fetchCarById(id);
+  const session = await getSession();
   const {
     model,
     price,
@@ -237,32 +240,51 @@ export default async function CarDetails({ id }: CarDetailsProps) {
             <div className="space-y-4">
               <div className="flex items-center gap-3">
                 <Mail className="h-5 w-5 text-primary" />
-                <a
-                  href={`mailto:${accountData.email}`}
-                  className="text-tertiary hover:text-primary transition-colors"
-                >
-                  {accountData.email}
-                </a>
+                {session?.user ? (
+                  <a
+                    href={`mailto:${accountData.email}`}
+                    className="text-tertiary hover:text-primary transition-colors"
+                  >
+                    {accountData.email}
+                  </a>
+                ) : (
+                  <div className="blur-sm bg-primary/[0.5] rounded-lg w-full h-6" />
+                )}
               </div>
               <div className="flex items-center gap-3">
                 <Phone className="h-5 w-5 text-primary" />
-                <a
-                  href={`tel:${accountData.phone}`}
-                  className="text-tertiary hover:text-primary transition-colors"
-                >
-                  {accountData.phone}
-                </a>
+                {session?.user ? (
+                  <a
+                    href={`tel:${accountData.phone}`}
+                    className="text-tertiary hover:text-primary transition-colors"
+                  >
+                    {accountData.phone}
+                  </a>
+                ) : (
+                  <div className="blur-sm bg-primary/[0.5] rounded-lg w-full h-6" />
+                )}
               </div>
             </div>
 
             <div className="mt-6">
-              <Link
-                key={accountData.id}
-                href={`/seller/${accountData.id}`}
-                className="w-full flex justify-center px-4 py-2 border border-primary text-primary rounded-lg hover:bg-primary/10 transition-colors"
-              >
-                Ver perfil
-              </Link>
+              {session?.user ? (
+                <Link
+                  key={accountData.id}
+                  href={`/seller/${accountData.id}`}
+                  className="w-full flex justify-center px-4 py-2 border border-primary text-primary rounded-lg hover:bg-primary/10 transition-colors"
+                >
+                  Ver perfil
+                </Link>
+              ) : (
+                <Link
+                  key="login"
+                  href="/api/auth/login"
+                  className="rounded-lg border w-full py-2 px-1 border-primary flex gap-1 items-center justify-center justify-self-center text-primary hover:bg-primary/10 transition-colors"
+                >
+                  <LogIn className="mr-2 h-5" />
+                  <span>Ingreso / Registro</span>
+                </Link>
+              )}
             </div>
           </section>
         </div>
