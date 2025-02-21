@@ -33,6 +33,8 @@ export const UserContextProvider: FC<Props> = ({ children, accessToken }) => {
     },
   });
 
+  console.log('token', token);
+
   return (
     <UserContext.Provider value={{ token, protectedAxios }}>
       {children}
