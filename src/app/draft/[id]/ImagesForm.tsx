@@ -1,32 +1,41 @@
 'use client';
-import React, { useCallback } from 'react';
-import { Info, Upload } from 'lucide-react';
+import React, { useCallback, useState } from 'react';
+import { CloudUpload, Info, Upload } from 'lucide-react';
 import { FormRenderProps } from 'react-final-form';
 import { CarImages, FormCarType } from '@/lib/definitions';
 import Image from 'next/image';
 import { usePostImage } from '@/app/draft/[id]/service/postImage';
+import UploadFile from '@/assets/upload.gif';
 import { cn } from '@/lib/utils';
 
 const IMAGE_SECTIONS = {
   exterior: [
-    { key: 'imgBodyFL', label: 'Frente Izquierdo' },
-    { key: 'imgBodyFC', label: 'Frente Centro' },
-    { key: 'imgBodyFR', label: 'Frente Derecho' },
-    { key: 'imgBodyRL', label: 'Trasero Izquierdo' },
-    { key: 'imgBodyRC', label: 'Trasero Centro' },
-    { key: 'imgBodyRR', label: 'Trasero Derecho' },
-    { key: 'imgBodySL', label: 'Lateral Izquierdo' },
-    { key: 'imgBodySR', label: 'Lateral Derecho' },
+    { key: 'imgBodyFL', label: 'Frente Izquierdo', required: true },
+    { key: 'imgBodyFC', label: 'Frente Centro', required: false },
+    { key: 'imgBodyFR', label: 'Frente Derecho', required: true },
+    { key: 'imgBodyRL', label: 'Trasero Izquierdo', required: true },
+    { key: 'imgBodyRC', label: 'Trasero Centro', required: false },
+    { key: 'imgBodyRR', label: 'Trasero Derecho', required: true },
+    { key: 'imgBodySL', label: 'Lateral Izquierdo', required: false },
+    { key: 'imgBodySR', label: 'Lateral Derecho', required: false },
   ],
   interior: [
-    { key: 'imgInteriorDash', label: 'Tablero' },
-    { key: 'imgInteriorCluster', label: 'Panel de Instrumentos' },
-    { key: 'imgInteriorRadio', label: 'Sistema de Infoentretenimiento' },
-    { key: 'imgInteriorSeatF', label: 'Asientos Delanteros' },
-    { key: 'imgInteriorSeatR', label: 'Asientos Traseros' },
-    { key: 'imgInteriorTrunk', label: 'Cajuela / Maletero' },
+    { key: 'imgInteriorDash', label: 'Tablero', required: true },
+    {
+      key: 'imgInteriorCluster',
+      label: 'Panel de Instrumentos',
+      required: false,
+    },
+    {
+      key: 'imgInteriorRadio',
+      label: 'Sistema de Infoentretenimiento',
+      required: false,
+    },
+    { key: 'imgInteriorSeatF', label: 'Asientos Delanteros', required: false },
+    { key: 'imgInteriorSeatR', label: 'Asientos Traseros', required: false },
+    { key: 'imgInteriorTrunk', label: 'Cajuela / Maletero', required: false },
   ],
-  mechanical: [{ key: 'imgEngine', label: 'Motor' }],
+  mechanical: [{ key: 'imgEngine', label: 'Motor', required: false }],
 };
 
 type ImagesFormsProps = FormRenderProps<FormCarType>;
@@ -36,10 +45,14 @@ export const ImagesForm = (props: ImagesFormsProps) => {
   const { values, form } = props;
   const { images } = values;
 
+  const [draggingOverKey, setDraggingOverKey] = useState<string | null>(null);
+  const [pendingKey, setPendingKey] = useState<string | null>(null);
+
   const handleImageUpload = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>, key: keyof CarImages) => {
       const file = event.target.files?.[0];
       if (file) {
+        setPendingKey(key);
         mutateAsync({
           imageFile: file,
           fileRename: key,
@@ -47,11 +60,39 @@ export const ImagesForm = (props: ImagesFormsProps) => {
         }).then((res) => {
           const imageToUpdate = `images.${key}` as keyof FormCarType;
           form.change(imageToUpdate, res);
+          setPendingKey(null);
         });
       }
     },
     [form, mutateAsync, values.id],
   );
+
+  const handleDragOver = (event: React.DragEvent, key: keyof CarImages) => {
+    event.preventDefault();
+    setDraggingOverKey(key as string);
+  };
+
+  const handleDragLeave = () => {
+    setDraggingOverKey(null);
+  };
+
+  const handleDrop = (event: React.DragEvent, key: keyof CarImages) => {
+    event.preventDefault();
+    setDraggingOverKey(null);
+    const file = event.dataTransfer.files[0];
+    if (file) {
+      setPendingKey(key);
+      mutateAsync({
+        imageFile: file,
+        fileRename: key,
+        listingID: values.id || 0,
+      }).then((res) => {
+        const imageToUpdate = `images.${key}` as keyof FormCarType;
+        form.change(imageToUpdate, res);
+        setPendingKey(null);
+      });
+    }
+  };
 
   return (
     <div className="flex flex-col gap-4">
@@ -80,51 +121,81 @@ export const ImagesForm = (props: ImagesFormsProps) => {
           {IMAGE_SECTIONS.exterior.map((section) => {
             const { key, label } = section;
             const src = images?.[key as keyof CarImages] || '';
+            const isDraggedOver = draggingOverKey === key;
+            const isPending = pendingKey === key;
             return (
               <div
                 className="flex flex-col gap-2 items-center justify-center w-full"
                 key={key}
               >
                 <p className="text-sm text-tertiary self-start">{label}</p>
-                <label
-                  htmlFor={`file-${key}`}
-                  className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600 relative"
-                >
-                  {src && (
+                {isPending ? (
+                  <div className="w-full h-full flex flex-col justify-center items-center gap-2 border-2 border-gray-300 border-dashed rounded-lg">
                     <Image
-                      src={src}
-                      height={300}
-                      width={500}
-                      alt={label}
-                      className="w-full h-full object-cover rounded-lg"
+                      src={UploadFile}
+                      alt="Uploader"
+                      height={50}
+                      width={50}
                     />
-                  )}
-                  <div
-                    className={cn(
-                      'flex flex-col items-center justify-center gap-1 absolute w-full h-full',
-                      src
-                        ? 'hover:bg-white/[0.9] text-transparent hover:text-tertiary'
-                        : 'text-tertiary',
-                    )}
-                  >
-                    <Upload className="h-5 w-5" />
-                    <p className=" text-sm">
-                      <span className="font-semibold">Subir foto</span> o
-                      arrastrar y soltar
+                    <p className="text-sm text-tertiary animate-fade animate-infinite animate-duration-[2000ms] animate-delay-0 animate-ease-linear">
+                      Subiendo
                     </p>
-                    <p className="text-xs">PNG, JPG (MAX. 800x400px)</p>
                   </div>
-                  <input
-                    id={`file-${key}`}
-                    type="file"
-                    className="hidden"
-                    accept="image/png, image/jpeg, , image/avif"
-                    capture="environment"
-                    onChange={(event) =>
-                      handleImageUpload(event, key as keyof CarImages)
+                ) : (
+                  <label
+                    htmlFor={`file-${key}`}
+                    onDragOver={(event) =>
+                      handleDragOver(event, key as keyof CarImages)
                     }
-                  />
-                </label>
+                    onDragLeave={handleDragLeave}
+                    onDrop={(event) =>
+                      handleDrop(event, key as keyof CarImages)
+                    }
+                    className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600 relative"
+                  >
+                    {src && (
+                      <Image
+                        src={src}
+                        height={300}
+                        width={500}
+                        alt={label}
+                        className="w-full h-full object-cover rounded-lg"
+                      />
+                    )}
+                    <div
+                      className={cn(
+                        'flex flex-col items-center justify-center gap-1 absolute w-full h-full',
+                        isDraggedOver
+                          ? 'bg-white/[0.7] text-primary'
+                          : src
+                            ? 'hover:bg-white/[0.9] text-transparent hover:text-tertiary'
+                            : 'text-tertiary',
+                      )}
+                    >
+                      {isDraggedOver ? (
+                        <CloudUpload className="h-5 w-5 animate-bounce animate-infinite animate-duration-500 animate-delay-0 animate-ease-linear" />
+                      ) : (
+                        <>
+                          <Upload className="h-5 w-5" />
+                          <p className=" text-sm">
+                            <span className="font-semibold">Subir foto</span> o
+                            arrastrar y soltar
+                          </p>
+                          <p className="text-xs">PNG, JPG</p>
+                        </>
+                      )}
+                    </div>
+                    <input
+                      id={`file-${key}`}
+                      type="file"
+                      className="hidden"
+                      accept="image/png, image/jpeg, image/avif, image/webp"
+                      onChange={(event) =>
+                        handleImageUpload(event, key as keyof CarImages)
+                      }
+                    />
+                  </label>
+                )}
               </div>
             );
           })}
@@ -138,51 +209,81 @@ export const ImagesForm = (props: ImagesFormsProps) => {
           {IMAGE_SECTIONS.interior.map((section) => {
             const { key, label } = section;
             const src = images?.[key as keyof CarImages] || '';
+            const isDraggedOver = draggingOverKey === key;
+            const isPending = pendingKey === key;
             return (
               <div
                 className="flex flex-col gap-2 items-center justify-center w-full"
                 key={key}
               >
                 <p className="text-sm text-tertiary self-start">{label}</p>
-                <label
-                  htmlFor={`file-${key}`}
-                  className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600 relative"
-                >
-                  {src && (
+                {isPending ? (
+                  <div className="w-full h-full flex flex-col justify-center items-center gap-2 border-2 border-gray-300 border-dashed rounded-lg">
                     <Image
-                      src={src}
-                      height={300}
-                      width={500}
-                      alt={label}
-                      className="w-full h-full object-cover rounded-lg"
+                      src={UploadFile}
+                      alt="Uploader"
+                      height={50}
+                      width={50}
                     />
-                  )}
-                  <div
-                    className={cn(
-                      'flex flex-col items-center justify-center gap-1 absolute w-full h-full',
-                      src
-                        ? 'hover:bg-white/[0.9] text-transparent hover:text-tertiary'
-                        : 'text-tertiary',
-                    )}
-                  >
-                    <Upload className="h-5 w-5" />
-                    <p className=" text-sm">
-                      <span className="font-semibold">Subir foto</span> o
-                      arrastrar y soltar
+                    <p className="text-sm text-tertiary animate-fade animate-infinite animate-duration-[2000ms] animate-delay-0 animate-ease-linear">
+                      Subiendo
                     </p>
-                    <p className="text-xs">PNG, JPG (MAX. 800x400px)</p>
                   </div>
-                  <input
-                    id={`file-${key}`}
-                    type="file"
-                    className="hidden"
-                    accept="image/png, image/jpeg, , image/avif"
-                    capture="environment"
-                    onChange={(event) =>
-                      handleImageUpload(event, key as keyof CarImages)
+                ) : (
+                  <label
+                    htmlFor={`file-${key}`}
+                    onDragOver={(event) =>
+                      handleDragOver(event, key as keyof CarImages)
                     }
-                  />
-                </label>
+                    onDragLeave={handleDragLeave}
+                    onDrop={(event) =>
+                      handleDrop(event, key as keyof CarImages)
+                    }
+                    className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600 relative"
+                  >
+                    {src && (
+                      <Image
+                        src={src}
+                        height={300}
+                        width={500}
+                        alt={label}
+                        className="w-full h-full object-cover rounded-lg"
+                      />
+                    )}
+                    <div
+                      className={cn(
+                        'flex flex-col items-center justify-center gap-1 absolute w-full h-full',
+                        isDraggedOver
+                          ? 'bg-white/[0.7] text-primary'
+                          : src
+                            ? 'hover:bg-white/[0.9] text-transparent hover:text-tertiary'
+                            : 'text-tertiary',
+                      )}
+                    >
+                      {isDraggedOver ? (
+                        <CloudUpload className="h-5 w-5 animate-bounce animate-infinite animate-duration-500 animate-delay-0 animate-ease-linear" />
+                      ) : (
+                        <>
+                          <Upload className="h-5 w-5" />
+                          <p className=" text-sm">
+                            <span className="font-semibold">Subir foto</span> o
+                            arrastrar y soltar
+                          </p>
+                          <p className="text-xs">PNG, JPG</p>
+                        </>
+                      )}
+                    </div>
+                    <input
+                      id={`file-${key}`}
+                      type="file"
+                      className="hidden"
+                      accept="image/png, image/jpeg, image/avif, image/webp"
+                      onChange={(event) =>
+                        handleImageUpload(event, key as keyof CarImages)
+                      }
+                    />
+                  </label>
+                )}
               </div>
             );
           })}
@@ -198,51 +299,81 @@ export const ImagesForm = (props: ImagesFormsProps) => {
           {IMAGE_SECTIONS.mechanical.map((section) => {
             const { key, label } = section;
             const src = images?.[key as keyof CarImages] || '';
+            const isDraggedOver = draggingOverKey === key;
+            const isPending = pendingKey === key;
             return (
               <div
                 className="flex flex-col gap-2 items-center justify-center w-full"
                 key={key}
               >
                 <p className="text-sm text-tertiary self-start">{label}</p>
-                <label
-                  htmlFor={`file-${key}`}
-                  className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600 relative"
-                >
-                  {src && (
+                {isPending ? (
+                  <div className="w-full h-full flex flex-col justify-center items-center gap-2 border-2 border-gray-300 border-dashed rounded-lg">
                     <Image
-                      src={src}
-                      height={300}
-                      width={500}
-                      alt={label}
-                      className="w-full h-full object-cover rounded-lg"
+                      src={UploadFile}
+                      alt="Uploader"
+                      height={50}
+                      width={50}
                     />
-                  )}
-                  <div
-                    className={cn(
-                      'flex flex-col items-center justify-center gap-1 absolute w-full h-full',
-                      src
-                        ? 'hover:bg-white/[0.9] text-transparent hover:text-tertiary'
-                        : 'text-tertiary',
-                    )}
-                  >
-                    <Upload className="h-5 w-5" />
-                    <p className=" text-sm">
-                      <span className="font-semibold">Subir foto</span> o
-                      arrastrar y soltar
+                    <p className="text-sm text-tertiary animate-fade animate-infinite animate-duration-[2000ms] animate-delay-0 animate-ease-linear">
+                      Subiendo
                     </p>
-                    <p className="text-xs">PNG, JPG (MAX. 800x400px)</p>
                   </div>
-                  <input
-                    id={`file-${key}`}
-                    type="file"
-                    className="hidden"
-                    accept="image/png, image/jpeg, , image/avif"
-                    capture="environment"
-                    onChange={(event) =>
-                      handleImageUpload(event, key as keyof CarImages)
+                ) : (
+                  <label
+                    htmlFor={`file-${key}`}
+                    onDragOver={(event) =>
+                      handleDragOver(event, key as keyof CarImages)
                     }
-                  />
-                </label>
+                    onDragLeave={handleDragLeave}
+                    onDrop={(event) =>
+                      handleDrop(event, key as keyof CarImages)
+                    }
+                    className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600 relative"
+                  >
+                    {src && (
+                      <Image
+                        src={src}
+                        height={300}
+                        width={500}
+                        alt={label}
+                        className="w-full h-full object-cover rounded-lg"
+                      />
+                    )}
+                    <div
+                      className={cn(
+                        'flex flex-col items-center justify-center gap-1 absolute w-full h-full',
+                        isDraggedOver
+                          ? 'bg-white/[0.7] text-primary'
+                          : src
+                            ? 'hover:bg-white/[0.9] text-transparent hover:text-tertiary'
+                            : 'text-tertiary',
+                      )}
+                    >
+                      {isDraggedOver ? (
+                        <CloudUpload className="h-5 w-5 animate-bounce animate-infinite animate-duration-500 animate-delay-0 animate-ease-linear" />
+                      ) : (
+                        <>
+                          <Upload className="h-5 w-5" />
+                          <p className=" text-sm">
+                            <span className="font-semibold">Subir foto</span> o
+                            arrastrar y soltar
+                          </p>
+                          <p className="text-xs">PNG, JPG</p>
+                        </>
+                      )}
+                    </div>
+                    <input
+                      id={`file-${key}`}
+                      type="file"
+                      className="hidden"
+                      accept="image/png, image/jpeg, image/avif, image/webp"
+                      onChange={(event) =>
+                        handleImageUpload(event, key as keyof CarImages)
+                      }
+                    />
+                  </label>
+                )}
               </div>
             );
           })}

@@ -2,6 +2,7 @@ import Details from '@/app/draft/[id]/Details';
 import { fetchDraftById } from '@/app/draft/[id]/service/getDraftById';
 import { getAccessToken } from '@auth0/nextjs-auth0';
 import type { Metadata } from 'next';
+import Image from 'next/image';
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -44,11 +45,20 @@ export default async function Draft({ params }: Props) {
 
   const car = await fetchDraftById(id, accessToken?.accessToken || '');
 
-  const { make, model, trim, year, license } = car;
+  const { make, model, trim, year, license, images } = car;
 
   return (
     <main className="min-h-dvh max-w-screen-2xl mx-auto px-2 pt-20">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
+      <div className="flex flex-col gap-4 md:flex-row justify-between md:justify-start items-start md:items-center mb-8">
+        {images?.imgBodyFL && (
+          <Image
+            src={images?.imgBodyFL}
+            alt="Thumbnail"
+            width={620}
+            height={350}
+            className="justify-self-center self-center object-cover rounded-lg h-full w-full md:h-40 md:w-80"
+          />
+        )}
         <div>
           <div className="flex flex-col sm:flex-row sm:items-center gap-2">
             <h1 className="text-3xl font-bold text-tertiary">

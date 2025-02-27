@@ -17,6 +17,7 @@ import { useGetDraftById } from '@/app/draft/[id]/service/putDraftById';
 import EditSVG from '@/assets/edit.gif';
 import Image from 'next/image';
 import { ImagesForm } from '@/app/draft/[id]/ImagesForm';
+// import {} from 'next/navigation';
 
 interface Props {
   car: FormCarType;
@@ -29,7 +30,9 @@ export default function Details(props: Props) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedSubmit = useCallback(
     debounce((values: FormCarType) => {
-      mutateAsync(values);
+      mutateAsync(values).then(() => {
+        // revalidatePath('/draft/[id]', 'page');
+      });
     }, 500),
     [mutateAsync],
   );

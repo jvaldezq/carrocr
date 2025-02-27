@@ -30,18 +30,21 @@ export const DetailsForms = () => {
             component={FormSelect as unknown as SupportedInputs}
             options={states_options}
             label="Provincia"
+            required
           />
           <Field
             name="condition"
             component={FormSelect as unknown as SupportedInputs}
             options={condition_options}
             label="Condición"
+            required
           />
           <Field
             name="inspectionYear"
             component={FormSelect as unknown as SupportedInputs}
             options={generateInspectionYears()}
             label="Año de próxima revisión técnica"
+            required
           />
         </div>
       </section>
@@ -56,12 +59,14 @@ export const DetailsForms = () => {
             component={FormSelect as unknown as SupportedInputs}
             options={currencies_options}
             label="Moneda"
+            required
           />
           <Field
             name="price"
             component={FormInput as unknown as SupportedInputs}
             placeholder="100000"
             label="Precio"
+            required
           />
           <Field
             name="taxesPaidTF"
@@ -91,18 +96,21 @@ export const DetailsForms = () => {
             component={FormSelect as unknown as SupportedInputs}
             options={milage_options}
             label="Tipo (Km, Millas)"
+            required
           />
           <Field
             name="mileage"
             component={FormInput as unknown as SupportedInputs}
             placeholder="100000"
             label="Kilometraje"
+            required
           />
           <Field
             name="transType"
             component={FormSelect as unknown as SupportedInputs}
             options={transType_options}
             label="Transmisión"
+            required
           />
 
           <Field
@@ -117,6 +125,7 @@ export const DetailsForms = () => {
             component={FormSelect as unknown as SupportedInputs}
             options={fuelType_options}
             label="Tipo de combustible"
+            required
           />
 
           <Field
@@ -124,6 +133,7 @@ export const DetailsForms = () => {
             component={FormSelect as unknown as SupportedInputs}
             options={driveType_options}
             label="Tipo de Tracción"
+            required
           />
 
           <Field
