@@ -1,5 +1,5 @@
 import Details from '@/app/draft/[id]/Details';
-import { fetchDraftByIdV1 } from '@/app/draft/[id]/service/getDraftById';
+import { fetchDraftById } from '@/app/draft/[id]/service/getDraftById';
 import { getAccessToken } from '@auth0/nextjs-auth0';
 import type { Metadata } from 'next';
 
@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {}
 
-  const data = await fetchDraftByIdV1(id, accessToken?.accessToken || '');
+  const data = await fetchDraftById(id, accessToken?.accessToken || '');
 
   const { year, make, model, trim, transType, condition } = data;
   const title = `${year} ${make} ${model} ${trim} - Transmisión ${transType}, Condición ${condition}`;
@@ -42,7 +42,7 @@ export default async function Draft({ params }: Props) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {}
 
-  const car = await fetchDraftByIdV1(id, accessToken?.accessToken || '');
+  const car = await fetchDraftById(id, accessToken?.accessToken || '');
 
   const { make, model, trim, year, license } = car;
 

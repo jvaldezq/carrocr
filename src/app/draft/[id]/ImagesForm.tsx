@@ -1,34 +1,57 @@
 'use client';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Info, Upload } from 'lucide-react';
+import { FormRenderProps } from 'react-final-form';
+import { CarImages, FormCarType } from '@/lib/definitions';
+import Image from 'next/image';
+import { usePostImage } from '@/app/draft/[id]/service/postImage';
+import { cn } from '@/lib/utils';
 
 const IMAGE_SECTIONS = {
   exterior: [
-    { key: 'imgBodyFL', label: 'Front Left' },
-    { key: 'imgBodyFC', label: 'Front Center' },
-    { key: 'imgBodyFR', label: 'Front Right' },
-    { key: 'imgBodyRL', label: 'Rear Left' },
-    { key: 'imgBodyRC', label: 'Rear Center' },
-    { key: 'imgBodyRR', label: 'Rear Right' },
-    { key: 'imgBodySL', label: 'Side Left' },
-    { key: 'imgBodySR', label: 'Side Right' },
+    { key: 'imgBodyFL', label: 'Frente Izquierdo' },
+    { key: 'imgBodyFC', label: 'Frente Centro' },
+    { key: 'imgBodyFR', label: 'Frente Derecho' },
+    { key: 'imgBodyRL', label: 'Trasero Izquierdo' },
+    { key: 'imgBodyRC', label: 'Trasero Centro' },
+    { key: 'imgBodyRR', label: 'Trasero Derecho' },
+    { key: 'imgBodySL', label: 'Lateral Izquierdo' },
+    { key: 'imgBodySR', label: 'Lateral Derecho' },
   ],
   interior: [
-    { key: 'imgInteriorDash', label: 'Dashboard' },
-    { key: 'imgInteriorCluster', label: 'Instrument Cluster' },
-    { key: 'imgInteriorRadio', label: 'Infotainment' },
-    { key: 'imgInteriorSeatF', label: 'Front Seats' },
-    { key: 'imgInteriorSeatR', label: 'Rear Seats' },
-    { key: 'imgInteriorTrunk', label: 'Trunk' },
+    { key: 'imgInteriorDash', label: 'Tablero' },
+    { key: 'imgInteriorCluster', label: 'Panel de Instrumentos' },
+    { key: 'imgInteriorRadio', label: 'Sistema de Infoentretenimiento' },
+    { key: 'imgInteriorSeatF', label: 'Asientos Delanteros' },
+    { key: 'imgInteriorSeatR', label: 'Asientos Traseros' },
+    { key: 'imgInteriorTrunk', label: 'Cajuela / Maletero' },
   ],
-  mechanical: [{ key: 'imgEngine', label: 'Engine Bay' }],
+  mechanical: [{ key: 'imgEngine', label: 'Motor' }],
 };
 
-// type ImagesFormsProps = FormRenderProps<FormCarType>;
+type ImagesFormsProps = FormRenderProps<FormCarType>;
 
-export const ImagesForm = () => {
-  // console.log('props', props);
-  console.log('IMAGE_SECTIONS', IMAGE_SECTIONS);
+export const ImagesForm = (props: ImagesFormsProps) => {
+  const { mutateAsync } = usePostImage();
+  const { values, form } = props;
+  const { images } = values;
+
+  const handleImageUpload = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>, key: keyof CarImages) => {
+      const file = event.target.files?.[0];
+      if (file) {
+        mutateAsync({
+          imageFile: file,
+          fileRename: key,
+          listingID: values.id || 0,
+        }).then((res) => {
+          const imageToUpdate = `images.${key}` as keyof FormCarType;
+          form.change(imageToUpdate, res);
+        });
+      }
+    },
+    [form, mutateAsync, values.id],
+  );
 
   return (
     <div className="flex flex-col gap-4">
@@ -51,32 +74,178 @@ export const ImagesForm = () => {
         </div>
       </section>
       <section className="bg-white rounded-lg shadow-md border p-4">
+        <h2 className="text-xl font-bold text-tertiary mb-4">Fotos exterior</h2>
+
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {IMAGE_SECTIONS.exterior.map((section) => {
+            const { key, label } = section;
+            const src = images?.[key as keyof CarImages] || '';
+            return (
+              <div
+                className="flex flex-col gap-2 items-center justify-center w-full"
+                key={key}
+              >
+                <p className="text-sm text-tertiary self-start">{label}</p>
+                <label
+                  htmlFor={`file-${key}`}
+                  className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600 relative"
+                >
+                  {src && (
+                    <Image
+                      src={src}
+                      height={300}
+                      width={500}
+                      alt={label}
+                      className="w-full h-full object-cover rounded-lg"
+                    />
+                  )}
+                  <div
+                    className={cn(
+                      'flex flex-col items-center justify-center gap-1 absolute w-full h-full',
+                      src
+                        ? 'hover:bg-white/[0.9] text-transparent hover:text-tertiary'
+                        : 'text-tertiary',
+                    )}
+                  >
+                    <Upload className="h-5 w-5" />
+                    <p className=" text-sm">
+                      <span className="font-semibold">Subir foto</span> o
+                      arrastrar y soltar
+                    </p>
+                    <p className="text-xs">PNG, JPG (MAX. 800x400px)</p>
+                  </div>
+                  <input
+                    id={`file-${key}`}
+                    type="file"
+                    className="hidden"
+                    accept="image/png, image/jpeg, , image/avif"
+                    capture="environment"
+                    onChange={(event) =>
+                      handleImageUpload(event, key as keyof CarImages)
+                    }
+                  />
+                </label>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      <section className="bg-white rounded-lg shadow-md border p-4">
+        <h2 className="text-xl font-bold text-tertiary mb-4">Fotos interior</h2>
+
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {IMAGE_SECTIONS.interior.map((section) => {
+            const { key, label } = section;
+            const src = images?.[key as keyof CarImages] || '';
+            return (
+              <div
+                className="flex flex-col gap-2 items-center justify-center w-full"
+                key={key}
+              >
+                <p className="text-sm text-tertiary self-start">{label}</p>
+                <label
+                  htmlFor={`file-${key}`}
+                  className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600 relative"
+                >
+                  {src && (
+                    <Image
+                      src={src}
+                      height={300}
+                      width={500}
+                      alt={label}
+                      className="w-full h-full object-cover rounded-lg"
+                    />
+                  )}
+                  <div
+                    className={cn(
+                      'flex flex-col items-center justify-center gap-1 absolute w-full h-full',
+                      src
+                        ? 'hover:bg-white/[0.9] text-transparent hover:text-tertiary'
+                        : 'text-tertiary',
+                    )}
+                  >
+                    <Upload className="h-5 w-5" />
+                    <p className=" text-sm">
+                      <span className="font-semibold">Subir foto</span> o
+                      arrastrar y soltar
+                    </p>
+                    <p className="text-xs">PNG, JPG (MAX. 800x400px)</p>
+                  </div>
+                  <input
+                    id={`file-${key}`}
+                    type="file"
+                    className="hidden"
+                    accept="image/png, image/jpeg, , image/avif"
+                    capture="environment"
+                    onChange={(event) =>
+                      handleImageUpload(event, key as keyof CarImages)
+                    }
+                  />
+                </label>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      <section className="bg-white rounded-lg shadow-md border p-4">
         <h2 className="text-xl font-bold text-tertiary mb-4">
-          Fotos exteriores
+          Fotos Mecánicas
         </h2>
 
-        <div className="grid sm:grid-cols-3 md:grid-cols-4 gap-2">
-          <div className="flex flex-col gap-2 items-center justify-center w-full">
-            <p className="text-sm text-tertiary self-start">
-              Delantero izquierdo
-            </p>
-            <label
-              htmlFor="dropzone-file"
-              className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
-            >
-              <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                <Upload className="h-5 w-5 text-tertiary" />
-                <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                  <span className="font-semibold">Subir foto</span> o arrastrar
-                  y soltar
-                </p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">
-                  PNG, JPG (MAX. 800x400px)
-                </p>
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {IMAGE_SECTIONS.mechanical.map((section) => {
+            const { key, label } = section;
+            const src = images?.[key as keyof CarImages] || '';
+            return (
+              <div
+                className="flex flex-col gap-2 items-center justify-center w-full"
+                key={key}
+              >
+                <p className="text-sm text-tertiary self-start">{label}</p>
+                <label
+                  htmlFor={`file-${key}`}
+                  className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600 relative"
+                >
+                  {src && (
+                    <Image
+                      src={src}
+                      height={300}
+                      width={500}
+                      alt={label}
+                      className="w-full h-full object-cover rounded-lg"
+                    />
+                  )}
+                  <div
+                    className={cn(
+                      'flex flex-col items-center justify-center gap-1 absolute w-full h-full',
+                      src
+                        ? 'hover:bg-white/[0.9] text-transparent hover:text-tertiary'
+                        : 'text-tertiary',
+                    )}
+                  >
+                    <Upload className="h-5 w-5" />
+                    <p className=" text-sm">
+                      <span className="font-semibold">Subir foto</span> o
+                      arrastrar y soltar
+                    </p>
+                    <p className="text-xs">PNG, JPG (MAX. 800x400px)</p>
+                  </div>
+                  <input
+                    id={`file-${key}`}
+                    type="file"
+                    className="hidden"
+                    accept="image/png, image/jpeg, , image/avif"
+                    capture="environment"
+                    onChange={(event) =>
+                      handleImageUpload(event, key as keyof CarImages)
+                    }
+                  />
+                </label>
               </div>
-              <input id="dropzone-file" type="file" className="hidden" />
-            </label>
-          </div>
+            );
+          })}
         </div>
       </section>
     </div>

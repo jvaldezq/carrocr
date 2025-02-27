@@ -82,7 +82,7 @@ const DraftForm = (props: FormProps) => {
         </div>
       ),
       value: 'images',
-      content: <ImagesForm />,
+      content: <ImagesForm {...rest} />,
     },
   ];
 
@@ -92,10 +92,10 @@ const DraftForm = (props: FormProps) => {
       <SubmitButton completion={completion} isPending={isPending} />
       <FormSpy
         subscription={{ values: true, dirty: true }}
-        onChange={({ values, dirty }) => {
-          if (dirty) {
-            debouncedSubmit(values as FormCarType);
-          }
+        onChange={({ values }) => {
+          // if (dirty) {
+          debouncedSubmit(values as FormCarType);
+          // }
         }}
       />
     </form>

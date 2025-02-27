@@ -32,7 +32,7 @@ export interface Car {
   accountData: AccountData;
 }
 
-interface CarImages {
+export interface CarImages {
   imgBodyFL: string | null;
   imgBodyFC: string | null;
   imgBodyFR: string | null;
