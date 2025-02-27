@@ -1,4 +1,4 @@
-import { forwardRef, InputHTMLAttributes, useEffect, useRef } from 'react';
+import { InputHTMLAttributes, useEffect, useRef } from 'react';
 
 import { InputWrapper, InputWrapperProps } from '../InputWrapper';
 import { CombinedInputProps } from '../types';
@@ -12,6 +12,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { InputLoading } from '@/components/Forms/InputLoading';
+import { cn } from '@/lib/utils';
 
 interface SelectOption {
   value: string;
@@ -37,7 +38,7 @@ export interface FormInputProps
   focus?: boolean;
 }
 
-export const FormSelect = forwardRef((props: FormInputProps) => {
+export const FormSelect = (props: FormInputProps) => {
   const {
     label,
     labelClassName,
@@ -85,7 +86,15 @@ export const FormSelect = forwardRef((props: FormInputProps) => {
           onValueChange={onChange}
           disabled={rest.disabled}
         >
-          <SelectTrigger className={`w-full ${triggerClassName}`}>
+          <SelectTrigger
+            className={cn(
+              'focus-visible:border-primary',
+              'focus-visible:ring-0',
+              'focus-visible:ring-offset-0',
+              'w-full',
+              triggerClassName,
+            )}
+          >
             <SelectValue placeholder={placeholder} ref={myRef} {...rest} />
           </SelectTrigger>
           <SelectContent>
@@ -104,6 +113,6 @@ export const FormSelect = forwardRef((props: FormInputProps) => {
       )}
     </InputWrapper>
   );
-});
+};
 
 FormSelect.displayName = 'FormInput';

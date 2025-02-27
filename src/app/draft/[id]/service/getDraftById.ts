@@ -1,18 +1,12 @@
-import type { Car } from '@/lib/definitions';
-import { useQuery } from '@tanstack/react-query';
-import { clientApi } from '@/lib/clientApi';
+import { FormCarType } from '@/lib/definitions';
+import { serverApi } from '@/lib/serverApi';
 
-const fetchDraftById = async (id: number | null): Promise<Car> => {
-  const cars = await clientApi.get(`/listing/drafts/${id}`);
-  return cars.data;
+export const fetchDraftByIdV1 = async (
+  id: string,
+  token: string,
+): Promise<FormCarType> => {
+  return (await serverApi({
+    path: `/listing/drafts/${id}`,
+    token,
+  })) as Promise<FormCarType>;
 };
-
-export const useGetDraftById = (id: number | null) =>
-  useQuery({
-    queryKey: ['car'],
-    staleTime: 0,
-    enabled: !!id,
-    queryFn: () => fetchDraftById(id),
-    retry: 2,
-    refetchOnReconnect: false,
-  });

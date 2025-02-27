@@ -20,3 +20,20 @@ export const generateYears = () => {
     },
   ];
 };
+
+export const generateInspectionYears = () => {
+  const currentYear: number = new Date().getFullYear();
+  const startYear: number = currentYear + 4;
+  const years: Year[] = [];
+
+  for (let year = startYear; year >= currentYear; year--) {
+    years.push({ label: year.toString(), value: year });
+  }
+
+  return [
+    {
+      label: 'Años',
+      options: years,
+    },
+  ];
+};

@@ -57,7 +57,7 @@ export const CreateCar = () => {
         router.push(`/draft/${res}`);
       });
     },
-    [createListing, router],
+    [close, createListing, router],
   );
 
   const validate = useCallback(async (data: CarFormProps) => {

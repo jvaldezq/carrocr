@@ -11,18 +11,21 @@ import {
 import { CombinedInputProps } from '../types';
 import { InputWrapper, InputWrapperProps } from '../InputWrapper';
 import { cn } from '@/lib/utils';
-import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
 import { InputLoading } from '@/components/Forms/InputLoading';
 
-export interface FormInputProps
+export interface FormTextAreaProps
   extends CombinedInputProps<string>,
     Omit<InputWrapperProps, 'children'>,
-    Omit<InputHTMLAttributes<HTMLInputElement>, 'label' | 'name' | 'onChange'> {
+    Omit<
+      InputHTMLAttributes<HTMLTextAreaElement>,
+      'label' | 'name' | 'onChange'
+    > {
   icon?: JSX.Element;
 }
 
-export const FormInput = forwardRef(
-  (props: FormInputProps, ref: ForwardedRef<HTMLInputElement>) => {
+export const FormTextArea = forwardRef(
+  (props: FormTextAreaProps, ref: ForwardedRef<HTMLTextAreaElement>) => {
     const {
       className,
       label,
@@ -39,10 +42,10 @@ export const FormInput = forwardRef(
       ...rest
     } = props;
     const { onChange, ...inputRest } = input;
-    const myRef = useRef<HTMLInputElement | null>(null);
+    const myRef = useRef<HTMLTextAreaElement | null>(null);
 
     const myOnChange = useCallback(
-      (e: ChangeEvent<HTMLInputElement>) => {
+      (e: ChangeEvent<HTMLTextAreaElement>) => {
         onChange(e.target.value);
       },
       [onChange],
@@ -63,7 +66,7 @@ export const FormInput = forwardRef(
           <InputLoading />
         ) : (
           <>
-            <Input
+            <Textarea
               name={name}
               className={cn(
                 'focus-visible:border-primary',
@@ -94,4 +97,4 @@ export const FormInput = forwardRef(
   },
 );
 
-FormInput.displayName = 'FormInput';
+FormTextArea.displayName = 'FormTextArea';

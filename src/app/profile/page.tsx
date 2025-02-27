@@ -13,6 +13,7 @@ import {
   Shield,
   XCircle,
 } from 'lucide-react';
+import Image from 'next/image';
 
 const mockSeller = {
   acctVerified: true,
@@ -142,9 +143,11 @@ export default function SellerAdmin() {
         </h2>
         <div className="space-y-4">
           <div className="flex items-center gap-4">
-            <img
+            <Image
               src={seller.picture}
               alt={seller.fullName}
+              height={80}
+              width={80}
               className="w-20 h-20 rounded-full object-cover"
             />
             <div>

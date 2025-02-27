@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 
 export const Footer = () => {
   const pathname = usePathname();
-  const condition = pathname.includes('/car-entry');
+  const condition = pathname.includes('/draft');
 
   if (condition) {
     return null;
