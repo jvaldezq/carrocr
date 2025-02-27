@@ -4,11 +4,19 @@ interface ServerApiProps {
   method?: 'GET' | 'POST' | 'PUT' | 'DELETE';
   revalidate?: number;
   token?: string;
+  cache?: RequestCache;
 }
 
 export const serverApi = async (props: ServerApiProps) => {
   try {
-    const { path, params, method = 'GET', revalidate = 60, token } = props;
+    const {
+      path,
+      params,
+      method = 'GET',
+      revalidate = 60,
+      token,
+      cache = 'default',
+    } = props;
     const parameters = params
       ? `?${new URLSearchParams(params).toString()}`
       : '';
@@ -21,6 +29,7 @@ export const serverApi = async (props: ServerApiProps) => {
         },
         method,
         next: { revalidate },
+        cache,
       },
     );
 

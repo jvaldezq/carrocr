@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { Info } from 'lucide-react';
+import { Info, Upload } from 'lucide-react';
 
 const IMAGE_SECTIONS = {
   exterior: [
@@ -32,150 +32,53 @@ export const ImagesForm = () => {
 
   return (
     <div className="flex flex-col gap-4">
-      {/* Image Upload Guide */}
-      <section className="bg-white rounded-lg shadow-md p-6">
+      <section className="bg-white rounded-lg shadow-md border p-4">
         <div className="flex items-start gap-4">
           <div className="flex-shrink-0 bg-primary/10 p-3 rounded-full">
             <Info className="h-6 w-6 text-primary" />
           </div>
           <div>
             <h2 className="text-xl font-bold text-tertiary mb-2">
-              Photo Guidelines
+              Guía de Fotos
             </h2>
             <ul className="list-disc list-inside space-y-2 text-tertiary">
-              <li>Use good lighting - natural daylight works best</li>
-              <li>Take photos from all angles as shown in the guide</li>
-              <li>Ensure the entire vehicle is in frame for exterior shots</li>
-              <li>Highlight any damage or imperfections</li>
-              <li>Maximum file size: 5MB per image</li>
-              <li>Accepted formats: JPG, PNG</li>
+              <li>Buena iluminación</li>
+              <li>Alta resolución y claridad</li>
+              <li>Limpieza y presentación</li>
+              <li>Sigue las indicaciones</li>
             </ul>
           </div>
         </div>
       </section>
+      <section className="bg-white rounded-lg shadow-md border p-4">
+        <h2 className="text-xl font-bold text-tertiary mb-4">
+          Fotos exteriores
+        </h2>
 
-      {/* Exterior Photos */}
-      {/*<section className="bg-white rounded-lg shadow-md p-6">*/}
-      {/*  <h2 className="text-xl font-bold text-tertiary mb-6">*/}
-      {/*    Exterior Photos*/}
-      {/*  </h2>*/}
-      {/*  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">*/}
-      {/*    {IMAGE_SECTIONS.exterior.map(({ key, label }) => (*/}
-      {/*      <div key={key} className="space-y-2">*/}
-      {/*        <p className="text-sm font-medium text-tertiary">{label}</p>*/}
-      {/*        {listing.images[key as keyof ListingImages] ? (*/}
-      {/*          <div className="relative aspect-[4/3] group">*/}
-      {/*            <img*/}
-      {/*              src={listing.images[key as keyof ListingImages]!}*/}
-      {/*              alt={label}*/}
-      {/*              className="w-full h-full object-cover rounded-lg"*/}
-      {/*            />*/}
-      {/*            <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">*/}
-      {/*              <button*/}
-      {/*                onClick={() =>*/}
-      {/*                  handleImageUpload(key as keyof ListingImages)*/}
-      {/*                }*/}
-      {/*                className="p-2 bg-white rounded-full hover:bg-gray-100 transition-colors"*/}
-      {/*              >*/}
-      {/*                <Upload className="h-5 w-5 text-tertiary" />*/}
-      {/*              </button>*/}
-      {/*            </div>*/}
-      {/*          </div>*/}
-      {/*        ) : (*/}
-      {/*          <button*/}
-      {/*            onClick={() => handleImageUpload(key as keyof ListingImages)}*/}
-      {/*            className="w-full aspect-[4/3] rounded-lg border-2 border-dashed border-gray-300 hover:border-primary/50 transition-colors flex flex-col items-center justify-center gap-2 bg-gray-50"*/}
-      {/*          >*/}
-      {/*            <Camera className="h-6 w-6 text-tertiary/60" />*/}
-      {/*            <span className="text-sm text-tertiary/60">Add Photo</span>*/}
-      {/*          </button>*/}
-      {/*        )}*/}
-      {/*      </div>*/}
-      {/*    ))}*/}
-      {/*  </div>*/}
-      {/*</section>*/}
-
-      {/* Interior Photos */}
-      {/*<section className="bg-white rounded-lg shadow-md p-6">*/}
-      {/*  <h2 className="text-xl font-bold text-tertiary mb-6">*/}
-      {/*    Interior Photos*/}
-      {/*  </h2>*/}
-      {/*  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">*/}
-      {/*    {IMAGE_SECTIONS.interior.map(({ key, label }) => (*/}
-      {/*      <div key={key} className="space-y-2">*/}
-      {/*        <p className="text-sm font-medium text-tertiary">{label}</p>*/}
-      {/*        {listing.images[key as keyof ListingImages] ? (*/}
-      {/*          <div className="relative aspect-[4/3] group">*/}
-      {/*            <img*/}
-      {/*              src={listing.images[key as keyof ListingImages]!}*/}
-      {/*              alt={label}*/}
-      {/*              className="w-full h-full object-cover rounded-lg"*/}
-      {/*            />*/}
-      {/*            <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">*/}
-      {/*              <button*/}
-      {/*                onClick={() =>*/}
-      {/*                  handleImageUpload(key as keyof ListingImages)*/}
-      {/*                }*/}
-      {/*                className="p-2 bg-white rounded-full hover:bg-gray-100 transition-colors"*/}
-      {/*              >*/}
-      {/*                <Upload className="h-5 w-5 text-tertiary" />*/}
-      {/*              </button>*/}
-      {/*            </div>*/}
-      {/*          </div>*/}
-      {/*        ) : (*/}
-      {/*          <button*/}
-      {/*            onClick={() => handleImageUpload(key as keyof ListingImages)}*/}
-      {/*            className="w-full aspect-[4/3] rounded-lg border-2 border-dashed border-gray-300 hover:border-primary/50 transition-colors flex flex-col items-center justify-center gap-2 bg-gray-50"*/}
-      {/*          >*/}
-      {/*            <Camera className="h-6 w-6 text-tertiary/60" />*/}
-      {/*            <span className="text-sm text-tertiary/60">Add Photo</span>*/}
-      {/*          </button>*/}
-      {/*        )}*/}
-      {/*      </div>*/}
-      {/*    ))}*/}
-      {/*  </div>*/}
-      {/*</section>*/}
-
-      {/* Mechanical Photos */}
-      {/*<section className="bg-white rounded-lg shadow-md p-6">*/}
-      {/*  <h2 className="text-xl font-bold text-tertiary mb-6">*/}
-      {/*    Mechanical Photos*/}
-      {/*  </h2>*/}
-      {/*  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">*/}
-      {/*    {IMAGE_SECTIONS.mechanical.map(({ key, label }) => (*/}
-      {/*      <div key={key} className="space-y-2">*/}
-      {/*        <p className="text-sm font-medium text-tertiary">{label}</p>*/}
-      {/*        {listing.images[key as keyof ListingImages] ? (*/}
-      {/*          <div className="relative aspect-[4/3] group">*/}
-      {/*            <img*/}
-      {/*              src={listing.images[key as keyof ListingImages]!}*/}
-      {/*              alt={label}*/}
-      {/*              className="w-full h-full object-cover rounded-lg"*/}
-      {/*            />*/}
-      {/*            <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">*/}
-      {/*              <button*/}
-      {/*                onClick={() =>*/}
-      {/*                  handleImageUpload(key as keyof ListingImages)*/}
-      {/*                }*/}
-      {/*                className="p-2 bg-white rounded-full hover:bg-gray-100 transition-colors"*/}
-      {/*              >*/}
-      {/*                <Upload className="h-5 w-5 text-tertiary" />*/}
-      {/*              </button>*/}
-      {/*            </div>*/}
-      {/*          </div>*/}
-      {/*        ) : (*/}
-      {/*          <button*/}
-      {/*            onClick={() => handleImageUpload(key as keyof ListingImages)}*/}
-      {/*            className="w-full aspect-[4/3] rounded-lg border-2 border-dashed border-gray-300 hover:border-primary/50 transition-colors flex flex-col items-center justify-center gap-2 bg-gray-50"*/}
-      {/*          >*/}
-      {/*            <Camera className="h-6 w-6 text-tertiary/60" />*/}
-      {/*            <span className="text-sm text-tertiary/60">Add Photo</span>*/}
-      {/*          </button>*/}
-      {/*        )}*/}
-      {/*      </div>*/}
-      {/*    ))}*/}
-      {/*  </div>*/}
-      {/*</section>*/}
+        <div className="grid sm:grid-cols-3 md:grid-cols-4 gap-2">
+          <div className="flex flex-col gap-2 items-center justify-center w-full">
+            <p className="text-sm text-tertiary self-start">
+              Delantero izquierdo
+            </p>
+            <label
+              htmlFor="dropzone-file"
+              className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+            >
+              <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                <Upload className="h-5 w-5 text-tertiary" />
+                <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                  <span className="font-semibold">Subir foto</span> o arrastrar
+                  y soltar
+                </p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">
+                  PNG, JPG (MAX. 800x400px)
+                </p>
+              </div>
+              <input id="dropzone-file" type="file" className="hidden" />
+            </label>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };

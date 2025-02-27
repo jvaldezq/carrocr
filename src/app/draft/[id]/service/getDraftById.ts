@@ -8,5 +8,6 @@ export const fetchDraftByIdV1 = async (
   return (await serverApi({
     path: `/listing/drafts/${id}`,
     token,
+    cache: 'no-cache',
   })) as Promise<FormCarType>;
 };
