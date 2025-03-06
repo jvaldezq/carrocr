@@ -38,21 +38,19 @@ export default function Details(props: Props) {
   );
 
   return (
-    <>
-      <Form
-        initialValues={car}
-        onSubmit={debouncedSubmit}
-        subscription={{ values: true, dirty: true }}
-      >
-        {(formProps) => (
-          <DraftForm
-            {...formProps}
-            debouncedSubmit={debouncedSubmit}
-            isPending={isPending}
-          />
-        )}
-      </Form>
-    </>
+    <Form
+      initialValues={car}
+      onSubmit={debouncedSubmit}
+      subscription={{ values: true, dirty: true }}
+    >
+      {(formProps) => (
+        <DraftForm
+          {...formProps}
+          debouncedSubmit={debouncedSubmit}
+          isPending={isPending}
+        />
+      )}
+    </Form>
   );
 }
 

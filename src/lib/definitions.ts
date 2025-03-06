@@ -127,6 +127,35 @@ export interface FactorySpecification {
   };
 }
 
+export interface ListingCounters {
+  denied: number;
+  drafts: number;
+  pending: number;
+  published: number;
+  total: number;
+}
+
+export interface UserProfile {
+  id: number;
+  acctVerified: boolean;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  authID: null | string;
+  acctType: number;
+  acctTypeName: string;
+  idNumber: string;
+  profileLogo: string;
+  profileHeader: string;
+  profilePicture: string;
+  listingCounters: ListingCounters;
+  country: string;
+  state: string;
+  createdDT: string;
+  updatedDT: string;
+}
+
 export enum APPROVAL_STAGE {
   DRAFT = 'DRAFT',
   REVIEW = 'REVIEW',
