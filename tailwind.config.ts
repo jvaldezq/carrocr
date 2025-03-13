@@ -25,9 +25,9 @@ const config = {
         sans: ['Roboto', 'sans-serif'],
       },
       colors: {
-        primary: '#38638E',
+        primary: '#124E78',
         secondary: '#F5F5F7',
-        tertiary: '#50514F',
+        tertiary: '#1C1C1C',
         'deep-gray': '#1C1C1C',
         quaternary: '#F8F7FF',
         persianBlue: '#1E40AF',

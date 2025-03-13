@@ -29,7 +29,7 @@ export const ProfileMenuDrawer = (props: ProfileMenuDrawerProps) => {
       <Drawer.Portal>
         <Drawer.Overlay className="fixed inset-0 bg-black/40 z-10" />
         <Drawer.Content
-          className="right-2 top-2 bottom-2 fixed z-10 outline-none w-[310px] flex"
+          className="right-2 top-2 bottom-2 fixed z-40 outline-none w-[310px] flex"
           style={{ '--initial-transform': 'calc(100% + 8px)' } as CSSProperties}
         >
           <div className="bg-primary h-full w-full grow p-4 flex flex-col rounded-xl">
@@ -38,7 +38,7 @@ export const ProfileMenuDrawer = (props: ProfileMenuDrawerProps) => {
                 <span className="text-base font-ligh text-white">LOGO</span>
               </Link>
             </Drawer.Title>
-            <Drawer.Content className="text-white p-1 flex flex-col gap-2 items-start justify-start h-full">
+            <div className="text-white p-1 flex flex-col gap-2 items-start justify-start h-full">
               {!user ? (
                 <Link
                   key="login"
@@ -105,7 +105,7 @@ export const ProfileMenuDrawer = (props: ProfileMenuDrawerProps) => {
                   <span>Logout</span>
                 </a>
               )}
-            </Drawer.Content>
+            </div>
           </div>
         </Drawer.Content>
       </Drawer.Portal>
