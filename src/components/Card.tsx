@@ -5,12 +5,17 @@ import {
   MapPin,
   ShieldCheck,
   Pencil,
+  CircleX,
+  CircleCheck,
+  CircleAlert,
+  CircleEllipsis,
 } from 'lucide-react';
 import { MoneyFormatter } from '@/lib/NumberFormats';
 import Link from 'next/link';
 import Image from 'next/image';
 import CardTrigger from '@/components/CardTrigger';
 import { cn } from '@/lib/utils';
+import { ReactNode } from 'react';
 
 type Props = Car & {
   isTemp?: boolean;
@@ -75,7 +80,7 @@ export default function Card(props: Props) {
             <div className="flex gap-1">
               <Link
                 key={id}
-                href={isTemp ? `/darft/${id}` : `/car/${id}`}
+                href={isTemp ? `/draft/${id}` : `/car/${id}`}
                 className={cn(
                   'border',
                   isTemp ? 'border-success' : 'border-primary',
@@ -122,6 +127,13 @@ const StageBadge = ({ stageID }: { stageID: number }) => {
     '4': 'bg-success',
   };
 
+  const icons: { [key: string]: ReactNode } = {
+    '1': <CircleEllipsis className="h-5 w-5" />,
+    '2': <CircleAlert className="h-5 w-5" />,
+    '3': <CircleX className="h-5 w-5" />,
+    '4': <CircleCheck className="h-5 w-5" />,
+  };
+
   return (
     <div
       className={cn(
@@ -137,8 +149,10 @@ const StageBadge = ({ stageID }: { stageID: number }) => {
         'font-light',
         'flex',
         'items-center',
+        'gap-1',
       )}
     >
+      {icons[stageID]}
       {APPROVAL_TRANSLATIONS.find((stage) => stage.id === stageID)?.label}
     </div>
   );
