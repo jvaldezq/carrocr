@@ -1,8 +1,9 @@
 import { Suspense } from 'react';
 import SellerDetails from '@/app/seller/[id]/SellerDetails';
-import { CarDetailsSkeleton } from '@/app/car/[id]/CarDetailsSkeleton';
 import { getAccessToken } from '@auth0/nextjs-auth0';
-import { getUserInfo } from '@/app/seller/service/getUserInfo';
+import { SellerDetailsSkeleton } from '@/app/seller/[id]/SellerDetailsSkeleton';
+import SellerCars from '@/app/seller/[id]/SellerCars';
+import { TopCarsSkeleton } from '@/components/Skeletons';
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -11,6 +12,7 @@ type Props = {
 
 export default async function Seller({ params }: Props) {
   const id = (await params).id;
+
   let accessToken = null;
   try {
     accessToken = await getAccessToken({
@@ -20,13 +22,14 @@ export default async function Seller({ params }: Props) {
     });
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {}
-  const userInformation = await getUserInfo(accessToken?.accessToken || '', id);
-  console.log('userInformation', userInformation);
 
   return (
     <main className="min-h-dvh max-w-screen-2xl mx-auto px-2 pt-20">
-      <Suspense fallback={<CarDetailsSkeleton />}>
-        <SellerDetails />
+      <Suspense fallback={<SellerDetailsSkeleton />}>
+        <SellerDetails sellerId={id} token={accessToken?.accessToken || ''} />
+      </Suspense>
+      <Suspense fallback={<TopCarsSkeleton />}>
+        <SellerCars sellerId={id} token={accessToken?.accessToken || ''} />
       </Suspense>
     </main>
   );

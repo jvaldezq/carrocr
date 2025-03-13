@@ -1,13 +1,13 @@
 import { serverApi } from '@/lib/serverApi';
-import { UserProfile } from '@/lib/definitions';
+import { type Car } from '@/lib/definitions';
 
 export const getUserListings = async (
   token: string,
   id: string,
-): Promise<UserProfile> => {
+): Promise<Car[]> => {
   return (await serverApi({
     path: `/listing/mini/${id}`,
     token,
     cache: 'no-cache',
-  })) as Promise<UserProfile>;
+  })) as Promise<Car[]>;
 };

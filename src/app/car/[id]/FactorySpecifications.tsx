@@ -67,6 +67,8 @@ export const FactorySpecifications = (props: Props) => {
     }));
   };
 
+  console.log('props', props);
+
   return (
     <section className="bg-white rounded-lg shadow-md p-6">
       <div className="flex items-center gap-2 mb-4">
@@ -87,7 +89,7 @@ export const FactorySpecifications = (props: Props) => {
               <Engine className="h-5 w-5 text-primary" />
               <span className="font-medium">Motor y potencia</span>
             </div>
-            {engine ? (
+            {expandedSections.engine ? (
               <ChevronUp className="h-5 w-5 text-tertiary" />
             ) : (
               <ChevronDown className="h-5 w-5 text-tertiary" />
@@ -128,7 +130,7 @@ export const FactorySpecifications = (props: Props) => {
               <Gauge className="h-5 w-5 text-primary" />
               <span className="font-medium">Economía</span>
             </div>
-            {economy ? (
+            {expandedSections.economy ? (
               <ChevronUp className="h-5 w-5 text-tertiary" />
             ) : (
               <ChevronDown className="h-5 w-5 text-tertiary" />
@@ -169,7 +171,7 @@ export const FactorySpecifications = (props: Props) => {
               <Ruler className="h-5 w-5 text-primary" />
               <span className="font-medium">Dimensiones</span>
             </div>
-            {dimensions ? (
+            {expandedSections.dimensions ? (
               <ChevronUp className="h-5 w-5 text-tertiary" />
             ) : (
               <ChevronDown className="h-5 w-5 text-tertiary" />
@@ -214,7 +216,7 @@ export const FactorySpecifications = (props: Props) => {
               <Box className="h-5 w-5 text-primary" />
               <span className="font-medium">Capacidad</span>
             </div>
-            {capacity ? (
+            {expandedSections.capacity ? (
               <ChevronUp className="h-5 w-5 text-tertiary" />
             ) : (
               <ChevronDown className="h-5 w-5 text-tertiary" />

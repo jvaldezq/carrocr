@@ -1,11 +1,22 @@
-import type { Car } from '@/lib/definitions';
-import { ArrowRight, Calendar, MapPin, ShieldCheck } from 'lucide-react';
+import { APPROVAL_TRANSLATIONS, Car } from '@/lib/definitions';
+import {
+  ArrowRight,
+  Calendar,
+  MapPin,
+  ShieldCheck,
+  Pencil,
+} from 'lucide-react';
 import { MoneyFormatter } from '@/lib/NumberFormats';
 import Link from 'next/link';
 import Image from 'next/image';
 import CardTrigger from '@/components/CardTrigger';
+import { cn } from '@/lib/utils';
 
-export default function Card(props: Car) {
+type Props = Car & {
+  isTemp?: boolean;
+  stageID?: number;
+};
+export default function Card(props: Props) {
   const {
     id,
     model,
@@ -16,6 +27,8 @@ export default function Card(props: Car) {
     currency,
     acctVerified,
     state,
+    isTemp = false,
+    stageID,
   } = props;
 
   return (
@@ -36,13 +49,13 @@ export default function Card(props: Car) {
             <ShieldCheck className="h-4 w-4" />
           </div>
         )}
+        {isTemp && <StageBadge stageID={stageID || 0} />}
       </div>
 
       <div className="p-4">
         <div className="flex justify-between gap-2">
           <h3 className="text-lg font-semibold text-tertiary">
             {`${make} ${model}`}
-            {/*<span className="text-primary text-sm">{trim}</span>*/}
           </h3>
         </div>
 
@@ -62,16 +75,71 @@ export default function Card(props: Car) {
             <div className="flex gap-1">
               <Link
                 key={id}
-                href={`/car/${id}`}
-                className="border border-primary text-primary px-2 py-1 rounded-lg text-sm flex items-center z-40 transition-all hover:scale-110"
+                href={isTemp ? `/darft/${id}` : `/car/${id}`}
+                className={cn(
+                  'border',
+                  isTemp ? 'border-success' : 'border-primary',
+                  isTemp ? 'text-success' : 'text-primary',
+                  'px-2',
+                  'py-1',
+                  'rounded-lg',
+                  'text-sm',
+                  'flex',
+                  'items-center',
+                  'z-40',
+                  'transition-all',
+                  'hover:scale-110',
+                )}
               >
-                <ArrowRight className="h-4 w-4" />
+                {isTemp ? (
+                  <Pencil className="h-5 w-5" />
+                ) : (
+                  <ArrowRight className="h-4 w-4" />
+                )}
               </Link>
             </div>
           </div>
         </div>
       </div>
-      <CardTrigger id={+id} />
+      {isTemp ? (
+        stageID === 4 ? (
+          <CardTrigger id={+id} />
+        ) : null
+      ) : (
+        <CardTrigger id={+id} />
+      )}
     </div>
   );
 }
+
+const StageBadge = ({ stageID }: { stageID: number }) => {
+  if (stageID === 0) return null;
+
+  const classNames: { [key: string]: string } = {
+    '1': 'bg-gray-600',
+    '2': 'bg-warning',
+    '3': 'bg-error',
+    '4': 'bg-success',
+  };
+
+  return (
+    <div
+      className={cn(
+        classNames[`${stageID}`],
+        'absolute',
+        'top-1',
+        'right-1',
+        'text-white',
+        'px-2.5',
+        'py-1',
+        'rounded-2xl',
+        'text-sm',
+        'font-light',
+        'flex',
+        'items-center',
+      )}
+    >
+      {APPROVAL_TRANSLATIONS.find((stage) => stage.id === stageID)?.label}
+    </div>
+  );
+};

@@ -56,6 +56,8 @@ export default async function CarDetails({ id }: CarDetailsProps) {
     accountData,
   } = data;
 
+  console.log('data', data);
+
   return (
     <section className="pb-10">
       {/* Title Section */}
@@ -211,12 +213,12 @@ export default async function CarDetails({ id }: CarDetailsProps) {
         <div className="lg:col-span-1">
           <section className="bg-white rounded-lg shadow-md p-6 sticky top-16">
             <div className="flex items-center gap-4 mb-6">
-              {accountData.picture ? (
+              {accountData.profileImage ? (
                 <Image
                   height={64}
                   width={64}
-                  src={accountData.picture}
-                  alt={accountData.acctFullName}
+                  src={accountData.firstName}
+                  alt={accountData.profileImage}
                   className="rounded-full"
                 />
               ) : (
@@ -226,7 +228,7 @@ export default async function CarDetails({ id }: CarDetailsProps) {
               )}
               <div>
                 <h3 className="text-lg font-semibold text-tertiary">
-                  {accountData.acctFullName}
+                  {`${accountData.firstName || ''} ${accountData.lastName || ''}`}
                 </h3>
                 {accountData.acctVerified && (
                   <div className="flex items-center text-verified text-sm">

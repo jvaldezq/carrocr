@@ -85,11 +85,14 @@ export interface FormCarType {
 
 export interface AccountData {
   id: number;
-  acctFullName: string;
   email: string;
   phone: string;
   acctVerified: boolean;
-  picture: string;
+  profileImage: string;
+  countryName: string;
+  statename: string;
+  firstName: string;
+  lastName: string;
 }
 
 export interface FactorySpecification {
@@ -148,7 +151,7 @@ export interface UserProfile {
   idNumber: string;
   profileLogo: string;
   profileHeader: string;
-  profilePicture: string;
+  profileImage: string;
   listingCounters: ListingCounters;
   country: string;
   state: string;
@@ -398,5 +401,24 @@ export const driveType_options = [
         value: '6WD',
       },
     ],
+  },
+];
+
+export const APPROVAL_TRANSLATIONS = [
+  {
+    id: 1,
+    label: 'Borrador',
+  },
+  {
+    id: 2,
+    label: 'Revisión',
+  },
+  {
+    id: 3,
+    label: 'Denegado',
+  },
+  {
+    id: 4,
+    label: 'Publicado',
   },
 ];

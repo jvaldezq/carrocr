@@ -23,7 +23,7 @@ export const ImageForm = (props: ImagesFormsProps) => {
         mutateAsync({
           imageFile: file,
         }).then((res) => {
-          form.change('profilePicture', res);
+          form.change('profileImage', res);
         });
       }
     },
@@ -47,7 +47,7 @@ export const ImageForm = (props: ImagesFormsProps) => {
       mutateAsync({
         imageFile: file,
       }).then((res) => {
-        form.change('profilePicture', res);
+        form.change('profileImage', res);
       });
     }
   };
@@ -72,9 +72,9 @@ export const ImageForm = (props: ImagesFormsProps) => {
           onDrop={(event) => handleDrop(event)}
           className="flex flex-col items-center justify-center w-[90px] h-[90px] border-2 border-gray-300 border-dashed rounded-full cursor-pointer bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600 relative"
         >
-          {values.profilePicture && (
+          {values.profileImage && (
             <Image
-              src={values.profilePicture}
+              src={values.profileImage}
               height={90}
               width={90}
               alt={values.firstName}
@@ -86,7 +86,7 @@ export const ImageForm = (props: ImagesFormsProps) => {
               'flex flex-col items-center justify-center gap-1 absolute w-full h-full',
               draggingOver
                 ? 'bg-white/[0.7] text-primary'
-                : values.profilePicture
+                : values.profileImage
                   ? 'hover:bg-white/[0.9] text-transparent hover:text-tertiary'
                   : 'text-tertiary',
             )}

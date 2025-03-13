@@ -89,18 +89,16 @@ export default function CarDialogDetails(props: Car) {
           </div>
         </div>
 
-        <div className="space-y-4">
-          <Link
-            key={id}
-            href={`/car/${id}`}
-            onClick={clearId}
-            className="w-full h-full bg-primary text-white flex flex-col gap-2 items-center
-                   px-2 py-1 rounded-lg font-medium justify-center"
-          >
-            <ArrowRight className="h-10 w-10" />
-            Más detalles
-          </Link>
-        </div>
+        <Link
+          key={id}
+          href={`/car/${id}`}
+          onClick={clearId}
+          className="md:w-fit w-full h-fit border-primary border-solid border text-primary flex gap-2 items-center
+                   p-3 rounded-lg font-medium justify-center justify-self-end self-end"
+        >
+          Más detalles
+          <ArrowRight className="h-6 w-6" />
+        </Link>
       </div>
     </div>
   );

@@ -5,6 +5,7 @@ interface ServerApiProps {
   revalidate?: number;
   token?: string;
   cache?: RequestCache;
+  body?: string;
 }
 
 export const serverApi = async (props: ServerApiProps) => {
@@ -16,6 +17,7 @@ export const serverApi = async (props: ServerApiProps) => {
       revalidate = 60,
       token,
       cache = 'default',
+      body,
     } = props;
     const parameters = params
       ? `?${new URLSearchParams(params).toString()}`
@@ -28,6 +30,7 @@ export const serverApi = async (props: ServerApiProps) => {
           Authorization: token ? `Bearer ${token}` : '',
         },
         method,
+        body,
         next: { revalidate },
         cache,
       },
