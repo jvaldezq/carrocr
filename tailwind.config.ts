@@ -28,6 +28,7 @@ const config = {
         primary: '#38638E',
         secondary: '#F5F5F7',
         tertiary: '#50514F',
+        'deep-gray': '#1C1C1C',
         quaternary: '#F8F7FF',
         persianBlue: '#1E40AF',
         jewel: '#166534',

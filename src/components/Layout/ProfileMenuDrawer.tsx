@@ -1,14 +1,7 @@
 'use client';
 
-import { ReactNode } from 'react';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+import React, { ReactNode, CSSProperties, useState } from 'react';
+import { Drawer } from 'vaul';
 import Link from 'next/link';
 import { useUser } from '@auth0/nextjs-auth0/client';
 import { CircleHelp, Contact, LogIn, User, SquarePen } from 'lucide-react';
@@ -19,64 +12,103 @@ interface ProfileMenuDrawerProps {
 }
 
 export const ProfileMenuDrawer = (props: ProfileMenuDrawerProps) => {
+  const [drawerOpen, setDrawerOpen] = useState(false);
   const { user } = useUser();
   const { setOpen } = useCarEntry();
   const { children } = props;
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger>{children}</DropdownMenuTrigger>
-      <DropdownMenuContent className="w-fit" collisionPadding={20}>
-        {/*<DropdownMenuLabel></DropdownMenuLabel>*/}
-        <DropdownMenuGroup>
-          {!user ? (
-            <Link key="login" href="/api/auth/login">
-              <DropdownMenuItem className="cursor-pointer">
-                <LogIn className="mr-2 h-5 text-tertiary" />
-                <span className="text-tertiary">Ingreso / Registro</span>
-              </DropdownMenuItem>
-            </Link>
-          ) : (
-            <Link key="logout" href="/profile">
-              <DropdownMenuItem className="cursor-pointer">
-                <User className="mr-2 h-5 text-tertiary" />
-                <span className="text-tertiary">{user?.name}</span>
-              </DropdownMenuItem>
-            </Link>
-          )}
-          {user && (
-            <div key="car-entry" onClick={() => setOpen(true)}>
-              <DropdownMenuItem className="cursor-pointer">
-                <SquarePen className="mr-2 h-5 text-tertiary" />
-                <span className="text-tertiary">Crear anuncio</span>
-              </DropdownMenuItem>
-            </div>
-          )}
-          {user && (
-            <a key="how" href="/api/auth/logout">
-              <DropdownMenuItem className="cursor-pointer">
-                <LogIn className="mr-2 h-5 text-tertiary rotate-180" />
-                <span className="text-tertiary">Logout</span>
-              </DropdownMenuItem>
-            </a>
-          )}
-        </DropdownMenuGroup>
-        <DropdownMenuSeparator className="bg-primary" />
-        <DropdownMenuGroup>
-          <Link key="how" href="/how">
-            <DropdownMenuItem className="cursor-pointer">
-              <CircleHelp className="mr-2 h-5 text-tertiary" />
-              <span className="text-tertiary">Como publicar?</span>
-            </DropdownMenuItem>
-          </Link>
-          <Link key="contact" href="/contact">
-            <DropdownMenuItem className="cursor-pointer">
-              <Contact className="mr-2 h-5 text-tertiary" />
-              <span className="text-tertiary">Contactanos</span>
-            </DropdownMenuItem>
-          </Link>
-        </DropdownMenuGroup>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <Drawer.Root
+      direction="right"
+      open={drawerOpen}
+      onOpenChange={setDrawerOpen}
+    >
+      <Drawer.Trigger className="relative flex h-10 flex-shrink-0 items-center justify-center gap-2 overflow-hidden rounded-full bg-white px-4 text-sm font-medium shadow-sm transition-all hover:bg-[#FAFAFA] dark:bg-[#161615] dark:hover:bg-[#1A1A19] dark:text-white">
+        {children}
+      </Drawer.Trigger>
+      <Drawer.Portal>
+        <Drawer.Overlay className="fixed inset-0 bg-black/40 z-10" />
+        <Drawer.Content
+          className="right-2 top-2 bottom-2 fixed z-10 outline-none w-[310px] flex"
+          style={{ '--initial-transform': 'calc(100% + 8px)' } as CSSProperties}
+        >
+          <div className="bg-primary h-full w-full grow p-4 flex flex-col rounded-xl">
+            <Drawer.Title className="font-medium mb-7 flex items-center justify-start">
+              <Link key="Home" href="/" onClick={() => setDrawerOpen(false)}>
+                <span className="text-base font-ligh text-white">LOGO</span>
+              </Link>
+            </Drawer.Title>
+            <Drawer.Content className="text-white p-1 flex flex-col gap-2 items-start justify-start h-full">
+              {!user ? (
+                <Link
+                  key="login"
+                  href="/api/auth/login"
+                  className="flex items-center gap-1 w-full py-2 px-1 rounded-xl"
+                  onClick={() => setDrawerOpen(false)}
+                >
+                  <LogIn className="h-5" />
+                  <span className="">Ingreso / Registro</span>
+                </Link>
+              ) : (
+                <div className="flex flex-col items-start justify-start">
+                  <Link
+                    key="profile"
+                    href="/profile"
+                    className="flex items-center gap-1 w-full py-2 px-1 rounded-xl"
+                    onClick={() => setDrawerOpen(false)}
+                  >
+                    <User className="h-5" />
+                    <span>{user?.name}</span>
+                  </Link>
+                  <div
+                    key="car-entry"
+                    onClick={() => {
+                      setOpen(true);
+                      setDrawerOpen(false);
+                    }}
+                    className="flex items-center gap-1 w-full py-2 px-3 rounded-xl cursor-pointer"
+                  >
+                    <SquarePen className="h-5" />
+                    <span>Crear anuncio</span>
+                  </div>
+                </div>
+              )}
+
+              <div className="w-full my-5 h-0.5 bg-white rounded-xl" />
+
+              <Link
+                key="how"
+                href="/how"
+                className="flex items-center gap-1 w-full py-2 px-1 rounded-xl"
+                onClick={() => setDrawerOpen(false)}
+              >
+                <CircleHelp className="h-5" />
+                <span className="">Como publicar?</span>
+              </Link>
+              <Link
+                key="contact"
+                href="/contact"
+                className="flex items-center gap-1 w-full py-2 px-1 rounded-xl"
+                onClick={() => setDrawerOpen(false)}
+              >
+                <Contact className="h-5" />
+                <span className="">Contactanos</span>
+              </Link>
+              {user && (
+                <a
+                  key="logout"
+                  href="/api/auth/logout"
+                  className="flex items-center gap-1 absolute bottom-2.5 right-4 cursor-pointer"
+                  onClick={() => setDrawerOpen(false)}
+                >
+                  <LogIn className="h-5 rotate-180" />
+                  <span>Logout</span>
+                </a>
+              )}
+            </Drawer.Content>
+          </div>
+        </Drawer.Content>
+      </Drawer.Portal>
+    </Drawer.Root>
   );
 };
