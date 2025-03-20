@@ -57,6 +57,7 @@ export default async function Draft({ params }: Props) {
             width={620}
             height={350}
             className="justify-self-center self-center object-cover rounded-lg h-full w-full md:h-40 md:w-80"
+            priority={true}
           />
         )}
         <div>

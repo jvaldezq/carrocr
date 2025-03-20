@@ -50,11 +50,7 @@ export const ProfileInfo = (props: Props) => {
   );
 
   return (
-    <Form
-      initialValues={props}
-      onSubmit={debouncedSubmit}
-      subscription={{ values: true, dirty: true }}
-    >
+    <Form initialValues={props} onSubmit={debouncedSubmit}>
       {(formProps) => (
         <ProfileInfoForm
           {...formProps}

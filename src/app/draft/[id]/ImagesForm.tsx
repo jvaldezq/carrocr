@@ -1,12 +1,13 @@
 'use client';
 import React, { useCallback, useState } from 'react';
 import { CloudUpload, Info, Upload } from 'lucide-react';
-import { FormRenderProps } from 'react-final-form';
+import { Field, FormRenderProps, SupportedInputs } from 'react-final-form';
 import { CarImages, FormCarType } from '@/lib/definitions';
 import Image from 'next/image';
 import { usePostImage } from '@/app/draft/[id]/service/postImage';
 import UploadFile from '@/assets/upload.gif';
 import { cn } from '@/lib/utils';
+import { FormInput } from '@/components/Forms/Input/FormInput';
 
 const IMAGE_SECTIONS = {
   exterior: [
@@ -123,11 +124,20 @@ export const ImagesForm = (props: ImagesFormsProps) => {
             const src = images?.[key as keyof CarImages] || '';
             const isDraggedOver = draggingOverKey === key;
             const isPending = pendingKey === key;
+            const imageKey = `images.${key}` as keyof FormCarType;
+
             return (
               <div
                 className="flex flex-col gap-2 items-center justify-center w-full"
                 key={key}
               >
+                <Field
+                  name={imageKey}
+                  component={FormInput as unknown as SupportedInputs}
+                  wrapperClassName="hidden"
+                  childrenClassName="hidden"
+                  className="hidden"
+                />
                 <p className="text-sm text-tertiary self-start">{label}</p>
                 {isPending ? (
                   <div className="w-full h-full flex flex-col justify-center items-center gap-2 border-2 border-gray-300 border-dashed rounded-lg">

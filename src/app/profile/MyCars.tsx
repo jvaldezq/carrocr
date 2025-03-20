@@ -104,7 +104,7 @@ export const MyCars = ({
                   {icons[item.id]}
                   {item.label}
                 </div>
-                <p>{listingCounters[item.key as keyof ListingCounters]}</p>
+                <p>{listingCounters?.[item.key as keyof ListingCounters]}</p>
               </div>
             );
           })}

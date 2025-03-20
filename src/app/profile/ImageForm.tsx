@@ -1,12 +1,13 @@
 'use client';
 import React, { useCallback, useState } from 'react';
 import { CloudUpload, Upload } from 'lucide-react';
-import { FormRenderProps } from 'react-final-form';
+import { Field, FormRenderProps, SupportedInputs } from 'react-final-form';
 import { UserProfile } from '@/lib/definitions';
 import Image from 'next/image';
 import UploadFile from '@/assets/upload.gif';
 import { cn } from '@/lib/utils';
 import { usePostProfileImage } from '@/app/profile/service/postProfileImage';
+import { FormInput } from '@/components/Forms/Input/FormInput';
 
 type ImagesFormsProps = FormRenderProps<UserProfile>;
 
@@ -54,6 +55,13 @@ export const ImageForm = (props: ImagesFormsProps) => {
 
   return (
     <div className="flex flex-col gap-2 items-center justify-center">
+      <Field
+        name="profileImage"
+        component={FormInput as unknown as SupportedInputs}
+        wrapperClassName="hidden"
+        childrenClassName="hidden"
+        className="hidden"
+      />
       {isPending ? (
         <div className="flex flex-col justify-center items-center gap-2 border-2 border-gray-300 border-dashed rounded-full w-[90px] h-[90px]">
           <Image
