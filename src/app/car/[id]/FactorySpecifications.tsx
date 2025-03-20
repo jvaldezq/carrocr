@@ -67,8 +67,6 @@ export const FactorySpecifications = (props: Props) => {
     }));
   };
 
-  console.log('props', props);
-
   return (
     <section className="bg-white rounded-lg shadow-md p-6">
       <div className="flex items-center gap-2 mb-4">

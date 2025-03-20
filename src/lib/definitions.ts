@@ -160,10 +160,10 @@ export interface UserProfile {
 }
 
 export enum APPROVAL_STAGE {
-  DRAFT = 'DRAFT',
-  REVIEW = 'REVIEW',
-  DENY = 'DENY',
-  PUBLISHED = 'PUBLISHED',
+  DRAFT = 'Drafts',
+  REVIEW = 'Pending',
+  DENY = 'Denied',
+  PUBLISHED = 'Published',
 }
 
 export enum VERIFICATIONS_TRANSLATIONS {
@@ -406,19 +406,23 @@ export const driveType_options = [
 
 export const APPROVAL_TRANSLATIONS = [
   {
+    id: 4,
+    label: 'Publicado',
+    key: 'published',
+  },
+  {
     id: 1,
     label: 'Borrador',
+    key: 'drafts',
   },
   {
     id: 2,
     label: 'Revisión',
+    key: 'pending',
   },
   {
     id: 3,
     label: 'Denegado',
-  },
-  {
-    id: 4,
-    label: 'Publicado',
+    key: 'denied',
   },
 ];

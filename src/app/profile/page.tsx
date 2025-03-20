@@ -19,7 +19,7 @@ export default async function SellerAdmin() {
   return (
     <main className="min-h-dvh max-w-screen-2xl mx-auto px-2 pt-20">
       <ProfileInfo {...data} />
-      <MyCars />
+      <MyCars listingCounters={data.listingCounters} />
     </main>
   );
 }

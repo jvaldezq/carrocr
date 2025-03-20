@@ -78,30 +78,50 @@ export default function Card(props: Props) {
               {state}
             </div>
             <div className="flex gap-1">
-              <Link
-                key={id}
-                href={isTemp ? `/draft/${id}` : `/car/${id}`}
-                className={cn(
-                  'border',
-                  isTemp ? 'border-success' : 'border-primary',
-                  isTemp ? 'text-success' : 'text-primary',
-                  'px-2',
-                  'py-1',
-                  'rounded-lg',
-                  'text-sm',
-                  'flex',
-                  'items-center',
-                  'z-40',
-                  'transition-all',
-                  'hover:scale-110',
-                )}
-              >
-                {isTemp ? (
+              {isTemp && (
+                <Link
+                  key={`edit-${id}`}
+                  href={`/draft/${id}`}
+                  className={cn(
+                    'border',
+                    'border-success',
+                    'text-success',
+                    'px-2',
+                    'py-1',
+                    'rounded-lg',
+                    'text-sm',
+                    'flex',
+                    'items-center',
+                    'z-40',
+                    'transition-all',
+                    'hover:scale-110',
+                  )}
+                >
                   <Pencil className="h-5 w-5" />
-                ) : (
+                </Link>
+              )}
+              {((isTemp && stageID === 4) || !isTemp) && (
+                <Link
+                  key={`view-${id}`}
+                  href={`/car/${id}`}
+                  className={cn(
+                    'border',
+                    'border-primary',
+                    'text-primary',
+                    'px-2',
+                    'py-1',
+                    'rounded-lg',
+                    'text-sm',
+                    'flex',
+                    'items-center',
+                    'z-40',
+                    'transition-all',
+                    'hover:scale-110',
+                  )}
+                >
                   <ArrowRight className="h-4 w-4" />
-                )}
-              </Link>
+                </Link>
+              )}
             </div>
           </div>
         </div>

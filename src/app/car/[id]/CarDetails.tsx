@@ -56,8 +56,6 @@ export default async function CarDetails({ id }: CarDetailsProps) {
     accountData,
   } = data;
 
-  console.log('data', data);
-
   return (
     <section className="pb-10">
       {/* Title Section */}
@@ -217,9 +215,9 @@ export default async function CarDetails({ id }: CarDetailsProps) {
                 <Image
                   height={64}
                   width={64}
-                  src={accountData.firstName}
-                  alt={accountData.profileImage}
-                  className="rounded-full"
+                  src={accountData.profileImage}
+                  alt={accountData.firstName}
+                  className="rounded-full w-16 h-16 object-cover"
                 />
               ) : (
                 <div className="bg-primary/[0.8] h-16 w-16 rounded-full flex items-center justify-center">

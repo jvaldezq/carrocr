@@ -45,7 +45,7 @@ export default async function SellerDetails(props: Props) {
                 height={96}
                 src={profileImage}
                 alt={firstName}
-                className="rounded-full object-cover"
+                className="rounded-full object-cover w-[96px] h-[96px]"
               />
             ) : (
               <div className="bg-primary/[0.8] h-24 w-24 rounded-full flex items-center justify-center">

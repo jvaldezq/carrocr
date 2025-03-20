@@ -78,12 +78,12 @@ export const ImageForm = (props: ImagesFormsProps) => {
               height={90}
               width={90}
               alt={values.firstName}
-              className="object-cover rounded-full  w-[90px] h-[90px]"
+              className="object-cover rounded-full w-[90px] h-[90px]"
             />
           )}
           <div
             className={cn(
-              'flex flex-col items-center justify-center gap-1 absolute w-full h-full',
+              'flex flex-col items-center justify-center gap-1 absolute w-full h-full rounded-full',
               draggingOver
                 ? 'bg-white/[0.7] text-primary'
                 : values.profileImage

@@ -12,7 +12,7 @@ export default async function SellerCars(props: Props) {
 
   if (!data)
     return (
-      <div className="flex flex-col justify-center items-center gap-3">
+      <div className="flex flex-col justify-center items-center gap-3 mt-6">
         <ArchiveX />
         <h2 className="text-base font-light text-tertiary">
           El vendedor no tiene anuncios activos

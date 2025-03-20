@@ -26,7 +26,7 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="bg-white">
+      <body className="bg-quaternary">
         <UserProvider>
           <QueryWrapper>
             <UserWrapper>

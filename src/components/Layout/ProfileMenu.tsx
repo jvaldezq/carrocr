@@ -20,16 +20,21 @@ export const ProfileMenu = async () => {
           'animate-duration-500',
           'animate-ease-linear',
           'rounded-xl',
-          'border-[0.7px]',
-          'border-tertiary',
+          'border-[0.5px]',
+          'border-tertiary/[0.5]',
           'border-solid',
           'cursor-pointer',
           'transition-all',
-          'duration-500',
+          'duration-300',
+          'hover:shadow-sm',
+          'text-tertiary/[0.9]',
+          'hover:bg-primary',
+          'hover:border-primary',
+          'hover:text-white',
         )}
       >
-        <AlignJustify className="h-5 text-tertiary" />
-        {session?.user && <User className="h-5 text-tertiary" />}
+        <AlignJustify className="h-5" />
+        {session?.user && <User className="h-5" />}
       </div>
     </ProfileMenuDrawer>
   );

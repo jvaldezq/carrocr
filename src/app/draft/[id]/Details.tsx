@@ -1,5 +1,5 @@
 'use client';
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import {
   CheckCircle2,
   AlertCircle,
@@ -7,17 +7,16 @@ import {
   Image as ImageIcon,
 } from 'lucide-react';
 import { Tabs } from '@/components/Tabs';
-import { FormCarType } from '@/lib/definitions';
+import { APPROVAL_STAGE, FormCarType } from '@/lib/definitions';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { Form, FormRenderProps, FormSpy } from 'react-final-form';
+import { Form, FormRenderProps } from 'react-final-form';
 import { DetailsForms } from '@/app/draft/[id]/DetailsForms';
 import { debounce } from 'lodash';
 import { useGetDraftById } from '@/app/draft/[id]/service/putDraftById';
 import EditSVG from '@/assets/edit.gif';
 import Image from 'next/image';
 import { ImagesForm } from '@/app/draft/[id]/ImagesForm';
-// import {} from 'next/navigation';
 
 interface Props {
   car: FormCarType;
@@ -30,9 +29,7 @@ export default function Details(props: Props) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedSubmit = useCallback(
     debounce((values: FormCarType) => {
-      mutateAsync(values).then(() => {
-        // revalidatePath('/draft/[id]', 'page');
-      });
+      mutateAsync(values).then(() => {});
     }, 500),
     [mutateAsync],
   );
@@ -64,6 +61,26 @@ const DraftForm = (props: FormProps) => {
   const completion = 60;
   const { handleSubmit } = rest;
 
+  const isFirstRender = useRef(true);
+
+  const handleDelete = useCallback(() => {
+    console.log('delete', rest.values.id);
+  }, [rest.values.id]);
+
+  const handleComplete = useCallback(() => {
+    console.log('complete', rest.values.id);
+  }, [rest.values.id]);
+
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    if (rest.dirty) {
+      debouncedSubmit(rest.values);
+    }
+  }, [rest.dirty, debouncedSubmit, rest.values]);
+
   const options = [
     {
       title: (
@@ -88,17 +105,27 @@ const DraftForm = (props: FormProps) => {
   ];
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-2 pb-16">
+    <form onSubmit={handleSubmit} className="flex flex-col gap-2 pb-16 mb-12">
       <Tabs options={options} defaultValue="details" ariaLabel="draft-car" />
       <SubmitButton completion={completion} isPending={isPending} />
-      <FormSpy
-        subscription={{ values: true, dirty: true }}
-        onChange={({ values }) => {
-          // if (dirty) {
-          debouncedSubmit(values as FormCarType);
-          // }
-        }}
-      />
+      {rest?.values?.approvalStageID === APPROVAL_STAGE.PUBLISHED && (
+        <Button
+          type="button"
+          variant="default"
+          onClick={handleComplete}
+          className="cursor-pointer"
+        >
+          Marcar como vendido
+        </Button>
+      )}
+      <Button
+        type="button"
+        variant="destructive"
+        onClick={handleDelete}
+        className="cursor-pointer"
+      >
+        Eliminar anuncio
+      </Button>
     </form>
   );
 };

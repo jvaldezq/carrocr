@@ -1,12 +1,11 @@
 'use client';
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { states_options, UserProfile } from '@/lib/definitions';
 import { debounce } from 'lodash';
 import {
   Field,
   Form,
   FormRenderProps,
-  FormSpy,
   SupportedInputs,
 } from 'react-final-form';
 import { useUpdateProfileInfoMutation } from '@/app/profile/service/putProfileInfo';
@@ -15,7 +14,7 @@ import { ImageForm } from '@/app/profile/ImageForm';
 import { FormSelect } from '@/components/Forms/Select/FormSelect';
 import { FormInput } from '@/components/Forms/Input/FormInput';
 import dayjs from 'dayjs';
-import 'dayjs/locale/es'; // Import the Spanish locale
+import 'dayjs/locale/es';
 
 // Set the locale to Spanish
 dayjs.locale('es');
@@ -28,7 +27,6 @@ export const ProfileInfo = (props: Props) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedSubmit = useCallback(
     debounce((values: UserProfile) => {
-      console.log('values', values);
       mutateAsync(values).then(() => {});
     }, 500),
     [],
@@ -57,12 +55,26 @@ type FormProps = FormRenderProps<UserProfile> & {
 };
 
 export const ProfileInfoForm = (props: FormProps) => {
-  const { handleSubmit, debouncedSubmit, values } = props;
+  const { handleSubmit, debouncedSubmit, values, dirty } = props;
   const { firstName = '', lastName = '', email, createdDT = dayjs() } = values;
+
+  const isFirstRender = useRef(true);
+
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    if (dirty) {
+      debouncedSubmit(values);
+    }
+  }, [values, debouncedSubmit, dirty]);
+
   return (
     <form
       onSubmit={handleSubmit}
       className={cn(
+        'bg-white',
         'rounded-lg',
         'shadow-md',
         'p-4',
@@ -104,13 +116,6 @@ export const ProfileInfoForm = (props: FormProps) => {
           required
         />
       </div>
-
-      <FormSpy
-        subscription={{ values: true, dirty: true }}
-        onChange={({ values }) => {
-          debouncedSubmit(values as UserProfile);
-        }}
-      />
     </form>
   );
 };
