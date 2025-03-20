@@ -5,7 +5,7 @@ import React from 'react';
 import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 
-export const BackButton = () => {
+export const AutoFilters = () => {
   const path = usePathname();
 
   return (
@@ -21,6 +21,7 @@ export const BackButton = () => {
         <Link key="Home" href="/">
           <div className="flex items-center">
             <Car className="h-5 w-5" />
+            <span className="text-sm font-ligh">CARROCR</span>
           </div>
         </Link>
       )}

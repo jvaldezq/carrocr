@@ -41,18 +41,18 @@ export const ProfileMenuDrawer = (props: ProfileMenuDrawerProps) => {
                 <Link
                   key="login"
                   href="/api/auth/login"
-                  className="flex items-center gap-1 w-full py-2 px-1 rounded-xl"
+                  className="flex items-center gap-1 w-full py-2 px-1 rounded-xl cursor-pointer hover:bg-white/[0.1] transition-colors duration-300"
                   onClick={() => setDrawerOpen(false)}
                 >
                   <LogIn className="h-5" />
                   <span className="">Ingreso / Registro</span>
                 </Link>
               ) : (
-                <div className="flex flex-col items-start justify-start">
+                <div className="flex flex-col items-start justify-start w-full">
                   <Link
                     key="profile"
                     href="/profile"
-                    className="flex items-center gap-1 w-full py-2 px-1 rounded-xl"
+                    className="flex items-center gap-1 w-full py-2 px-1 rounded-xl cursor-pointer hover:bg-white/[0.1] transition-colors duration-300"
                     onClick={() => setDrawerOpen(false)}
                   >
                     <User className="h-5" />
@@ -64,7 +64,7 @@ export const ProfileMenuDrawer = (props: ProfileMenuDrawerProps) => {
                       setOpen(true);
                       setDrawerOpen(false);
                     }}
-                    className="flex items-center gap-1 w-full py-2 px-3 rounded-xl cursor-pointer"
+                    className="flex items-center gap-1 w-full py-2 px-3 rounded-xl cursor-pointer hover:bg-white/[0.1] transition-colors duration-300"
                   >
                     <SquarePen className="h-5" />
                     <span>Crear anuncio</span>
@@ -72,12 +72,12 @@ export const ProfileMenuDrawer = (props: ProfileMenuDrawerProps) => {
                 </div>
               )}
 
-              <div className="w-full my-5 h-0.5 bg-white rounded-xl" />
+              <div className="w-full my-5 h-[0.5px] bg-white/[0.6] rounded-xl" />
 
               <Link
                 key="how"
                 href="/how"
-                className="flex items-center gap-1 w-full py-2 px-1 rounded-xl"
+                className="flex items-center gap-1 w-full py-2 px-1 rounded-xl cursor-pointer hover:bg-white/[0.1] transition-colors duration-300"
                 onClick={() => setDrawerOpen(false)}
               >
                 <CircleHelp className="h-5" />
@@ -86,7 +86,7 @@ export const ProfileMenuDrawer = (props: ProfileMenuDrawerProps) => {
               <Link
                 key="contact"
                 href="/contact"
-                className="flex items-center gap-1 w-full py-2 px-1 rounded-xl"
+                className="flex items-center gap-1 w-full py-2 px-1 rounded-xl cursor-pointer hover:bg-white/[0.1] transition-colors duration-300"
                 onClick={() => setDrawerOpen(false)}
               >
                 <Contact className="h-5" />

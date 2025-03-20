@@ -1,10 +1,10 @@
 import { serverApi } from '@/lib/serverApi';
-import { UserProfile } from '@/lib/definitions';
+import { UserInfo } from '@/lib/definitions';
 
-export const getUserInfo = async (token: string): Promise<UserProfile> => {
+export const getUserInfo = async (token: string): Promise<UserInfo> => {
   return (await serverApi({
     path: `/user/info`,
     token,
     cache: 'no-cache',
-  })) as Promise<UserProfile>;
+  })) as Promise<UserInfo>;
 };

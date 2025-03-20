@@ -132,10 +132,18 @@ export interface FactorySpecification {
 
 export interface ListingCounters {
   denied: number;
-  drafts: number;
+  draft: number;
+  review: number;
   pending: number;
+  ended: number;
+  delete: number;
   published: number;
   total: number;
+}
+
+export interface UserInfo {
+  account: UserProfile;
+  counts: ListingCounters;
 }
 
 export interface UserProfile {
@@ -152,7 +160,6 @@ export interface UserProfile {
   profileLogo: string;
   profileHeader: string;
   profileImage: string;
-  listingCounters: ListingCounters;
   country: string;
   state: string;
   createdDT: string;
@@ -160,8 +167,8 @@ export interface UserProfile {
 }
 
 export enum APPROVAL_STAGE {
-  DRAFT = 'Drafts',
-  REVIEW = 'Pending',
+  DRAFT = 'Draft',
+  REVIEW = 'Review',
   DENY = 'Denied',
   PUBLISHED = 'Published',
   DELETED = 'Deleted',
@@ -415,12 +422,12 @@ export const APPROVAL_TRANSLATIONS = [
   {
     id: 1,
     label: 'Borrador',
-    key: 'drafts',
+    key: 'draft',
   },
   {
     id: 2,
     label: 'Revisión',
-    key: 'pending',
+    key: 'review',
   },
   {
     id: 3,
