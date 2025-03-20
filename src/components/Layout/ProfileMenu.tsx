@@ -33,8 +33,11 @@ export const ProfileMenu = async () => {
           'hover:text-white',
         )}
       >
-        <AlignJustify className="h-5" />
-        {session?.user && <User className="h-5" />}
+        {session?.user ? (
+          <User className="h-5" />
+        ) : (
+          <AlignJustify className="h-5" />
+        )}
       </div>
     </ProfileMenuDrawer>
   );

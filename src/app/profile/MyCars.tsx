@@ -76,7 +76,7 @@ export const MyCars = ({
       >
         <h2 className="text-2xl font-bold text-tertiary">Mis anuncios</h2>
 
-        <div className="flex flex-row flex-wrap gap-2 justify-center sm:justify-start items-center">
+        <div className="flex flex-row flex-wrap gap-4 justify-center sm:justify-start items-center">
           {APPROVAL_TRANSLATIONS.map((item) => {
             const className = filters.includes(item.id)
               ? classNames[`${item.id}`].active
@@ -99,7 +99,9 @@ export const MyCars = ({
                   'rounded-xl',
                   'cursor-pointer',
                   'transition-all',
-                  'duration-500',
+                  'duration-300',
+                  'hover:shadow-2xl',
+                  'hover:scale-105',
                 )}
               >
                 <div className="flex flex-row gap-2">

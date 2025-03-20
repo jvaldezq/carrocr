@@ -166,6 +166,17 @@ export interface UserProfile {
   updatedDT: string;
 }
 
+export interface ListingResponse {
+  listings: Car[];
+  pages: Pages;
+}
+
+export interface Pages {
+  listings: number;
+  pages: number;
+  total: number;
+}
+
 export enum APPROVAL_STAGE {
   DRAFT = 'Draft',
   REVIEW = 'Review',

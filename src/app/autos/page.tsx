@@ -1,4 +1,7 @@
 import type { Metadata } from 'next';
+import { TopCarsSkeleton } from '@/components/Skeletons';
+import { Suspense } from 'react';
+import ListingCars from '@/app/autos/ListingCars';
 
 export const metadata: Metadata = {
   title:
@@ -10,7 +13,11 @@ export const metadata: Metadata = {
 const Autos = async () => {
   return (
     <main className="min-h-dvh pt-[60px]">
-      <section className="max-w-screen-3xl mx-auto px-2 mt-8">autos</section>
+      <section className="max-w-screen-3xl mx-auto px-2 mt-8">
+        <Suspense fallback={<TopCarsSkeleton />}>
+          <ListingCars />
+        </Suspense>
+      </section>
     </main>
   );
 };
