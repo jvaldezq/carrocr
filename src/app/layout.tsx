@@ -11,6 +11,7 @@ import { Header } from '@/components/Layout/Header';
 import { Footer } from '@/components/Layout/Footer';
 import { CarEntryContextProvider } from '@/context/CarEntryContext/CarEntryContext';
 import { UserWrapper } from '@/components/UserWrapper';
+import { Toaster } from '@/components/ui/toaster';
 
 export const viewport: Viewport = {
   initialScale: 1,
@@ -34,6 +35,7 @@ export default async function RootLayout({
                 <CarEntryContextProvider>
                   <Header />
                   {children}
+                  <Toaster />
                   <Footer />
                 </CarEntryContextProvider>
               </PreviewContextProvider>

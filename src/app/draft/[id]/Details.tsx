@@ -13,10 +13,13 @@ import { cn } from '@/lib/utils';
 import { Form, FormRenderProps } from 'react-final-form';
 import { DetailsForms } from '@/app/draft/[id]/DetailsForms';
 import { debounce } from 'lodash';
-import { useGetDraftById } from '@/app/draft/[id]/service/putDraftById';
+import { useUpdateDraftByIdMutation } from '@/app/draft/[id]/service/putDraftById';
 import EditSVG from '@/assets/edit.gif';
 import Image from 'next/image';
 import { ImagesForm } from '@/app/draft/[id]/ImagesForm';
+import { useRemoveDraftByIdMutation } from '@/app/draft/[id]/service/removeDraftById';
+import { useRouter } from 'next/navigation';
+import { useToast } from '@/hooks/use-toast';
 
 interface Props {
   car: FormCarType;
@@ -24,7 +27,7 @@ interface Props {
 
 export default function Details(props: Props) {
   const { car } = props;
-  const { mutateAsync, isPending } = useGetDraftById();
+  const { mutateAsync, isPending } = useUpdateDraftByIdMutation();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedSubmit = useCallback(
@@ -58,18 +61,44 @@ type FormProps = FormRenderProps<FormCarType> & {
 
 const DraftForm = (props: FormProps) => {
   const { debouncedSubmit, isPending, ...rest } = props;
+  const { toast } = useToast();
+  const router = useRouter();
+  const { mutateAsync: removeMutate } = useRemoveDraftByIdMutation();
+  const { mutateAsync: completeMutate } = useUpdateDraftByIdMutation();
   const completion = 60;
   const { handleSubmit } = rest;
 
   const isFirstRender = useRef(true);
 
   const handleDelete = useCallback(() => {
-    console.log('delete', rest.values.id);
-  }, [rest.values.id]);
+    toast({
+      variant: 'default',
+      title: 'Eliminando',
+      description: (
+        <div>
+          Estamos eliminando el anuncio
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75"></span>
+        </div>
+      ),
+    });
+    removeMutate(rest?.values?.id || 0).then(() => {
+      router.push('/profile');
+    });
+  }, [removeMutate, rest?.values?.id, router, toast]);
 
   const handleComplete = useCallback(() => {
-    console.log('complete', rest.values.id);
-  }, [rest.values.id]);
+    toast({
+      variant: 'default',
+      title: 'Completando',
+      description: <div>Estamos completando el anuncio</div>,
+    });
+    completeMutate({
+      ...rest?.values,
+      approvalStageID: APPROVAL_STAGE.ENDED,
+    }).then(() => {
+      router.push('/profile');
+    });
+  }, [completeMutate, rest?.values, router, toast]);
 
   useEffect(() => {
     if (isFirstRender.current) {

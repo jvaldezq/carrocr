@@ -15,6 +15,7 @@ import { FormSelect } from '@/components/Forms/Select/FormSelect';
 import { FormInput } from '@/components/Forms/Input/FormInput';
 import dayjs from 'dayjs';
 import 'dayjs/locale/es';
+import { toast } from '@/hooks/use-toast';
 
 // Set the locale to Spanish
 dayjs.locale('es');
@@ -23,6 +24,22 @@ type Props = UserProfile;
 
 export const ProfileInfo = (props: Props) => {
   const { mutateAsync, isPending } = useUpdateProfileInfoMutation();
+
+  useEffect(() => {
+    if (isPending) {
+      toast({
+        duration: 1500,
+        variant: 'default',
+        title: 'Guardando',
+        description: (
+          <div>
+            Estamos guardando tu información
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75"></span>
+          </div>
+        ),
+      });
+    }
+  }, [isPending]);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedSubmit = useCallback(

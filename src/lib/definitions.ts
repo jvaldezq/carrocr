@@ -164,6 +164,8 @@ export enum APPROVAL_STAGE {
   REVIEW = 'Pending',
   DENY = 'Denied',
   PUBLISHED = 'Published',
+  DELETED = 'Deleted',
+  ENDED = 'Ended',
 }
 
 export enum VERIFICATIONS_TRANSLATIONS {

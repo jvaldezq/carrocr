@@ -13,7 +13,7 @@ const updateDraftById = async (
   return res?.data;
 };
 
-export const useGetDraftById = () => {
+export const useUpdateDraftByIdMutation = () => {
   const { protectedAxios } = useUser();
 
   return useMutation({
