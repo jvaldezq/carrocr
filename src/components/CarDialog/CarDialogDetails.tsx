@@ -56,34 +56,46 @@ export default function CarDialogDetails(props: Car) {
 
           <div className="grid grid-cols-2 gap-4">
             <div className="flex items-center gap-2">
-              <ReceiptText className="h-5 w-5 text-primary" />
+              <div className="h-7 w-7">
+                <ReceiptText className="h-7 w-7 text-primary" />
+              </div>
               <div>
-                <p className="text-sm text-tertiary">Condición</p>
-                <p className="font-medium">{condition}</p>
+                <p className="text-sm">Condición</p>
+                <p className="text-sm text-primary font-bold">{condition}</p>
               </div>
             </div>
 
             <div className="flex items-center gap-2">
-              <Activity className="h-5 w-5 text-primary" />
+              <div className="h-7 w-7">
+                <Activity className="h-7 w-7 text-primary" />
+              </div>
               <div>
-                <p className="text-sm text-tertiary">Kilometraje</p>
-                <p className="font-medium">{NumberFormatter(mileage)} km</p>
+                <p className="text-sm">Kilometraje</p>
+                <p className="text-sm text-primary font-bold">
+                  {NumberFormatter(mileage)} km
+                </p>
               </div>
             </div>
 
             <div className="flex items-center gap-2">
-              <Settings className="h-5 w-5 text-primary" />
+              <div className="h-7 w-7">
+                <Settings className="h-7 w-7 text-primary" />
+              </div>
               <div>
-                <p className="text-sm text-tertiary">Transmisión</p>
-                <p className="font-medium">{transType}</p>
+                <p className="text-sm">Transmisión</p>
+                <p className="text-sm text-primary font-bold">{transType}</p>
               </div>
             </div>
 
             <div className="flex items-center gap-2">
-              <CircleDollarSign className="h-5 w-5 text-primary" />
+              <div className="h-7 w-7">
+                <CircleDollarSign className="h-7 w-7 text-primary" />
+              </div>
               <div>
-                <p className="text-sm text-tertiary">Precio</p>
-                <p className="font-medium">{MoneyFormatter(price, currency)}</p>
+                <p className="text-sm">Precio</p>
+                <p className="text-sm text-primary font-bold">
+                  {MoneyFormatter(price, currency)}
+                </p>
               </div>
             </div>
           </div>
@@ -94,7 +106,7 @@ export default function CarDialogDetails(props: Car) {
           href={`/car/${id}`}
           onClick={clearId}
           className="md:w-fit w-full h-fit border-primary border-solid border text-primary flex gap-2 items-center
-                   p-3 rounded-lg font-medium justify-center justify-self-end self-end"
+                   p-3 rounded-lg text-sm text-primary font-bold justify-center justify-self-end self-end"
         >
           Más detalles
           <ArrowRight className="h-6 w-6" />

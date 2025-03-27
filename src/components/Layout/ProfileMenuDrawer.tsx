@@ -4,7 +4,7 @@ import React, { ReactNode, CSSProperties, useState } from 'react';
 import { Drawer } from 'vaul';
 import Link from 'next/link';
 import { useUser } from '@auth0/nextjs-auth0/client';
-import { CircleHelp, Contact, LogIn, User, SquarePen } from 'lucide-react';
+import { CircleHelp, Contact, LogIn, User } from 'lucide-react';
 import { useCarEntry } from '@/context/CarEntryContext/CarEntryContext';
 
 interface ProfileMenuDrawerProps {
@@ -64,9 +64,8 @@ export const ProfileMenuDrawer = (props: ProfileMenuDrawerProps) => {
                       setOpen(true);
                       setDrawerOpen(false);
                     }}
-                    className="flex items-center gap-1 w-full py-2 px-3 rounded-xl cursor-pointer hover:bg-white/[0.1] transition-colors duration-300"
+                    className="flex items-center gap-1 w-full py-2 px-3 rounded-xl cursor-pointer hover:bg-white/[0.1] transition-colors duration-300 text-sm ml-2"
                   >
-                    <SquarePen className="h-5" />
                     <span>Crear anuncio</span>
                   </div>
                 </div>

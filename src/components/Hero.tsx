@@ -1,5 +1,4 @@
 import React from 'react';
-import { Search } from 'lucide-react';
 import Image from 'next/image';
 
 export default function Hero() {
@@ -24,19 +23,6 @@ export default function Hero() {
           <p className="mt-3 max-w-md mx-auto text-lg text-gray-300 sm:text-xl md:mt-5 md:max-w-3xl">
             Busque entre miles de autos usados de calidad en su área
           </p>
-        </div>
-
-        <div className="mt-10 max-w-xl mx-auto">
-          <div className="flex rounded-lg shadow-sm">
-            <input
-              type="text"
-              className="flex-1 px-4 py-3 rounded-l-lg focus:outline-none"
-              placeholder="Busque por marca, modelo o palabra clave"
-            />
-            <button className="px-6 bg-persianBlue text-white rounded-r-lg hover:bg-blue-700">
-              <Search className="h-5 w-5" />
-            </button>
-          </div>
         </div>
       </div>
     </div>

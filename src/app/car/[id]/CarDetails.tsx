@@ -14,6 +14,7 @@ import {
   Phone,
   Settings,
   Shield,
+  ShieldBan,
   User,
 } from 'lucide-react';
 import { MoneyFormatter, NumberFormatter } from '@/lib/NumberFormats';
@@ -65,12 +66,12 @@ export default async function CarDetails({ id }: CarDetailsProps) {
             <h1 className="text-3xl font-bold text-tertiary">
               {make} {model} {trim}
             </h1>
-            <span className="px-2 hidden md:block py-1 bg-primary/10 text-primary rounded-md text-sm font-medium w-fit">
+            <span className="px-2 hidden md:block py-1 bg-primary/10 text-primary rounded-md text-sm text-sm text-primary font-bold w-fit">
               {condition}
             </span>
           </div>
           <p className="text-xl text-primary mt-2">{year}</p>
-          <span className="px-2 py-1 bg-primary/10 text-primary rounded-md text-sm font-medium w-fit mt-4 md:hidden block">
+          <span className="px-2 py-1 bg-primary/10 text-primary rounded-md text-sm text-sm text-primary font-bold w-fit mt-4 md:hidden block">
             {condition}
           </span>
         </div>
@@ -101,45 +102,57 @@ export default async function CarDetails({ id }: CarDetailsProps) {
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
               <div className="flex items-center gap-3">
-                <Calendar className="h-5 w-5 text-primary" />
+                <div className="h-7 w-7">
+                  <Calendar className="h-7 w-7 text-primary" />
+                </div>
                 <div>
-                  <p className="text-sm text-tertiary">Año</p>
-                  <p className="font-medium">{year}</p>
+                  <p className="text-sm">Año</p>
+                  <p className="text-sm text-primary font-bold">{year}</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <Activity className="h-5 w-5 text-primary" />
+                <div className="h-7 w-7">
+                  <Activity className="h-7 w-7 text-primary" />
+                </div>
                 <div>
-                  <p className="text-sm text-tertiary">Kilometraje</p>
-                  <p className="font-medium">{`${NumberFormatter(mileage)} ${mileageType}`}</p>
+                  <p className="text-sm">Kilometraje</p>
+                  <p className="text-sm text-primary font-bold">{`${NumberFormatter(mileage)} ${mileageType}`}</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <Settings className="h-5 w-5 text-primary" />
+                <div className="h-7 w-7">
+                  <Settings className="h-7 w-7 text-primary" />
+                </div>
                 <div>
-                  <p className="text-sm text-tertiary">Transmisión</p>
-                  <p className="font-medium">{transType}</p>
+                  <p className="text-sm">Transmisión</p>
+                  <p className="text-sm text-primary font-bold">{transType}</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <Fuel className="h-5 w-5 text-primary" />
+                <div className="h-7 w-7">
+                  <Fuel className="h-7 w-7 text-primary" />
+                </div>
                 <div>
-                  <p className="text-sm text-tertiary">Tipo de combustible</p>
-                  <p className="font-medium">{fuelType}</p>
+                  <p className="text-sm">Combustible</p>
+                  <p className="text-sm text-primary font-bold">{fuelType}</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <Car className="h-5 w-5 text-primary" />
+                <div className="h-7 w-7">
+                  <Car className="h-7 w-7 text-primary" />
+                </div>
                 <div>
-                  <p className="text-sm text-tertiary">Tipo de Tracción</p>
-                  <p className="font-medium">{driveType}</p>
+                  <p className="text-sm">Tracción</p>
+                  <p className="text-sm text-primary font-bold">{driveType}</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <Box className="h-5 w-5 text-primary" />
+                <div className="h-7 w-7">
+                  <Box className="h-7 w-7 text-primary" />
+                </div>
                 <div>
-                  <p className="text-sm text-tertiary">Tipo de Carrocería</p>
-                  <p className="font-medium">{bodyName}</p>
+                  <p className="text-sm">Carrocería</p>
+                  <p className="text-sm text-primary font-bold">{bodyName}</p>
                 </div>
               </div>
             </div>
@@ -153,50 +166,64 @@ export default async function CarDetails({ id }: CarDetailsProps) {
             <div className="space-y-4">
               <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
                 <div className="flex items-center gap-3">
-                  <MapPin className="h-5 w-5 text-primary" />
+                  <div className="h-7 w-7">
+                    <MapPin className="h-7 w-7 text-primary" />
+                  </div>
                   <div>
-                    <p className="text-sm text-tertiary">Ubicación</p>
-                    <p className="font-medium">{state}</p>
+                    <p className="text-sm">Ubicación</p>
+                    <p className="text-sm text-primary font-bold">{state}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Handshake className="h-5 w-5 text-primary" />
-                  <div>
-                    <p className="text-sm text-tertiary">Intercambio</p>
-                    <p className="font-medium">{allowTradeTF ? 'Sí' : 'No'}</p>
+                  <div className="h-7 w-7">
+                    <Handshake className="h-7 w-7 text-primary" />
                   </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <DollarSign className="h-5 w-5 text-primary" />
                   <div>
-                    <p className="text-sm text-tertiary">Precio Negociable</p>
-                    <p className="font-medium">{negotiableTF ? 'Sí' : 'No'}</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <CalendarClock className="h-5 w-5 text-primary" />
-                  <div>
-                    <p className="text-sm text-tertiary">
-                      Inspección Válida Hasta
+                    <p className="text-sm">Intercambio</p>
+                    <p className="text-sm text-primary font-bold">
+                      {allowTradeTF ? 'Sí' : 'No'}
                     </p>
-                    <p className="font-medium">{inspectionYear}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Ban className="h-5 w-5 text-primary" />
+                  <div className="h-7 w-7">
+                    <DollarSign className="h-7 w-7 text-primary" />
+                  </div>
                   <div>
-                    <p className="text-sm text-tertiary">Día de Restricción</p>
+                    <p className="text-sm">Negociable</p>
+                    <p className="text-sm text-primary font-bold">
+                      {negotiableTF ? 'Sí' : 'No'}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="h-7 w-7">
+                    <CalendarClock className="h-7 w-7 text-primary" />
+                  </div>
+                  <div>
+                    <p className="text-sm">Inspección Válida Hasta</p>
+                    <p className="text-sm text-primary font-bold">
+                      {inspectionYear}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="h-7 w-7">
+                    <Ban className="h-7 w-7 text-primary" />
+                  </div>
+                  <div>
+                    <p className="text-sm">Restricción</p>
                     {/*TODO Integrate*/}
-                    <p className="font-medium">{restrictionDay ?? 'Lunes'}</p>
+                    <p className="text-sm text-primary font-bold">
+                      {restrictionDay ?? 'Lunes'}
+                    </p>
                   </div>
                 </div>
               </div>
 
               {sellerComment && (
                 <div className="mt-6">
-                  <h3 className="text-lg font-medium text-tertiary mb-2">
-                    Observaciones del Vendedor
-                  </h3>
+                  <h3 className="text-sm mb-2">Observaciones del Vendedor</h3>
                   <p className="text-tertiary bg-quaternary p-4 rounded-lg">
                     {sellerComment}
                   </p>
@@ -228,18 +255,25 @@ export default async function CarDetails({ id }: CarDetailsProps) {
                 <h3 className="text-lg font-semibold text-tertiary">
                   {`${accountData.firstName || ''} ${accountData.lastName || ''}`}
                 </h3>
-                {accountData.acctVerified && (
-                  <div className="flex items-center text-verified text-sm">
-                    <Shield className="h-4 w-4 mr-1" />
+                {accountData.acctVerified ? (
+                  <div className="flex items-center text-verified text-sm gap-1">
+                    <Shield className="h-4 w-4" />
                     Verificado
+                  </div>
+                ) : (
+                  <div className="flex items-center text-error text-sm gap-1">
+                    <ShieldBan className="h-4 w-4" />
+                    No verificado
                   </div>
                 )}
               </div>
             </div>
 
             <div className="space-y-4">
-              <div className="flex items-center gap-3">
-                <Mail className="h-5 w-5 text-primary" />
+              <div className="flex items-center gap-2">
+                <div className="h-4 w-4">
+                  <Mail className="h-4 w-4 text-primary" />
+                </div>
                 {session?.user ? (
                   <a
                     href={`mailto:${accountData.email}`}
@@ -251,8 +285,10 @@ export default async function CarDetails({ id }: CarDetailsProps) {
                   <div className="blur-sm bg-primary/[0.5] rounded-lg w-full h-6" />
                 )}
               </div>
-              <div className="flex items-center gap-3">
-                <Phone className="h-5 w-5 text-primary" />
+              <div className="flex items-center gap-2">
+                <div className="h-4 w-4">
+                  <Phone className="h-4 w-4 text-primary" />
+                </div>
                 {session?.user ? (
                   <a
                     href={`tel:${accountData.phone}`}
