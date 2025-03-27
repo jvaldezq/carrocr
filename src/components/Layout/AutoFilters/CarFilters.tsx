@@ -7,6 +7,11 @@ import { useGetMakes } from '@/context/CarEntryContext/services/getMakes';
 import { useGetModels } from '@/context/CarEntryContext/services/getModels';
 import { useGetTrims } from '@/context/CarEntryContext/services/getTrims';
 import { AutoFiltersType } from '@/components/Layout/AutoFilters/AutoFilters';
+import {
+  fuelType_options,
+  states_options,
+  transType_options,
+} from '@/lib/definitions';
 
 type FormProps = FormRenderProps<AutoFiltersType> & {
   debouncedSubmit: (values: AutoFiltersType) => void;
@@ -27,7 +32,7 @@ export const CarFilters = (props: FormProps) => {
       <Field
         name="makeId"
         component={FormSelect as unknown as SupportedInputs}
-        placeholder="Marca del vehículo"
+        placeholder="Marca"
         label="Marca"
         options={makes}
         isLoading={isMakesLoading}
@@ -36,7 +41,7 @@ export const CarFilters = (props: FormProps) => {
       <Field
         name="modelId"
         component={FormSelect as unknown as SupportedInputs}
-        placeholder="Modelo del vehículo"
+        placeholder="Modelo"
         label="Modelo"
         options={models}
         isLoading={isModelsLoading}
@@ -44,10 +49,34 @@ export const CarFilters = (props: FormProps) => {
       <Field
         name="trimId"
         component={FormSelect as unknown as SupportedInputs}
-        placeholder="Edición del vehículo"
+        placeholder="Edición"
         label="Edición"
         options={trims}
         isLoading={isTrimsLoading}
+      />
+      <Field
+        name="fuelType"
+        component={FormSelect as unknown as SupportedInputs}
+        options={fuelType_options}
+        label="Combustible"
+        placeholder="Combustible"
+        required
+      />
+      <Field
+        name="transType"
+        component={FormSelect as unknown as SupportedInputs}
+        options={transType_options}
+        label="Transmisión"
+        placeholder="Transmisión"
+        required
+      />
+      <Field
+        name="stateName"
+        component={FormSelect as unknown as SupportedInputs}
+        options={states_options}
+        placeholder="Provincia"
+        label="Provincia"
+        required
       />
     </div>
   );

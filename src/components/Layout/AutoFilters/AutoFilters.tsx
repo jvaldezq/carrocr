@@ -32,6 +32,9 @@ export interface AutoFiltersType {
   trimId: string;
   page?: number;
   pageSize?: number;
+  fuelType?: number;
+  transType?: number;
+  stateName?: number;
 }
 
 const getDifferences = (obj1: AutoFiltersType, obj2: AutoFiltersType) => {
@@ -119,11 +122,10 @@ export const AutoFilters = () => {
         )}
       >
         <SlidersHorizontal className="h-4 w-4" />
-        Buscar anuncios
         <p>
           {differencesCount > 2
             ? `(${differencesCount - 2} ${differencesCount - 2 > 1 ? 'Filtros' : 'Filtro'})`
-            : ''}
+            : 'Buscar anuncios'}
         </p>
       </Drawer.Trigger>
       <Drawer.Portal>
@@ -234,6 +236,12 @@ const FiltersFormWrapper = ({
         currencyType: values.currencyType,
         page: values.page,
         pageSize: values.pageSize,
+        makeId: values.makeId,
+        modelId: values.modelId,
+        trimId: values.trimId,
+        fuelType: values.fuelType,
+        transType: values.transType,
+        stateName: values.stateName,
       });
       params.set('filters', btoa(filters));
       replace(`/autos?${params.toString()}`);
