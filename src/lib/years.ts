@@ -13,12 +13,7 @@ export const generateYears = () => {
     years.push({ label: year.toString(), value: year });
   }
 
-  return [
-    {
-      label: 'Años',
-      options: years,
-    },
-  ];
+  return years;
 };
 
 export const generateInspectionYears = () => {
@@ -30,10 +25,5 @@ export const generateInspectionYears = () => {
     years.push({ label: year.toString(), value: year });
   }
 
-  return [
-    {
-      label: 'Años',
-      options: years,
-    },
-  ];
+  return years;
 };

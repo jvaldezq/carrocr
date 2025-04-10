@@ -11,7 +11,7 @@ import {
 import { useUpdateProfileInfoMutation } from '@/app/profile/service/putProfileInfo';
 import { cn } from '@/lib/utils';
 import { ImageForm } from '@/app/profile/ImageForm';
-import { FormSelect } from '@/components/Forms/Select/FormSelect';
+import { FormCommand } from '@/components/Forms/Select/FormCommand';
 import { FormInput } from '@/components/Forms/Input/FormInput';
 import dayjs from 'dayjs';
 import 'dayjs/locale/es';
@@ -117,16 +117,15 @@ export const ProfileInfoForm = (props: FormProps) => {
         <Field
           name="phone"
           component={FormInput as unknown as SupportedInputs}
-          placeholder="8899-5566"
+          placeholder="88995566"
           label="Teléfono"
-          required
+          type="tel"
         />
         <Field
           name="state"
-          component={FormSelect as unknown as SupportedInputs}
+          component={FormCommand as unknown as SupportedInputs}
           options={states_options}
           label="Provincia"
-          required
         />
       </div>
     </form>

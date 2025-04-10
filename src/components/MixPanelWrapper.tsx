@@ -11,8 +11,10 @@ export const MixPanelWrapper = (props: Props) => {
   const { children } = props;
 
   useEffect(() => {
-    initMixpanel();
-    trackEvent('Init');
+    if (process.env.NEXT_PUBLIC_IS_LOCAL !== 'true') {
+      initMixpanel();
+      trackEvent('Init');
+    }
   }, []);
 
   return children;

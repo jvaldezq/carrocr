@@ -2,7 +2,7 @@
 
 import { Field, FormRenderProps, SupportedInputs } from 'react-final-form';
 import * as React from 'react';
-import { FormSelect } from '@/components/Forms/Select/FormSelect';
+import { FormCommand } from '@/components/Forms/Select/FormCommand';
 import { useGetMakes } from '@/context/CarEntryContext/services/getMakes';
 import { useGetModels } from '@/context/CarEntryContext/services/getModels';
 import { useGetTrims } from '@/context/CarEntryContext/services/getTrims';
@@ -31,7 +31,7 @@ export const CarFilters = (props: FormProps) => {
     <div className="grid md:grid-cols-2 gap-4 w-full">
       <Field
         name="makeId"
-        component={FormSelect as unknown as SupportedInputs}
+        component={FormCommand as unknown as SupportedInputs}
         placeholder="Marca"
         label="Marca"
         options={makes}
@@ -40,7 +40,7 @@ export const CarFilters = (props: FormProps) => {
       />
       <Field
         name="modelId"
-        component={FormSelect as unknown as SupportedInputs}
+        component={FormCommand as unknown as SupportedInputs}
         placeholder="Modelo"
         label="Modelo"
         options={models}
@@ -48,7 +48,7 @@ export const CarFilters = (props: FormProps) => {
       />
       <Field
         name="trimId"
-        component={FormSelect as unknown as SupportedInputs}
+        component={FormCommand as unknown as SupportedInputs}
         placeholder="Edición"
         label="Edición"
         options={trims}
@@ -56,7 +56,7 @@ export const CarFilters = (props: FormProps) => {
       />
       <Field
         name="fuelType"
-        component={FormSelect as unknown as SupportedInputs}
+        component={FormCommand as unknown as SupportedInputs}
         options={fuelType_options}
         label="Combustible"
         placeholder="Combustible"
@@ -64,7 +64,7 @@ export const CarFilters = (props: FormProps) => {
       />
       <Field
         name="transType"
-        component={FormSelect as unknown as SupportedInputs}
+        component={FormCommand as unknown as SupportedInputs}
         options={transType_options}
         label="Transmisión"
         placeholder="Transmisión"
@@ -72,7 +72,7 @@ export const CarFilters = (props: FormProps) => {
       />
       <Field
         name="stateName"
-        component={FormSelect as unknown as SupportedInputs}
+        component={FormCommand as unknown as SupportedInputs}
         options={states_options}
         placeholder="Provincia"
         label="Provincia"

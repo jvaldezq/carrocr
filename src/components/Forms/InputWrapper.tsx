@@ -14,6 +14,7 @@ export interface InputWrapperProps {
   wrapperClassName?: string;
   disabled?: boolean;
   isLoading?: boolean;
+  required?: boolean;
 }
 
 const SHARED_CLASSES = 'relative items-center justify-center';
@@ -30,6 +31,7 @@ export const InputWrapper = forwardRef(
       name,
       wrapperClassName,
       disabled = false,
+      required = false,
     } = props;
 
     if (typeof label === 'undefined') {
@@ -63,6 +65,7 @@ export const InputWrapper = forwardRef(
             htmlFor={name}
           >
             {label}
+            {required && <span>*</span>}
           </label>
         )}
         <div
@@ -76,6 +79,7 @@ export const InputWrapper = forwardRef(
         {right && (
           <label className={labelClassName} htmlFor={name}>
             {label}
+            {required && <span>*</span>}
           </label>
         )}
         {top && touched && error && (

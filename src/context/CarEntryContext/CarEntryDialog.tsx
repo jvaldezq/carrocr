@@ -4,12 +4,26 @@ import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import { Car } from 'lucide-react';
 import { CreateCar } from '@/context/CarEntryContext/CreateCar';
 import { useCarEntry } from '@/context/CarEntryContext/CarEntryContext';
+import { cn } from '@/lib/utils';
 
 export const CarEntryDialog = () => {
   const { open, close } = useCarEntry();
   return (
     <Dialog open={open} onOpenChange={close}>
-      <DialogContent className="max-w-[95%] h-fit lg:max-w-[850px] max-h-[90%] overflow-scroll color-primary rounded-2xl p-0 [&>button:last-child]:hidden">
+      <DialogContent
+        className={cn(
+          'max-w-[95%]',
+          'h-fit',
+          'lg:max-w-[850px]',
+          'max-h-[90%]',
+          'overflow-scroll',
+          'color-primary',
+          'rounded-2xl',
+          'border-none',
+          'p-0',
+          '[&>button:last-child]:hidden',
+        )}
+      >
         <DialogTitle className="hidden" />
         <div className="flex flex-col md:flex-row items-center gap-4 p-4 bg-primary">
           <div className="flex-shrink-0 bg-secondary/10 p-3 rounded-full">

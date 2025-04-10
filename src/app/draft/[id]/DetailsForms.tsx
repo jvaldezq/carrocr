@@ -13,7 +13,7 @@ import {
 import { Field, SupportedInputs } from 'react-final-form';
 import { FormInput } from '@/components/Forms/Input/FormInput';
 import { FormSwitch } from '@/components/Forms/Switch/FormSwitch';
-import { FormSelect } from '@/components/Forms/Select/FormSelect';
+import { FormCommand } from '@/components/Forms/Select/FormCommand';
 import { generateInspectionYears } from '@/lib/years';
 import { FormTextArea } from '@/components/Forms/TextArea/FormTextArea';
 
@@ -27,21 +27,21 @@ export const DetailsForms = () => {
         <div className="grid sm:grid-cols-2 gap-2">
           <Field
             name="state"
-            component={FormSelect as unknown as SupportedInputs}
+            component={FormCommand as unknown as SupportedInputs}
             options={states_options}
             label="Provincia"
             required
           />
           <Field
             name="condition"
-            component={FormSelect as unknown as SupportedInputs}
+            component={FormCommand as unknown as SupportedInputs}
             options={condition_options}
             label="Condición"
             required
           />
           <Field
             name="inspectionYear"
-            component={FormSelect as unknown as SupportedInputs}
+            component={FormCommand as unknown as SupportedInputs}
             options={generateInspectionYears()}
             label="Año de próxima revisión técnica"
             required
@@ -56,7 +56,7 @@ export const DetailsForms = () => {
         <div className="grid sm:grid-cols-2 gap-2">
           <Field
             name="currency"
-            component={FormSelect as unknown as SupportedInputs}
+            component={FormCommand as unknown as SupportedInputs}
             options={currencies_options}
             label="Moneda"
             required
@@ -93,7 +93,7 @@ export const DetailsForms = () => {
         <div className="grid sm:grid-cols-2 gap-2">
           <Field
             name="mileageType"
-            component={FormSelect as unknown as SupportedInputs}
+            component={FormCommand as unknown as SupportedInputs}
             options={milage_options}
             label="Tipo (Km, Millas)"
             required
@@ -107,7 +107,7 @@ export const DetailsForms = () => {
           />
           <Field
             name="transType"
-            component={FormSelect as unknown as SupportedInputs}
+            component={FormCommand as unknown as SupportedInputs}
             options={transType_options}
             label="Transmisión"
             required
@@ -115,14 +115,14 @@ export const DetailsForms = () => {
 
           <Field
             name="transGearCount"
-            component={FormSelect as unknown as SupportedInputs}
+            component={FormCommand as unknown as SupportedInputs}
             options={transGearCount_options}
             label="Número de Marchas"
           />
 
           <Field
             name="fuelType"
-            component={FormSelect as unknown as SupportedInputs}
+            component={FormCommand as unknown as SupportedInputs}
             options={fuelType_options}
             label="Tipo de combustible"
             required
@@ -130,7 +130,7 @@ export const DetailsForms = () => {
 
           <Field
             name="driveType"
-            component={FormSelect as unknown as SupportedInputs}
+            component={FormCommand as unknown as SupportedInputs}
             options={driveType_options}
             label="Tipo de Tracción"
             required

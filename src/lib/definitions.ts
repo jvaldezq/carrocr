@@ -210,37 +210,32 @@ export const currencies_options = [
 
 export const states_options = [
   {
-    label: 'Provincia',
-    options: [
-      {
-        label: 'San José',
-        value: 'San José',
-      },
-      {
-        label: 'Alajuela',
-        value: 'Alajuela',
-      },
-      {
-        label: 'Cartago',
-        value: 'Cartago',
-      },
-      {
-        label: 'Heredia',
-        value: 'Heredia',
-      },
-      {
-        label: 'Guanacaste',
-        value: 'Guanacaste',
-      },
-      {
-        label: 'Puntarenas',
-        value: 'Puntarenas',
-      },
-      {
-        label: 'Limón',
-        value: 'Limón',
-      },
-    ],
+    label: 'San José',
+    value: 'San José',
+  },
+  {
+    label: 'Alajuela',
+    value: 'Alajuela',
+  },
+  {
+    label: 'Cartago',
+    value: 'Cartago',
+  },
+  {
+    label: 'Heredia',
+    value: 'Heredia',
+  },
+  {
+    label: 'Guanacaste',
+    value: 'Guanacaste',
+  },
+  {
+    label: 'Puntarenas',
+    value: 'Puntarenas',
+  },
+  {
+    label: 'Limón',
+    value: 'Limón',
   },
 ];
 
@@ -446,3 +441,8 @@ export const APPROVAL_TRANSLATIONS = [
     key: 'denied',
   },
 ];
+
+export interface ListResultType {
+  label: string;
+  value: string | number;
+}
