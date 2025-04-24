@@ -160,6 +160,7 @@ export interface UserProfile {
   profileLogo: string;
   profileHeader: string;
   profileImage: string;
+  profileIdImage: string;
   country: string;
   state: string;
   createdDT: string;

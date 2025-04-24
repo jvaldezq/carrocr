@@ -8,6 +8,7 @@ import { usePostImage } from '@/app/draft/[id]/service/postImage';
 import UploadFile from '@/assets/upload.gif';
 import { cn } from '@/lib/utils';
 import { FormInput } from '@/components/Forms/Input/FormInput';
+import DefaultImage from '@/assets/placeholder.webp';
 
 const IMAGE_SECTIONS = {
   exterior: [
@@ -121,7 +122,9 @@ export const ImagesForm = (props: ImagesFormsProps) => {
         <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {IMAGE_SECTIONS.exterior.map((section) => {
             const { key, label } = section;
-            const src = images?.[key as keyof CarImages] || '';
+            const src = images?.[key as keyof CarImages]
+              ? images?.[key as keyof CarImages]
+              : DefaultImage;
             const isDraggedOver = draggingOverKey === key;
             const isPending = pendingKey === key;
             const imageKey = `images.${key}` as keyof FormCarType;
@@ -218,7 +221,9 @@ export const ImagesForm = (props: ImagesFormsProps) => {
         <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {IMAGE_SECTIONS.interior.map((section) => {
             const { key, label } = section;
-            const src = images?.[key as keyof CarImages] || '';
+            const src = images?.[key as keyof CarImages]
+              ? images?.[key as keyof CarImages]
+              : DefaultImage;
             const isDraggedOver = draggingOverKey === key;
             const isPending = pendingKey === key;
             return (
@@ -308,7 +313,9 @@ export const ImagesForm = (props: ImagesFormsProps) => {
         <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {IMAGE_SECTIONS.mechanical.map((section) => {
             const { key, label } = section;
-            const src = images?.[key as keyof CarImages] || '';
+            const src = images?.[key as keyof CarImages]
+              ? images?.[key as keyof CarImages]
+              : DefaultImage;
             const isDraggedOver = draggingOverKey === key;
             const isPending = pendingKey === key;
             return (

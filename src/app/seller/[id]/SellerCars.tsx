@@ -1,6 +1,7 @@
 import Card from '@/components/Card';
 import { getUserListings } from '@/app/seller/service/getUserListings';
 import { ArchiveX } from 'lucide-react';
+import { getSession } from '@auth0/nextjs-auth0';
 
 interface Props {
   sellerId: string;
@@ -8,6 +9,7 @@ interface Props {
 }
 export default async function SellerCars(props: Props) {
   const { sellerId, token } = props;
+  const session = await getSession();
   const data = await getUserListings(token, sellerId);
 
   if (!data)
@@ -27,7 +29,9 @@ export default async function SellerCars(props: Props) {
       </h2>
 
       <section className="grid gap-y-6 sm:gap-6 grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grod-cols-8 my-5">
-        {data?.map((car) => <Card key={car.id} {...car} />)}
+        {data?.map((car) => (
+          <Card key={car.id} {...car} isAuth={Boolean(session?.user)} />
+        ))}
       </section>
     </>
   );

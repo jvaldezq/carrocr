@@ -215,7 +215,7 @@ export const CarForm = (props: FormProps) => {
         );
       }
     },
-    [createTrim, form],
+    [createTrim, form, values.modelId],
   );
 
   return (

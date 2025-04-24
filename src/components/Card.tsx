@@ -14,11 +14,14 @@ import { MoneyFormatter } from '@/lib/NumberFormats';
 import Link from 'next/link';
 import Image from 'next/image';
 import CardTrigger from '@/components/CardTrigger';
+import DefaultImage from '@/assets/placeholder.webp';
 import { cn } from '@/lib/utils';
 import { ReactNode } from 'react';
+import { FavoritesHeart } from '@/components/FavoritesHeart';
 
 type Props = Car & {
   isTemp?: boolean;
+  isAuth?: boolean;
   stageID?: number;
 };
 export default function Card(props: Props) {
@@ -34,7 +37,10 @@ export default function Card(props: Props) {
     state,
     isTemp = false,
     stageID,
+    isAuth = false,
   } = props;
+
+  const image = thumbnail ? thumbnail : DefaultImage;
 
   return (
     <div
@@ -43,7 +49,7 @@ export default function Card(props: Props) {
     >
       <div className="relative aspect-[16/9]">
         <Image
-          src={thumbnail}
+          src={image}
           alt={`${make} ${model}`}
           className="w-full h-full object-cover rounded-t-lg"
           width={620}
@@ -54,10 +60,11 @@ export default function Card(props: Props) {
             <ShieldCheck className="h-4 w-4" />
           </div>
         )}
+        {!isTemp && isAuth && <FavoritesHeart id={id} />}
         {isTemp && <StageBadge stageID={stageID || 0} />}
       </div>
 
-      <div className="p-4">
+      <div className="p-4 relative">
         <div className="flex justify-between gap-2">
           <h3 className="text-lg font-semibold text-tertiary">
             {`${make} ${model}`}
