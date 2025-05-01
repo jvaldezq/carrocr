@@ -1,6 +1,14 @@
 'use client';
-import { createContext, useContext, FC, ReactNode, useState } from 'react';
+import {
+  createContext,
+  useContext,
+  FC,
+  ReactNode,
+  useState,
+  useEffect,
+} from 'react';
 import axios from 'axios';
+import { storeToken } from '@/lib/localStorage';
 
 type UserContextType = {
   token?: string;
@@ -24,6 +32,12 @@ interface Props {
 
 export const UserContextProvider: FC<Props> = ({ children, accessToken }) => {
   const [token] = useState(accessToken);
+
+  useEffect(() => {
+    if (token) {
+      storeToken(token);
+    }
+  }, [token]);
 
   const protectedAxios = axios.create({
     baseURL: process.env.NEXT_PUBLIC_API_URL,

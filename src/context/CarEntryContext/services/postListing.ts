@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
-import { CarFormProps } from '@/context/CarEntryContext/CreateCar';
+import { CarFormProps } from '@/context/CarEntryContext/components/CreateCar';
 import axios from 'axios';
 import { useUser } from '@/context/UserContext';
 

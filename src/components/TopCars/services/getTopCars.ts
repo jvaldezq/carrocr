@@ -1,4 +1,4 @@
-import type { Car } from '@/lib/definitions';
+import type { Car } from '@/types/Car';
 import { serverApi } from '@/lib/serverApi';
 
 export const fetchTopCars = async (): Promise<Car[]> => {

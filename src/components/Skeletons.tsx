@@ -1,6 +1,6 @@
 import { Skeleton } from '@/components/ui/skeleton';
 
-export const TopCarsSkeleton = () => {
+export const CarsGridSkeleton = () => {
   return (
     <section className="max-w-screen-3xl mx-auto px-2 mt-8">
       <Skeleton className="w-1/4 h-10 mb-8 rounded-2xl bg-primary/[0.2] dark:bg-primary/[0.7]" />

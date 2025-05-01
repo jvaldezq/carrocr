@@ -22,7 +22,7 @@ const config = {
     },
     extend: {
       fontFamily: {
-        sans: ['Roboto', 'sans-serif'],
+        sans: ['Comfortaa Variable', 'sans-serif'],
       },
       colors: {
         primary: '#124E78',

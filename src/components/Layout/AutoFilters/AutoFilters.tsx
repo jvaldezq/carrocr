@@ -7,7 +7,7 @@ import React, {
   useState,
 } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { SlidersHorizontal, CircleX } from 'lucide-react';
+import { SlidersHorizontal, CircleX, Loader } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Drawer } from 'vaul';
 import { Button } from '@/components/ui/button';
@@ -18,6 +18,7 @@ import { debounce, isEqual } from 'lodash';
 import { CarFilters } from '@/components/Layout/AutoFilters/CarFilters';
 import { CURRENCIES } from '@/lib/NumberFormats';
 import { useGetDefaultFilters } from '@/components/Layout/AutoFilters/service/getDefaultFilters';
+import { useGetFiltersCount } from '@/components/Layout/AutoFilters/service/getFiltersCount';
 
 export interface AutoFiltersType {
   price: number[];
@@ -118,6 +119,7 @@ export const AutoFilters = () => {
           'hover:text-white',
           'font-light',
           'tracking-wider',
+          'text-sm',
           differencesCount > 2 ? 'bg-primary text-white' : '',
         )}
       >
@@ -216,11 +218,26 @@ const FiltersFormWrapper = ({
   initialValues,
   defaultInitialValues,
 }: FiltersFormWrapperProps) => {
+  const { data, mutateAsync, isPending } = useGetFiltersCount();
   const { replace } = useRouter();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedSubmit = useCallback(
     debounce((values: AutoFiltersType) => {
-      console.log('values', values);
+      mutateAsync({
+        minPrice: values.price[0],
+        maxPrice: values.price[1],
+        minYear: values.year[0],
+        maxYear: values.year[1],
+        currencyType: values.currencyType,
+        page: values.page,
+        pageSize: values.pageSize,
+        makeId: values.makeId,
+        modelId: values.modelId,
+        trimId: values.trimId,
+        fuelType: values.fuelType,
+        transType: values.transType,
+        stateName: values.stateName,
+      } as AutoFiltersType);
     }, 500),
     [],
   );
@@ -257,6 +274,8 @@ const FiltersFormWrapper = ({
           {...formProps}
           debouncedSubmit={debouncedSubmit}
           defaultInitialValues={defaultInitialValues}
+          count={data?.pages?.listings}
+          isLoading={isPending}
         />
       )}
     </Form>
@@ -266,11 +285,20 @@ const FiltersFormWrapper = ({
 type FormProps = FormRenderProps<AutoFiltersType> & {
   debouncedSubmit: (values: AutoFiltersType) => void;
   defaultInitialValues: AutoFiltersType;
+  count?: number;
+  isLoading?: boolean;
 };
 
 const FiltersForm = (props: FormProps) => {
-  const { debouncedSubmit, form, handleSubmit, defaultInitialValues, ...rest } =
-    props;
+  const {
+    debouncedSubmit,
+    form,
+    handleSubmit,
+    defaultInitialValues,
+    count = 0,
+    isLoading = false,
+    ...rest
+  } = props;
   const isFirstRender = useRef(true);
 
   useEffect(() => {
@@ -286,8 +314,6 @@ const FiltersForm = (props: FormProps) => {
   const handleClear = useCallback(() => {
     form.reset(defaultInitialValues);
   }, [defaultInitialValues, form]);
-
-  // console.log(props.values);
 
   return (
     <form onSubmit={handleSubmit}>
@@ -333,8 +359,14 @@ const FiltersForm = (props: FormProps) => {
         <Button variant="ghost" type="button" onClick={handleClear}>
           Limpiar
         </Button>
-        <Button className="rounded-2xl" type="submit">
-          Mostrar 345 anuncios
+        <Button className="rounded-2xl" type="submit" disabled={isLoading}>
+          {isLoading ? (
+            <Loader className="animate-spin animate-infinite animate-duration-500 animate-delay-500 animate-ease-in" />
+          ) : count > 0 ? (
+            `${count} anuncios`
+          ) : (
+            'Todos los anuncios'
+          )}
         </Button>
       </div>
     </form>

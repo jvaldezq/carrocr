@@ -30,7 +30,7 @@ export default function Benefits() {
   return (
     <div className="py-16">
       <div className="px-2">
-        <h2 className="text-3xl font-bold text-center text-tertiary mb-12">
+        <h2 className="text-xl uppercase font-bold tracking-widest leading-loose text-center text-tertiary mb-12">
           ¿Por qué elegirnos?
         </h2>
 

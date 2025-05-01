@@ -9,12 +9,10 @@ import {
 } from '@/components/ui/carousel';
 import Image from 'next/image';
 import { ChevronLeft, ChevronRight, GalleryHorizontal } from 'lucide-react';
-import CardTrigger from '@/components/CardTrigger';
 
 interface Props extends Omit<HTMLAttributes<HTMLDivElement>, 'id'> {
   images: string[];
   model: string;
-  id?: number;
   showDots?: boolean;
   showIcon?: boolean;
   rounded?: boolean;
@@ -27,7 +25,6 @@ export const Carousel = (props: Props) => {
   const {
     images,
     model,
-    id,
     showDots = false,
     showIcon = false,
     rounded = true,
@@ -90,7 +87,6 @@ export const Carousel = (props: Props) => {
                   alt={`${model}-${index}-carousel`}
                   loading="lazy"
                 />
-                {id && <CardTrigger id={id} />}
               </CarouselItem>
             );
           })}

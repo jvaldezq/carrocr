@@ -1,6 +1,6 @@
 'use client';
 import { createContext, useContext, FC, ReactNode, useState } from 'react';
-import { CarEntryDialog } from '@/context/CarEntryContext/CarEntryDialog';
+import { CarEntryDialog } from '@/context/CarEntryContext/components/CarEntryDialog';
 
 type CarEntryContextType = {
   open: boolean;
