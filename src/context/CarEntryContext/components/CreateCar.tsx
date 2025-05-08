@@ -153,10 +153,7 @@ export const CarForm = (props: FormProps) => {
     if (models) {
       setModelsData(models);
     }
-    if (trims) {
-      setTrimsData(trims);
-    }
-  }, [models, trims]);
+  }, [models]);
 
   useEffect(() => {
     if (trims) {
@@ -186,6 +183,7 @@ export const CarForm = (props: FormProps) => {
         name,
         makeId: values.makeId || 0,
       });
+      console.log('HELLO THERE!', newModel);
       if (newModel[0].value) {
         setModelsData((prev) => [...prev, ...newModel]);
         form.change(
@@ -217,6 +215,8 @@ export const CarForm = (props: FormProps) => {
     },
     [createTrim, form, values.modelId],
   );
+
+  console.log('modelsData', modelsData);
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-2 px-4 pb-4">
