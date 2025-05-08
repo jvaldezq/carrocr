@@ -1,18 +1,9 @@
 'use client';
-import {
-  createContext,
-  useContext,
-  FC,
-  ReactNode,
-  useState,
-  useEffect,
-} from 'react';
-import axios from 'axios';
-import { storeToken } from '@/lib/localStorage';
+import { createContext, useContext, FC, ReactNode, useEffect } from 'react';
+import { removeStoredToken, storeToken } from '@/lib/localStorage';
 
 type UserContextType = {
-  token?: string;
-  protectedAxios?: axios.AxiosInstance;
+  user?: boolean; //TODO need to fix this and integrate
 };
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -27,31 +18,25 @@ export const useUser = () => {
 
 interface Props {
   children: ReactNode;
-  accessToken: string;
 }
 
-export const UserContextProvider: FC<Props> = ({ children, accessToken }) => {
-  const [token] = useState(accessToken);
-
+export const UserContextProvider: FC<Props> = ({ children }) => {
   useEffect(() => {
-    if (token) {
-      storeToken(token);
-    }
-  }, [token]);
+    const fetchToken = async () => {
+      try {
+        const res = await fetch('/api/token');
+        const token = await res.json();
+        console.log(token);
+        if (token) {
+          storeToken(token);
+        } else {
+          removeStoredToken();
+        }
+      } catch {}
+    };
 
-  const protectedAxios = axios.create({
-    baseURL: process.env.NEXT_PUBLIC_API_URL,
-    headers: {
-      Authorization: token ? `Bearer ${token}` : '',
-      'Content-Type': 'application/json',
-    },
-  });
+    fetchToken();
+  }, []);
 
-  console.log('token', token);
-
-  return (
-    <UserContext.Provider value={{ token, protectedAxios }}>
-      {children}
-    </UserContext.Provider>
-  );
+  return <UserContext.Provider value={{}}>{children}</UserContext.Provider>;
 };

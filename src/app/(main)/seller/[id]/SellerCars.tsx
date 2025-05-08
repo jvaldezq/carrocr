@@ -5,12 +5,11 @@ import { getSession } from '@auth0/nextjs-auth0';
 
 interface Props {
   sellerId: string;
-  token: string;
 }
 export default async function SellerCars(props: Props) {
-  const { sellerId, token } = props;
+  const { sellerId } = props;
   const session = await getSession();
-  const data = await getUserListings(token, sellerId);
+  const data = await getUserListings(sellerId);
 
   if (!data)
     return (

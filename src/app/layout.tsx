@@ -6,7 +6,7 @@ import type { Viewport } from 'next';
 
 import '@/styles/globals.css';
 import { UserProvider } from '@auth0/nextjs-auth0/client';
-import { UserWrapper } from '@/components/UserWrapper';
+import { UserContextProvider } from '@/context/UserContext';
 
 export const viewport: Viewport = {
   initialScale: 1,
@@ -25,7 +25,7 @@ export default async function RootLayout({
       <body className="bg-quaternary">
         <UserProvider>
           <QueryWrapper>
-            <UserWrapper>{children}</UserWrapper>
+            <UserContextProvider>{children}</UserContextProvider>
           </QueryWrapper>
         </UserProvider>
       </body>

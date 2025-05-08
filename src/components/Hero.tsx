@@ -12,6 +12,7 @@ export default function Hero() {
           alt="Cars background"
           width={1280}
           height={400}
+          priority={true}
         />
       </div>
 

@@ -1,21 +1,15 @@
 import { useMutation } from '@tanstack/react-query';
-import axios from 'axios';
-import { useUser } from '@/context/UserContext';
 import { ListResultType } from '@/lib/definitions';
+import { api } from '@/lib/axios';
 
-export const createMake = async (
-  name: string,
-  protectedAxios?: axios.AxiosInstance,
-): Promise<ListResultType[]> => {
-  const res = await protectedAxios?.post('/make', { name });
+export const createMake = async (name: string): Promise<ListResultType[]> => {
+  const res = await api?.post('/make', { name });
   return res?.data;
 };
 
 export const useCreateMakeMutation = () => {
-  const { protectedAxios } = useUser();
-
   return useMutation({
-    mutationFn: (name: string) => createMake(name, protectedAxios),
+    mutationFn: (name: string) => createMake(name),
     mutationKey: ['make-create'],
   });
 };

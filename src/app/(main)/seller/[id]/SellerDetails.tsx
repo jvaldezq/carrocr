@@ -18,11 +18,10 @@ dayjs.locale('es');
 
 interface Props {
   sellerId: string;
-  token: string;
 }
 export default async function SellerDetails(props: Props) {
-  const { sellerId, token } = props;
-  const userInfo = await getUserInfo(token, sellerId);
+  const { sellerId } = props;
+  const userInfo = await getUserInfo(sellerId);
   const {
     firstName = '',
     lastName = '',

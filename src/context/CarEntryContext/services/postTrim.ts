@@ -1,25 +1,18 @@
 import { useMutation } from '@tanstack/react-query';
-import axios from 'axios';
-import { useUser } from '@/context/UserContext';
 import { ListResultType } from '@/lib/definitions';
+import { api } from '@/lib/axios';
 
-export const createTrim = async (
-  body: {
-    name: string;
-    modelID: number;
-  },
-  protectedAxios?: axios.AxiosInstance,
-): Promise<ListResultType[]> => {
-  const res = await protectedAxios?.post('/trim', body);
+export const createTrim = async (body: {
+  name: string;
+  modelID: number;
+}): Promise<ListResultType[]> => {
+  const res = await api?.post('/trim', body);
   return res?.data;
 };
 
 export const useCreateTrimMutation = () => {
-  const { protectedAxios } = useUser();
-
   return useMutation({
-    mutationFn: (body: { name: string; modelID: number }) =>
-      createTrim(body, protectedAxios),
+    mutationFn: (body: { name: string; modelID: number }) => createTrim(body),
     mutationKey: ['trim-create'],
   });
 };

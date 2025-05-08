@@ -1,6 +1,5 @@
 import Details from '@/app/(main)/draft/[id]/Details';
 import { fetchDraftById } from '@/app/(main)/draft/[id]/service/getDraftById';
-import { getAccessToken } from '@auth0/nextjs-auth0';
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import DefaultImage from '@/assets/placeholder.webp';
@@ -12,17 +11,7 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const id = (await params).id;
-  let accessToken = null;
-  try {
-    accessToken = await getAccessToken({
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
-      audience: process.env.AUTH0_AUDIENCE || '',
-    });
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  } catch (error) {}
-
-  const data = await fetchDraftById(id, accessToken?.accessToken || '');
+  const data = await fetchDraftById(id);
 
   const { year, make, model, trim, transType, condition } = data;
   const title = `${year} ${make} ${model} ${trim} - Transmisión ${transType}, Condición ${condition}`;
@@ -33,18 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function Draft({ params }: Props) {
   const id = (await params).id;
-  let accessToken = null;
-
-  try {
-    accessToken = await getAccessToken({
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
-      audience: process.env.AUTH0_AUDIENCE || '',
-    });
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  } catch (error) {}
-
-  const car = await fetchDraftById(id, accessToken?.accessToken || '');
+  const car = await fetchDraftById(id);
 
   const { make, model, trim, year, license, images } = car;
 

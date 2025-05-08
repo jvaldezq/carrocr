@@ -1,13 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
-import { useUser } from '@/context/UserContext';
-import axios from 'axios';
 import { ListResultType } from '@/lib/definitions';
+import { api } from '@/lib/axios';
 
 export const fetchModels = async (
   makeId?: number | string,
-  protectedAxios?: axios.AxiosInstance,
 ): Promise<ListResultType[]> => {
-  const res = await protectedAxios?.get('/model', {
+  const res = await api?.get('/model', {
     params: {
       makeid: makeId,
     },
@@ -16,11 +14,10 @@ export const fetchModels = async (
 };
 
 export const useGetModels = (makeId?: number | string) => {
-  const { protectedAxios } = useUser();
   return useQuery({
     queryKey: ['models', makeId],
     enabled: !!makeId,
-    queryFn: () => fetchModels(makeId, protectedAxios),
+    queryFn: () => fetchModels(makeId),
     staleTime: 1000 * 60 * 60 * 24,
     retry: 2,
     refetchOnReconnect: false,

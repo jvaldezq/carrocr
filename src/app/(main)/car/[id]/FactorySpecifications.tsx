@@ -17,38 +17,47 @@ const tooltips = {
       description:
         'Cilindrada del motor en centímetros cúbicos (cc), indicando el volumen total de todos los cilindros',
       name: 'Cilindrada',
+      prefix: undefined,
     },
     cylinderCount: {
       description: 'Número de cilindros en el motor',
       name: 'Número de Cilindros',
+      prefix: undefined,
     },
     horsepower: {
       description: 'Potencia máxima del motor',
       name: 'Caballos de Fuerza',
+      prefix: 'hp',
     },
     horsepowerRPM: {
       description: 'Velocidad del motor a la que se alcanza la potencia máxima',
-      name: 'RPM a Potencia Máxima',
+      name: 'RPM para potencia máxima',
+      prefix: undefined,
     },
     torque: {
       description: 'Fuerza de rotación generada por el motor',
-      name: 'Par Motor',
+      name: 'Torque',
+      prefix: undefined,
     },
     torqueRPM: {
       description: 'Velocidad del motor a la que se alcanza el par máximo',
-      name: 'RPM a Par Máximo',
+      name: 'RPM para Torque máxima',
+      prefix: undefined,
     },
     valveCount: {
       description: 'Número total de válvulas de admisión y escape',
       name: 'Número de Válvulas',
+      prefix: undefined,
     },
     camType: {
       description: 'Tipo de configuración del árbol de levas',
       name: 'Tipo de Árbol de Levas',
+      prefix: undefined,
     },
     superFuel: {
       description: 'Requisito de calidad del combustible (Super)',
-      name: 'Requisito de Combustible',
+      name: 'Requisito de Combustible Super',
+      prefix: undefined,
     },
   },
   economy: {
@@ -56,67 +65,82 @@ const tooltips = {
       description:
         'Consumo de combustible promedio en conducción combinada (ciudad y carretera)',
       name: 'Consumo Combinado',
+      prefix: 'km/l',
     },
     mpgCity: {
       description: 'Consumo de combustible en condiciones de conducción urbana',
       name: 'Consumo Ciudad',
+      prefix: 'km/l',
     },
     mpgHighway: {
       description:
         'Consumo de combustible en condiciones de conducción en carretera',
       name: 'Consumo Carretera',
+      prefix: 'km/l',
     },
   },
   dimensions: {
     length: {
       description: 'Longitud total del vehículo',
       name: 'Longitud',
+      prefix: 'cm',
     },
     width: {
       description: 'Ancho total del vehículo',
       name: 'Ancho',
+      prefix: 'cm',
     },
     height: {
       description: 'Altura total del vehículo',
       name: 'Altura',
+      prefix: 'cm',
     },
     groundHeight: {
       description: 'Distancia entre el punto más bajo del vehículo y el suelo',
       name: 'Altura Libre al Suelo',
+      prefix: 'cm',
     },
   },
   capacity: {
     doorCount: {
       description: 'Número de puertas',
       name: 'Número de Puertas',
+      prefix: undefined,
     },
     seatCount: {
       description: 'Número de asientos',
       name: 'Número de Asientos',
+      prefix: undefined,
     },
     curbWeight: {
       description: 'Peso del vehículo sin pasajeros ni carga',
       name: 'Peso en Vacío',
+      prefix: 'kg',
     },
     grossWeight: {
       description: 'Peso máximo permitido incluyendo pasajeros y carga',
       name: 'Peso Bruto Vehicular',
+      prefix: 'kg',
     },
     payloadCap: {
       description: 'Peso máximo de carga y pasajeros',
       name: 'Capacidad de Carga',
+      prefix: 'kg',
     },
     towingCap: {
       description: 'Peso máximo que el vehículo puede remolcar',
       name: 'Capacidad de Remolque',
+      prefix: 'kg',
     },
     cargoCapLiters: {
       description: 'Volumen del espacio de carga en litros',
-      name: 'Capacidad de Carga (Litros)',
+      name: 'Capacidad de Carga',
+      prefix: 'kg',
     },
     fuelCapLiters: {
       description: 'Capacidad del tanque de combustible en litros',
-      name: 'Capacidad de Combustible (Litros)',
+      name: 'Capacidad de Combustible',
+      prefix: 'Litros',
     },
   },
 };
@@ -187,7 +211,13 @@ export const FactorySpecifications = (props: Props) => {
                             .name
                         }
                       </p>
-                      <p className="font-medium">{value}</p>
+                      <p className="font-medium">
+                        {value}{' '}
+                        {
+                          tooltips.engine[key as keyof typeof tooltips.engine]
+                            ?.prefix
+                        }
+                      </p>
                     </div>
                   </div>
                 ))}
@@ -234,7 +264,13 @@ export const FactorySpecifications = (props: Props) => {
                             .name
                         }
                       </p>
-                      <p className="font-medium">{value} km/l</p>
+                      <p className="font-medium">
+                        {value}{' '}
+                        {
+                          tooltips.economy[key as keyof typeof tooltips.economy]
+                            ?.prefix
+                        }
+                      </p>
                     </div>
                   </div>
                 ))}
@@ -283,7 +319,14 @@ export const FactorySpecifications = (props: Props) => {
                           ].name
                         }
                       </p>
-                      <p className="font-medium">{value} cm</p>
+                      <p className="font-medium">
+                        {value}{' '}
+                        {
+                          tooltips.dimensions[
+                            key as keyof typeof tooltips.dimensions
+                          ]?.prefix
+                        }
+                      </p>
                     </div>
                   </div>
                 ))}
@@ -333,11 +376,12 @@ export const FactorySpecifications = (props: Props) => {
                         }
                       </p>
                       <p className="font-medium">
-                        {key.includes('Cap') && key !== 'fuelCapLiters'
-                          ? `${value} kg`
-                          : key.includes('Liters')
-                            ? `${value} L`
-                            : value}
+                        {value}{' '}
+                        {
+                          tooltips.capacity[
+                            key as keyof typeof tooltips.capacity
+                          ]?.prefix
+                        }
                       </p>
                     </div>
                   </div>
