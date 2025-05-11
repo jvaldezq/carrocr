@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { Car, LogIn } from 'lucide-react';
 import { useCarEntry } from '@/context/CarEntryContext/CarEntryContext';
 import { useUser } from '@/context/UserContext/UserContext';
+import { removeStoredToken } from '@/lib/localStorage';
 
 interface ProfileMenuDrawerProps {
   children: ReactNode;
@@ -27,6 +28,7 @@ export const ProfileMenuDrawer = (props: ProfileMenuDrawerProps) => {
       <Drawer.Portal>
         <Drawer.Overlay className="fixed inset-0 bg-black/35 z-10" />
         <Drawer.Content
+          aria-describedby="menu-drawer"
           className="right-2 top-2 bottom-2 fixed z-40 outline-none w-[310px] flex"
           style={{ '--initial-transform': 'calc(100% + 8px)' } as CSSProperties}
         >
@@ -34,11 +36,7 @@ export const ProfileMenuDrawer = (props: ProfileMenuDrawerProps) => {
             <Drawer.Title className="font-medium flex items-center justify-start">
               <Link key="Home" href="/" onClick={() => setDrawerOpen(false)}>
                 <span className="text-base font-ligh text-white">
-                  <Link key="Home" href="/">
-                    <div className="flex items-center">
-                      <Car className="h-5 w-5" />
-                    </div>
-                  </Link>
+                  <Car className="h-5 w-5" />
                 </span>
               </Link>
             </Drawer.Title>
@@ -50,7 +48,7 @@ export const ProfileMenuDrawer = (props: ProfileMenuDrawerProps) => {
                   className="flex items-center gap-1 w-full py-2 px-1 rounded-xl cursor-pointer hover:bg-white/[0.1] transition-colors duration-300 text-sm"
                   onClick={() => setDrawerOpen(false)}
                 >
-                  <span>Ingreso / Registro</span>
+                  Ingreso / Registro
                 </Link>
               ) : (
                 <div className="flex flex-col items-start justify-start w-full">
@@ -65,23 +63,23 @@ export const ProfileMenuDrawer = (props: ProfileMenuDrawerProps) => {
                     className="flex items-center gap-1 w-full py-2 px-1 rounded-xl cursor-pointer hover:bg-white/[0.1] transition-colors duration-300 text-sm"
                     onClick={() => setDrawerOpen(false)}
                   >
-                    <span>Perfil</span>
+                    Perfil
                   </Link>
                   <Link
-                    key="profile"
-                    href="/profile"
+                    key="profile-drafts"
+                    href="/profile#drafts"
                     className="flex items-center gap-1 w-full py-2 px-1 rounded-xl cursor-pointer hover:bg-white/[0.1] transition-colors duration-300 text-sm"
                     onClick={() => setDrawerOpen(false)}
                   >
-                    <span>Ver mis anuncios</span>
+                    Ver mis anuncios
                   </Link>
                   <Link
-                    key="profile"
-                    href="/profile"
+                    key="profile-favorites"
+                    href="/profile#favorites"
                     className="flex items-center gap-1 w-full py-2 px-1 rounded-xl cursor-pointer hover:bg-white/[0.1] transition-colors duration-300 text-sm"
                     onClick={() => setDrawerOpen(false)}
                   >
-                    <span>Ver mis favoritos</span>
+                    Ver mis favoritos
                   </Link>
                   <div
                     key="car-entry"
@@ -91,7 +89,7 @@ export const ProfileMenuDrawer = (props: ProfileMenuDrawerProps) => {
                     }}
                     className="flex items-center gap-1 w-full py-2 px-1 rounded-xl cursor-pointer hover:bg-white/[0.1] transition-colors duration-300 text-sm"
                   >
-                    <span>Crear anuncio</span>
+                    Crear anuncio
                   </div>
 
                   {user?.acctType == 3 && (
@@ -104,7 +102,7 @@ export const ProfileMenuDrawer = (props: ProfileMenuDrawerProps) => {
                         className="flex items-center text-sm gap-1 w-full py-2 px-1 rounded-xl cursor-pointer hover:bg-white/[0.1] transition-colors duration-300"
                         onClick={() => setDrawerOpen(false)}
                       >
-                        <span className="">Approvals</span>
+                        Approvals
                       </Link>
                     </>
                   )}
@@ -118,7 +116,7 @@ export const ProfileMenuDrawer = (props: ProfileMenuDrawerProps) => {
                   className="flex items-center text-sm gap-1 w-full py-2 px-1 rounded-xl cursor-pointer hover:bg-white/[0.1] transition-colors duration-300"
                   onClick={() => setDrawerOpen(false)}
                 >
-                  <span className="">Como publicar?</span>
+                  Como publicar?
                 </Link>
                 <Link
                   key="contact"
@@ -126,16 +124,18 @@ export const ProfileMenuDrawer = (props: ProfileMenuDrawerProps) => {
                   className="flex items-center text-sm gap-1 w-full py-2 px-1 rounded-xl cursor-pointer hover:bg-white/[0.1] transition-colors duration-300"
                   onClick={() => setDrawerOpen(false)}
                 >
-                  <span className="">Contactanos</span>
+                  Contactanos
                 </Link>
 
                 {user && (
                   <a
                     key="logout"
                     href="/api/auth/logout"
-                    // className="flex items-center gap-1 absolute bottom-2.5 right-4 cursor-pointer"
                     className="flex items-center self-end gap-1 mt-4 text-sm cursor-pointer"
-                    onClick={() => setDrawerOpen(false)}
+                    onClick={() => {
+                      setDrawerOpen(false);
+                      removeStoredToken();
+                    }}
                   >
                     <LogIn className="h-5 rotate-180" />
                     <span>Logout</span>

@@ -43,12 +43,12 @@ export default function CarDialogDetails(props: Car) {
         images={[thumbnail, ...images]}
         model={model}
         rounded={false}
-        showDots={true}
+        showArrows={true}
       />
 
       {/* Car Details */}
       <div className="p-4 grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="space-y-4">
+        <div>
           <h3 className="text-lg font-semibold text-tertiary">
             Detalles del vehículo
           </h3>
@@ -100,16 +100,26 @@ export default function CarDialogDetails(props: Car) {
           </div>
         </div>
 
-        <Link
-          key={id}
-          href={`/car/${id}`}
-          onClick={clearId}
-          className="md:w-fit w-full h-fit border-primary border-solid border text-primary flex gap-2 items-center
-                   p-3 rounded-lg text-sm text-primary font-bold justify-center justify-self-end self-end"
-        >
-          Más detalles
-          <ArrowRight className="h-6 w-6" />
-        </Link>
+        <div className="flex items-end justify-end flex-col gap-2">
+          <Link
+            key={`share-${id}`}
+            href={`/car/${id}`}
+            onClick={clearId}
+            className="h-fit w-full border-primary border-solid border text-primary flex gap-2 items-center
+                   p-3 rounded-sm text-sm font-bold justify-center justify-self-end self-end"
+          >
+            Compartir
+          </Link>
+          <Link
+            key={id}
+            href={`/car/${id}`}
+            onClick={clearId}
+            className="h-fit w-full border-primary border-solid border text-primary flex gap-2 items-center
+                   p-3 rounded-sm text-sm font-bold justify-center justify-self-end self-end"
+          >
+            Conoce más
+          </Link>
+        </div>
       </div>
     </div>
   );

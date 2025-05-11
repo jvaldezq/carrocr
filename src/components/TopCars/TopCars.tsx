@@ -1,5 +1,5 @@
 import { fetchTopCars } from '@/components/TopCars/services/getTopCars';
-import Card from '@/components/Card';
+import Card from '@/components/Card/Card';
 import { getSession } from '@auth0/nextjs-auth0';
 
 export default async function TopCars() {

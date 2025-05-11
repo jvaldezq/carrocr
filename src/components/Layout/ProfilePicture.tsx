@@ -13,7 +13,7 @@ export const ProfilePicture = () => {
         height={32}
         width={32}
         alt={`${user.firstName}-profile-picture`}
-        className="rounded-full object-fit"
+        className="rounded-full object-fit h-8 w-8"
       />
     );
   }

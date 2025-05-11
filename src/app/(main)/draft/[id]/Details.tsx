@@ -27,8 +27,6 @@ export default function Details(props: Props) {
   const { car } = props;
   const { mutateAsync, isPending } = useUpdateDraftByIdMutation();
 
-  console.log('car', car);
-
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedSubmit = useCallback(
     debounce((values: FormCarType) => {

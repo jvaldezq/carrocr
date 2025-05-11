@@ -1,9 +1,6 @@
 import { APPROVAL_TRANSLATIONS } from '@/lib/definitions';
 import type { Car } from '@/types/Car';
 import {
-  ArrowRight,
-  Calendar,
-  MapPin,
   ShieldCheck,
   Pencil,
   CircleX,
@@ -19,6 +16,7 @@ import { cn } from '@/lib/utils';
 import { ReactNode } from 'react';
 import { FavoritesHeart } from '@/components/FavoritesHeart/FavoritesHeart';
 import { Tooltip } from '@/components/Tooltip';
+import { QuickViewButton } from '@/components/Card/QuickViewButton';
 
 type Props = Car & {
   isTemp?: boolean;
@@ -36,7 +34,6 @@ export default function Card(props: Props) {
     price,
     currency,
     acctVerified,
-    state,
     isTemp = false,
     stageID,
     isAuth = false,
@@ -103,31 +100,7 @@ export default function Card(props: Props) {
                 <Pencil className="h-5 w-5" />
               </Link>
             ) : (
-              <Tooltip tooltipContent="Ver prevista">
-                <Link
-                  href={{
-                    query: { preview: id },
-                  }}
-                  key={`car-${id}`}
-                  className={cn(
-                    'border',
-                    'border-primary',
-                    'text-primary',
-                    'px-2',
-                    'py-1',
-                    'rounded-sm',
-                    'text-xs',
-                    'flex',
-                    'items-center',
-                    'justify-center',
-                    'z-40',
-                    'transition-all',
-                    'min-h-10',
-                  )}
-                >
-                  Vista rápida
-                </Link>
-              </Tooltip>
+              <QuickViewButton id={id} />
             )}
             {((isTemp && stageID === 4) || !isTemp) && (
               <Tooltip tooltipContent="Ver anuncio">

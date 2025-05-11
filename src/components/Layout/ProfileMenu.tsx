@@ -12,8 +12,8 @@ export const ProfileMenu = async () => {
       <div
         className={cn(
           'flex',
-          'py-1.5',
-          'px-1',
+          'h-8',
+          'w-8',
           'justify-center',
           'items-center',
           'gap-1',

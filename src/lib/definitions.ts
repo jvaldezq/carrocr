@@ -164,17 +164,12 @@ export enum VERIFICATIONS_TRANSLATIONS {
 
 export const currencies_options = [
   {
-    label: 'Moneda',
-    options: [
-      {
-        label: CURRENCIES.CRC,
-        value: CURRENCIES.CRC,
-      },
-      {
-        label: CURRENCIES.USD,
-        value: CURRENCIES.USD,
-      },
-    ],
+    label: CURRENCIES.CRC,
+    value: CURRENCIES.CRC,
+  },
+  {
+    label: CURRENCIES.USD,
+    value: CURRENCIES.USD,
   },
 ];
 
@@ -211,181 +206,151 @@ export const states_options = [
 
 export const condition_options = [
   {
-    label: 'Condición',
-    options: [
-      {
-        label: 'Excelente',
-        value: 'Excelente',
-      },
-      {
-        label: 'Muy Bueno',
-        value: 'Muy Bueno',
-      },
-      {
-        label: 'Bueno',
-        value: 'Bueno',
-      },
-      {
-        label: 'Regular',
-        value: 'Regular',
-      },
-      {
-        label: 'Malo',
-        value: 'Malo',
-      },
-    ],
+    label: 'Excelente',
+    value: 'Excelente',
+  },
+  {
+    label: 'Muy Bueno',
+    value: 'Muy Bueno',
+  },
+  {
+    label: 'Bueno',
+    value: 'Bueno',
+  },
+  {
+    label: 'Regular',
+    value: 'Regular',
+  },
+  {
+    label: 'Malo',
+    value: 'Malo',
   },
 ];
 
 export const milage_options = [
   {
-    label: 'Tipo',
-    options: [
-      {
-        label: 'Km',
-        value: 'Km',
-      },
-      {
-        label: 'Millas',
-        value: 'Millas',
-      },
-    ],
+    label: 'Km',
+    value: 'Km',
+  },
+  {
+    label: 'Millas',
+    value: 'Millas',
   },
 ];
 
 export const transType_options = [
   {
-    label: 'Transmisión',
-    options: [
-      {
-        label: 'Sin Transmisión',
-        value: 'Sin Transmisión',
-      },
-      {
-        label: 'Automático',
-        value: 'Automático',
-      },
-      {
-        label: 'Semi-Automático',
-        value: 'Semi-Automático',
-      },
-      {
-        label: 'Manual',
-        value: 'Manual',
-      },
-      {
-        label: 'CVT',
-        value: 'CVT',
-      },
-    ],
+    label: 'Sin Transmisión',
+    value: 'Sin Transmisión',
+  },
+  {
+    label: 'Automático',
+    value: 'Automático',
+  },
+  {
+    label: 'Semi-Automático',
+    value: 'Semi-Automático',
+  },
+  {
+    label: 'Manual',
+    value: 'Manual',
+  },
+  {
+    label: 'CVT',
+    value: 'CVT',
   },
 ];
 
 export const transGearCount_options = [
   {
-    label: 'Número de Marchas',
-    options: [
-      {
-        label: '1',
-        value: 1,
-      },
-      {
-        label: '2',
-        value: 2,
-      },
-      {
-        label: '3',
-        value: 3,
-      },
-      {
-        label: '4',
-        value: 4,
-      },
-      {
-        label: '5',
-        value: 5,
-      },
-      {
-        label: '6',
-        value: 6,
-      },
-      {
-        label: '7',
-        value: 7,
-      },
-      {
-        label: '8',
-        value: 8,
-      },
-      {
-        label: '9',
-        value: 9,
-      },
-      {
-        label: '10',
-        value: 10,
-      },
-    ],
+    label: '1',
+    value: 1,
+  },
+  {
+    label: '2',
+    value: 2,
+  },
+  {
+    label: '3',
+    value: 3,
+  },
+  {
+    label: '4',
+    value: 4,
+  },
+  {
+    label: '5',
+    value: 5,
+  },
+  {
+    label: '6',
+    value: 6,
+  },
+  {
+    label: '7',
+    value: 7,
+  },
+  {
+    label: '8',
+    value: 8,
+  },
+  {
+    label: '9',
+    value: 9,
+  },
+  {
+    label: '10',
+    value: 10,
   },
 ];
 
 export const fuelType_options = [
   {
-    label: 'Tipo de combustible',
-    options: [
-      {
-        label: 'Gasolina',
-        value: 'Gasolina',
-      },
-      {
-        label: 'Diesel',
-        value: 'Diesel',
-      },
-      {
-        label: 'Híbrido',
-        value: 'Híbrido',
-      },
-      {
-        label: 'Eléctrico',
-        value: 'Eléctrico',
-      },
-      {
-        label: 'Gas',
-        value: 'Gas',
-      },
-      {
-        label: 'Hidrógeno',
-        value: 'Hidrógeno',
-      },
-    ],
+    label: 'Gasolina',
+    value: 'Gasolina',
+  },
+  {
+    label: 'Diesel',
+    value: 'Diesel',
+  },
+  {
+    label: 'Híbrido',
+    value: 'Híbrido',
+  },
+  {
+    label: 'Eléctrico',
+    value: 'Eléctrico',
+  },
+  {
+    label: 'Gas',
+    value: 'Gas',
+  },
+  {
+    label: 'Hidrógeno',
+    value: 'Hidrógeno',
   },
 ];
 
 export const driveType_options = [
   {
-    label: 'Tipo de Tracción',
-    options: [
-      {
-        label: 'AWD',
-        value: 'AWD',
-      },
-      {
-        label: '4WD',
-        value: '4WD',
-      },
-      {
-        label: 'FWD',
-        value: 'FWD',
-      },
-      {
-        label: 'RWD',
-        value: 'RWD',
-      },
-      {
-        label: '6WD',
-        value: '6WD',
-      },
-    ],
+    label: 'AWD',
+    value: 'AWD',
+  },
+  {
+    label: '4WD',
+    value: '4WD',
+  },
+  {
+    label: 'FWD',
+    value: 'FWD',
+  },
+  {
+    label: 'RWD',
+    value: 'RWD',
+  },
+  {
+    label: '6WD',
+    value: '6WD',
   },
 ];
 

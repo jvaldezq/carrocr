@@ -1,4 +1,4 @@
-import Card from '@/components/Card';
+import Card from '@/components/Card/Card';
 import { getUserListings } from '@/app/(main)/seller/service/getUserListings';
 import { ArchiveX } from 'lucide-react';
 import { getSession } from '@auth0/nextjs-auth0';

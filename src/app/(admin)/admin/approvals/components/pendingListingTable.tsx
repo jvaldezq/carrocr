@@ -9,12 +9,12 @@ import {
 } from '@/components/ui/table';
 import { useCallback, useState } from 'react';
 import { PendingListingDrawer } from '@/app/(admin)/admin/approvals/components/pendingListingDrawer';
-import { useGetAllDrafts } from '@/app/(admin)/admin/approvals/service/getAllDrafts';
+import { useGetAllPendingReview } from '@/app/(admin)/admin/approvals/service/getAllPendingReview';
 
 export const PendingListingTable = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [id, setId] = useState<string>('');
-  const { data } = useGetAllDrafts();
+  const { data } = useGetAllPendingReview();
   const handleClick = useCallback((id: string) => {
     setDrawerOpen(true);
     setId(id);

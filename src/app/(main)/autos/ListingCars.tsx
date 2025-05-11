@@ -1,4 +1,4 @@
-import Card from '@/components/Card';
+import Card from '@/components/Card/Card';
 import { getListings } from '@/app/(main)/autos/service/getListings';
 import { AutoFiltersType } from '@/components/Layout/AutoFilters/AutoFilters';
 

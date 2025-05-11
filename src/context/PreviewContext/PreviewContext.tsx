@@ -6,13 +6,11 @@ import {
   ReactNode,
   useState,
   useCallback,
-  useEffect,
 } from 'react';
 import { CarDialog } from '@/context/PreviewContext/components/CarDialog';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 type PreviewContextType = {
-  id: number;
+  id: number | null;
   clearId: () => void;
   setId: (id: number) => void;
 };
@@ -30,26 +28,11 @@ export const usePreview = () => {
 export const PreviewContextProvider: FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [id, setId] = useState(0);
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const preview = searchParams.get('preview');
-
-  useEffect(() => {
-    if (preview) {
-      setId(+preview);
-    } else {
-      setId(0);
-    }
-  }, [preview]);
+  const [id, setId] = useState<number | null>(0);
 
   const clearId = useCallback(() => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.delete('preview');
-    const newUrl = `${pathname}${params.toString() ? `?${params.toString()}` : ''}`;
-    router.replace(newUrl);
-  }, [pathname, router, searchParams]);
+    setId(null);
+  }, []);
 
   return (
     <PreviewContext.Provider
