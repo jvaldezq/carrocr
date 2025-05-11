@@ -1,9 +1,11 @@
 'use client';
 import { createContext, useContext, FC, ReactNode, useEffect } from 'react';
 import { removeStoredToken, storeToken } from '@/lib/localStorage';
+import { useGetMe } from '@/context/UserContext/service/getMe';
+import { Me } from '@/types/Me';
 
 type UserContextType = {
-  user?: boolean; //TODO need to fix this and integrate
+  user?: Me;
 };
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -21,6 +23,7 @@ interface Props {
 }
 
 export const UserContextProvider: FC<Props> = ({ children }) => {
+  const { data } = useGetMe();
   useEffect(() => {
     const fetchToken = async () => {
       try {
@@ -38,5 +41,13 @@ export const UserContextProvider: FC<Props> = ({ children }) => {
     fetchToken();
   }, []);
 
-  return <UserContext.Provider value={{}}>{children}</UserContext.Provider>;
+  return (
+    <UserContext.Provider
+      value={{
+        user: data,
+      }}
+    >
+      {children}
+    </UserContext.Provider>
+  );
 };

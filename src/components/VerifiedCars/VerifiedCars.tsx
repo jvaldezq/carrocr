@@ -1,9 +1,9 @@
 import Card from '@/components/Card';
 import { getSession } from '@auth0/nextjs-auth0';
-import { fetchRecentCars } from '@/components/RecentCars/services/getRecentCars';
+import { fetchVerifiedCarsCars } from '@/components/VerifiedCars/services/getRandomCars';
 
-export default async function RecentCars() {
-  const data = await fetchRecentCars();
+export default async function VerifiedCars() {
+  const data = await fetchVerifiedCarsCars();
   const session = await getSession();
 
   return (

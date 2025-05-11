@@ -168,8 +168,10 @@ export const FactorySpecifications = (props: Props) => {
       <div className="flex items-center gap-2 mb-4">
         <h2 className="text-xl font-semibold text-tertiary">
           Especificaciones de fábrica
+          <span className="text-xs text-tertiary/60 ml-3">
+            (Datos de referencia)
+          </span>
         </h2>
-        <span className="text-xs text-tertiary/60">(Datos de referencia)</span>
       </div>
 
       <div className="space-y-4">

@@ -9,52 +9,22 @@ import {
 } from '@/components/ui/table';
 import { useCallback, useState } from 'react';
 import { PendingListingDrawer } from '@/app/(admin)/admin/approvals/components/pendingListingDrawer';
-
-const data = [
-  {
-    id: '001',
-    make: 'Toyota',
-    year: 2021,
-  },
-  {
-    id: '002',
-    make: 'Honda',
-    year: 2023,
-  },
-  {
-    id: '003',
-    make: 'Ford',
-    year: 2022,
-  },
-  {
-    id: '004',
-    make: 'Chevrolet',
-    year: 2024,
-  },
-  {
-    id: '005',
-    make: 'Nissan',
-    year: 2020,
-  },
-  {
-    id: '006',
-    make: 'BMW',
-    year: 2023,
-  },
-];
+import { useGetAllDrafts } from '@/app/(admin)/admin/approvals/service/getAllDrafts';
 
 export const PendingListingTable = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
-
+  const [id, setId] = useState<string>('');
+  const { data } = useGetAllDrafts();
   const handleClick = useCallback((id: string) => {
-    console.log(id);
     setDrawerOpen(true);
+    setId(id);
   }, []);
 
   return (
     <>
       <PendingListingDrawer
         drawerOpen={drawerOpen}
+        id={id}
         setDrawerOpen={setDrawerOpen}
       />
       <Table>
@@ -66,15 +36,15 @@ export const PendingListingTable = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {data.map((listing) => (
+          {data?.map((listing) => (
             <TableRow
-              key={listing.id}
+              key={listing?.id}
               className="hover:bg-primary hover:text-white cursor-pointer"
-              onClick={() => handleClick(listing.id)}
+              onClick={() => handleClick(`${listing?.id}`)}
             >
-              <TableCell className="font-medium">{listing.id}</TableCell>
-              <TableCell>{listing.make}</TableCell>
-              <TableCell>{listing.year}</TableCell>
+              <TableCell className="font-medium">{listing?.id}</TableCell>
+              <TableCell>{listing?.make}</TableCell>
+              <TableCell>{listing?.year}</TableCell>
             </TableRow>
           ))}
         </TableBody>

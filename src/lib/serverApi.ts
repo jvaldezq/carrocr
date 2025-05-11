@@ -125,8 +125,6 @@ export const serverApi = async <
     }
   } catch (error) {
     console.error(`serverApi: Failed to fetch data from ${path}`, error);
-    // Re-throwing the error is often better for debugging and handling upstream
-    // throw error;
-    redirect('/error'); // Keeping null return for consistency
+    return null;
   }
 };

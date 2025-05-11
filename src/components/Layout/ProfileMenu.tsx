@@ -1,10 +1,12 @@
-import { AlignJustify, User } from 'lucide-react';
+import { AlignJustify } from 'lucide-react';
 import { getSession } from '@auth0/nextjs-auth0';
 import { cn } from '@/lib/utils';
 import { ProfileMenuDrawer } from '@/components/Layout/ProfileMenuDrawer';
+import { ProfilePicture } from '@/components/Layout/ProfilePicture';
 
 export const ProfileMenu = async () => {
   const session = await getSession();
+
   return (
     <ProfileMenuDrawer>
       <div
@@ -19,7 +21,7 @@ export const ProfileMenu = async () => {
           'animate-once',
           'animate-duration-500',
           'animate-ease-linear',
-          'rounded-xl',
+          'rounded-full',
           'border-[0.5px]',
           'border-tertiary/[0.5]',
           'border-solid',
@@ -33,11 +35,7 @@ export const ProfileMenu = async () => {
           'hover:text-white',
         )}
       >
-        {session?.user ? (
-          <User className="h-5" />
-        ) : (
-          <AlignJustify className="h-5" />
-        )}
+        {session?.user ? <ProfilePicture /> : <AlignJustify className="h-5" />}
       </div>
     </ProfileMenuDrawer>
   );

@@ -51,8 +51,6 @@ export const MyCars = ({
   const [filters, setFilters] = useState([1, 2, 4]);
   const { data, isLoading } = useGetUserTempListing(filters);
 
-  console.log('data', data);
-
   const onClick = useCallback((item: number) => {
     setFilters((prevFilters) =>
       prevFilters.includes(item)

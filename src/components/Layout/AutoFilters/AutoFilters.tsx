@@ -149,6 +149,7 @@ export const AutoFilters = () => {
             'sm:max-h-[99%]',
             'mx-auto',
             'flex',
+            'overflow-y-scroll',
           )}
           style={{ '--initial-transform': 'calc(100% + 8px)' } as CSSProperties}
         >

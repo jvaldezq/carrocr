@@ -23,7 +23,15 @@ export const MoneyFormatter = (
   number: number = 0,
   currency: CURRENCIES = CURRENCIES.CRC,
 ): string => {
-  return currencyFormatters[currency].format(number);
+  const parts = currencyFormatters[currency].formatToParts(Math.round(number));
+  return parts
+    .filter((part) => part.type !== 'fraction' && part.type !== 'decimal')
+    .map((part) => {
+      if (part.type === 'group') return ','; // Replace space with comma
+      return part.value;
+    })
+    .join('');
+  // return currencyFormatters[currency].format(number);
 };
 
 const numberFormatter = new Intl.NumberFormat();

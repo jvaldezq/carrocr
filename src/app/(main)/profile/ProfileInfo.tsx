@@ -26,10 +26,12 @@ type Props = UserProfile;
 export const ProfileInfo = (props: Props) => {
   const { mutateAsync, isPending } = useUpdateProfileInfoMutation();
 
+  console.log(props);
+
   useEffect(() => {
     if (isPending) {
       toast({
-        duration: 1500,
+        duration: 1,
         variant: 'default',
         title: 'Guardando',
         description: (

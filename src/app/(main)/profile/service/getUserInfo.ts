@@ -5,5 +5,6 @@ export const getUserInfo = async (): Promise<UserInfo> => {
   return (await serverApi<UserInfo>({
     path: `/user/info`,
     cache: 'no-cache',
+    requiresAuth: true,
   })) as UserInfo;
 };

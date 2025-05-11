@@ -3,9 +3,9 @@ import { CarsGridSkeleton } from '@/components/Skeletons';
 import { Suspense } from 'react';
 import Hero from '@/components/Hero';
 import Benefits from '@/components/Benefits';
-import RandomCars from '@/components/RandomCars/RandomCars';
 import Link from 'next/link';
 import RecentCars from '@/components/RecentCars/RecentCars';
+import VerifiedCars from '@/components/VerifiedCars/VerifiedCars';
 
 export const metadata: Metadata = {
   title: 'Carro CR',
@@ -19,7 +19,7 @@ const Home = async () => {
       <Hero />
       <section className="max-w-screen-3xl mx-auto px-2 mt-8 flex flex-col items-center">
         <div className="flex justify-between items-center mb-2 w-full">
-          <h2 className="text-xl leading-loose font-bold text-tertiary tracking-wide animate-fade-left animate-once animate-duration-500 animate-delay-500 animate-ease-in">
+          <h2 className="text-sm leading-loose font-bold text-tertiary tracking-wide animate-fade-left animate-once animate-duration-500 animate-delay-500 animate-ease-in">
             Recientes
           </h2>
           <Link
@@ -48,7 +48,7 @@ const Home = async () => {
 
       <section className="max-w-screen-3xl mx-auto px-2 mt-8 flex flex-col items-center">
         <div className="flex justify-between items-center mb-2 w-full">
-          <h2 className="text-xl leading-loose font-bold text-tertiary tracking-wide animate-fade-left animate-once animate-duration-500 animate-delay-500 animate-ease-in">
+          <h2 className="text-sm leading-loose font-bold text-tertiary tracking-wide animate-fade-left animate-once animate-duration-500 animate-delay-500 animate-ease-in">
             Verificados
           </h2>
           <Link
@@ -62,7 +62,7 @@ const Home = async () => {
           </Link>
         </div>
         <Suspense fallback={<CarsGridSkeleton />}>
-          <RandomCars />
+          <VerifiedCars />
         </Suspense>
         <Link
           href={{

@@ -8,6 +8,7 @@ import PlaceholderImage from '@/assets/placeholder.webp';
 import { Button } from '@/components/ui/button';
 
 interface Props {
+  id: string;
   drawerOpen: boolean;
   setDrawerOpen: (open: boolean) => void;
 }
@@ -43,7 +44,8 @@ const IMAGE_SECTIONS = {
 };
 
 export const PendingListingDrawer = (props: Props) => {
-  const { drawerOpen, setDrawerOpen } = props;
+  const { drawerOpen, setDrawerOpen, id } = props;
+  console.log('id', id);
 
   return (
     <Drawer.Root direction="top" open={drawerOpen} onOpenChange={setDrawerOpen}>

@@ -17,7 +17,7 @@ import Image from 'next/image';
 import DefaultImage from '@/assets/placeholder.webp';
 import { cn } from '@/lib/utils';
 import { ReactNode } from 'react';
-import { FavoritesHeart } from '@/components/FavoritesHeart';
+import { FavoritesHeart } from '@/components/FavoritesHeart/FavoritesHeart';
 import { Tooltip } from '@/components/Tooltip';
 
 type Props = Car & {
@@ -45,108 +45,115 @@ export default function Card(props: Props) {
   const image = thumbnail ? thumbnail : DefaultImage;
 
   return (
-    <article className="bg-white animate-fade animate-once animate-duration-700 animate-delay-0 rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer relative">
-      <Link
-        href={{
-          query: { preview: id },
-        }}
-        key={`car-${id}`}
-      >
-        <div className="relative aspect-[16/9]">
-          <Image
-            src={image}
-            alt={`${make} ${model}`}
-            className="w-full h-full object-cover rounded-t-lg"
-            width={620}
-            height={350}
-          />
-          {acctVerified && (
-            <div className="bg-verified absolute top-1 left-1 text-white px-2 py-1 rounded-lg text-sm flex items-center">
-              <Tooltip tooltipContent="Cuenta verificada">
-                <ShieldCheck className="h-4 w-4" />
-              </Tooltip>
-            </div>
-          )}
-          {!isTemp && isAuth && <FavoritesHeart id={id} />}
-          {isTemp && <StageBadge stageID={stageID || 0} />}
-        </div>
-      </Link>
-
-      <div className="p-4 relative">
-        <Link
-          href={{
-            query: { preview: id },
-          }}
-          key={`car-${id}`}
-        >
-          <div className="flex flex-col gap-1">
-            <h3 className="text-lg font-semibold text-tertiary">
-              {`${make} ${model}`}
-            </h3>
-            <div className="flex items-center text-sm font-semibold text-primary">
-              {MoneyFormatter(price, currency)}
-            </div>
-            <div className="flex items-center text-sm text-tertiary">
-              <Calendar className="h-4 w-4 mr-2" />
-              {year}
-            </div>
+    <article className="bg-white animate-fade animate-once animate-duration-700 animate-delay-0 rounded-sm shadow-md hover:shadow-lg transition-shadow cursor-pointer relative flex flex-col">
+      <div className="relative aspect-[16/9]">
+        <Image
+          src={image}
+          alt={`${make} ${model}`}
+          className="w-full h-full object-cover rounded-t-sm"
+          width={620}
+          height={350}
+        />
+        {acctVerified && (
+          <div className="bg-verified absolute top-1 left-1 text-white px-2 py-1 rounded-sm text-sm flex items-center">
+            <Tooltip tooltipContent="Cuenta verificada">
+              <ShieldCheck className="h-4 w-4" />
+            </Tooltip>
           </div>
-        </Link>
+        )}
+        {!isTemp && isAuth && <FavoritesHeart id={id} />}
+        {isTemp && <StageBadge stageID={stageID || 0} />}
+        <div className="flex items-center text-sm text-white backdrop-blur-md absolute bottom-1 right-1 bg-tertiary/[0.2] rounded-sm px-1 py-0.5">
+          {year}
+        </div>
+      </div>
+      <div className="p-4 relative grow flex flex-col">
+        <div className="flex flex-col gap-1">
+          <h3 className="text-lg font-semibold text-tertiary">
+            {`${make} ${model}`}
+          </h3>
+          <div className="flex items-center text-sm font-semibold text-primary">
+            {MoneyFormatter(price, currency)}
+          </div>
+        </div>
 
-        <div className="mt-1">
-          <div className="flex w-full gap-1 items-center justify-between text-sm text-tertiary">
-            <div className="flex">
-              <MapPin className="h-4 w-4 mr-2" />
-              {state}
-            </div>
-            <div className="flex gap-1">
-              {isTemp && (
+        <div className="flex w-full gap-1 items-end justify-between text-sm text-tertiary mt-4 grow">
+          <div className="flex flex-col gap-2 w-full">
+            {isTemp ? (
+              <Link
+                key={`edit-${id}`}
+                href={`/draft/${id}`}
+                className={cn(
+                  'border',
+                  'border-success',
+                  'text-success',
+                  'px-2',
+                  'py-1',
+                  'rounded-sm',
+                  'text-xs',
+                  'flex',
+                  'items-center',
+                  'z-40',
+                  'justify-center',
+                  'transition-all',
+                  'min-h-10',
+                )}
+              >
+                Editar
+                <Pencil className="h-5 w-5" />
+              </Link>
+            ) : (
+              <Tooltip tooltipContent="Ver prevista">
                 <Link
-                  key={`edit-${id}`}
-                  href={`/draft/${id}`}
+                  href={{
+                    query: { preview: id },
+                  }}
+                  key={`car-${id}`}
                   className={cn(
                     'border',
-                    'border-success',
-                    'text-success',
+                    'border-primary',
+                    'text-primary',
                     'px-2',
                     'py-1',
-                    'rounded-lg',
-                    'text-sm',
+                    'rounded-sm',
+                    'text-xs',
                     'flex',
                     'items-center',
+                    'justify-center',
                     'z-40',
                     'transition-all',
-                    'hover:scale-110',
+                    'min-h-10',
                   )}
                 >
-                  <Pencil className="h-5 w-5" />
+                  Vista rápida
                 </Link>
-              )}
-              {((isTemp && stageID === 4) || !isTemp) && (
-                <Tooltip tooltipContent="Ver anuncio">
-                  <Link
-                    key={`view-${id}`}
-                    href={`/car/${id}`}
-                    className={cn(
-                      'border',
-                      'border-primary',
-                      'text-primary',
-                      'px-2',
-                      'py-1',
-                      'rounded-lg',
-                      'text-sm',
-                      'flex',
-                      'items-center',
-                      'z-40',
-                      'transition-all',
-                      'hover:scale-110',
-                    )}
-                  >
-                    <ArrowRight className="h-4 w-4" />
-                  </Link>
-                </Tooltip>
-              )}
-            </div>
+              </Tooltip>
+            )}
+            {((isTemp && stageID === 4) || !isTemp) && (
+              <Tooltip tooltipContent="Ver anuncio">
+                <Link
+                  key={`view-${id}`}
+                  href={`/car/${id}`}
+                  className={cn(
+                    'border',
+                    'border-primary',
+                    'text-primary',
+                    'px-2',
+                    'py-1',
+                    'rounded-sm',
+                    'text-xs',
+                    'flex',
+                    'items-center',
+                    'justify-center',
+                    'z-40',
+                    'transition-all',
+                    'min-h-10',
+                  )}
+                >
+                  Conoce más
+                </Link>
+              </Tooltip>
+            )}
           </div>
         </div>
       </div>

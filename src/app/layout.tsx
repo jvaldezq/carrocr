@@ -6,7 +6,7 @@ import type { Viewport } from 'next';
 
 import '@/styles/globals.css';
 import { UserProvider } from '@auth0/nextjs-auth0/client';
-import { UserContextProvider } from '@/context/UserContext';
+import { UserContextProvider } from '@/context/UserContext/UserContext';
 
 export const viewport: Viewport = {
   initialScale: 1,
