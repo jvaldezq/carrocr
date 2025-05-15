@@ -17,7 +17,7 @@ const Home = async () => {
   return (
     <main className="min-h-dvh pt-[60px]">
       <Hero />
-      <section className="max-w-screen-3xl mx-auto px-2 mt-8 flex flex-col items-center">
+      <section className="max-w-screen-3xl mx-auto px-2 mt-8 flex flex-col">
         <div className="flex justify-between items-center mb-2 w-full">
           <h2 className="text-sm leading-loose font-bold text-tertiary tracking-wide animate-fade-left animate-once animate-duration-500 animate-delay-500 animate-ease-in">
             Recientes
@@ -35,20 +35,14 @@ const Home = async () => {
         <Suspense fallback={<CarsGridSkeleton />}>
           <RecentCars />
         </Suspense>
-        <Link
-          href={{
-            pathname: '/autos',
-            query: { acctVerified: true },
-          }}
-          className="text-sm font-bold tracking-widest text-blue-700 md:hidden my-6 self-start"
-        >
-          ver mas verificados
-        </Link>
       </section>
 
-      <section className="max-w-screen-3xl mx-auto px-2 mt-8 flex flex-col items-center">
+      <section className="max-w-screen-3xl mx-auto px-2 mt-8 flex flex-col">
         <div className="flex justify-between items-center mb-2 w-full">
-          <h2 className="text-sm leading-loose font-bold text-tertiary tracking-wide animate-fade-left animate-once animate-duration-500 animate-delay-500 animate-ease-in">
+          <h2
+            className="text-
+          sm leading-loose font-bold text-tertiary tracking-wide animate-fade-left animate-once animate-duration-500 animate-delay-500 animate-ease-in"
+          >
             Verificados
           </h2>
           <Link
@@ -64,15 +58,6 @@ const Home = async () => {
         <Suspense fallback={<CarsGridSkeleton />}>
           <VerifiedCars />
         </Suspense>
-        <Link
-          href={{
-            pathname: '/autos',
-            query: { acctVerified: true },
-          }}
-          className="text-sm font-bold tracking-widest text-blue-700 md:hidden my-6 self-start"
-        >
-          ver mas verificados
-        </Link>
       </section>
       <Benefits />
     </main>

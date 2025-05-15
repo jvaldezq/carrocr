@@ -6,7 +6,7 @@ import React, { CSSProperties, useCallback } from 'react';
 import Image from 'next/image';
 import PlaceholderImage from '@/assets/placeholder.webp';
 import { Button } from '@/components/ui/button';
-import { useFetPendingReviewById } from '@/app/(admin)/admin/approvals/service/getPendingReviewById';
+import { usePendingReviewById } from '@/app/(admin)/admin/approvals/service/getPendingReviewById';
 import { CarImages } from '@/lib/definitions';
 import { useSetPublishMutation } from '@/app/(admin)/admin/approvals/service/setPublish';
 import { useSetDenyMutation } from '@/app/(admin)/admin/approvals/service/setDeny';
@@ -49,7 +49,7 @@ const IMAGE_SECTIONS = {
 
 export const PendingListingDrawer = (props: Props) => {
   const { drawerOpen, setDrawerOpen, id } = props;
-  const { data } = useFetPendingReviewById(id);
+  const { data } = usePendingReviewById(id);
   const { mutateAsync: handlePublish } = useSetPublishMutation();
   const { mutateAsync: handleDeny } = useSetDenyMutation();
 
@@ -76,7 +76,8 @@ export const PendingListingDrawer = (props: Props) => {
 
   const handlePublishClick = useCallback(() => {
     handlePublish(id);
-  }, [handlePublish, id]);
+    setDrawerOpen(false);
+  }, [handlePublish, id, setDrawerOpen]);
 
   const handleDenyClick = useCallback(() => {
     handleDeny(id);
@@ -173,15 +174,21 @@ export const PendingListingDrawer = (props: Props) => {
               </div>
               <div>
                 <p className="text-sm">Está al día</p>
-                <p className="text-sm text-primary font-bold">{taxesPaidTF}</p>
+                <p className="text-sm text-primary font-bold">
+                  {taxesPaidTF ? 'Yes' : 'No'}
+                </p>
               </div>
               <div>
                 <p className="text-sm">Negociable</p>
-                <p className="text-sm text-primary font-bold">{negotiableTF}</p>
+                <p className="text-sm text-primary font-bold">
+                  {negotiableTF ? 'Yes' : 'No'}
+                </p>
               </div>
               <div>
                 <p className="text-sm">Recibe o intercambia</p>
-                <p className="text-sm text-primary font-bold">{allowTradeTF}</p>
+                <p className="text-sm text-primary font-bold">
+                  {allowTradeTF ? 'Yes' : 'No'}
+                </p>
               </div>
               <h1 className="font-light tracking-widest text-lg col-span-full border-b border-primary">
                 Detalles del Vehículo
@@ -215,13 +222,13 @@ export const PendingListingDrawer = (props: Props) => {
               <div>
                 <p className="text-sm">Motor Modificado</p>
                 <p className="text-sm text-primary font-bold">
-                  {engineModifiedTF}
+                  {engineModifiedTF ? 'Yes' : 'No'}
                 </p>
               </div>
               <div>
                 <p className="text-sm">Conversión a Gas LP</p>
                 <p className="text-sm text-primary font-bold">
-                  {lP_ConversionTF}
+                  {lP_ConversionTF ? 'Yes' : 'No'}
                 </p>
               </div>
               <h1 className="font-light tracking-widest text-lg col-span-full border-b border-primary">

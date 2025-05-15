@@ -3,7 +3,7 @@ import { api } from '@/lib/axios';
 import { ALL_PENDING, SET_PUBLISH } from '@/lib/queryKeys';
 
 export const setPublish = async (id: string): Promise<null> => {
-  const res = await api?.post(`/listing/setPublish/${id}`);
+  const res = await api?.put(`/listing/setPublish/${id}`);
   return res?.data;
 };
 

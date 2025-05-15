@@ -3,7 +3,6 @@ import { Car } from '@/types/Car';
 import { Carousel } from '@/components/Carousel';
 import {
   Activity,
-  ArrowRight,
   CircleDollarSign,
   ReceiptText,
   Settings,
@@ -28,6 +27,22 @@ export default function CarDialogDetails(props: Car) {
     mileage,
   } = props;
   const { clearId } = usePreview();
+
+  const handleShare = async () => {
+    if (navigator.share) {
+      try {
+        const shareUrl = `${window.location.origin}/car/${id}`;
+        await navigator.share({
+          title: `${make} ${model} ${year}`, // Improved title for sharing
+          text: `¡Mira este ${year} - ${make} ${model} que encontré!`,
+          url: shareUrl,
+        });
+        console.log('Content shared successfully');
+      } catch (error) {
+        console.error('Error sharing:', error);
+      }
+    }
+  };
 
   return (
     <div className="overflow-y-auto">
@@ -101,15 +116,13 @@ export default function CarDialogDetails(props: Car) {
         </div>
 
         <div className="flex items-end justify-end flex-col gap-2">
-          <Link
-            key={`share-${id}`}
-            href={`/car/${id}`}
-            onClick={clearId}
+          <button
+            onClick={handleShare}
             className="h-fit w-full border-primary border-solid border text-primary flex gap-2 items-center
                    p-3 rounded-sm text-sm font-bold justify-center justify-self-end self-end"
           >
             Compartir
-          </Link>
+          </button>
           <Link
             key={id}
             href={`/car/${id}`}

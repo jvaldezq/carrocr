@@ -6,11 +6,11 @@ import { GET_PENDING_BY_ID } from '@/lib/queryKeys';
 export const getPendingReviewById = async (
   id: string,
 ): Promise<FormCarType> => {
-  const res = await api?.get(`/admin/listing/drafts/${id}`);
+  const res = await api?.get(`/admin/listing/reviews/${id}`);
   return res?.data;
 };
 
-export const useFetPendingReviewById = (id: string) => {
+export const usePendingReviewById = (id: string) => {
   return useQuery({
     enabled: !!id,
     queryKey: [GET_PENDING_BY_ID, id],
