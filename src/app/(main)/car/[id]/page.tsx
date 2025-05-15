@@ -21,7 +21,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     transType,
     condition,
     thumbnail,
-    city,
     state,
     price,
     mileage,

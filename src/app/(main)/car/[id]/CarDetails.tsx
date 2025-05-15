@@ -2,10 +2,10 @@ import {
   Activity,
   Ban,
   Box,
+  BriefcaseBusiness,
   Calendar,
   CalendarClock,
   Car,
-  DollarSign,
   Fuel,
   Handshake,
   LogIn,
@@ -187,7 +187,7 @@ export default async function CarDetails({ id }: CarDetailsProps) {
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="h-7 w-7">
-                    <DollarSign className="h-7 w-7 text-primary" />
+                    <BriefcaseBusiness className="h-7 w-7 text-primary" />
                   </div>
                   <div>
                     <p className="text-sm">Negociable</p>
