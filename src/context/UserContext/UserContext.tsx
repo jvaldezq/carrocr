@@ -2,10 +2,12 @@
 import { createContext, useContext, FC, ReactNode, useEffect } from 'react';
 import { removeStoredToken, storeToken } from '@/lib/localStorage';
 import { useGetMe } from '@/context/UserContext/service/getMe';
+import { useUser as useAuth0User } from '@auth0/nextjs-auth0/client';
 import { Me } from '@/types/Me';
 
 type UserContextType = {
   user?: Me;
+  isLoading: boolean;
 };
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -23,7 +25,8 @@ interface Props {
 }
 
 export const UserContextProvider: FC<Props> = ({ children }) => {
-  const { data } = useGetMe();
+  const { user: auth0User, isLoading: isLoadingAuth0User } = useAuth0User();
+  const { data, isFetching } = useGetMe(!!auth0User?.sub);
   useEffect(() => {
     const fetchToken = async () => {
       try {
@@ -45,6 +48,7 @@ export const UserContextProvider: FC<Props> = ({ children }) => {
     <UserContext.Provider
       value={{
         user: data,
+        isLoading: isLoadingAuth0User || isFetching,
       }}
     >
       {children}

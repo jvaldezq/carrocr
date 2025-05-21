@@ -8,8 +8,9 @@ const getMe = async (): Promise<Me> => {
   return response.data;
 };
 
-export const useGetMe = () =>
+export const useGetMe = (isEnable: boolean) =>
   useQuery({
+    enabled: isEnable,
     queryKey: [ME],
     staleTime: 0,
     queryFn: getMe,

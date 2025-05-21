@@ -16,7 +16,7 @@ interface TooltipProps {
 export const Tooltip = (props: TooltipProps) => {
   const { children, tooltipContent } = props;
   return (
-    <TooltipProvider delayDuration={500}>
+    <TooltipProvider delayDuration={300}>
       <Tooltipcn>
         <TooltipTrigger>{children}</TooltipTrigger>
         <TooltipContent>{tooltipContent}</TooltipContent>

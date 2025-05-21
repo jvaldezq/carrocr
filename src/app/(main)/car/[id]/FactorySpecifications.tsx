@@ -1,15 +1,8 @@
 'use client';
-import {
-  Box,
-  ChevronDown,
-  ChevronUp,
-  Gauge,
-  Info,
-  Power,
-  Ruler,
-} from 'lucide-react';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 import { useState } from 'react';
 import { FactorySpecification } from '@/lib/definitions';
+import { Tooltip } from '@/components/Tooltip';
 
 const tooltips = {
   engine: {
@@ -21,12 +14,12 @@ const tooltips = {
     },
     cylinderCount: {
       description: 'Número de cilindros en el motor',
-      name: 'Número de Cilindros',
+      name: 'Número de cilindros',
       prefix: undefined,
     },
     horsepower: {
       description: 'Potencia máxima del motor',
-      name: 'Caballos de Fuerza',
+      name: 'Caballos de fuerza',
       prefix: 'hp',
     },
     horsepowerRPM: {
@@ -41,22 +34,22 @@ const tooltips = {
     },
     torqueRPM: {
       description: 'Velocidad del motor a la que se alcanza el par máximo',
-      name: 'RPM para Torque máxima',
+      name: 'RPM para torque máxima',
       prefix: undefined,
     },
     valveCount: {
       description: 'Número total de válvulas de admisión y escape',
-      name: 'Número de Válvulas',
+      name: 'Número de válvulas',
       prefix: undefined,
     },
     camType: {
       description: 'Tipo de configuración del árbol de levas',
-      name: 'Tipo de Árbol de Levas',
+      name: 'Tipo de árbol de levas',
       prefix: undefined,
     },
     superFuel: {
       description: 'Requisito de calidad del combustible (Super)',
-      name: 'Requisito de Combustible Super',
+      name: 'Requisito de combustible super',
       prefix: undefined,
     },
   },
@@ -64,18 +57,18 @@ const tooltips = {
     mpgCombine: {
       description:
         'Consumo de combustible promedio en conducción combinada (ciudad y carretera)',
-      name: 'Consumo Combinado',
+      name: 'Consumo combinado',
       prefix: 'km/l',
     },
     mpgCity: {
       description: 'Consumo de combustible en condiciones de conducción urbana',
-      name: 'Consumo Ciudad',
+      name: 'Consumo ciudad',
       prefix: 'km/l',
     },
     mpgHighway: {
       description:
         'Consumo de combustible en condiciones de conducción en carretera',
-      name: 'Consumo Carretera',
+      name: 'Consumo carretera',
       prefix: 'km/l',
     },
   },
@@ -97,49 +90,49 @@ const tooltips = {
     },
     groundHeight: {
       description: 'Distancia entre el punto más bajo del vehículo y el suelo',
-      name: 'Altura Libre al Suelo',
+      name: 'Altura libre al suelo',
       prefix: 'cm',
     },
   },
   capacity: {
     doorCount: {
       description: 'Número de puertas',
-      name: 'Número de Puertas',
+      name: 'Número de puertas',
       prefix: undefined,
     },
     seatCount: {
       description: 'Número de asientos',
-      name: 'Número de Asientos',
+      name: 'Número de asientos',
       prefix: undefined,
     },
     curbWeight: {
       description: 'Peso del vehículo sin pasajeros ni carga',
-      name: 'Peso en Vacío',
+      name: 'Peso en vacío',
       prefix: 'kg',
     },
     grossWeight: {
       description: 'Peso máximo permitido incluyendo pasajeros y carga',
-      name: 'Peso Bruto Vehicular',
+      name: 'Peso bruto vehicular',
       prefix: 'kg',
     },
     payloadCap: {
       description: 'Peso máximo de carga y pasajeros',
-      name: 'Capacidad de Carga',
+      name: 'Capacidad de carga',
       prefix: 'kg',
     },
     towingCap: {
       description: 'Peso máximo que el vehículo puede remolcar',
-      name: 'Capacidad de Remolque',
+      name: 'Capacidad de remolque',
       prefix: 'kg',
     },
     cargoCapLiters: {
       description: 'Volumen del espacio de carga en litros',
-      name: 'Capacidad de Carga',
+      name: 'Capacidad de carga',
       prefix: 'kg',
     },
     fuelCapLiters: {
       description: 'Capacidad del tanque de combustible en litros',
-      name: 'Capacidad de Combustible',
+      name: 'Capacidad de combustible',
       prefix: 'Litros',
     },
   },
@@ -165,13 +158,16 @@ export const FactorySpecifications = (props: Props) => {
 
   return (
     <section className="bg-white rounded-lg shadow-md p-6">
-      <div className="flex items-center gap-2 mb-4">
+      <div className="flex flex-col items-start gap-2 mb-4">
         <h2 className="text-xl font-semibold text-tertiary">
           Especificaciones de fábrica
-          <span className="text-xs text-tertiary/60 ml-3">
-            (Datos de referencia)
-          </span>
         </h2>
+        <span className="text-xs text-tertiary/60">
+          <strong>Datos de referencia:</strong> Esta información proviene de
+          nuestras bases de datos del modelo original (&#34;stock&#34;) y se
+          ofrece como referencia. No siempre coincide al 100% con el vehículo
+          específico en venta.
+        </span>
       </div>
 
       <div className="space-y-4">
@@ -182,7 +178,6 @@ export const FactorySpecifications = (props: Props) => {
             className="w-full flex items-center justify-between p-4 hover:bg-quaternary"
           >
             <div className="flex items-center gap-2">
-              <Power className="h-5 w-5 text-primary" />
               <span className="font-medium">Motor y potencia</span>
             </div>
             {expandedSections.engine ? (
@@ -193,34 +188,30 @@ export const FactorySpecifications = (props: Props) => {
           </button>
 
           {expandedSections.engine && (
-            <div className="p-4 border-t">
+            <div className="p-4 border-t ">
               <div className="grid grid-cols-2 gap-4">
                 {Object.entries(engine).map(([key, value]) => (
-                  <div key={key} className="flex items-center gap-2">
-                    <div className="group relative">
-                      <Info className="h-4 w-4 text-primary cursor-help" />
-                      <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-tertiary text-white text-sm rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all w-48">
-                        {
-                          tooltips.engine[key as keyof typeof tooltips.engine]
-                            .description
-                        }
-                      </div>
-                    </div>
-                    <div>
-                      <p className="text-sm text-tertiary capitalize">
+                  <div key={key} className="flex items-start gap-2">
+                    <Tooltip
+                      tooltipContent={
+                        tooltips.engine[key as keyof typeof tooltips.engine]
+                          .description
+                      }
+                    >
+                      <p className="text-sm text-tertiary text-start">
                         {
                           tooltips.engine[key as keyof typeof tooltips.engine]
                             .name
                         }
                       </p>
-                      <p className="font-medium">
+                      <p className="font-medium text-start">
                         {value}{' '}
                         {
                           tooltips.engine[key as keyof typeof tooltips.engine]
                             ?.prefix
                         }
                       </p>
-                    </div>
+                    </Tooltip>
                   </div>
                 ))}
               </div>
@@ -235,7 +226,6 @@ export const FactorySpecifications = (props: Props) => {
             className="w-full flex items-center justify-between p-4 hover:bg-quaternary"
           >
             <div className="flex items-center gap-2">
-              <Gauge className="h-5 w-5 text-primary" />
               <span className="font-medium">Economía</span>
             </div>
             {expandedSections.economy ? (
@@ -249,31 +239,27 @@ export const FactorySpecifications = (props: Props) => {
             <div className="p-4 border-t">
               <div className="grid grid-cols-2 gap-4">
                 {Object.entries(economy).map(([key, value]) => (
-                  <div key={key} className="flex items-center gap-2">
-                    <div className="group relative">
-                      <Info className="h-4 w-4 text-primary cursor-help" />
-                      <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-tertiary text-white text-sm rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all w-48">
-                        {
-                          tooltips.economy[key as keyof typeof tooltips.economy]
-                            .description
-                        }
-                      </div>
-                    </div>
-                    <div>
-                      <p className="text-sm text-tertiary capitalize">
+                  <div key={key} className="flex items-start gap-2">
+                    <Tooltip
+                      tooltipContent={
+                        tooltips.economy[key as keyof typeof tooltips.economy]
+                          .description
+                      }
+                    >
+                      <p className="text-sm text-tertiary text-start">
                         {
                           tooltips.economy[key as keyof typeof tooltips.economy]
                             .name
                         }
                       </p>
-                      <p className="font-medium">
+                      <p className="font-medium text-start">
                         {value}{' '}
                         {
                           tooltips.economy[key as keyof typeof tooltips.economy]
                             ?.prefix
                         }
                       </p>
-                    </div>
+                    </Tooltip>
                   </div>
                 ))}
               </div>
@@ -288,7 +274,6 @@ export const FactorySpecifications = (props: Props) => {
             className="w-full flex items-center justify-between p-4 hover:bg-quaternary"
           >
             <div className="flex items-center gap-2">
-              <Ruler className="h-5 w-5 text-primary" />
               <span className="font-medium">Dimensiones</span>
             </div>
             {expandedSections.dimensions ? (
@@ -302,26 +287,22 @@ export const FactorySpecifications = (props: Props) => {
             <div className="p-4 border-t">
               <div className="grid grid-cols-2 gap-4">
                 {Object.entries(dimensions).map(([key, value]) => (
-                  <div key={key} className="flex items-center gap-2">
-                    <div className="group relative">
-                      <Info className="h-4 w-4 text-primary cursor-help" />
-                      <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-tertiary text-white text-sm rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all w-48">
-                        {
-                          tooltips.dimensions[
-                            key as keyof typeof tooltips.dimensions
-                          ].description
-                        }
-                      </div>
-                    </div>
-                    <div>
-                      <p className="text-sm text-tertiary capitalize">
+                  <div key={key} className="flex items-start gap-2">
+                    <Tooltip
+                      tooltipContent={
+                        tooltips.dimensions[
+                          key as keyof typeof tooltips.dimensions
+                        ].description
+                      }
+                    >
+                      <p className="text-sm text-tertiary text-start">
                         {
                           tooltips.dimensions[
                             key as keyof typeof tooltips.dimensions
                           ].name
                         }
                       </p>
-                      <p className="font-medium">
+                      <p className="font-medium text-start">
                         {value}{' '}
                         {
                           tooltips.dimensions[
@@ -329,7 +310,7 @@ export const FactorySpecifications = (props: Props) => {
                           ]?.prefix
                         }
                       </p>
-                    </div>
+                    </Tooltip>
                   </div>
                 ))}
               </div>
@@ -344,7 +325,6 @@ export const FactorySpecifications = (props: Props) => {
             className="w-full flex items-center justify-between p-4 hover:bg-quaternary"
           >
             <div className="flex items-center gap-2">
-              <Box className="h-5 w-5 text-primary" />
               <span className="font-medium">Capacidad</span>
             </div>
             {expandedSections.capacity ? (
@@ -358,26 +338,21 @@ export const FactorySpecifications = (props: Props) => {
             <div className="p-4 border-t">
               <div className="grid grid-cols-2 gap-4">
                 {Object.entries(capacity).map(([key, value]) => (
-                  <div key={key} className="flex items-center gap-2">
-                    <div className="group relative">
-                      <Info className="h-4 w-4 text-primary cursor-help" />
-                      <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-tertiary text-white text-sm rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all w-48">
-                        {
-                          tooltips.capacity[
-                            key as keyof typeof tooltips.capacity
-                          ].description
-                        }
-                      </div>
-                    </div>
-                    <div>
-                      <p className="text-sm text-tertiary capitalize">
+                  <div key={key} className="flex items-start gap-2">
+                    <Tooltip
+                      tooltipContent={
+                        tooltips.capacity[key as keyof typeof tooltips.capacity]
+                          .description
+                      }
+                    >
+                      <p className="text-sm text-tertiary text-start">
                         {
                           tooltips.capacity[
                             key as keyof typeof tooltips.capacity
                           ].name
                         }
                       </p>
-                      <p className="font-medium">
+                      <p className="font-medium text-start">
                         {value}{' '}
                         {
                           tooltips.capacity[
@@ -385,7 +360,7 @@ export const FactorySpecifications = (props: Props) => {
                           ]?.prefix
                         }
                       </p>
-                    </div>
+                    </Tooltip>
                   </div>
                 ))}
               </div>

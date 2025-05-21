@@ -163,73 +163,70 @@ export default async function CarDetails({ id }: CarDetailsProps) {
             <h2 className="text-xl font-semibold text-tertiary mb-4">
               Detalles del anuncio
             </h2>
-            <div className="space-y-4">
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-                <div className="flex items-center gap-3">
-                  <div className="h-7 w-7">
-                    <MapPin className="h-7 w-7 text-primary" />
-                  </div>
-                  <div>
-                    <p className="text-sm">Ubicación</p>
-                    <p className="text-sm text-primary font-bold">{state}</p>
-                  </div>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+              <div className="flex items-center gap-3">
+                <div className="h-7 w-7">
+                  <MapPin className="h-7 w-7 text-primary" />
                 </div>
-                <div className="flex items-center gap-3">
-                  <div className="h-7 w-7">
-                    <Handshake className="h-7 w-7 text-primary" />
-                  </div>
-                  <div>
-                    <p className="text-sm">Intercambio</p>
-                    <p className="text-sm text-primary font-bold">
-                      {allowTradeTF ? 'Sí' : 'No'}
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="h-7 w-7">
-                    <BriefcaseBusiness className="h-7 w-7 text-primary" />
-                  </div>
-                  <div>
-                    <p className="text-sm">Negociable</p>
-                    <p className="text-sm text-primary font-bold">
-                      {negotiableTF ? 'Sí' : 'No'}
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="h-7 w-7">
-                    <CalendarClock className="h-7 w-7 text-primary" />
-                  </div>
-                  <div>
-                    <p className="text-sm">Inspección Válida Hasta</p>
-                    <p className="text-sm text-primary font-bold">
-                      {inspectionYear}
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="h-7 w-7">
-                    <Ban className="h-7 w-7 text-primary" />
-                  </div>
-                  <div>
-                    <p className="text-sm">Restricción</p>
-                    {/*TODO Integrate*/}
-                    <p className="text-sm text-primary font-bold">
-                      {restrictionDay ?? 'Lunes'}
-                    </p>
-                  </div>
+                <div>
+                  <p className="text-sm">Ubicación</p>
+                  <p className="text-sm text-primary font-bold">{state}</p>
                 </div>
               </div>
-
-              {sellerComment && (
-                <div className="mt-6">
-                  <h3 className="text-sm mb-2">Observaciones del Vendedor</h3>
-                  <p className="text-tertiary bg-quaternary p-4 rounded-lg">
-                    {sellerComment}
+              <div className="flex items-center gap-3">
+                <div className="h-7 w-7">
+                  <Handshake className="h-7 w-7 text-primary" />
+                </div>
+                <div>
+                  <p className="text-sm">Intercambio</p>
+                  <p className="text-sm text-primary font-bold">
+                    {allowTradeTF ? 'Sí' : 'No'}
                   </p>
                 </div>
-              )}
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="h-7 w-7">
+                  <BriefcaseBusiness className="h-7 w-7 text-primary" />
+                </div>
+                <div>
+                  <p className="text-sm">Negociable</p>
+                  <p className="text-sm text-primary font-bold">
+                    {negotiableTF ? 'Sí' : 'No'}
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="h-7 w-7">
+                  <CalendarClock className="h-7 w-7 text-primary" />
+                </div>
+                <div>
+                  <p className="text-sm">Inspección Válida Hasta</p>
+                  <p className="text-sm text-primary font-bold">
+                    {inspectionYear}
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="h-7 w-7">
+                  <Ban className="h-7 w-7 text-primary" />
+                </div>
+                <div>
+                  <p className="text-sm">Restricción</p>
+                  {/*TODO Integrate*/}
+                  <p className="text-sm text-primary font-bold">
+                    {restrictionDay ?? 'Lunes'}
+                  </p>
+                </div>
+              </div>
             </div>
+            {sellerComment && (
+              <div className="mt-10">
+                <h3 className="text-sm mb-2">Observaciones del Vendedor</h3>
+                <p className="text-tertiary bg-quaternary p-4 rounded-lg">
+                  {sellerComment}
+                </p>
+              </div>
+            )}
           </section>
           <FactorySpecifications {...factorySpecifications} />
         </div>
