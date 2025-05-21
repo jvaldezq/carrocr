@@ -15,6 +15,7 @@ import {
   Settings,
   Shield,
   ShieldBan,
+  ShieldCheck,
   User,
 } from 'lucide-react';
 import { MoneyFormatter, NumberFormatter } from '@/lib/NumberFormats';
@@ -24,6 +25,7 @@ import Image from 'next/image';
 import { fetchCarById } from '@/app/(main)/car/[id]/service/fetchCarById';
 import { FactorySpecifications } from '@/app/(main)/car/[id]/FactorySpecifications';
 import { getSession } from '@auth0/nextjs-auth0';
+import { Tooltip } from '@/components/Tooltip';
 
 interface CarDetailsProps {
   id: string;
@@ -66,12 +68,12 @@ export default async function CarDetails({ id }: CarDetailsProps) {
             <h1 className="text-3xl font-bold text-tertiary">
               {make} {model} {trim}
             </h1>
-            <span className="px-2 hidden md:block py-1 bg-primary/10 text-primary rounded-md text-sm text-sm text-primary font-bold w-fit">
+            <span className="px-2 hidden md:block py-1 bg-primary/10 text-primary rounded-md text-sm font-bold w-fit">
               {condition}
             </span>
           </div>
           <p className="text-xl text-primary mt-2">{year}</p>
-          <span className="px-2 py-1 bg-primary/10 text-primary rounded-md text-sm text-sm text-primary font-bold w-fit mt-4 md:hidden block">
+          <span className="px-2 py-1 bg-primary/10 text-primary rounded-md text-sm font-bold w-fit mt-4 md:hidden block">
             {condition}
           </span>
         </div>
@@ -252,16 +254,20 @@ export default async function CarDetails({ id }: CarDetailsProps) {
                 <h3 className="text-lg font-semibold text-tertiary">
                   {`${accountData.firstName || ''} ${accountData.lastName || ''}`}
                 </h3>
-                {accountData.acctVerified ? (
-                  <div className="flex items-center text-verified text-sm gap-1">
-                    <Shield className="h-4 w-4" />
-                    Verificado
-                  </div>
+                {!accountData.acctVerified ? (
+                  <Tooltip tooltipContent="Cuenta verificada">
+                    <div className="bg-verified text-white w-fit py-1 px-2 rounded-sm text-sm flex items-center gap-1">
+                      <ShieldCheck className="h-4 w-4" />
+                      <p className="text-sm">Verificado</p>
+                    </div>
+                  </Tooltip>
                 ) : (
-                  <div className="flex items-center text-error text-sm gap-1">
-                    <ShieldBan className="h-4 w-4" />
-                    No verificado
-                  </div>
+                  <Tooltip tooltipContent="Cuenta NO verificada">
+                    <div className="bg-error text-white w-fit py-1 px-2 rounded-sm text-sm flex items-center gap-1">
+                      <ShieldBan className="h-4 w-4" />
+                      <p className="text-sm">No verificado</p>
+                    </div>
+                  </Tooltip>
                 )}
               </div>
             </div>
