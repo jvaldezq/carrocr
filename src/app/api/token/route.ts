@@ -5,7 +5,6 @@ export const dynamic = 'force-dynamic';
 export async function GET() {
   try {
     const res = await getAccessToken({});
-    console.log('Access token:', res.accessToken);
     return Response.json(res.accessToken);
   } catch {
     return Response.json(false);

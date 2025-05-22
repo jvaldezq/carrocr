@@ -64,10 +64,15 @@ export const Footer = () => {
           </div>
         </div>
 
-        <div className="mt-8 pt-8 border-t border-gray-700 flex justify-between items-center flex-col md:flex-row text-sm text-gray-300">
+        <div className="mt-8 pt-8 border-t border-gray-700 flex justify-between items-center flex-col md:flex-row text-sm text-gray-300 gap-4">
+          <p className="flex items-center md:hidden">
+            &copy; {new Date().getFullYear()} CarroCR
+          </p>
           <p className="flex items-center gap-2">
-            <span>&copy; {new Date().getFullYear()} CarroCR</span>
-            <span>·</span>
+            <span className="hidden md:flex">
+              &copy; {new Date().getFullYear()} CarroCR
+            </span>
+            <span className="hidden md:flex">·</span>
             <Link key="terms" href="/terms">
               Términos
             </Link>
@@ -76,7 +81,7 @@ export const Footer = () => {
               Sitemap
             </Link>
             <span>·</span>
-            <Link key="sitemap" href="/sitemap">
+            <Link key="privacy" href="/sitemap">
               Privacidad
             </Link>
           </p>

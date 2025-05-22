@@ -33,7 +33,7 @@ export default async function NotAuthorize() {
             : 'Por favor, verifica tus credenciales para continuar.'}
         </p>
 
-        <div className="flex justify-center gap-4">
+        <div className="flex flex-col md:flex-row justify-center gap-4">
           <Link
             key="home"
             href="/"

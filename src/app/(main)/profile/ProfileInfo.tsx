@@ -103,7 +103,7 @@ export const ProfileInfoForm = (props: FormProps) => {
       <div className="flex flex-col gap-4 justify-center items-center w-full">
         <div className="flex flex-col xs:flex-row gap-4 justify-center items-center">
           <ImageForm {...props} />
-          <div>
+          <div className="flex flex-col items-center md:items-start">
             <h3 className="text-lg font-medium text-tertiary">
               {`${firstName} ${lastName}`}
             </h3>

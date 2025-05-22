@@ -1,12 +1,12 @@
 import Card from '@/components/Card/Card';
 import { getSession } from '@auth0/nextjs-auth0';
-import { fetchVerifiedCarsCars } from '@/components/VerifiedCars/services/getRandomCars';
+import { fetchVerifiedCarsCars } from '@/components/VerifiedCars/services/getVerifiedCars';
 import { redirect } from 'next/navigation';
 import { getRedirectPathFromErrorCode } from '@/lib/getRedirectPathFromErrorCode';
 
 export default async function VerifiedCars() {
-  const { data, status } = await fetchVerifiedCarsCars();
   const session = await getSession();
+  const { data, status } = await fetchVerifiedCarsCars();
 
   if (status) redirect(getRedirectPathFromErrorCode(status));
 

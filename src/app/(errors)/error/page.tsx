@@ -29,7 +29,7 @@ export default function Error() {
           inténtelo de nuevo más tarde.
         </p>
 
-        <div className="flex justify-center gap-4">
+        <div className="flex flex-col md:flex-row justify-center gap-4">
           <Link
             key="home"
             href="/"
