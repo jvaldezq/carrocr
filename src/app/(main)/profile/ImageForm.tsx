@@ -80,12 +80,12 @@ export const ImageForm = (props: ImagesFormsProps) => {
           onDrop={(event) => handleDrop(event)}
           className="flex flex-col items-center justify-center w-[90px] h-[90px] border-2 border-gray-300 border-dashed rounded-full cursor-pointer bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600 relative"
         >
-          {values.profileImage && (
+          {values?.profileImage && (
             <Image
-              src={values.profileImage}
+              src={values?.profileImage}
               height={90}
               width={90}
-              alt={values.firstName}
+              alt={values?.firstName || ''}
               className="object-cover rounded-full w-[90px] h-[90px]"
             />
           )}

@@ -1,10 +1,12 @@
-import { serverApi } from '@/lib/serverApi';
+import { serverApi, ServerApiResponse } from '@/lib/serverApi';
 import { type Car } from '@/types/Car';
 
-export const getUserListings = async (id: string): Promise<Car[]> => {
-  return (await serverApi<Car[]>({
+export const getUserListings = async (
+  id: string,
+): Promise<ServerApiResponse<Car[]>> => {
+  return (await serverApi<ServerApiResponse<Car[]>>({
     path: `/listing/mini/${id}`,
     cache: 'no-cache',
     requiresAuth: true,
-  })) as Car[];
+  })) as ServerApiResponse<Car[]>;
 };

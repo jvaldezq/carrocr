@@ -1,10 +1,10 @@
-import { serverApi } from '@/lib/serverApi';
+import { serverApi, ServerApiResponse } from '@/lib/serverApi';
 import { UserInfo } from '@/lib/definitions';
 
-export const getUserInfo = async (): Promise<UserInfo> => {
-  return (await serverApi<UserInfo>({
+export const getUserInfo = async (): Promise<ServerApiResponse<UserInfo>> => {
+  return (await serverApi<ServerApiResponse<UserInfo>>({
     path: `/user/info`,
     cache: 'no-cache',
     requiresAuth: true,
-  })) as UserInfo;
+  })) as ServerApiResponse<UserInfo>;
 };

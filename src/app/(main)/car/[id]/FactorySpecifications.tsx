@@ -190,7 +190,7 @@ export const FactorySpecifications = (props: Props) => {
           {expandedSections.engine && (
             <div className="p-4 border-t ">
               <div className="grid grid-cols-2 gap-4">
-                {Object.entries(engine).map(([key, value]) => (
+                {Object.entries(engine || {}).map(([key, value]) => (
                   <div key={key} className="flex items-start gap-2">
                     <Tooltip
                       tooltipContent={
@@ -238,7 +238,7 @@ export const FactorySpecifications = (props: Props) => {
           {expandedSections.economy && (
             <div className="p-4 border-t">
               <div className="grid grid-cols-2 gap-4">
-                {Object.entries(economy).map(([key, value]) => (
+                {Object.entries(economy || {}).map(([key, value]) => (
                   <div key={key} className="flex items-start gap-2">
                     <Tooltip
                       tooltipContent={
@@ -286,7 +286,7 @@ export const FactorySpecifications = (props: Props) => {
           {expandedSections.dimensions && (
             <div className="p-4 border-t">
               <div className="grid grid-cols-2 gap-4">
-                {Object.entries(dimensions).map(([key, value]) => (
+                {Object.entries(dimensions || {}).map(([key, value]) => (
                   <div key={key} className="flex items-start gap-2">
                     <Tooltip
                       tooltipContent={
@@ -337,7 +337,7 @@ export const FactorySpecifications = (props: Props) => {
           {expandedSections.capacity && (
             <div className="p-4 border-t">
               <div className="grid grid-cols-2 gap-4">
-                {Object.entries(capacity).map(([key, value]) => (
+                {Object.entries(capacity || {}).map(([key, value]) => (
                   <div key={key} className="flex items-start gap-2">
                     <Tooltip
                       tooltipContent={

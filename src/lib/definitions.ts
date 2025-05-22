@@ -65,37 +65,37 @@ export interface AccountData {
 }
 
 export interface FactorySpecification {
-  engine: {
-    cubicCentimeters: number;
-    cylinderCount: string;
-    horsepower: number;
-    horsepowerRPM: number;
-    torque: number;
-    torqueRPM: number;
-    valveCount: number;
-    camType: string;
-    superFuel: string;
+  engine?: {
+    cubicCentimeters?: number;
+    cylinderCount?: string;
+    horsepower?: number;
+    horsepowerRPM?: number;
+    torque?: number;
+    torqueRPM?: number;
+    valveCount?: number;
+    camType?: string;
+    superFuel?: string;
   };
-  dimensions: {
-    length: number;
-    width: number;
-    height: number;
-    groundHeight: number;
+  dimensions?: {
+    length?: number;
+    width?: number;
+    height?: number;
+    groundHeight?: number;
   };
-  economy: {
-    mpgCombine: number;
-    mpgCity: number;
-    mpgHighway: number;
+  economy?: {
+    mpgCombine?: number;
+    mpgCity?: number;
+    mpgHighway?: number;
   };
-  capacity: {
-    doorCount: number;
-    seatCount: number;
-    curbWeight: number;
-    grossWeight: number;
-    payloadCap: number;
-    towingCap: number;
-    cargoCapLiters: number;
-    fuelCapLiters: number;
+  capacity?: {
+    doorCount?: number;
+    seatCount?: number;
+    curbWeight?: number;
+    grossWeight?: number;
+    payloadCap?: number;
+    towingCap?: number;
+    cargoCapLiters?: number;
+    fuelCapLiters?: number;
   };
 }
 
@@ -116,24 +116,24 @@ export interface UserInfo {
 }
 
 export interface UserProfile {
-  id: number;
-  acctVerified: boolean;
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  authID: null | string;
-  acctType: number;
-  acctTypeName: string;
-  idNumber: string;
-  profileLogo: string;
-  profileHeader: string;
-  profileImage: string;
-  profileIdImage: string;
-  country: string;
-  state: string;
-  createdDT: string;
-  updatedDT: string;
+  id?: number;
+  acctVerified?: boolean;
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  phone?: string;
+  authID?: null | string;
+  acctType?: number;
+  acctTypeName?: string;
+  idNumber?: string;
+  profileLogo?: string;
+  profileHeader?: string;
+  profileImage?: string;
+  profileIdImage?: string;
+  country?: string;
+  state?: string;
+  createdDT?: string;
+  updatedDT?: string;
 }
 
 export interface ListingResponse {

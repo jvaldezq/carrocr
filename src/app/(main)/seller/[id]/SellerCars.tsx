@@ -2,6 +2,8 @@ import Card from '@/components/Card/Card';
 import { getUserListings } from '@/app/(main)/seller/service/getUserListings';
 import { ArchiveX } from 'lucide-react';
 import { getSession } from '@auth0/nextjs-auth0';
+import { redirect } from 'next/navigation';
+import { getRedirectPathFromErrorCode } from '@/lib/getRedirectPathFromErrorCode';
 
 interface Props {
   sellerId: string;
@@ -9,7 +11,9 @@ interface Props {
 export default async function SellerCars(props: Props) {
   const { sellerId } = props;
   const session = await getSession();
-  const data = await getUserListings(sellerId);
+  const { data, status } = await getUserListings(sellerId);
+
+  if (status) redirect(getRedirectPathFromErrorCode(status));
 
   if (!data)
     return (

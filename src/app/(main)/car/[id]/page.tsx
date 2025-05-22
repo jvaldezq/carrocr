@@ -3,6 +3,8 @@ import type { Metadata } from 'next';
 import { CarDetailsSkeleton } from './CarDetailsSkeleton';
 import CarDetails from '@/app/(main)/car/[id]/CarDetails';
 import { fetchCarById } from '@/app/(main)/car/[id]/service/fetchCarById';
+import { redirect } from 'next/navigation';
+import { getRedirectPathFromErrorCode } from '@/lib/getRedirectPathFromErrorCode';
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -11,7 +13,9 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const id = (await params).id;
-  const data = await fetchCarById(id);
+  const { data, status } = await fetchCarById(id);
+
+  if (status) redirect(getRedirectPathFromErrorCode(status));
 
   const {
     year,
@@ -25,10 +29,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     price,
     mileage,
     mileageType,
-  } = data;
+  } = data ?? {};
 
   const title = `${year} ${make} ${model} ${trim} en ${state}`;
-  const description = `Compra este ${year} ${make} ${model} ${trim}, ${condition}, ${transType}, ${mileage} ${mileageType}, por $${price.toLocaleString()} en ${state}. ¡Haz clic para más detalles!`;
+  const description = `Compra este ${year} ${make} ${model} ${trim}, ${condition}, ${transType}, ${mileage} ${mileageType}, por $${price?.toLocaleString()} en ${state}. ¡Haz clic para más detalles!`;
 
   return {
     title,
@@ -40,7 +44,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: `https://carrocr.com/car/${id}`,
       images: [
         {
-          url: thumbnail,
+          url: thumbnail || '',
           width: 1200,
           height: 630,
           alt: `${year} ${make} ${model} ${trim}`,
@@ -51,7 +55,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       card: 'summary_large_image',
       title,
       description,
-      images: [thumbnail],
+      images: [thumbnail || ''],
     },
     alternates: {
       canonical: `https://carrocr.com/car/${id}`,

@@ -1,10 +1,12 @@
 import { FormCarType } from '@/lib/definitions';
-import { serverApi } from '@/lib/serverApi';
+import { serverApi, ServerApiResponse } from '@/lib/serverApi';
 
-export const fetchDraftById = async (id: string): Promise<FormCarType> => {
-  return (await serverApi<FormCarType>({
+export const fetchDraftById = async (
+  id: string,
+): Promise<ServerApiResponse<FormCarType>> => {
+  return (await serverApi<ServerApiResponse<FormCarType>>({
     path: `/listing/drafts/${id}`,
     cache: 'no-cache',
     requiresAuth: true,
-  })) as FormCarType;
+  })) as ServerApiResponse<FormCarType>;
 };

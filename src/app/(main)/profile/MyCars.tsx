@@ -46,7 +46,7 @@ const icons: { [key: string]: ReactNode } = {
 export const MyCars = ({
   listingCounters,
 }: {
-  listingCounters: ListingCounters;
+  listingCounters?: ListingCounters;
 }) => {
   const [filters, setFilters] = useState([1, 2, 4]);
   const { data, isLoading } = useGetUserTempListing(filters);

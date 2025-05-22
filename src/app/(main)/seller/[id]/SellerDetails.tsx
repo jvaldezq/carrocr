@@ -10,9 +10,11 @@ import {
   Eye,
 } from 'lucide-react';
 import Image from 'next/image';
-import { getUserInfo } from '@/app/(main)/seller/service/getUserInfo';
+import { getSellerInfo } from '@/app/(main)/seller/service/getUserInfo';
 import dayjs from 'dayjs';
 import 'dayjs/locale/es';
+import { redirect } from 'next/navigation';
+import { getRedirectPathFromErrorCode } from '@/lib/getRedirectPathFromErrorCode';
 
 dayjs.locale('es');
 
@@ -21,7 +23,11 @@ interface Props {
 }
 export default async function SellerDetails(props: Props) {
   const { sellerId } = props;
-  const userInfo = await getUserInfo(sellerId);
+  const { data, status } = await getSellerInfo(sellerId);
+  console.log('HELLO', data);
+
+  if (status) redirect(getRedirectPathFromErrorCode(status));
+
   const {
     firstName = '',
     lastName = '',
@@ -31,7 +37,7 @@ export default async function SellerDetails(props: Props) {
     state,
     email,
     acctVerified,
-  } = userInfo;
+  } = data ?? {};
 
   return (
     <main>

@@ -3,6 +3,8 @@ import { fetchDraftById } from '@/app/(main)/draft/[id]/service/getDraftById';
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import DefaultImage from '@/assets/placeholder.webp';
+import { redirect } from 'next/navigation';
+import { getRedirectPathFromErrorCode } from '@/lib/getRedirectPathFromErrorCode';
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -11,9 +13,11 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const id = (await params).id;
-  const data = await fetchDraftById(id);
+  const { data, status } = await fetchDraftById(id);
 
-  const { year, make, model, trim, transType, condition } = data;
+  if (status) redirect(getRedirectPathFromErrorCode(status));
+
+  const { year, make, model, trim, transType, condition } = data ?? {};
   const title = `${year} ${make} ${model} ${trim} - Transmisión ${transType}, Condición ${condition}`;
   const description = `Descubre este impecable`;
 
@@ -22,9 +26,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function Draft({ params }: Props) {
   const id = (await params).id;
-  const car = await fetchDraftById(id);
+  const { data, status } = await fetchDraftById(id);
 
-  const { make, model, trim, year, license, images } = car;
+  if (status) redirect(getRedirectPathFromErrorCode(status));
+
+  const { make, model, trim, year, license, images } = data ?? {};
 
   const image = images?.imgBodyFL ? images?.imgBodyFL : DefaultImage;
 
@@ -50,7 +56,7 @@ export default async function Draft({ params }: Props) {
           <p className="text-xl text-primary">{year}</p>
         </div>
       </div>
-      <Details car={car} />
+      <Details car={data} />
     </main>
   );
 }

@@ -7,7 +7,7 @@ import React, {
   useState,
 } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { SlidersHorizontal, CircleX, Loader } from 'lucide-react';
+import { SlidersHorizontal, X, Loader } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Drawer } from 'vaul';
 import { Button } from '@/components/ui/button';
@@ -89,7 +89,12 @@ export const AutoFilters = () => {
   }
 
   return (
-    <Drawer.Root direction="top" open={drawerOpen} onOpenChange={setDrawerOpen}>
+    <Drawer.Root
+      direction="top"
+      open={drawerOpen}
+      onOpenChange={setDrawerOpen}
+      handleOnly={true}
+    >
       <Drawer.Trigger
         className={cn(
           'flex',
@@ -149,7 +154,6 @@ export const AutoFilters = () => {
             'sm:max-h-[99%]',
             'mx-auto',
             'flex',
-            'overflow-y-scroll',
           )}
           style={{ '--initial-transform': 'calc(100% + 8px)' } as CSSProperties}
         >
@@ -187,13 +191,15 @@ export const AutoFilters = () => {
                 'font-light',
                 'tracking-wider',
                 'border-b',
-                'border-tertiary',
+                'border-tertiary/[0.1]',
                 'border-solid',
               )}
             >
-              <p className="w-full text-left">Filtros</p>
+              <p className="w-full text-center text-sm font-semibold">
+                Filtros
+              </p>
               <Drawer.Close>
-                <CircleX className="h-6 w-6 hover:scale-110 transition duration-300 text-gray-700" />
+                <X className="h-4 w-4 hover:scale-110 transition duration-300 text-gray-700" />
               </Drawer.Close>
             </Drawer.Title>
             <FiltersFormWrapper

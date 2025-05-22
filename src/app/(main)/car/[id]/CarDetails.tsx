@@ -13,7 +13,6 @@ import {
   MapPin,
   Phone,
   Settings,
-  Shield,
   ShieldBan,
   ShieldCheck,
   User,
@@ -26,13 +25,17 @@ import { fetchCarById } from '@/app/(main)/car/[id]/service/fetchCarById';
 import { FactorySpecifications } from '@/app/(main)/car/[id]/FactorySpecifications';
 import { getSession } from '@auth0/nextjs-auth0';
 import { Tooltip } from '@/components/Tooltip';
+import { redirect } from 'next/navigation';
+import { getRedirectPathFromErrorCode } from '@/lib/getRedirectPathFromErrorCode';
 
 interface CarDetailsProps {
   id: string;
 }
 
 export default async function CarDetails({ id }: CarDetailsProps) {
-  const data = await fetchCarById(id);
+  const { data, status } = await fetchCarById(id);
+  if (status) redirect(getRedirectPathFromErrorCode(status));
+
   const session = await getSession();
   const {
     model,
@@ -57,7 +60,7 @@ export default async function CarDetails({ id }: CarDetailsProps) {
     restrictionDay,
     sellerComment,
     accountData,
-  } = data;
+  } = data ?? {};
 
   return (
     <section className="pb-10">
@@ -86,8 +89,8 @@ export default async function CarDetails({ id }: CarDetailsProps) {
 
       <div className="mb-8">
         <Carousel
-          images={images}
-          model={model}
+          images={images || []}
+          model={model || ''}
           showArrows={true}
           preview={true}
           imageClass="md:h-[30rem] md:object-none"
@@ -118,7 +121,7 @@ export default async function CarDetails({ id }: CarDetailsProps) {
                 </div>
                 <div>
                   <p className="text-sm">Kilometraje</p>
-                  <p className="text-sm text-primary font-bold">{`${NumberFormatter(mileage)} ${mileageType}`}</p>
+                  <p className="text-sm text-primary font-bold">{`${NumberFormatter(mileage || 0)} ${mileageType}`}</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
@@ -237,12 +240,12 @@ export default async function CarDetails({ id }: CarDetailsProps) {
         <div className="lg:col-span-1">
           <section className="bg-white rounded-lg shadow-md p-6 sticky top-16">
             <div className="flex items-center gap-4 mb-6">
-              {accountData.profileImage ? (
+              {accountData?.profileImage ? (
                 <Image
                   height={64}
                   width={64}
-                  src={accountData.profileImage}
-                  alt={accountData.firstName}
+                  src={accountData?.profileImage}
+                  alt={accountData?.firstName}
                   className="rounded-full w-16 h-16 object-cover"
                 />
               ) : (
@@ -252,9 +255,9 @@ export default async function CarDetails({ id }: CarDetailsProps) {
               )}
               <div>
                 <h3 className="text-lg font-semibold text-tertiary">
-                  {`${accountData.firstName || ''} ${accountData.lastName || ''}`}
+                  {`${accountData?.firstName || ''} ${accountData?.lastName || ''}`}
                 </h3>
-                {!accountData.acctVerified ? (
+                {accountData?.acctVerified ? (
                   <Tooltip tooltipContent="Cuenta verificada">
                     <div className="bg-verified text-white w-fit py-1 px-2 rounded-sm text-sm flex items-center gap-1">
                       <ShieldCheck className="h-4 w-4" />
@@ -279,10 +282,10 @@ export default async function CarDetails({ id }: CarDetailsProps) {
                 </div>
                 {session?.user ? (
                   <a
-                    href={`mailto:${accountData.email}`}
+                    href={`mailto:${accountData?.email}`}
                     className="text-tertiary hover:text-primary transition-colors"
                   >
-                    {accountData.email}
+                    {accountData?.email}
                   </a>
                 ) : (
                   <div className="blur-sm bg-primary/[0.5] rounded-lg w-full h-6" />
@@ -294,10 +297,10 @@ export default async function CarDetails({ id }: CarDetailsProps) {
                 </div>
                 {session?.user ? (
                   <a
-                    href={`tel:${accountData.phone}`}
+                    href={`tel:${accountData?.phone}`}
                     className="text-tertiary hover:text-primary transition-colors"
                   >
-                    {accountData.phone}
+                    {accountData?.phone}
                   </a>
                 ) : (
                   <div className="blur-sm bg-primary/[0.5] rounded-lg w-full h-6" />
@@ -308,8 +311,8 @@ export default async function CarDetails({ id }: CarDetailsProps) {
             <div className="mt-6">
               {session?.user ? (
                 <Link
-                  key={accountData.id}
-                  href={`/seller/${accountData.id}`}
+                  key={accountData?.id}
+                  href={`/seller/${accountData?.id}`}
                   className="w-full flex justify-center px-4 py-2 border border-primary text-primary rounded-lg hover:bg-primary/10 transition-colors"
                 >
                   Ver perfil

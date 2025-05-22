@@ -20,7 +20,7 @@ import { useRouter } from 'next/navigation';
 import { useToast } from '@/hooks/use-toast';
 
 interface Props {
-  car: FormCarType;
+  car?: FormCarType;
 }
 
 export default function Details(props: Props) {

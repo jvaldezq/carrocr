@@ -1,9 +1,11 @@
 import type { Car } from '@/types/Car';
-import { serverApi } from '@/lib/serverApi';
+import { serverApi, ServerApiResponse } from '@/lib/serverApi';
 
-export const fetchCarById = async (id: string): Promise<Car> => {
-  return (await serverApi<Car>({
+export const fetchCarById = async (
+  id: string,
+): Promise<ServerApiResponse<Car>> => {
+  return (await serverApi<ServerApiResponse<Car>>({
     path: `/listing/${id}`,
     cache: 'no-cache',
-  })) as Car;
+  })) as ServerApiResponse<Car>;
 };

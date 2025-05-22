@@ -1,9 +1,11 @@
 import type { Car } from '@/types/Car';
-import { serverApi } from '@/lib/serverApi';
+import { serverApi, ServerApiResponse } from '@/lib/serverApi';
 
-export const fetchVerifiedCarsCars = async (): Promise<Car[]> => {
-  return (await serverApi<Car[]>({
-    path: '/listing/R5VA',
+export const fetchVerifiedCarsCars = async (): Promise<
+  ServerApiResponse<Car[]>
+> => {
+  return (await serverApi<ServerApiResponse<Car[]>>({
+    path: '/listing/random/verified',
     cache: 'no-cache',
-  })) as Car[];
+  })) as ServerApiResponse<Car[]>;
 };
