@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { CarsGridSkeleton } from '@/components/Skeletons';
+import { CarsGridSkeletonWithoutTitle } from '@/components/Skeletons';
 import { Suspense } from 'react';
 import ListingCars from '@/app/(main)/autos/ListingCars';
 import { AutoFiltersType } from '@/components/Layout/AutoFilters/AutoFilters';
@@ -21,9 +21,13 @@ const Autos = async (props: Props) => {
   return (
     <main className="min-h-dvh pt-[60px] pb-8">
       <section className="max-w-screen-3xl mx-auto px-2 mt-8">
-        <Suspense fallback={<CarsGridSkeleton />}>
+        <Suspense fallback={<CarsGridSkeletonWithoutTitle />}>
           <ListingCars
-            filters={JSON.parse(atob(filters as string)) as AutoFiltersType}
+            filters={
+              filters
+                ? JSON.parse(atob(filters as string))
+                : ({} as AutoFiltersType)
+            }
           />
         </Suspense>
       </section>

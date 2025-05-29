@@ -19,6 +19,7 @@ import { CarFilters } from '@/components/Layout/AutoFilters/CarFilters';
 import { CURRENCIES } from '@/lib/NumberFormats';
 import { useGetDefaultFilters } from '@/components/Layout/AutoFilters/service/getDefaultFilters';
 import { useGetFiltersCount } from '@/components/Layout/AutoFilters/service/getFiltersCount';
+import { usePreview } from '@/context/PreviewContext/PreviewContext';
 
 export interface AutoFiltersType {
   price: number[];
@@ -55,7 +56,7 @@ const getDifferences = (obj1: AutoFiltersType, obj2: AutoFiltersType) => {
 };
 
 export const AutoFilters = () => {
-  const [drawerOpen, setDrawerOpen] = useState(false);
+  const { filtersOpen, setFiltersOpen } = usePreview();
   const searchParams = useSearchParams();
   const search = searchParams.get('filters') || '';
   const filters = search ? JSON.parse(atob(search)) : '';
@@ -91,8 +92,8 @@ export const AutoFilters = () => {
   return (
     <Drawer.Root
       direction="top"
-      open={drawerOpen}
-      onOpenChange={setDrawerOpen}
+      open={filtersOpen}
+      onOpenChange={setFiltersOpen}
       handleOnly={true}
     >
       <Drawer.Trigger
@@ -101,8 +102,6 @@ export const AutoFilters = () => {
           'items-center',
           'justify-center',
           'gap-2',
-          'shadow-lg',
-          'w-full',
           'h-full',
           'sm:w-[640px]',
           'h-10 px-4 py-2',
@@ -110,29 +109,20 @@ export const AutoFilters = () => {
           'animate-once',
           'animate-duration-500',
           'animate-ease-linear',
-          'rounded-xl',
-          'border-[0.5px]',
-          'border-tertiary/[0.5]',
-          'border-solid',
           'cursor-pointer',
           'transition-all',
           'duration-300',
-          'hover:shadow-sm',
-          'text-tertiary/[0.9]',
-          'hover:bg-primary',
-          'hover:border-primary',
-          'hover:text-white',
-          'font-light',
-          'tracking-wider',
+          'text-primary',
+          'tracking-tighter',
+          'font-semibold',
           'text-sm',
-          differencesCount > 2 ? 'bg-primary text-white' : '',
+          differencesCount > 2 ? 'bg-black/[0.1] font-semibold rounded-md' : '',
         )}
       >
-        <SlidersHorizontal className="h-4 w-4" />
         <p>
           {differencesCount > 2
             ? `(${differencesCount - 2} ${differencesCount - 2 > 1 ? 'Filtros' : 'Filtro'})`
-            : 'Buscar anuncios'}
+            : 'Anuncios'}
         </p>
       </Drawer.Trigger>
       <Drawer.Portal>
@@ -203,7 +193,7 @@ export const AutoFilters = () => {
               </Drawer.Close>
             </Drawer.Title>
             <FiltersFormWrapper
-              setDrawerOpen={setDrawerOpen}
+              setDrawerOpen={setFiltersOpen}
               initialValues={initialValues}
               defaultInitialValues={defaultInitialValues}
             />

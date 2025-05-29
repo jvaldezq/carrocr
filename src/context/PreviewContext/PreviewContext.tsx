@@ -13,6 +13,8 @@ type PreviewContextType = {
   id: number | null;
   clearId: () => void;
   setId: (id: number) => void;
+  filtersOpen: boolean;
+  setFiltersOpen: (open: boolean) => void;
 };
 
 const PreviewContext = createContext<PreviewContextType | undefined>(undefined);
@@ -29,6 +31,7 @@ export const PreviewContextProvider: FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [id, setId] = useState<number | null>(0);
+  const [filtersOpen, setFiltersOpen] = useState(false);
 
   const clearId = useCallback(() => {
     setId(null);
@@ -40,6 +43,8 @@ export const PreviewContextProvider: FC<{ children: ReactNode }> = ({
         id,
         clearId,
         setId,
+        filtersOpen,
+        setFiltersOpen,
       }}
     >
       <CarDialog />

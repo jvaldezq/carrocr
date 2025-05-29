@@ -28,28 +28,26 @@ export default function Benefits() {
   ];
 
   return (
-    <div className="py-16">
-      <div className="px-2">
-        <h2 className="text-xl uppercase font-bold tracking-widest leading-loose text-center text-tertiary mb-12">
-          ¿Por qué elegirnos?
-        </h2>
+    <div className="max-w-screen-3xl mx-auto px-2 my-20 flex flex-col">
+      <h2 className="text-xl uppercase font-bold tracking-widest leading-loose text-center text-tertiary mb-12">
+        ¿Por qué elegirnos?
+      </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {benefits.map((benefit) => (
-            <div
-              key={benefit.title}
-              className="text-center p-6 bg-white rounded-lg shadow-md"
-            >
-              <div className="inline-flex items-center justify-center w-12 h-12 bg-primary rounded-full mb-4">
-                <benefit.icon className="h-6 w-6 text-secondary" />
-              </div>
-              <h3 className="text-lg font-semibold text-tertiary mb-2">
-                {benefit.title}
-              </h3>
-              <p className="text-sm text-tertiary">{benefit.description}</p>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {benefits.map((benefit) => (
+          <div
+            key={benefit.title}
+            className="text-center p-6 bg-white rounded-lg shadow-md"
+          >
+            <div className="inline-flex items-center justify-center w-12 h-12 bg-primary rounded-full mb-4">
+              <benefit.icon className="h-6 w-6 text-secondary" />
             </div>
-          ))}
-        </div>
+            <h3 className="text-lg font-semibold text-tertiary mb-2">
+              {benefit.title}
+            </h3>
+            <p className="text-sm text-tertiary">{benefit.description}</p>
+          </div>
+        ))}
       </div>
     </div>
   );

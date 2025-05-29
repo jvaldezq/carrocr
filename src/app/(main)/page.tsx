@@ -6,6 +6,7 @@ import Benefits from '@/components/Benefits';
 import Link from 'next/link';
 import RecentCars from '@/components/RecentCars/RecentCars';
 import VerifiedCars from '@/components/VerifiedCars/VerifiedCars';
+import BodyWork from '@/components/BodyWork';
 
 export const metadata: Metadata = {
   title: 'Carro CR',
@@ -19,7 +20,7 @@ const Home = async () => {
       <Hero />
       <section className="max-w-screen-3xl mx-auto px-2 mt-8 flex flex-col">
         <div className="flex justify-between items-center mb-2 w-full">
-          <h2 className="text-sm leading-loose font-bold text-tertiary tracking-wide animate-fade-left animate-once animate-duration-500 animate-delay-500 animate-ease-in">
+          <h2 className="text-xl font-semibold text-slate-800 leading-loose tracking-wide animate-fade-left animate-once animate-duration-500 animate-delay-500 animate-ease-in">
             Recientes
           </h2>
           <Link
@@ -27,22 +28,19 @@ const Home = async () => {
               pathname: '/autos',
               query: { recent: true },
             }}
-            className="text-sm font-bold tracking-widest text-blue-700"
+            className="tracking-tighter font-semibold text-sm text-blue-700 hover:bg-blue-50 p-2 rounded-md"
           >
-            ver mas
+            Conocer más autos recientes
           </Link>
         </div>
         <Suspense fallback={<CarsGridSkeleton />}>
           <RecentCars />
         </Suspense>
       </section>
-
+      <BodyWork />
       <section className="max-w-screen-3xl mx-auto px-2 mt-8 flex flex-col">
         <div className="flex justify-between items-center mb-2 w-full">
-          <h2
-            className="text-
-          sm leading-loose font-bold text-tertiary tracking-wide animate-fade-left animate-once animate-duration-500 animate-delay-500 animate-ease-in"
-          >
+          <h2 className="text-xl font-semibold text-slate-800 leading-loose tracking-wide animate-fade-left animate-once animate-duration-500 animate-delay-500 animate-ease-in">
             Verificados
           </h2>
           <Link
@@ -50,9 +48,9 @@ const Home = async () => {
               pathname: '/autos',
               query: { acctVerified: true },
             }}
-            className="text-sm font-bold tracking-widest text-blue-700"
+            className="tracking-tighter font-semibold text-sm text-blue-700 hover:bg-blue-50 p-2 rounded-md"
           >
-            ver mas
+            Ver mas verificados
           </Link>
         </div>
         <Suspense fallback={<CarsGridSkeleton />}>

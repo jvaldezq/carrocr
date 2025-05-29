@@ -4,7 +4,7 @@ import { ALL_PENDING } from '@/lib/queryKeys';
 import { Draft } from '@/types/Drafts';
 
 export const getAllPendingReview = async (): Promise<Draft[]> => {
-  const res = await api?.get('/admin/listing/pendingReview');
+  const res = await api?.get('/admin/listing/allReviews');
   return res?.data;
 };
 

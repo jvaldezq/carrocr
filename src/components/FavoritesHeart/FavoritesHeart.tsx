@@ -18,9 +18,7 @@ export const FavoritesHeart = (props: Props) => {
   const isFavorite = user?.favListings?.includes(id);
 
   const handleSaveFavorite = useCallback(() => {
-    mutateAsync(id).then(() => {
-      console.log('Card saved!');
-    });
+    mutateAsync(id).then(() => {});
   }, [id, mutateAsync]);
 
   return (

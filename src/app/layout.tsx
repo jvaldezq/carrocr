@@ -22,7 +22,7 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="bg-quaternary">
+      <body className="bg-gray-50">
         <UserProvider>
           <QueryWrapper>
             <UserContextProvider>{children}</UserContextProvider>
