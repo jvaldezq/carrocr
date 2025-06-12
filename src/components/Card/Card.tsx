@@ -1,5 +1,4 @@
 import { APPROVAL_TRANSLATIONS } from '@/lib/definitions';
-import type { Car } from '@/types/Car';
 import {
   ShieldCheck,
   Pencil,
@@ -17,8 +16,9 @@ import { ReactNode } from 'react';
 import { FavoritesHeart } from '@/components/FavoritesHeart/FavoritesHeart';
 import { Tooltip } from '@/components/Tooltip';
 import { QuickViewButton } from '@/components/Card/QuickViewButton';
+import { SmallCard } from '@/types/Catalog';
 
-type Props = Car & {
+type Props = SmallCard & {
   isTemp?: boolean;
   isAuth?: boolean;
   stageID?: number;

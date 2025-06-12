@@ -1,13 +1,7 @@
 'use client';
-import React, {
-  CSSProperties,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, { CSSProperties, useCallback, useEffect, useRef } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { SlidersHorizontal, X, Loader } from 'lucide-react';
+import { X, Loader } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Drawer } from 'vaul';
 import { Button } from '@/components/ui/button';
@@ -20,7 +14,6 @@ import { CURRENCIES } from '@/lib/NumberFormats';
 import { useGetDefaultFilters } from '@/components/Layout/AutoFilters/service/getDefaultFilters';
 import { useGetFiltersCount } from '@/components/Layout/AutoFilters/service/getFiltersCount';
 import { usePreview } from '@/context/PreviewContext/PreviewContext';
-import { parseAsFloat, useQueryState, useQueryStates } from 'nuqs';
 
 export interface AutoFiltersType {
   price: number[];
@@ -217,14 +210,6 @@ const FiltersFormWrapper = ({
   defaultInitialValues,
 }: FiltersFormWrapperProps) => {
   const { data, mutateAsync, isPending } = useGetFiltersCount();
-  const [filters, setFilters] = useQueryStates(
-    {
-      page: parseAsFloat,
-    },
-    {
-      history: 'push',
-    },
-  );
   const { replace } = useRouter();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedSubmit = useCallback(
@@ -250,45 +235,42 @@ const FiltersFormWrapper = ({
 
   const onSubmit = useCallback(
     (values: AutoFiltersType) => {
-      // const params = new URLSearchParams();
-      // const filters = JSON.stringify({
-      //   minPrice: values.price[0],
-      //   maxPrice: values.price[1],
-      //   minYear: values.year[0],
-      //   maxYear: values.year[1],
-      //   currencyType: values.currencyType,
-      //   page: values.page,
-      //   pageSize: values.pageSize,
-      //   makeId: values.makeId,
-      //   modelId: values.modelId,
-      //   trimId: values.trimId,
-      //   fuelType: values.fuelType,
-      //   transType: values.transType,
-      //   stateName: values.stateName,
-      // });
-      // console.log({
-      //   minPrice: values.price[0],
-      //   maxPrice: values.price[1],
-      //   minYear: values.year[0],
-      //   maxYear: values.year[1],
-      //   currencyType: values.currencyType,
-      //   page: values.page,
-      //   pageSize: values.pageSize,
-      //   makeId: values.makeId,
-      //   modelId: values.modelId,
-      //   trimId: values.trimId,
-      //   fuelType: values.fuelType,
-      //   transType: values.transType,
-      //   stateName: values.stateName,
-      // });
-      // params.set('filters', btoa(filters));
-      // replace(`/autos?${params.toString()}`);
-      setFilters({
-        page: 2,
+      const params = new URLSearchParams();
+      const filters = JSON.stringify({
+        minPrice: values.price[0],
+        maxPrice: values.price[1],
+        minYear: values.year[0],
+        maxYear: values.year[1],
+        currencyType: values.currencyType,
+        page: values.page,
+        pageSize: values.pageSize,
+        makeId: values.makeId,
+        modelId: values.modelId,
+        trimId: values.trimId,
+        fuelType: values.fuelType,
+        transType: values.transType,
+        stateName: values.stateName,
       });
+      console.log({
+        minPrice: values.price[0],
+        maxPrice: values.price[1],
+        minYear: values.year[0],
+        maxYear: values.year[1],
+        currencyType: values.currencyType,
+        page: values.page,
+        pageSize: values.pageSize,
+        makeId: values.makeId,
+        modelId: values.modelId,
+        trimId: values.trimId,
+        fuelType: values.fuelType,
+        transType: values.transType,
+        stateName: values.stateName,
+      });
+      params.set('filters', btoa(filters));
+      replace(`/autos?${params.toString()}`);
       setDrawerOpen(false);
     },
-    [replace, setDrawerOpen, setFilters],
+    [replace, setDrawerOpen],
   );
 
   return (
@@ -298,7 +280,7 @@ const FiltersFormWrapper = ({
           {...formProps}
           debouncedSubmit={debouncedSubmit}
           defaultInitialValues={defaultInitialValues}
-          count={data?.pages?.listings}
+          count={data?.pages?.listings || 0}
           isLoading={isPending}
         />
       )}

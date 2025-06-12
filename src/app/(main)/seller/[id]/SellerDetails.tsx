@@ -24,7 +24,6 @@ interface Props {
 export default async function SellerDetails(props: Props) {
   const { sellerId } = props;
   const { data, status } = await getSellerInfo(sellerId);
-  console.log('HELLO', data);
 
   if (status) redirect(getRedirectPathFromErrorCode(status));
 
@@ -32,7 +31,7 @@ export default async function SellerDetails(props: Props) {
     firstName = '',
     lastName = '',
     createdDT,
-    profileImage,
+    profilePicture,
     phone,
     state,
     email,
@@ -44,11 +43,11 @@ export default async function SellerDetails(props: Props) {
       <div className="bg-white rounded-lg shadow-md p-6 mb-8 relative">
         <div className="grid md:grid-cols-2 justify-center items-center gap-6">
           <div className="flex flex-col md:flex-row items-center justify-center gap-6">
-            {profileImage ? (
+            {profilePicture ? (
               <Image
                 width={96}
                 height={96}
-                src={profileImage}
+                src={profilePicture}
                 alt={firstName}
                 className="rounded-full object-cover w-[96px] h-[96px]"
               />

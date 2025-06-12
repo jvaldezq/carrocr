@@ -1,3 +1,4 @@
+'use client';
 import {
   Table,
   TableBody,
@@ -6,38 +7,27 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import { useGetAccountsReview } from '@/app/(admin)/admin/approvals/service/useGetAccountsReview';
+import { useCallback, useState } from 'react';
+import { PendingAccountsDrawer } from '@/app/(admin)/admin/approvals/components/pendingAccountsDrawer';
 
-const data = [
-  {
-    id: '001',
-    firstName: 'Alice',
-    lastName: 'Smith',
-  },
-  {
-    id: '002',
-    firstName: 'Bob',
-    lastName: 'Johnson',
-  },
-  {
-    id: '003',
-    firstName: 'Charlie',
-    lastName: 'Williams',
-  },
-  {
-    id: '004',
-    firstName: 'Diana',
-    lastName: 'Brown',
-  },
-  {
-    id: '005',
-    firstName: 'Ethan',
-    lastName: 'Jones',
-  },
-];
+export default function PendingProfileTable() {
+  const { data } = useGetAccountsReview();
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [id, setId] = useState<string>('');
 
-export default async function PendingProfileTable() {
+  const handleClick = useCallback((id: string) => {
+    setDrawerOpen(true);
+    setId(id);
+  }, []);
+
   return (
     <>
+      <PendingAccountsDrawer
+        drawerOpen={drawerOpen}
+        id={id}
+        setDrawerOpen={setDrawerOpen}
+      />
       <Table>
         <TableHeader>
           <TableRow>
@@ -47,14 +37,15 @@ export default async function PendingProfileTable() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {data.map((listing) => (
+          {data?.map((acct) => (
             <TableRow
-              key={listing.id}
+              key={acct.id}
               className="hover:bg-primary hover:text-white cursor-pointer"
+              onClick={() => handleClick(`${acct?.id}`)}
             >
-              <TableCell className="font-medium">{listing.id}</TableCell>
-              <TableCell>{listing.firstName}</TableCell>
-              <TableCell>{listing.lastName}</TableCell>
+              <TableCell className="font-medium">{acct.id}</TableCell>
+              <TableCell>{acct.firstName}</TableCell>
+              <TableCell>{acct.lastName}</TableCell>
             </TableRow>
           ))}
         </TableBody>

@@ -15,14 +15,14 @@ import { generateYears } from '@/lib/years';
 import { FormInput } from '@/components/Forms/Input/FormInput';
 import { useRouter } from 'next/navigation';
 import { CarFront } from 'lucide-react';
-import { useGetMakes } from '@/context/CarEntryContext/services/getMakes';
-import { useGetModels } from '@/context/CarEntryContext/services/getModels';
-import { useGetTrims } from '@/context/CarEntryContext/services/getTrims';
+import { useGetMakes } from '@/context/CarEntryContext/services/useGetMakes';
+import { useGetModels } from '@/context/CarEntryContext/services/useGetModels';
+import { useGetTrims } from '@/context/CarEntryContext/services/useGetTrims';
 import { useCreateMutation } from '@/context/CarEntryContext/services/postListing';
 import { useCarEntry } from '@/context/CarEntryContext/CarEntryContext';
-import { useCreateMakeMutation } from '@/context/CarEntryContext/services/postMake';
-import { useCreateModelMutation } from '@/context/CarEntryContext/services/postModel';
-import { useCreateTrimMutation } from '@/context/CarEntryContext/services/postTrim';
+import { usePostMakeMutation } from '@/context/CarEntryContext/services/usePostMakeMutation';
+import { usePostModelMutation } from '@/context/CarEntryContext/services/usePostModelMutation';
+import { usePostTrimMutation } from '@/context/CarEntryContext/services/usePostTrimMutation';
 
 export interface CarFormProps {
   makeId?: number;
@@ -139,9 +139,9 @@ export const CarForm = (props: FormProps) => {
   const { data: makes } = useGetMakes();
   const { data: models } = useGetModels(values?.makeId);
   const { data: trims } = useGetTrims(values?.modelId);
-  const { mutateAsync: createMake } = useCreateMakeMutation();
-  const { mutateAsync: createModel } = useCreateModelMutation();
-  const { mutateAsync: createTrim } = useCreateTrimMutation();
+  const { mutateAsync: createMake } = usePostMakeMutation();
+  const { mutateAsync: createModel } = usePostModelMutation();
+  const { mutateAsync: createTrim } = usePostTrimMutation();
 
   useEffect(() => {
     if (makes) {
@@ -183,7 +183,6 @@ export const CarForm = (props: FormProps) => {
         name,
         makeId: values.makeId || 0,
       });
-      console.log('HELLO THERE!', newModel);
       if (newModel[0].value) {
         setModelsData((prev) => [...prev, ...newModel]);
         form.change(
@@ -215,8 +214,6 @@ export const CarForm = (props: FormProps) => {
     },
     [createTrim, form, values.modelId],
   );
-
-  console.log('modelsData', modelsData);
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-2 px-4 pb-4">

@@ -5,6 +5,6 @@ export interface Me {
   lastName: string;
   acctType: number;
   acctTypeName: string;
-  profileImage: string;
+  profilePicture: string;
   favListings: number[];
 }

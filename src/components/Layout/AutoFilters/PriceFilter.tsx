@@ -67,10 +67,10 @@ export const PriceFilter = (props: FormProps) => {
       />
       <div className="flex w-full justify-between">
         <span className="text-tertiary/[0.8]">
-          {MoneyFormatter(values?.price[0], values?.currencyType)}
+          {MoneyFormatter(values?.price?.[0], values?.currencyType)}
         </span>
         <span className="text-tertiary/[0.8]">
-          {MoneyFormatter(values?.price[1], values?.currencyType)}
+          {MoneyFormatter(values?.price?.[1], values?.currencyType)}
         </span>
       </div>
       <Field

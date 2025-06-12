@@ -7,7 +7,8 @@ import {
   Image as ImageIcon,
 } from 'lucide-react';
 import { Tabs } from '@/components/Tabs';
-import { APPROVAL_STAGE, FormCarType } from '@/lib/definitions';
+import { APPROVAL_STAGE } from '@/lib/definitions';
+import { UserListing } from '@/types/User';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { Form, FormRenderProps } from 'react-final-form';
@@ -20,7 +21,7 @@ import { useRouter } from 'next/navigation';
 import { useToast } from '@/hooks/use-toast';
 
 interface Props {
-  car?: FormCarType;
+  car?: UserListing;
 }
 
 export default function Details(props: Props) {
@@ -29,7 +30,7 @@ export default function Details(props: Props) {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedSubmit = useCallback(
-    debounce((values: FormCarType) => {
+    debounce((values: UserListing) => {
       mutateAsync(values).then(() => {});
     }, 500),
     [mutateAsync],
@@ -52,8 +53,8 @@ export default function Details(props: Props) {
   );
 }
 
-type FormProps = FormRenderProps<FormCarType> & {
-  debouncedSubmit: (values: FormCarType) => void;
+type FormProps = FormRenderProps<UserListing> & {
+  debouncedSubmit: (values: UserListing) => void;
   isPending: boolean;
 };
 

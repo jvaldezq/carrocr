@@ -3,7 +3,6 @@ import { CarsGridSkeletonWithoutTitle } from '@/components/Skeletons';
 import { Suspense } from 'react';
 import ListingCars from '@/app/(main)/autos/ListingCars';
 import { AutoFiltersType } from '@/components/Layout/AutoFilters/AutoFilters';
-import { loadSearchParams } from '@/lib/searchParams';
 
 interface Props {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -18,7 +17,6 @@ export const metadata: Metadata = {
 
 const Autos = async (props: Props) => {
   const { searchParams } = props;
-  // const { recent, acctVerified } = await loadSearchParams(searchParams);
   const filters = (await searchParams).filters;
   return (
     <main className="min-h-dvh pt-[60px] pb-8">

@@ -1,12 +1,12 @@
-import { FormCarType } from '@/lib/definitions';
 import { serverApi, ServerApiResponse } from '@/lib/serverApi';
+import { UserListing } from '@/types/User';
 
 export const fetchDraftById = async (
   id: string,
-): Promise<ServerApiResponse<FormCarType>> => {
-  return (await serverApi<ServerApiResponse<FormCarType>>({
-    path: `/listing/drafts/${id}`,
+): Promise<ServerApiResponse<UserListing>> => {
+  return (await serverApi<ServerApiResponse<UserListing>>({
+    path: `/user/listing/${id}`,
     cache: 'no-cache',
     requiresAuth: true,
-  })) as ServerApiResponse<FormCarType>;
+  })) as ServerApiResponse<UserListing>;
 };

@@ -6,10 +6,10 @@ import React, { CSSProperties, useCallback } from 'react';
 import Image from 'next/image';
 import PlaceholderImage from '@/assets/placeholder.webp';
 import { Button } from '@/components/ui/button';
-import { usePendingReviewById } from '@/app/(admin)/admin/approvals/service/getPendingReviewById';
-import { CarImages } from '@/lib/definitions';
-import { useSetPublishMutation } from '@/app/(admin)/admin/approvals/service/setPublish';
-import { useSetDenyMutation } from '@/app/(admin)/admin/approvals/service/setDeny';
+import { useGetListingReviewById } from '@/app/(admin)/admin/approvals/service/useGetListingReviewById';
+import { usePutListingSetPublishMutation } from '@/app/(admin)/admin/approvals/service/usePutListingSetPublishMutation';
+import { usePutListingSetDenyMutation } from '@/app/(admin)/admin/approvals/service/usePutListingSetDenyMutation';
+import { CarImages } from '@/types/User';
 
 interface Props {
   id: string;
@@ -49,11 +49,17 @@ const IMAGE_SECTIONS = {
 
 export const PendingListingDrawer = (props: Props) => {
   const { drawerOpen, setDrawerOpen, id } = props;
-  const { data } = usePendingReviewById(id);
-  const { mutateAsync: handlePublish } = useSetPublishMutation();
-  const { mutateAsync: handleDeny } = useSetDenyMutation();
+  const { data } = useGetListingReviewById(id);
+  const { mutateAsync: handlePublish } = usePutListingSetPublishMutation();
+  const { mutateAsync: handleDeny } = usePutListingSetDenyMutation();
 
   const {
+    license,
+    year,
+    make,
+    model,
+    trim,
+    body,
     state,
     condition,
     inspectionYear,
@@ -80,7 +86,7 @@ export const PendingListingDrawer = (props: Props) => {
   }, [handlePublish, id, setDrawerOpen]);
 
   const handleDenyClick = useCallback(() => {
-    handleDeny(id);
+    handleDeny({ id });
   }, [handleDeny, id]);
 
   return (
@@ -147,6 +153,30 @@ export const PendingListingDrawer = (props: Props) => {
               <h1 className="font-light tracking-widest text-lg col-span-full border-b border-primary">
                 Información Básica
               </h1>
+              <div>
+                <p className="text-sm">Placa</p>
+                <p className="text-sm text-primary font-bold">{license}</p>
+              </div>
+              <div>
+                <p className="text-sm">Año</p>
+                <p className="text-sm text-primary font-bold">{year}</p>
+              </div>
+              <div>
+                <p className="text-sm">Marca</p>
+                <p className="text-sm text-primary font-bold">{make}</p>
+              </div>
+              <div>
+                <p className="text-sm">Modelo</p>
+                <p className="text-sm text-primary font-bold">{model}</p>
+              </div>
+              <div>
+                <p className="text-sm">Edición</p>
+                <p className="text-sm text-primary font-bold">{trim}</p>
+              </div>
+              <div>
+                <p className="text-sm">Estilo</p>
+                <p className="text-sm text-primary font-bold">{body}</p>
+              </div>
               <div>
                 <p className="text-sm">Provincia</p>
                 <p className="text-sm text-primary font-bold">{state}</p>

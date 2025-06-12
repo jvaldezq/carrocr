@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
-import { Car } from '@/types/Car';
 import { api } from '@/lib/axios';
+import { SmallCard } from '@/types/Catalog';
 
 export const USER_TEMP_LISTINGS = 'get-user-temp-listings';
 
-const getUserTempListing = async (body: number[]): Promise<Car[]> => {
+const getUserTempListing = async (body: number[]): Promise<SmallCard[]> => {
   const res = await api?.post('/user/listings', body);
   return res?.data;
 };

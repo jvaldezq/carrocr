@@ -1,7 +1,20 @@
-export const CAR_DIALOG = 'car-dialog';
-export const ALL_PENDING = 'all-pending';
-export const GET_PENDING_BY_ID = 'pending-by-id';
 export const ME = 'me';
 export const ADD_TO_FAV = 'add-to-favorites';
-export const SET_PUBLISH = 'set-publish';
-export const SET_DENY = 'set-deny';
+//NEW
+export const DATA_GET_MAKES = 'get-makes';
+export const DATA_POST_MAKE = 'post-make';
+export const DATA_GET_MODELS = 'get-models';
+export const DATA_POST_MODEL = 'post-model';
+export const DATA_GET_TRIMS = 'get-trims';
+export const DATA_POST_TRIM = 'post-trim';
+export const ADMIN_GET_ACCOUNTS_REVIEW = 'get-accounts-review';
+export const ADMIN_GET_ACCOUNT_REVIEW_BY_ID = 'get-account-review-by-id';
+export const ADMIN_GET_LISTINGS_REVIEW = 'get-listings-review';
+export const ADMIN_GET_LISTING_REVIEW_BY_ID = 'get-listing-review-by-id';
+export const ADMIN_PUT_ACCOUNT_SET_DENY = 'put-account-set-deny';
+export const ADMIN_PUT_ACCOUNT_SET_PUBLISH = 'put-account-set-publish';
+export const ADMIN_PUT_LISTING_SET_DENY = 'put-listing-set-deny';
+export const ADMIN_PUT_LISTING_SET_PUBLISH = 'put-listing-set-publish';
+export const CATALOG_PREVIEW_BY_ID = '  catalog-preview-by-id';
+export const USER_PUT_PROFILE = 'user-put-profile';
+export const DOCTS_POST_USER_IMAGE = 'docs-post-user-image';

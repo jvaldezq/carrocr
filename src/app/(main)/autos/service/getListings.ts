@@ -1,13 +1,13 @@
 import { serverApi, ServerApiResponse } from '@/lib/serverApi';
-import { ListingResponse } from '@/lib/definitions';
 import { AutoFiltersType } from '@/components/Layout/AutoFilters/AutoFilters';
+import { CatalogAll } from '@/types/Catalog';
 
 export const getListings = async (
   filters: AutoFiltersType,
-): Promise<ServerApiResponse<ListingResponse>> => {
-  return (await serverApi<ServerApiResponse<ListingResponse>>({
-    path: `/listing`,
+): Promise<ServerApiResponse<CatalogAll>> => {
+  return (await serverApi<ServerApiResponse<CatalogAll>>({
+    path: `/catalog`,
     cache: 'no-cache',
     params: filters,
-  })) as ServerApiResponse<ListingResponse>;
+  })) as ServerApiResponse<CatalogAll>;
 };

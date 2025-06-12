@@ -1,5 +1,4 @@
 'use client';
-import { Car } from '@/types/Car';
 import { Carousel } from '@/components/Carousel';
 import {
   Activity,
@@ -10,8 +9,9 @@ import {
 import { MoneyFormatter, NumberFormatter } from '@/lib/NumberFormats';
 import Link from 'next/link';
 import { usePreview } from '@/context/PreviewContext/PreviewContext';
+import type { Preview } from '@/types/Catalog';
 
-export default function CarDialogDetails(props: Car) {
+export default function CarDialogDetails(props: Preview) {
   const {
     make,
     model,

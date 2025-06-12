@@ -1,11 +1,11 @@
-import type { Car } from '@/types/Car';
 import { serverApi, ServerApiResponse } from '@/lib/serverApi';
+import { SmallCard } from '@/types/Catalog';
 
 export const fetchVerifiedCarsCars = async (): Promise<
-  ServerApiResponse<Car[]>
+  ServerApiResponse<SmallCard[]>
 > => {
-  return (await serverApi<ServerApiResponse<Car[]>>({
-    path: '/listing/random/verified',
+  return (await serverApi<ServerApiResponse<SmallCard[]>>({
+    path: '/catalog/random/verified',
     cache: 'no-cache',
-  })) as ServerApiResponse<Car[]>;
+  })) as ServerApiResponse<SmallCard[]>;
 };

@@ -12,10 +12,10 @@ export const ProfilePicture = () => {
     );
   }
 
-  if (user?.profileImage) {
+  if (user?.profilePicture) {
     return (
       <Image
-        src={user.profileImage}
+        src={user.profilePicture}
         height={32}
         width={32}
         alt={`${user.firstName}-profile-picture`}

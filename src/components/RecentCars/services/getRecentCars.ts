@@ -1,9 +1,11 @@
-import type { Car } from '@/types/Car';
 import { serverApi, ServerApiResponse } from '@/lib/serverApi';
+import { SmallCard } from '@/types/Catalog';
 
-export const fetchRecentCars = async (): Promise<ServerApiResponse<Car[]>> => {
-  return (await serverApi<ServerApiResponse<Car[]>>({
-    path: '/listing/random/recent',
+export const fetchRecentCars = async (): Promise<
+  ServerApiResponse<SmallCard[]>
+> => {
+  return (await serverApi<ServerApiResponse<SmallCard[]>>({
+    path: '/catalog/random/recent',
     cache: 'no-cache',
-  })) as ServerApiResponse<Car[]>;
+  })) as ServerApiResponse<SmallCard[]>;
 };

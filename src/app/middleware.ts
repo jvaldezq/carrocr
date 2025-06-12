@@ -6,8 +6,6 @@ import { withMiddlewareAuthRequired } from '@auth0/nextjs-auth0/edge';
 export default async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
-  console.log('HELLOOOOO', pathname);
-
   if (pathname.startsWith('/admin')) {
     // const isAdminAuthenticated = request.cookies.has('admin-session-cookie');
     //
@@ -18,7 +16,6 @@ export default async function middleware(request: NextRequest) {
     //     'Redirecting to admin login.',
     //   );
     // return NextResponse.redirect(new URL('/admin/login', request.url));
-    console.log('HELLOOOOO');
   }
 
   // console.log('Admin authentication passed for:', pathname);

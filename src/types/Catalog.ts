@@ -1,7 +1,43 @@
 import { CURRENCIES } from '@/lib/NumberFormats';
 
-export interface Car {
+export interface Preview {
   id: number;
+  make: string;
+  model: string;
+  thumbnail: string;
+  images: string[];
+  year: number;
+  price: number;
+  currency: CURRENCIES;
+  transType: string;
+  trim: string;
+  condition: string;
+  mileage: number;
+}
+
+export interface SmallCard {
+  id: number;
+  thumbnail: string;
+  make: string;
+  model: string;
+  year: number;
+  price: number;
+  currency: CURRENCIES;
+  acctVerified: boolean;
+}
+
+export interface CatalogAll {
+  listings: SmallCard[];
+  pages: Pages;
+}
+
+export interface Pages {
+  listings: number;
+  pages: number;
+  total: number;
+}
+
+export interface ListingDetails {
   condition: string;
   trim: string;
   model: string;
@@ -18,18 +54,19 @@ export interface Car {
   bodyName: string;
   driveType: string;
   sellerComment: null;
-  approvalStageID: number;
-  acctVerified: boolean;
   factorySpecifications: FactorySpecification;
-  negotiableTF: boolean;
-  allowTradeTF: boolean;
-  inspectionMonth: string;
   inspectionYear: string;
   restrictionDay: string;
-  comments: string;
-  city: string;
   state: string;
   accountData: AccountData;
+  allowTradeTF: boolean;
+  engineModifiedTF: boolean;
+  favCount: number;
+  lP_ConversionTF: boolean;
+  negotiableTF: boolean;
+  taxesPaidTF: boolean;
+  transGearCount: number;
+  viewCount: number;
 }
 
 export interface AccountData {
@@ -37,7 +74,7 @@ export interface AccountData {
   email: string;
   phone: string;
   acctVerified: boolean;
-  profileImage: string;
+  profilePicture: string;
   countryName: string;
   statename: string;
   firstName: string;

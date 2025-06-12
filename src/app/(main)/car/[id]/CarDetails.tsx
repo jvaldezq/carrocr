@@ -240,11 +240,11 @@ export default async function CarDetails({ id }: CarDetailsProps) {
         <div className="lg:col-span-1">
           <section className="bg-white rounded-lg shadow-md p-6 sticky top-16">
             <div className="flex items-center gap-4 mb-6">
-              {accountData?.profileImage ? (
+              {accountData?.profilePicture ? (
                 <Image
                   height={64}
                   width={64}
-                  src={accountData?.profileImage}
+                  src={accountData?.profilePicture}
                   alt={accountData?.firstName}
                   className="rounded-full w-16 h-16 object-cover"
                 />

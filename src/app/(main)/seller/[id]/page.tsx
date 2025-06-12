@@ -1,8 +1,6 @@
 import { Suspense } from 'react';
 import SellerDetails from '@/app/(main)/seller/[id]/SellerDetails';
 import { SellerDetailsSkeleton } from '@/app/(main)/seller/[id]/SellerDetailsSkeleton';
-import SellerCars from '@/app/(main)/seller/[id]/SellerCars';
-import { CarsGridSkeleton } from '@/components/Skeletons';
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -17,9 +15,9 @@ export default async function Seller({ params }: Props) {
       <Suspense fallback={<SellerDetailsSkeleton />}>
         <SellerDetails sellerId={id} />
       </Suspense>
-      <Suspense fallback={<CarsGridSkeleton />}>
-        <SellerCars sellerId={id} />
-      </Suspense>
+      {/*<Suspense fallback={<CarsGridSkeleton />}>*/}
+      {/*  <SellerCars sellerId={id} />*/}
+      {/*</Suspense>*/}
     </main>
   );
 }

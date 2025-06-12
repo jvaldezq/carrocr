@@ -3,9 +3,9 @@
 import { Field, FormRenderProps, SupportedInputs } from 'react-final-form';
 import * as React from 'react';
 import { FormCommand } from '@/components/Forms/Select/FormCommand';
-import { useGetMakes } from '@/context/CarEntryContext/services/getMakes';
-import { useGetModels } from '@/context/CarEntryContext/services/getModels';
-import { useGetTrims } from '@/context/CarEntryContext/services/getTrims';
+import { useGetMakes } from '@/context/CarEntryContext/services/useGetMakes';
+import { useGetModels } from '@/context/CarEntryContext/services/useGetModels';
+import { useGetTrims } from '@/context/CarEntryContext/services/useGetTrims';
 import { AutoFiltersType } from '@/components/Layout/AutoFilters/AutoFilters';
 import {
   fuelType_options,

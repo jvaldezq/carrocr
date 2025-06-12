@@ -41,8 +41,8 @@ export const YearFilter = (props: FormProps) => {
         step={1}
       />
       <div className="flex w-full justify-between">
-        <span className="text-tertiary/[0.8]">{values?.year[0]}</span>
-        <span className="text-tertiary/[0.8]">{values?.year[1]}</span>
+        <span className="text-tertiary/[0.8]">{values?.year?.[0]}</span>
+        <span className="text-tertiary/[0.8]">{values?.year?.[1]}</span>
       </div>
     </div>
   );

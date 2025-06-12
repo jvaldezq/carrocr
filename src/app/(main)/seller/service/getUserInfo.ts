@@ -1,12 +1,12 @@
 import { serverApi, ServerApiResponse } from '@/lib/serverApi';
-import { UserProfile } from '@/lib/definitions';
+import { SellerInfo } from '@/types/Seller';
 
 export const getSellerInfo = async (
   id: string,
-): Promise<ServerApiResponse<UserProfile>> => {
-  return (await serverApi<ServerApiResponse<UserProfile>>({
-    path: `/user/info/${id}`,
+): Promise<ServerApiResponse<SellerInfo>> => {
+  return (await serverApi<ServerApiResponse<SellerInfo>>({
+    path: `/seller/${id}`,
     cache: 'no-cache',
     requiresAuth: true,
-  })) as ServerApiResponse<UserProfile>;
+  })) as ServerApiResponse<SellerInfo>;
 };

@@ -1,6 +1,8 @@
 import { ReactNode } from 'react';
 
 import type { Viewport } from 'next';
+import { Toaster } from '@/components/ui/toaster';
+import { Footer } from '@/components/Layout/Footer';
 
 export const viewport: Viewport = {
   initialScale: 1,
@@ -14,5 +16,11 @@ export default async function AdminLayout({
 }: Readonly<{
   children: ReactNode;
 }>) {
-  return <div>{children}</div>;
+  return (
+    <>
+      {children}
+      <Toaster />
+      <Footer />
+    </>
+  );
 }

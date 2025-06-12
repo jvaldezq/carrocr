@@ -1,13 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
-import { ListResultType } from '@/lib/definitions';
 import { api } from '@/lib/axios';
+import { DataResultType } from '@/types/Data';
+import { DATA_GET_MODELS } from '@/lib/queryKeys';
 
-export const fetchModels = async (
+const getModels = async (
   makeId?: number | string,
-): Promise<ListResultType[]> => {
-  const res = await api?.get('/model', {
+): Promise<DataResultType[]> => {
+  const res = await api?.get('/data/model', {
     params: {
-      makeid: makeId,
+      makeId,
     },
   });
   return res?.data;
@@ -15,9 +16,9 @@ export const fetchModels = async (
 
 export const useGetModels = (makeId?: number | string) => {
   return useQuery({
-    queryKey: ['models', makeId],
+    queryKey: [DATA_GET_MODELS, makeId],
     enabled: !!makeId,
-    queryFn: () => fetchModels(makeId),
+    queryFn: () => getModels(makeId),
     staleTime: 1000 * 60 * 60 * 24,
     retry: 2,
     refetchOnReconnect: false,

@@ -2,7 +2,7 @@
 import React, { useCallback, useState } from 'react';
 import { CloudUpload, Info, Upload } from 'lucide-react';
 import { Field, FormRenderProps, SupportedInputs } from 'react-final-form';
-import { CarImages, FormCarType } from '@/lib/definitions';
+import { CarImages, UserListing } from '@/types/User';
 import Image from 'next/image';
 import { usePostImage } from '@/app/(main)/draft/[id]/service/postImage';
 import UploadFile from '@/assets/upload.gif';
@@ -40,7 +40,7 @@ const IMAGE_SECTIONS = {
   mechanical: [{ key: 'imgEngine', label: 'Motor', required: false }],
 };
 
-type ImagesFormsProps = FormRenderProps<FormCarType>;
+type ImagesFormsProps = FormRenderProps<UserListing>;
 
 export const ImagesForm = (props: ImagesFormsProps) => {
   const { mutateAsync } = usePostImage();
@@ -60,7 +60,7 @@ export const ImagesForm = (props: ImagesFormsProps) => {
           fileRename: key,
           listingID: values.id || 0,
         }).then((res) => {
-          const imageToUpdate = `images.${key}` as keyof FormCarType;
+          const imageToUpdate = `images.${key}` as keyof UserListing;
           form.change(imageToUpdate, res);
           setPendingKey(null);
         });
@@ -89,7 +89,7 @@ export const ImagesForm = (props: ImagesFormsProps) => {
         fileRename: key,
         listingID: values.id || 0,
       }).then((res) => {
-        const imageToUpdate = `images.${key}` as keyof FormCarType;
+        const imageToUpdate = `images.${key}` as keyof UserListing;
         form.change(imageToUpdate, res);
         setPendingKey(null);
       });
@@ -127,7 +127,7 @@ export const ImagesForm = (props: ImagesFormsProps) => {
               : DefaultImage;
             const isDraggedOver = draggingOverKey === key;
             const isPending = pendingKey === key;
-            const imageKey = `images.${key}` as keyof FormCarType;
+            const imageKey = `images.${key}` as keyof UserListing;
 
             return (
               <div

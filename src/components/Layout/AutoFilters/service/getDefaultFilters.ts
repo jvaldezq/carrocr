@@ -5,7 +5,7 @@ import { AutoFiltersType } from '@/components/Layout/AutoFilters/AutoFilters';
 export const DEFAULT_FILTERS = 'get-default-filters';
 
 const getDefaultFilters = async (): Promise<AutoFiltersType> => {
-  const res = await clientApi?.get('/filter/default');
+  const res = await clientApi?.get('/data/filter/defaults');
   return res?.data;
 };
 
