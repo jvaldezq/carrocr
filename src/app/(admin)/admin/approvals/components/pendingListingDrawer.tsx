@@ -78,6 +78,7 @@ export const PendingListingDrawer = (props: Props) => {
     lP_ConversionTF,
     sellerComment,
     images,
+    hasFactoryData
   } = data || {};
 
   const handlePublishClick = useCallback(() => {
@@ -149,6 +150,9 @@ export const PendingListingDrawer = (props: Props) => {
                 <CircleX className="h-6 w-6 hover:scale-110 transition duration-300 text-gray-700" />
               </Drawer.Close>
             </Drawer.Title>
+            {!hasFactoryData && <div className="absolute top-6 left-0 p-2 bg-red-400 rounded-r-lg">
+              Needs factory data
+            </div>}
             <div className="px-4 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
               <h1 className="font-light tracking-widest text-lg col-span-full border-b border-primary">
                 Información Básica
@@ -365,6 +369,7 @@ export const PendingListingDrawer = (props: Props) => {
                 variant="default"
                 onClick={handlePublishClick}
                 className="cursor-pointer"
+                disabled={!hasFactoryData}
               >
                 Aprobar
               </Button>

@@ -50,4 +50,5 @@ export interface ListingReview {
   sellerComment?: string | null;
   images?: CarImages;
   factoryDataTF?: boolean;
+  hasFactoryData?: boolean;
 }

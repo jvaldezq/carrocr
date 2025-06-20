@@ -123,11 +123,11 @@ export const condition_options = [
 export const milage_options = [
   {
     label: 'Km',
-    value: 'Km',
+    value: 'KM',
   },
   {
     label: 'Millas',
-    value: 'Millas',
+    value: 'MI',
   },
 ];
 
@@ -138,7 +138,7 @@ export const transType_options = [
   },
   {
     label: 'Automático',
-    value: 'Automático',
+    value: 'Automatico',
   },
   {
     label: 'Semi-Automático',

@@ -1,5 +1,5 @@
 'use client';
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import {
   CheckCircle2,
   AlertCircle,
@@ -19,6 +19,7 @@ import { ImagesForm } from '@/app/(main)/draft/[id]/ImagesForm';
 import { useRemoveDraftByIdMutation } from '@/app/(main)/draft/[id]/service/removeDraftById';
 import { useRouter } from 'next/navigation';
 import { useToast } from '@/hooks/use-toast';
+import { useSetToReview } from './service/putSetToReview';
 
 interface Props {
   car?: UserListing;
@@ -31,10 +32,12 @@ export default function Details(props: Props) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedSubmit = useCallback(
     debounce((values: UserListing) => {
-      mutateAsync(values).then(() => {});
+      mutateAsync(values).then(() => { });
     }, 500),
     [mutateAsync],
   );
+
+  console.log('car', car);
 
   return (
     <Form
@@ -63,9 +66,64 @@ const DraftForm = (props: FormProps) => {
   const { toast } = useToast();
   const router = useRouter();
   const { mutateAsync: removeMutate } = useRemoveDraftByIdMutation();
-  const { mutateAsync: completeMutate } = useUpdateDraftByIdMutation();
-  const completion = 60;
+  const { mutateAsync: completeMutate } = useSetToReview();
   const { handleSubmit } = rest;
+
+  const completion = useMemo(() => {
+    let completion = 0
+    if (rest?.values?.state) {
+      completion += 5.8823529412
+    }
+    if (rest?.values?.condition) {
+      completion += 5.8823529412
+    }
+    if (rest?.values?.currency) {
+      completion += 5.8823529412
+    }
+    if (rest?.values?.driveType) {
+      completion += 5.8823529412
+    }
+    if (rest?.values?.fuelType) {
+      completion += 5.8823529412
+    }
+    if (rest?.values?.inspectionYear) {
+      completion += 5.8823529412
+    }
+    if (rest?.values?.mileage) {
+      completion += 5.8823529412
+    }
+    if (rest?.values?.mileageType) {
+      completion += 5.8823529412
+    }
+    if (rest?.values?.price) {
+      completion += 5.8823529412
+    }
+    if (rest?.values?.price) {
+      completion += 5.8823529412
+    }
+    if (rest?.values?.transGearCount) {
+      completion += 5.8823529412
+    }
+    if (rest?.values?.transType) {
+      completion += 5.8823529412
+    }
+    if (rest?.values?.images?.imgBodyFL) {
+      completion += 5.8823529412
+    }
+    if (rest?.values?.images?.imgBodyFR) {
+      completion += 5.8823529412
+    }
+    if (rest?.values?.images?.imgBodyRL) {
+      completion += 5.8823529412
+    }
+    if (rest?.values?.images?.imgBodyRR) {
+      completion += 5.8823529412
+    }
+    if (rest?.values?.images?.imgInteriorCluster) {
+      completion += 5.8823529412
+    }
+    return completion;
+  }, [rest]);
 
   const isFirstRender = useRef(true);
 
@@ -91,10 +149,7 @@ const DraftForm = (props: FormProps) => {
       title: 'Completando',
       description: <div>Estamos completando el anuncio</div>,
     });
-    completeMutate({
-      ...rest?.values,
-      approvalStageID: APPROVAL_STAGE.ENDED,
-    }).then(() => {
+    completeMutate(rest?.values?.id || '').then(() => {
       router.push('/profile');
     });
   }, [completeMutate, rest?.values, router, toast]);
@@ -108,6 +163,17 @@ const DraftForm = (props: FormProps) => {
       debouncedSubmit(rest.values);
     }
   }, [rest.dirty, debouncedSubmit, rest.values]);
+
+  const handleSendToReview = useCallback(() => {
+    toast({
+      variant: 'default',
+      title: 'Enviando a revisión',
+      description: <div>Estamos enviando el anuncio a revisión</div>,
+    });
+    completeMutate(rest?.values?.id || '').then(() => {
+      router.push('/profile');
+    });
+  }, [completeMutate, rest?.values, router, toast]);
 
   const options = [
     {
@@ -135,7 +201,7 @@ const DraftForm = (props: FormProps) => {
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-2 pb-16 mb-12">
       <Tabs options={options} defaultValue="details" ariaLabel="draft-car" />
-      <SubmitButton completion={completion} isPending={isPending} />
+      <SubmitButton completion={completion} handleSendToReview={handleSendToReview} isPending={isPending} />
       {rest?.values?.approvalStageID === APPROVAL_STAGE.PUBLISHED && (
         <Button
           type="button"
@@ -161,11 +227,13 @@ const DraftForm = (props: FormProps) => {
 const SubmitButton = ({
   completion,
   isPending,
+  handleSendToReview,
 }: {
   completion: number;
   isPending: boolean;
+  handleSendToReview: () => void;
 }) => {
-  const isReady = completion === 100;
+  const isReady = completion > 99;
   return (
     <div
       className={cn(
@@ -212,12 +280,13 @@ const SubmitButton = ({
           )}
           {completion && !isPending && (
             <span className="font-medium text-tertiary animate-flip-up animate-once animate-duration-500 animate-delay-0 animate-ease-in-out">
-              {completion}%
+              {completion.toFixed(0)}%
             </span>
           )}
         </div>
         <Button
-          type="submit"
+          type="button"
+          onClick={handleSendToReview}
           variant={isReady ? 'default' : 'outline'}
           disabled={!isReady}
           className="w-full sm:w-fit"

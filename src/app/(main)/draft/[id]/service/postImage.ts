@@ -17,7 +17,7 @@ const postImage = async (body: PostImageProps): Promise<string> => {
 
   const res = await api?.({
     method: 'post',
-    url: `/listing/image`,
+    url: `docs/listing/image`,
     headers: {
       'Content-Type': 'multipart/form-data',
     },

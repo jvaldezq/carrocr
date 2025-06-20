@@ -1,12 +1,12 @@
 import { useMutation } from '@tanstack/react-query';
 import { api } from '@/lib/axios';
 import { AutoFiltersType } from '@/components/Layout/AutoFilters/AutoFilters';
-import { FilterDefaults } from '@/types/Data';
+import { CatalogAll } from '@/types/Catalog';
 
 export const getFiltersCount = async (
   filters: AutoFiltersType,
-): Promise<FilterDefaults> => {
-  const res = await api.get('/data/filter/default', {
+): Promise<CatalogAll> => {
+  const res = await api.get('/catalog', {
     params: { ...filters, returnCountOnlyTF: true },
   });
   return res?.data;
