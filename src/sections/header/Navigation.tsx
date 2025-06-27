@@ -101,8 +101,8 @@ export const Navigation = () => {
 
   return (
     <>
-      <button onClick={() => setOpen(true)}>
-        <Menu className='text-black' />
+      <button className="fixed bottom-20 right-4 z-10 bg-white rounded-full p-2 md:p-3 shadow-2xl" onClick={() => setOpen(true)}>
+        <Menu className='w-6 h-6 md:w-8 md:h-8 text-black' />
       </button>
 
       {shouldRender && (
