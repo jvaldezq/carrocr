@@ -18,13 +18,27 @@ const Home = async () => {
   return (
     <main className="min-h-dvh">
       <section className="max-w-screen-3xl mx-auto px-4 mt-8 flex flex-col">
+        <div className="flex justify-between items-center gap-2 mb-4 py-2 w-full border-b border-dashed border-black/[0.06]">
+          <h2 className="text-lg font-semibold">
+            Promocionados
+          </h2>
+          <Link
+            href={{
+              pathname: '/autos',
+              query: { homePromoted: true },
+            }}
+            className="rounded-lg bg-black p-2 flex items-center gap-2"
+          >
+            <ArrowRight className='text-white w-5 h-5' />
+          </Link>
+        </div>
         <Suspense fallback={<CarsGridSkeleton />}>
           <HomeTopCars />
         </Suspense>
       </section>
 
       <section className="max-w-screen-3xl mx-auto px-4 mt-8 flex flex-col">
-        <div className="flex justify-between items-center gap-2 mb-4 w-full">
+        <div className="flex justify-between items-center gap-2 mb-4 py-2 w-full border-b border-dashed border-black/[0.06]">
           <h2 className="text-lg font-semibold">
             Verificados
           </h2>
@@ -44,7 +58,7 @@ const Home = async () => {
       </section>
 
       <section className="max-w-screen-3xl mx-auto px-4 mt-8 flex flex-col">
-        <div className="flex justify-between items-center gap-2 mb-4 w-full">
+        <div className="flex justify-between items-center gap-2 mb-4 py-2 w-full border-b border-dashed border-black/[0.06]">
           <h2 className="text-lg font-semibold">
             Recientes
           </h2>
@@ -62,7 +76,7 @@ const Home = async () => {
           <RecentCars />
         </Suspense>
       </section>
-      
+
       <Benefits />
     </main>
   );

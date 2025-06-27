@@ -7,6 +7,7 @@ import { useUser } from '@/context/UserContext/UserContext';
 import Link from 'next/link';
 import { LogIn, Menu, X } from 'lucide-react';
 import { tw } from '@/lib/utils';
+import { SignIn } from '@clerk/nextjs'
 
 gsap.registerPlugin(SplitText);
 
@@ -146,13 +147,14 @@ export const Navigation = () => {
 
           {!user ? (
             <>
-              <Link
+              <SignIn />
+              {/* <Link
                 id="login"
                 href="/api/auth/login"
                 className='font-lilita-one text-xl'
                 onClick={handleClose}>
                 LOGIN
-              </Link>
+              </Link> */}
               <div className="flex gap-4 items-center text-sm mt-10">
                 <Link id="how-to" href="/how" onClick={handleClose}>COMO PUBLICAR?</Link>
                 <Link id="contact-us" href="/contact" onClick={handleClose}>CONTACTANOS</Link>

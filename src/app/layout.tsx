@@ -8,6 +8,7 @@ import '@/styles/globals.css';
 import { UserProvider } from '@auth0/nextjs-auth0/client';
 import { UserContextProvider } from '@/context/UserContext/UserContext';
 import Script from 'next/script';
+import { ClerkProvider } from '@clerk/nextjs';
 
 export const viewport: Viewport = {
   initialScale: 1,
@@ -22,6 +23,7 @@ export default async function RootLayout({
   children: ReactNode;
 }>) {
   return (
+    <ClerkProvider>
     <html lang="en">
       <body className="bg-white">
         <UserProvider>
@@ -39,5 +41,6 @@ export default async function RootLayout({
         />
       </body>
     </html>
+    </ClerkProvider>
   );
 }

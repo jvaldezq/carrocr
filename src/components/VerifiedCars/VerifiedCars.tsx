@@ -3,6 +3,8 @@ import { fetchVerifiedCarsCars } from '@/components/VerifiedCars/services/getVer
 import { redirect } from 'next/navigation';
 import { getRedirectPathFromErrorCode } from '@/lib/getRedirectPathFromErrorCode';
 import { MidCard } from '@/components/new/MidCard';
+import VerifiedSlider from './VerifiedSlider';
+import type { SmallCard } from '@/types/Catalog';
 
 export default async function VerifiedCars() {
   const session = await getSession();
@@ -10,11 +12,15 @@ export default async function VerifiedCars() {
 
   if (status) redirect(getRedirectPathFromErrorCode(status));
 
+
   return (
-    <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-3">
-      {data?.map((car) => (
-        <MidCard key={car.id} isAuth={Boolean(session?.user)} {...car} />
-      ))}
-    </div>
+    <>
+      <div className="gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-3 hidden md:grid">
+        {data?.map((car) => (
+          <MidCard key={car.id} isAuth={Boolean(session?.user)} {...car} />
+        ))}
+      </div>
+      <VerifiedSlider data={data as SmallCard[]} isAuth={Boolean(session?.user)} />
+    </>
   );
 }
