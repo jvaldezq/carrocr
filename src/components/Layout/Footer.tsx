@@ -13,35 +13,47 @@ export const Footer = () => {
   }
 
   return (
-    <footer className="bg-tertiary text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <footer className="bg-white text-black">
+      <div className="max-w-screen-3xl mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div>
-            <div className="flex items-center">
+          <div className="flex flex-col gap-4">
+            <div className="flex items-center gap-2">
               <Car className="h-8 w-8" />
-              <span className="ml-2 text-xl font-bold">CARROCR</span>
+              <span className="text-xl font-bold">CARROCR</span>
             </div>
-            <p className="mt-4 text-sm text-gray-300">
+            <p className="text-sm text-black">
               Su plataforma de confianza para encontrar autos usados de calidad
               en su área. Con anuncios rigurosamente verificados.
             </p>
+
+            <div className="flex gap-4 items-center">
+              <a href="#" className="text-black">
+                <Facebook className="h-5 w-5" />
+              </a>
+              <a href="#" className="text-black">
+                <Twitter className="h-5 w-5" />
+              </a>
+              <a href="#" className="text-black">
+                <Instagram className="h-5 w-5" />
+              </a>
+            </div>
           </div>
 
           <div>
             <h3 className="text-lg font-semibold mb-4">Enlaces rápidos</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="#" className="text-gray-300 hover:text-white">
+                <Link href="#" className="text-black">
                   Home
                 </Link>
               </li>
               <li>
-                <Link href="/autos" className="text-gray-300 hover:text-white">
+                <Link href="/autos" className="text-black">
                   Autos
                 </Link>
               </li>
               <li>
-                <Link href="/how" className="text-gray-300 hover:text-white">
+                <Link href="/how" className="text-black">
                   Como publicar
                 </Link>
               </li>
@@ -54,7 +66,7 @@ export const Footer = () => {
               <li className="flex items-center gap-2">
                 <Link
                   href="/ticket"
-                  className="flex items-center gap-2 text-gray-300 hover:text-white"
+                  className="flex items-center gap-2 text-black"
                 >
                   <CircleHelp className="h-5 w-5" />
                   Crear ticket
@@ -64,7 +76,7 @@ export const Footer = () => {
           </div>
         </div>
 
-        <div className="mt-8 pt-8 border-t border-gray-700 flex justify-between items-center flex-col md:flex-row text-sm text-gray-300 gap-4">
+        <div className="mt-8 pt-8 border-t border-gray-700 flex justify-between items-center flex-col md:flex-row text-sm text-black gap-4">
           <p className="flex items-center md:hidden">
             &copy; {new Date().getFullYear()} CarroCR
           </p>
@@ -85,17 +97,6 @@ export const Footer = () => {
               Privacidad
             </Link>
           </p>
-          <div className="flex gap-4 items-center">
-            <a href="#" className="text-gray-300 hover:text-white">
-              <Facebook className="h-5 w-5" />
-            </a>
-            <a href="#" className="text-gray-300 hover:text-white">
-              <Twitter className="h-5 w-5" />
-            </a>
-            <a href="#" className="text-gray-300 hover:text-white">
-              <Instagram className="h-5 w-5" />
-            </a>
-          </div>
         </div>
       </div>
     </footer>

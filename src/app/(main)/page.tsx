@@ -1,12 +1,12 @@
 import type { Metadata } from 'next';
 import { CarsGridSkeleton } from '@/components/Skeletons';
 import { Suspense } from 'react';
-import Hero from '@/components/Hero';
 import Benefits from '@/components/Benefits';
 import Link from 'next/link';
 import RecentCars from '@/components/RecentCars/RecentCars';
 import VerifiedCars from '@/components/VerifiedCars/VerifiedCars';
-import BodyWork from '@/components/BodyWork';
+import { ArrowRight } from 'lucide-react';
+import HomeTopCars from '@/components/HomeTopCars/HomeTopCars';
 
 export const metadata: Metadata = {
   title: 'Carro CR',
@@ -17,29 +17,15 @@ export const metadata: Metadata = {
 const Home = async () => {
   return (
     <main className="min-h-dvh">
-      <section className="max-w-screen-3xl mx-auto px-2 mt-8 flex flex-col">
-        <div className="flex justify-between items-center mb-2 w-full">
-          <h2 className="text-xl font-semibold text-slate-800 leading-loose tracking-wide animate-fade-left animate-once animate-duration-500 animate-delay-500 animate-ease-in">
-            Recientes
-          </h2>
-          <Link
-            href={{
-              pathname: '/autos',
-              query: { recent: true },
-            }}
-            className="tracking-tighter font-semibold text-sm text-blue-700 hover:bg-blue-50 p-2 rounded-md"
-          >
-            Conocer más autos recientes
-          </Link>
-        </div>
+      <section className="max-w-screen-3xl mx-auto px-4 mt-8 flex flex-col">
         <Suspense fallback={<CarsGridSkeleton />}>
-          <RecentCars />
+          <HomeTopCars />
         </Suspense>
       </section>
-      <BodyWork />
-      <section className="max-w-screen-3xl mx-auto px-2 mt-8 flex flex-col">
-        <div className="flex justify-between items-center mb-2 w-full">
-          <h2 className="text-xl font-semibold text-slate-800 leading-loose tracking-wide animate-fade-left animate-once animate-duration-500 animate-delay-500 animate-ease-in">
+
+      <section className="max-w-screen-3xl mx-auto px-4 mt-8 flex flex-col">
+        <div className="flex justify-between items-center gap-2 mb-4 w-full">
+          <h2 className="text-lg font-semibold">
             Verificados
           </h2>
           <Link
@@ -47,15 +33,36 @@ const Home = async () => {
               pathname: '/autos',
               query: { acctVerified: true },
             }}
-            className="tracking-tighter font-semibold text-sm text-blue-700 hover:bg-blue-50 p-2 rounded-md"
+            className="rounded-lg bg-black p-2 flex items-center gap-2"
           >
-            Ver mas verificados
+            <ArrowRight className='text-white w-5 h-5' />
           </Link>
         </div>
         <Suspense fallback={<CarsGridSkeleton />}>
           <VerifiedCars />
         </Suspense>
       </section>
+
+      <section className="max-w-screen-3xl mx-auto px-4 mt-8 flex flex-col">
+        <div className="flex justify-between items-center gap-2 mb-4 w-full">
+          <h2 className="text-lg font-semibold">
+            Recientes
+          </h2>
+          <Link
+            href={{
+              pathname: '/autos',
+              query: { recent: true },
+            }}
+            className="rounded-lg bg-black p-2 flex items-center gap-2"
+          >
+            <ArrowRight className='text-white w-5 h-5' />
+          </Link>
+        </div>
+        <Suspense fallback={<CarsGridSkeleton />}>
+          <RecentCars />
+        </Suspense>
+      </section>
+      
       <Benefits />
     </main>
   );

@@ -1,6 +1,6 @@
 import React from 'react';
 import { BackButton } from '@/components/Layout/BackButton';
-import { Navigation } from '@/sections/header/Navigation';
+import { Navigation } from '@/sections/navigation/Navigation';
 
 export const Header = () => {
   return (

@@ -4,7 +4,7 @@ import PendingProfileTable from '@/app/(admin)/admin/approvals/components/pendin
 
 export default async function Approvals() {
   return (
-    <main className="min-h-dvh max-w-screen-2xl mx-auto px-2 pt-20">
+    <main className="min-h-dvh max-w-screen-2xl mx-auto px-3 pt-20">
       <h1 className="my-4 font-semibold tracking-widest text-lg">
         Administrative
       </h1>

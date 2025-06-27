@@ -7,7 +7,7 @@
 
 /* globals.css */
 * {
-  font-family: 'Comfortaa Variable', sans-serif;
+  font-family: 'Inter', sans-serif;
   box-sizing: border-box;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE and Edge */

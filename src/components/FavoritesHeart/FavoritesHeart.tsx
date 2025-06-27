@@ -18,11 +18,15 @@ export const FavoritesHeart = (props: Props) => {
   const isFavorite = user?.favListings?.includes(id);
 
   const handleSaveFavorite = useCallback(() => {
-    mutateAsync(id).then(() => {});
+    mutateAsync(id).then(() => { });
   }, [id, mutateAsync]);
 
   return (
-    <div className={cn('absolute', 'top-2', 'right-2')}>
+    <div className={cn(
+      'absolute',
+      'top-2',
+      'left-2',
+      isFavorite ? 'drop-shadow-xl' : 'drop-shadow-md')}>
       <Tooltip
         tooltipContent={
           isFavorite ? 'Quitar de favoritos' : 'Agregar favoritos'

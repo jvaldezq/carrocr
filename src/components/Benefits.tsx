@@ -28,8 +28,8 @@ export default function Benefits() {
   ];
 
   return (
-    <div className="max-w-screen-3xl mx-auto px-2 my-20 flex flex-col">
-      <h2 className="text-xl uppercase font-bold tracking-widest leading-loose text-center text-tertiary mb-12">
+    <div className="max-w-screen-3xl mx-auto px-4 py-20 flex flex-col bg-white">
+      <h2 className="text-xl uppercase font-bold tracking-widest leading-loose text-center text-black mb-12">
         ¿Por qué elegirnos?
       </h2>
 
@@ -37,15 +37,15 @@ export default function Benefits() {
         {benefits.map((benefit) => (
           <div
             key={benefit.title}
-            className="text-center p-6 bg-white rounded-lg shadow-md"
+            className="text-center bg-white p-4 border border-solid border-black/[0.06] rounded-xl"
           >
-            <div className="inline-flex items-center justify-center w-12 h-12 bg-primary rounded-full mb-4">
-              <benefit.icon className="h-6 w-6 text-secondary" />
+            <div className="inline-flex items-center justify-center w-12 h-12 bg-black rounded-full mb-4">
+              <benefit.icon className="h-6 w-6 text-white" />
             </div>
-            <h3 className="text-lg font-semibold text-tertiary mb-2">
+            <h3 className="text-lg font-semibold text-black mb-2">
               {benefit.title}
             </h3>
-            <p className="text-sm text-tertiary">{benefit.description}</p>
+            <p className="text-sm text-black">{benefit.description}</p>
           </div>
         ))}
       </div>

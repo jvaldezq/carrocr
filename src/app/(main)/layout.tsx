@@ -9,7 +9,7 @@ import { Toaster } from '@/components/ui/toaster';
 import { MixPanelWrapper } from '@/components/MixPanelWrapper';
 import { ClientProviders } from '@/context/ClientProviders';
 import { Filters } from '@/sections/filters/Filters';
-import { Navigation } from '@/sections/header/Navigation';
+import { Navigation } from '@/sections/navigation/Navigation';
 
 export const viewport: Viewport = {
   initialScale: 1,

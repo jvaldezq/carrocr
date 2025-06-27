@@ -24,6 +24,9 @@ export interface SmallCard {
   price: number;
   currency: CURRENCIES;
   acctVerified: boolean;
+  transType: string;
+  mileage: number;
+  trim: string;
 }
 
 export interface CatalogAll {

@@ -97,11 +97,11 @@ export const Carousel = (props: Props) => {
             {Array.from({ length: count }).map((_, index) => {
               const item = index + 1;
               const activeClass =
-                current === item ? 'bg-secondary/[0.4] scale-150' : '';
+                current === item ? 'bg-white/[0.4] scale-150' : '';
               return (
                 <span
                   key={`dot-${item}`}
-                  className={`transition-all rounded-full border border-secondary h-2 w-2 ${activeClass}`}
+                  className={`transition-all rounded-full border border-white h-2 w-2 ${activeClass}`}
                 />
               );
             })}
