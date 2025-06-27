@@ -3,7 +3,6 @@ import { ReactNode } from 'react';
 import type { Viewport } from 'next';
 
 import '@/styles/globals.css';
-import { Header } from '@/components/Layout/Header';
 import { Footer } from '@/components/Layout/Footer';
 import { Toaster } from '@/components/ui/toaster';
 import { MixPanelWrapper } from '@/components/MixPanelWrapper';
