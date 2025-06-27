@@ -8,6 +8,7 @@ import { Footer } from '@/components/Layout/Footer';
 import { Toaster } from '@/components/ui/toaster';
 import { MixPanelWrapper } from '@/components/MixPanelWrapper';
 import { ClientProviders } from '@/context/ClientProviders';
+import { Filters } from '@/sections/filters/Filters';
 
 export const viewport: Viewport = {
   initialScale: 1,
@@ -28,6 +29,7 @@ export default async function MainLayout({
         {children}
         <Toaster />
         <Footer />
+        <Filters />
       </ClientProviders>
     </MixPanelWrapper>
   );

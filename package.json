@@ -11,6 +11,8 @@
   "dependencies": {
     "@auth0/nextjs-auth0": "^3.5.0",
     "@fontsource-variable/comfortaa": "^5.2.5",
+    "@fontsource/lilita-one": "^5.2.6",
+    "@gsap/react": "^2.1.2",
     "@hookform/resolvers": "^3.10.0",
     "@prisma/client": "^5.19.1",
     "@radix-ui/react-accordion": "^1.2.0",
@@ -38,6 +40,7 @@
     "dayjs": "^1.11.13",
     "embla-carousel-react": "^8.0.2",
     "final-form": "^4.20.10",
+    "gsap": "^3.13.0",
     "imask": "^7.6.1",
     "jsonwebtoken": "^9.0.2",
     "lodash": "^4.17.21",

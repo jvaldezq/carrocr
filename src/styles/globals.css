@@ -1,4 +1,5 @@
 @import url('@fontsource-variable/comfortaa');
+@import url('@fontsource/lilita-one');
 
 @tailwind base;
 @tailwind components;

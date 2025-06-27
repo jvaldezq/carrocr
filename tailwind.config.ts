@@ -23,6 +23,7 @@ const config = {
     extend: {
       fontFamily: {
         sans: ['Comfortaa Variable', 'sans-serif'],
+        'lilita-one': ['Lilita One', 'sans-serif'],
       },
       colors: {
         primary: '#124E78',

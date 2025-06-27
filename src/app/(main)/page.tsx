@@ -17,7 +17,6 @@ export const metadata: Metadata = {
 const Home = async () => {
   return (
     <main className="min-h-dvh pt-[60px]">
-      <Hero />
       <section className="max-w-screen-3xl mx-auto px-2 mt-8 flex flex-col">
         <div className="flex justify-between items-center mb-2 w-full">
           <h2 className="text-xl font-semibold text-slate-800 leading-loose tracking-wide animate-fade-left animate-once animate-duration-500 animate-delay-500 animate-ease-in">

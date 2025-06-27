@@ -20,7 +20,7 @@ export const BackButton = () => {
       ) : (
         <Link key="Home" href="/">
           <div className="flex items-center">
-            <Car className="h-5 w-5" />
+            <Car className="h-5 w-5 text-black" />
           </div>
         </Link>
       )}
