@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { AutoFiltersType } from '@/components/Layout/AutoFilters/AutoFilters';
 import { getListings } from './service/getListings';
 import { SpecialCard } from '@/components/new/SpecialCard';
+import { MidCard } from '@/components/new/MidCard';
 
 interface Props {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -17,16 +18,16 @@ export const metadata: Metadata = {
 const Autos = async (props: Props) => {
   const { searchParams } = props;
   const filters = (await searchParams).filters;
-  const { data, status } = await getListings(filters as unknown as AutoFiltersType);
-  
+  const { data } = await getListings(filters as unknown as AutoFiltersType);
+
   return (
     <main className="min-h-dvh pb-8">
       <section className="max-w-screen-x mx-auto px-4 grid md:grid-cols-3 gap-4">
         {
-      data?.listings?.map((car) => (
-        <SpecialCard key={car.id} {...car} />
-      ))
-      }
+          data?.listings?.map((car) => (
+            car.premium ? <MidCard key={car.id} {...car} /> : <SpecialCard key={car.id} {...car} />
+          ))
+        }
       </section>
     </main>
   );

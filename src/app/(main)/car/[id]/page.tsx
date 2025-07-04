@@ -5,7 +5,7 @@ import { getRedirectPathFromErrorCode } from '@/lib/getRedirectPathFromErrorCode
 import Image from 'next/image';
 import { tw } from '@/lib/utils';
 import { MoneyFormatter, NumberFormatter } from '@/lib/NumberFormats';
-import { Activity, Ban, BriefcaseBusiness, Calendar, CalendarClock, Fuel, Handshake, Mail, MapPin, Phone, Settings } from 'lucide-react';
+import { Activity, Ban, BriefcaseBusiness, Calendar, CalendarClock, Fuel, Handshake, MapPin, Settings } from 'lucide-react';
 import { Tooltip } from '@/components/Tooltip';
 import { factoryToolTips } from './mock';
 import { SellerContact } from './SellerContact';

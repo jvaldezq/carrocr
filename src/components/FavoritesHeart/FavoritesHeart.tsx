@@ -17,7 +17,9 @@ export const FavoritesHeart = (props: Props) => {
   const { id } = props;
   const isFavorite = user?.favListings?.includes(id);
 
-  const handleSaveFavorite = useCallback(() => {
+  const handleSaveFavorite = useCallback((e: React.MouseEvent) => {
+    e.stopPropagation();
+    e.preventDefault();
     mutateAsync(id).then(() => { });
   }, [id, mutateAsync]);
 

@@ -28,6 +28,7 @@ export interface SmallCard {
   transType: string;
   mileage: number;
   trim: string;
+  premium: boolean;
 }
 
 export interface CatalogAll {
