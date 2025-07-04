@@ -10,6 +10,7 @@ import { UserContextProvider } from '@/context/UserContext/UserContext';
 import Script from 'next/script';
 import { ClerkProvider } from '@clerk/nextjs';
 import { GoogleAnalytics } from '@next/third-parties/google';
+import { esES } from '@clerk/localizations'
 
 export const viewport: Viewport = {
   initialScale: 1,
@@ -24,8 +25,8 @@ export default async function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    <ClerkProvider>
-      <html lang="en">
+    <ClerkProvider localization={esES}>
+      <html lang="es">
         <body className="bg-white overflow-x-hidden">
           <UserProvider>
             <QueryWrapper>
