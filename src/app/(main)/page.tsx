@@ -16,8 +16,8 @@ export const metadata: Metadata = {
 
 const Home = async () => {
   return (
-    <main className="min-h-dvh">
-      <section className="max-w-screen-3xl mx-auto px-4 mt-8 flex flex-col">
+    <main>
+      <section className="max-w-screen-xl mx-auto px-4 flex flex-col">
         <div className="flex justify-between items-center gap-2 mb-4 py-2 w-full border-b border-dashed border-black/[0.06]">
           <h2 className="text-lg font-semibold">
             Promocionados
@@ -37,7 +37,27 @@ const Home = async () => {
         </Suspense>
       </section>
 
-      <section className="max-w-screen-3xl mx-auto px-4 mt-8 flex flex-col">
+      <section className="max-w-screen-xl mx-auto px-4 mt-8 flex flex-col">
+        <div className="flex justify-between items-center gap-2 mb-4 py-2 w-full border-b border-dashed border-black/[0.06]">
+          <h2 className="text-lg font-semibold">
+            Agencia autos usados
+          </h2>
+          <Link
+            href={{
+              pathname: '/autos',
+              query: { recent: true },
+            }}
+            className="rounded-lg bg-black p-2 flex items-center gap-2"
+          >
+            <ArrowRight className='text-white w-5 h-5' />
+          </Link>
+        </div>
+        <Suspense fallback={<CarsGridSkeleton />}>
+          <RecentCars />
+        </Suspense>
+      </section>
+
+      <section className="max-w-screen-xl mx-auto px-4 mt-8 flex flex-col">
         <div className="flex justify-between items-center gap-2 mb-4 py-2 w-full border-b border-dashed border-black/[0.06]">
           <h2 className="text-lg font-semibold">
             Verificados
@@ -57,7 +77,7 @@ const Home = async () => {
         </Suspense>
       </section>
 
-      <section className="max-w-screen-3xl mx-auto px-4 mt-8 flex flex-col">
+      <section className="max-w-screen-xl mx-auto px-4 mt-8 flex flex-col">
         <div className="flex justify-between items-center gap-2 mb-4 py-2 w-full border-b border-dashed border-black/[0.06]">
           <h2 className="text-lg font-semibold">
             Recientes

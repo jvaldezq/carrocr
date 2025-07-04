@@ -17,7 +17,8 @@ export const MidCard = (props: Props) => {
   return (
     <Link
     key={`view-${id}`}
-    href={`/car/${id}`} className="flex flex-col gap-2 p-4 border border-solid border-black/[0.06] rounded-xl">
+    href={`/car/${id}`} 
+    className="flex flex-col gap-2 p-4 border border-solid border-black/[0.06] rounded-xl card">
       <div className="relative">
         <Image
           src={image}
@@ -32,11 +33,11 @@ export const MidCard = (props: Props) => {
         {!isTemp && isAuth && <FavoritesHeart id={id} />}
       </div>
       <div className="p-4 flex flex-col justify-center items-center">
-        <h3 className="text-xl font-semibold text-black">
+        <h3 className="text-xl font-semibold text-black text-center">
           {`${make} ${model} ${trim}`}
         </h3>
-        <p className="text-sm text-black/50">
-          {`${transType} · ${year} · ${NumberFormatter(mileage)} km`}
+        <p className="text-sm text-black/50 text-center">
+          {`${transType} · ${year} · ${NumberFormatter(mileage)}km`}
         </p>
       </div>
     </Link>

@@ -1,4 +1,3 @@
-import { getSession } from '@auth0/nextjs-auth0';
 import { fetchRecentCars } from '@/components/RecentCars/services/getRecentCars';
 import { redirect } from 'next/navigation';
 import { getRedirectPathFromErrorCode } from '@/lib/getRedirectPathFromErrorCode';
@@ -7,7 +6,11 @@ import type { SmallCard } from '@/types/Catalog';
 
 export default async function HomeTopCars() {
   const { data, status } = await fetchRecentCars();
-  const session = await getSession();
+  // TODO: update with clerk
+  // const session = await getSession();
+  const session = {
+    user: '1',
+  };
 
   if (status) redirect(getRedirectPathFromErrorCode(status));
 

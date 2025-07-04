@@ -1,11 +1,14 @@
 import { AlignJustify } from 'lucide-react';
-import { getSession } from '@auth0/nextjs-auth0';
 import { cn } from '@/lib/utils';
 import { ProfileMenuDrawer } from '@/components/Layout/ProfileMenuDrawer';
 import { ProfilePicture } from '@/components/Layout/ProfilePicture';
 
 export const ProfileMenu = async () => {
-  const session = await getSession();
+  // TODO: update with clerk
+  // const session = await getSession();
+  const session = {
+    user: '1',
+  };
 
   return (
     <ProfileMenuDrawer>

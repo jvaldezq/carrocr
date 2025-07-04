@@ -13,27 +13,27 @@ export const Footer = () => {
   }
 
   return (
-    <footer className="bg-white text-black">
-      <div className="max-w-screen-3xl mx-auto px-4 py-12">
+    <footer className="bg-black text-white">
+      <div className="max-w-screen-xl mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-2">
               <Car className="h-8 w-8" />
               <span className="text-xl font-bold">CARROCR</span>
             </div>
-            <p className="text-sm text-black">
+            <p className="text-sm text-white">
               Su plataforma de confianza para encontrar autos usados de calidad
               en su área. Con anuncios rigurosamente verificados.
             </p>
 
             <div className="flex gap-4 items-center">
-              <a href="#" className="text-black">
+              <a href="#" className="text-white">
                 <Facebook className="h-5 w-5" />
               </a>
-              <a href="#" className="text-black">
+              <a href="#" className="text-white">
                 <Twitter className="h-5 w-5" />
               </a>
-              <a href="#" className="text-black">
+              <a href="#" className="text-white">
                 <Instagram className="h-5 w-5" />
               </a>
             </div>
@@ -43,17 +43,17 @@ export const Footer = () => {
             <h3 className="text-lg font-semibold mb-4">Enlaces rápidos</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="#" className="text-black">
+                <Link href="#" className="text-white">
                   Home
                 </Link>
               </li>
               <li>
-                <Link href="/autos" className="text-black">
+                <Link href="/autos" className="text-white">
                   Autos
                 </Link>
               </li>
               <li>
-                <Link href="/how" className="text-black">
+                <Link href="/how" className="text-white">
                   Como publicar
                 </Link>
               </li>
@@ -66,7 +66,7 @@ export const Footer = () => {
               <li className="flex items-center gap-2">
                 <Link
                   href="/ticket"
-                  className="flex items-center gap-2 text-black"
+                  className="flex items-center gap-2 text-white"
                 >
                   <CircleHelp className="h-5 w-5" />
                   Crear ticket
@@ -76,7 +76,7 @@ export const Footer = () => {
           </div>
         </div>
 
-        <div className="mt-8 pt-8 border-t border-gray-700 flex justify-between items-center flex-col md:flex-row text-sm text-black gap-4">
+        <div className="mt-8 pt-8 border-t border-gray-700 flex justify-between items-center flex-col md:flex-row text-sm text-white gap-4">
           <p className="flex items-center md:hidden">
             &copy; {new Date().getFullYear()} CarroCR
           </p>

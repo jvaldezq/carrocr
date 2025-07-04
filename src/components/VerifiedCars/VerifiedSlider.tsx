@@ -6,12 +6,12 @@ import { SmallCard } from '@/types/Catalog';
 export default function VerifiedSlider({data, isAuth}: {data: SmallCard[], isAuth: boolean}) {
   
   const settings = {
-    className: "center",
-    centerMode: true,
+    dots: true,
     infinite: true,
-    centerPadding: "30px",
     slidesToShow: 1,
-    speed: 1000
+    slidesToScroll: 1,
+    speed: 500,
+    cssEase: "linear"
   };
 
 

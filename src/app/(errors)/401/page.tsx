@@ -2,7 +2,6 @@ import { Metadata } from 'next';
 import { Lock, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 import React from 'react';
-import { getSession } from '@auth0/nextjs-auth0';
 
 export const metadata: Metadata = {
   title: 'Carro CR - 401 Not Authorized',
@@ -11,7 +10,11 @@ export const metadata: Metadata = {
 };
 
 export default async function NotAuthorize() {
-  const session = await getSession();
+  // TODO: update with clerk
+  // const session = await getSession();
+  const session = {
+    user: '1',
+  };
   return (
     <main className="min-h-dvh max-w-screen-2xl flex items-center justify-center mx-auto px-2 py-24">
       <div className="max-w-2xl w-full text-center">

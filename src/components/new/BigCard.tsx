@@ -17,13 +17,14 @@ export const BigCard = (props: Props) => {
   return (
     <Link
       key={`view-${id}`}
-      href={`/car/${id}`} className="flex flex-col gap-4 p-4 border border-solid border-black/[0.06] rounded-xl">
+      href={`/car/${id}`} 
+      className="flex flex-col gap-4 p-4 border border-solid border-black/[0.06] rounded-xl card">
       <div>
         <h3 className="text-2xl font-semibold text-black">
           {`${make} ${model} ${trim}`}
         </h3>
         <p className="text-black/50">
-          {`${transType} · ${year} · ${NumberFormatter(mileage)} km`}
+          {`${transType} · ${year} · ${NumberFormatter(mileage)}km`}
         </p>
       </div>
       <div className="relative">
@@ -34,6 +35,9 @@ export const BigCard = (props: Props) => {
           width={400}
           height={350}
         />
+         <p className="absolute top-2 right-2 text-black bg-white p-2 rounded-full text-sm flex items-center drop-shadow-lg z-10 font-semibold">
+          {MoneyFormatter(price, currency)}
+        </p>
         {!isTemp && isAuth && <FavoritesHeart id={id} />}
       </div>
       <div className="grid grid-cols-3 justify-center items-center gap-2">
@@ -62,35 +66,6 @@ export const BigCard = (props: Props) => {
           </p>
         </div>
       </div>
-      <div className="flex flex-col justify-start items-center">
-        <div className="flex justify-between items-center py-2 border-b border-black/[0.06] w-full">
-          <span className="text-black/90">Body type</span>
-          <span className="font-semibold text-black">Sedan</span>
-        </div>
-        <div className="flex justify-between items-center py-2 border-b border-black/[0.06] w-full">
-          <span className="text-gray-600">Engine</span>
-          <span className="font-semibold text-gray-900">4.0L V8 Mild hybrid</span>
-        </div>
-
-        <div className="flex justify-between items-center py-2 border-b border-black/[0.06] w-full">
-          <span className="text-gray-600">Transmission</span>
-          <span className="font-semibold text-gray-900">8-Speed Automatic</span>
-        </div>
-
-        <div className="flex justify-between items-center py-2 border-b border-black/[0.06] w-full">
-          <span className="text-gray-600">Avg. MPG</span>
-          <span className="font-semibold text-gray-900">12-18 Mpg</span>
-        </div>
-
-        <div className="flex justify-between items-center py-2 border-b w-full">
-          <span className="text-gray-600">Seats</span>
-          <span className="font-semibold text-gray-900">5</span>
-        </div>
-      </div>
-
-      <h2 className="text-black text-xl font-bold">
-        {MoneyFormatter(price, currency)}
-      </h2>
     </Link>
   )
 }

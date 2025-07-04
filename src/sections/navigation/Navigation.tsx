@@ -3,30 +3,32 @@
 import { useLayoutEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
-import { useUser } from '@/context/UserContext/UserContext';
 import Link from 'next/link';
 import { LogIn, Menu, X } from 'lucide-react';
 import { tw } from '@/lib/utils';
-import { SignIn } from '@clerk/nextjs'
+import { SignIn, SignOutButton, SignedIn, SignedOut, useUser } from '@clerk/nextjs'
+import { usePathname } from 'next/navigation';
+import LogoWhite from '@/assets/logo-white.webp';
+import Image from 'next/image';
+
 
 gsap.registerPlugin(SplitText);
 
 export const Navigation = () => {
-  const [open, setOpen] = useState(false);        // Controls whether nav is "open"
-  const [shouldRender, setShouldRender] = useState(false);  // Controls whether to render at all
+  const [open, setOpen] = useState(false);
+  const [shouldRender, setShouldRender] = useState(false);
+  const pathname = usePathname()
   const navRef = useRef(null);
   const closeIconRef = useRef(null);
-  const { user } = useUser();
+  const { user } = useUser()
   const tlRef = useRef<gsap.core.Timeline | null>(null);
 
-  // When open changes
   useLayoutEffect(() => {
     if (open) {
       setShouldRender(true);
     }
   }, [open]);
 
-  // Run GSAP when shouldRender is true
   useLayoutEffect(() => {
     if (!shouldRender || !navRef.current) return;
 
@@ -72,7 +74,6 @@ export const Navigation = () => {
         }
       });
 
-      // ✅ just clean up SplitText here
       return () => {
         split1.revert();
         split2.revert();
@@ -84,12 +85,9 @@ export const Navigation = () => {
       };
     }, navRef);
 
-    // ✅ Now we call ctx.revert ONCE outside
     return () => ctx.revert();
 
   }, [shouldRender]);
-
-
 
   const handleClose = () => {
     if (tlRef.current) {
@@ -132,12 +130,23 @@ export const Navigation = () => {
             {
               user ? (
                 <h4 className="text-sm font-light">
-                  {`${user?.firstName} ${user?.lastName.slice(0, 1)}`}
+                  {`${user?.firstName} ${user?.lastName?.slice(0, 1)}`}
                 </h4>
               ) : (
-                <h4>
-                  CARRO CR
-                </h4>
+                <Image
+                  src={LogoWhite}
+                  width={400}
+                  height={50}
+                  alt="Logo"
+                  id="logo"
+                  className={
+                    tw(
+                      'w-auto',
+                      'h-[50px]',
+                      'object-cover'
+                    )
+                  }
+                />
               )
             }
             <button ref={closeIconRef} onClick={handleClose}>
@@ -145,44 +154,40 @@ export const Navigation = () => {
             </button>
           </div>
 
-          {!user ? (
-            <>
-              <SignIn />
-              {/* <Link
-                id="login"
-                href="/api/auth/login"
-                className='font-lilita-one text-xl'
-                onClick={handleClose}>
-                LOGIN
-              </Link> */}
-              <div className="flex gap-4 items-center text-sm mt-10">
-                <Link id="how-to" href="/how" onClick={handleClose}>COMO PUBLICAR?</Link>
-                <Link id="contact-us" href="/contact" onClick={handleClose}>CONTACTANOS</Link>
-              </div>
-            </>
-          ) : (
-            <>
-              <Link className='font-lilita-one text-xl' id="profile" href="/profile" onClick={handleClose}>PERFIL</Link>
-              <Link className='font-lilita-one text-xl' id="profile-drafts" href="/profile/drafts" onClick={handleClose}>MIS ANUNCIOS</Link>
-              <Link className='font-lilita-one text-xl' id="profile-favorites" href="/profile/favorites" onClick={handleClose}>MIS FAVORITOS</Link>
-              <div id="car-entry" className="my-6 font-lilita-one text-xl">CREAR ANUNCIO</div>
-              <div className="flex gap-4 items-center text-sm mt-10">
-                <Link id="how-to" href="/how" onClick={handleClose}>COMO PUBLICAR?</Link>
-                <Link id="contact-us" href="/contact" onClick={handleClose}>CONTACTANOS</Link>
-              </div>
-            </>
-          )}
+          <SignedOut>
+            <SignIn
+              routing="hash"
+              fallbackRedirectUrl={pathname}
+              appearance={{
+                elements: {
+                  rootBox: "mx-auto",
+                  card: "bg-white text-black"
+                }
+              }}
+            />
+            <div className="flex gap-4 items-center text-sm mt-10">
+              <Link id="how-to" href="/how" onClick={handleClose}>COMO PUBLICAR?</Link>
+              <Link id="contact-us" href="/contact" onClick={handleClose}>CONTACTANOS</Link>
+            </div>
+          </SignedOut>
+          <SignedIn>
+            <Link className='font-lilita-one text-xl' id="profile" href="/profile" onClick={handleClose}>PERFIL</Link>
+            <Link className='font-lilita-one text-xl' id="profile-drafts" href="/profile/drafts" onClick={handleClose}>MIS ANUNCIOS</Link>
+            <Link className='font-lilita-one text-xl' id="profile-favorites" href="/profile/favorites" onClick={handleClose}>MIS FAVORITOS</Link>
+            <div id="car-entry" className="my-6 font-lilita-one text-xl">CREAR ANUNCIO</div>
+            <div className="flex gap-4 items-center text-sm mt-10">
+              <Link id="how-to" href="/how" onClick={handleClose}>COMO PUBLICAR?</Link>
+              <Link id="contact-us" href="/contact" onClick={handleClose}>CONTACTANOS</Link>
+            </div>
+          </SignedIn>
 
           {user && (
-            <a
-              key="logout"
-              href="/api/auth/logout"
-              className="absolute bottom-8 right-4 flex gap-1 items-center text-sm"
-              onClick={handleClose}
-            >
-              <LogIn className="h-4 rotate-180" />
-              <span>Logout</span>
-            </a>
+            <SignOutButton redirectUrl={pathname}>
+              <button className="absolute bottom-8 right-4 flex gap-1 items-center text-sm">
+                <LogIn className="h-4 rotate-180" />
+                <span>Logout</span>
+              </button>
+            </SignOutButton>
           )}
         </nav>
       )}

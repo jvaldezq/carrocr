@@ -1,5 +1,4 @@
-@import url('@fontsource-variable/comfortaa');
-@import url('@fontsource/lilita-one');
+@import url('@fontsource-variable/inter/opsz.css');
 @import "slick-carousel/slick/slick.css";
 @import "slick-carousel/slick/slick-theme.css";
 
@@ -10,21 +9,26 @@
 
 /* globals.css */
 * {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter Variable', sans-serif;
   box-sizing: border-box;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
 }
 
 html,
 body,
 * {
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
 }
 
 *::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Edge */
+  display: none;
+  /* Chrome, Safari, Edge */
 }
 
 button:focus,
@@ -36,5 +40,4 @@ svg:focus-visible {
   --tw-ring-width: 0;
 }
 
-@layer base {
-}
+@layer base {}

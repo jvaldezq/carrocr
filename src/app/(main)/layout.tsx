@@ -5,10 +5,11 @@ import type { Viewport } from 'next';
 import '@/styles/globals.css';
 import { Footer } from '@/components/Layout/Footer';
 import { Toaster } from '@/components/ui/toaster';
-import { MixPanelWrapper } from '@/components/MixPanelWrapper';
 import { ClientProviders } from '@/context/ClientProviders';
 import { Filters } from '@/sections/filters/Filters';
 import { Navigation } from '@/sections/navigation/Navigation';
+import { Header } from '@/components/Layout/Header';
+import { HeaderAnimations } from '@/components/animations/HeaderAnimations';
 
 export const viewport: Viewport = {
   initialScale: 1,
@@ -23,15 +24,14 @@ export default async function MainLayout({
   children: ReactNode;
 }>) {
   return (
-    <MixPanelWrapper>
-      <ClientProviders>
-        {/* <Header /> */}
-        <Navigation />
-        {children}
-        <Toaster />
-        <Footer />
-        <Filters />
-      </ClientProviders>
-    </MixPanelWrapper>
+    <ClientProviders>
+      <Header />
+      <HeaderAnimations />
+      <Navigation />
+      {children}
+      <Toaster />
+      <Footer />
+      <Filters />
+    </ClientProviders>
   );
 }

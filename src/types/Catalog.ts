@@ -1,4 +1,5 @@
 import { CURRENCIES } from '@/lib/NumberFormats';
+import type { CarImages } from './User';
 
 export interface Preview {
   id: number;
@@ -51,7 +52,7 @@ export interface ListingDetails {
   mileage: number;
   mileageType: string;
   thumbnail: string;
-  images: string[];
+  images: CarImages;
   transType: string;
   fuelType: string;
   bodyName: string;

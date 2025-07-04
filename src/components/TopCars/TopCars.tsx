@@ -1,12 +1,15 @@
 import { fetchTopCars } from '@/components/TopCars/services/getTopCars';
 import Card from '@/components/Card/Card';
-import { getSession } from '@auth0/nextjs-auth0';
 import { redirect } from 'next/navigation';
 import { getRedirectPathFromErrorCode } from '@/lib/getRedirectPathFromErrorCode';
 
 export default async function TopCars() {
   const { data, status } = await fetchTopCars();
-  const session = await getSession();
+  // TODO: update with clerk
+  // const session = await getSession();
+  const session = {
+    user: '1',
+  };
 
   if (status) redirect(getRedirectPathFromErrorCode(status));
 

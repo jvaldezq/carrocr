@@ -17,7 +17,7 @@ export const TinyCard = (props: Props) => {
   return (
     <Link
       key={`view-${id}`}
-      href={`/car/${id}`} className="relative">
+      href={`/car/${id}`} className="relative card">
       <p className="absolute top-2 right-2 text-black bg-white p-2 rounded-full text-sm flex items-center drop-shadow-lg z-10 font-semibold">
         {MoneyFormatter(price, currency)}
       </p>

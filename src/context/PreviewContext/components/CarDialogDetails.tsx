@@ -86,7 +86,7 @@ export default function CarDialogDetails(props: Preview) {
               <div>
                 <p className="text-sm">Kilometraje</p>
                 <p className="text-sm text-primary font-bold">
-                  {NumberFormatter(mileage)} km
+                  {NumberFormatter(mileage)}km
                 </p>
               </div>
             </div>

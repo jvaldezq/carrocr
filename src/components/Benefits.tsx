@@ -28,7 +28,7 @@ export default function Benefits() {
   ];
 
   return (
-    <div className="max-w-screen-3xl mx-auto px-4 py-20 flex flex-col bg-white">
+    <div className="max-w-screen-xl mx-auto px-4 py-20 flex flex-col bg-white">
       <h2 className="text-xl uppercase font-bold tracking-widest leading-loose text-center text-black mb-12">
         ¿Por qué elegirnos?
       </h2>
