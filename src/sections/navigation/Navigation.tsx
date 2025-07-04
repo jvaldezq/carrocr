@@ -133,20 +133,22 @@ export const Navigation = () => {
                   {`${user?.firstName} ${user?.lastName?.slice(0, 1)}`}
                 </h4>
               ) : (
-                <Image
-                  src={LogoWhite}
-                  width={400}
-                  height={50}
-                  alt="Logo"
-                  id="logo"
-                  className={
-                    tw(
-                      'w-auto',
-                      'h-[50px]',
-                      'object-cover'
-                    )
-                  }
-                />
+                <Link href="/" onClick={handleClose}>
+                  <Image
+                    src={LogoWhite}
+                    width={400}
+                    height={50}
+                    alt="Logo"
+                    id="logo"
+                    className={
+                      tw(
+                        'w-auto',
+                        'h-[50px]',
+                        'object-cover'
+                      )
+                    }
+                  />
+                </Link>
               )
             }
             <button ref={closeIconRef} onClick={handleClose}>

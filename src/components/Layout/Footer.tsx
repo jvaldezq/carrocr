@@ -1,8 +1,12 @@
 'use client';
 import React from 'react';
-import { Car, CircleHelp, Facebook, Instagram, Twitter } from 'lucide-react';
+import { CircleHelp, Facebook, Instagram, Twitter } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
+import LogoWhite from '@/assets/logo-white.webp';
+import Image from 'next/image';
+import { tw } from '@/lib/utils';
+
 
 export const Footer = () => {
   const pathname = usePathname();
@@ -18,8 +22,22 @@ export const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-2">
-              <Car className="h-8 w-8" />
-              <span className="text-xl font-bold">CARROCR</span>
+            <Link href="/">
+              <Image
+                src={LogoWhite}
+                width={400}
+                height={50}
+                alt="Logo"
+                id="logo"
+                className={
+                  tw(
+                    'w-auto',
+                    'h-[50px]',
+                    'object-cover'
+                  )
+                }
+              />
+            </Link>
             </div>
             <p className="text-sm text-white">
               Su plataforma de confianza para encontrar autos usados de calidad
