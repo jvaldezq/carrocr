@@ -122,8 +122,13 @@ export const Navigation = () => {
             'justify-center',
             'gap-8',
             'text-xl',
-            'p-4',
-            'z-20'
+            'z-20',
+            'pt-52',
+            'md:pt-0',
+            'pb-20',
+            'md:pb-0',
+            'px-4',
+            'overflow-scroll'
           )}
         >
           <div className="absolute top-0 w-full flex items-center justify-between p-4">

@@ -1,8 +1,7 @@
 import type { Metadata } from 'next';
-import { CarsGridSkeletonWithoutTitle } from '@/components/Skeletons';
-import { Suspense } from 'react';
-import ListingCars from '@/app/(main)/autos/ListingCars';
 import { AutoFiltersType } from '@/components/Layout/AutoFilters/AutoFilters';
+import { getListings } from './service/getListings';
+import { SpecialCard } from '@/components/new/SpecialCard';
 
 interface Props {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -18,18 +17,16 @@ export const metadata: Metadata = {
 const Autos = async (props: Props) => {
   const { searchParams } = props;
   const filters = (await searchParams).filters;
+  const { data, status } = await getListings(filters as unknown as AutoFiltersType);
+  
   return (
-    <main className="min-h-dvh pt-[60px] pb-8">
-      <section className="max-w-screen-3xl mx-auto px-2 mt-8">
-        <Suspense fallback={<CarsGridSkeletonWithoutTitle />}>
-          <ListingCars
-            filters={
-              filters
-                ? JSON.parse(atob(filters as string))
-                : ({} as AutoFiltersType)
-            }
-          />
-        </Suspense>
+    <main className="min-h-dvh pb-8">
+      <section className="max-w-screen-x mx-auto px-4 grid md:grid-cols-3 gap-4">
+        {
+      data?.listings?.map((car) => (
+        <SpecialCard key={car.id} {...car} />
+      ))
+      }
       </section>
     </main>
   );
