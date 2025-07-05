@@ -100,7 +100,7 @@ export const Navigation = () => {
 
   return (
     <>
-      <button className="fixed bottom-16 md:bottom-20 right-4 bg-black rounded-full p-2 md:p-3 drop-shadow-lg z-20" onClick={() => setOpen(true)}>
+      <button className="fixed bottom-[4.3rem] md:bottom-20 right-4 bg-black/90 hover:bg-black rounded-full p-2 md:p-[0.5rem] drop-shadow-lg z-20" onClick={() => setOpen(true)}>
         <Menu className='w-6 h-6 md:w-8 md:h-8 text-white' />
       </button>
 
@@ -128,7 +128,8 @@ export const Navigation = () => {
             'pb-20',
             'md:pb-0',
             'px-4',
-            'overflow-scroll'
+            'overflow-scroll',
+            'pt-[env(safe-area-inset-top)]'
           )}
         >
           <div className="absolute top-0 w-full flex items-center justify-between p-4">

@@ -10,6 +10,7 @@ import { Filters } from '@/sections/filters/Filters';
 import { Navigation } from '@/sections/navigation/Navigation';
 import { Header } from '@/components/Layout/Header';
 import { HeaderAnimations } from '@/components/animations/HeaderAnimations';
+import { Back } from '@/components/new/Back';
 
 export const viewport: Viewport = {
   initialScale: 1,
@@ -32,6 +33,7 @@ export default async function MainLayout({
       <Toaster />
       <Footer />
       <Filters />
+      <Back />
     </ClientProviders>
   );
 }

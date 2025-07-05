@@ -29,7 +29,6 @@ export const Filters = () => {
     tl.to(button, {
       width: expandedWidth,
       borderRadius: '9999px',
-      padding: '0.75rem 1.5rem',
       duration: 0.5,
       ease: 'power2.out'
     })
@@ -54,7 +53,6 @@ export const Filters = () => {
       })
       .to(button, {
         width: 'auto',
-        padding: '0.5rem',
         duration: 0.4,
         ease: 'power2.inOut'
       }, '-=0.1');
@@ -68,7 +66,7 @@ export const Filters = () => {
   return (
     <button
       ref={buttonRef}
-      className="fixed bottom-4 right-4 z-10 bg-black rounded-full p-2 md:p-3 drop-shadow-lg overflow-hidden flex items-center"
+      className="fixed bottom-6 right-4 z-10 bg-black/90 hover:bg-black rounded-full p-2 md:p-[0.5rem] overflow-hidden flex items-center"
       aria-label="Search"
     >
       <Search className="w-6 h-6 md:w-8 md:h-8 text-white flex-shrink-0" />
@@ -76,7 +74,7 @@ export const Filters = () => {
         ref={textRef}
         className="text-white font-medium whitespace-nowrap overflow-hidden ml-2 hidden"
       >
-        Search
+        Buscar automóvil
       </span>
     </button>
   )

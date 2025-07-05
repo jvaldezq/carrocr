@@ -40,7 +40,7 @@ export default function Benefits() {
             className="text-center bg-white p-4 border border-solid border-black/[0.06] rounded-xl"
           >
             <div className="inline-flex items-center justify-center w-12 h-12 bg-black rounded-full mb-4">
-              <benefit.icon className="h-6 w-6 text-white" />
+              <benefit.icon className="h-7 w-7 text-white" />
             </div>
             <h3 className="text-lg font-semibold text-black mb-2">
               {benefit.title}
