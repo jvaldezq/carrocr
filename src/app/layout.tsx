@@ -17,10 +17,10 @@ export const metadata: Metadata = {
   title: 'CarroCR',
   description: 'Tu catálogo de vehículos',
   manifest: '/manifest.json',
-  themeColor: '#000000',
+  themeColor: '#FFFFFF', // This is for the theme color in general
   appleWebApp: {
     capable: true,
-    statusBarStyle: 'default',
+    statusBarStyle: 'black-translucent',
     title: 'CarroCR',
   },
   formatDetection: {
@@ -37,6 +37,8 @@ export const viewport: Viewport = {
   maximumScale: 1,
   width: 'device-width',
   userScalable: false,
+  themeColor: '#FFFFFF', // This sets the Android status bar color
+  viewportFit: 'cover',
 };
 
 export default async function RootLayout({
