@@ -1,10 +1,10 @@
 {
   "name": "CarroCR",
   "short_name": "CarroCR",
-  "description": "Your car catalog application",
+  "description": "Catálogo de vehículos en Costa Rica - Encuentra el auto de tus sueños",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
+  "background_color": "#000000",
   "theme_color": "#000000",
   "icons": [
     {
