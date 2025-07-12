@@ -6,8 +6,6 @@ import ServiceWorkerRegistration from '@/components/PWA/ServiceWorkerRegistratio
 import type { Viewport, Metadata } from 'next';
 
 import '@/styles/globals.css';
-import { UserProvider } from '@auth0/nextjs-auth0/client';
-import { UserContextProvider } from '@/context/UserContext/UserContext';
 import Script from 'next/script';
 import { ClerkProvider } from '@clerk/nextjs';
 import { GoogleAnalytics } from '@next/third-parties/google';
@@ -62,11 +60,9 @@ export default async function RootLayout({
         </head>
         <body className="bg-white overflow-x-hidden">
           <ServiceWorkerRegistration />
-          <UserProvider>
-            <QueryWrapper>
-              <UserContextProvider>{children}</UserContextProvider>
-            </QueryWrapper>
-          </UserProvider>
+          <QueryWrapper>
+            {children}
+          </QueryWrapper>
           <Script
             src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"
             strategy="afterInteractive"

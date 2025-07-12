@@ -1,4 +1,4 @@
-import { getAccessToken } from '@auth0/nextjs-auth0';
+import { auth } from '@clerk/nextjs/server';
 import { AutoFiltersType } from '@/components/Layout/AutoFilters/AutoFilters';
 
 interface ServerApiProps<TParams = Record<string, unknown> | AutoFiltersType> {
@@ -38,8 +38,19 @@ export const serverApi = async <
 
   if (requiresAuth) {
     try {
-      const authResult = await getAccessToken({});
-      token = authResult?.accessToken;
+      const session = await auth();
+      if (!session || !session.userId) {
+        console.error(`Unauthorized: No user session ${path}`);
+        return { status: 401, message: 'Unauthorized: No user session' };
+      }
+      
+      // Get the raw token from the Authorization header
+      const authHeader = await session.getToken();
+      if (!authHeader) {
+        console.error(`Unauthorized: Token is null ${path}`);
+        return { status: 401, message: 'Unauthorized: Token is null' };
+      }
+      token = authHeader;
 
       if (!token) {
         console.error(`Unauthorized: No token ${path}`);

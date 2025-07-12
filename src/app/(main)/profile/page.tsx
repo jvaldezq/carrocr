@@ -1,20 +1,10 @@
 import React from 'react';
-import { ProfileInfo } from '@/app/(main)/profile/ProfileInfo';
-import { redirect } from 'next/navigation';
-import { getRedirectPathFromErrorCode } from '@/lib/getRedirectPathFromErrorCode';
-import { getUser } from '@/app/(main)/profile/service/getUserInfo';
+import { UserProfile } from '@clerk/nextjs';
 
-export default async function ProfileAdmin() {
-  // await getSession();
-  const { data, status } = await getUser();
-  console.log('data', data);
-
-  if (status) redirect(getRedirectPathFromErrorCode(status));
-
+export default function Profile() {
   return (
-    <main className="min-h-dvh max-w-screen-2xl mx-auto px-2 pt-20">
-      <ProfileInfo {...data} />
-      {/*<MyCars listingCounters={data?.counts} />*/}
+    <main className="min-h-dvh max-w-screen-2xl mx-auto px-2 py-10 flex flex-col justify-center items-center">
+      <UserProfile routing='hash'/>
     </main>
   );
 }

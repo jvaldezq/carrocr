@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { tw } from '@/lib/utils';
 import Logo from '@/assets/logo.webp';
+import { TokenCopier } from '@/components/new/BrandonsHelper';
 
 export const Header = () => {
   return (
@@ -23,6 +24,7 @@ export const Header = () => {
           }
         />
       </Link>
+      <TokenCopier />
     </header>
   );
 };
