@@ -27,8 +27,6 @@ export default async function Seller({ params }: Props) {
           tw(
             'my-8',
             'justify-self-center',
-            'drop-shadow-2xl',
-            'drop-shadow-white',
             'w-[80px]',
             'h-[80px]',
             'rounded-full',

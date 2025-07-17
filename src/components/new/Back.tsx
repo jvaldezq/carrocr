@@ -106,7 +106,7 @@ export const Back = () => {
     <button
       ref={buttonRef}
       onClick={handleClick}
-      className="fixed top-6 left-6 bg-black/90 hover:bg-black text-white rounded-full p-3 backdrop-blur-sm transition-all duration-200 flex items-center justify-center shadow-lg hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black/50 opacity-0"
+      className="fixed top-10 left-6 bg-black/90 hover:bg-black text-white rounded-full p-3 backdrop-blur-sm transition-all duration-200 flex items-center justify-center shadow-lg hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black/50 opacity-0"
       aria-label={showHome ? 'Go to home' : 'Go back'}
     >
       {showHome ? (
