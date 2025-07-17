@@ -7,7 +7,7 @@ export default async function MyFavorites() {
   const { userId } = await auth()
 
   return (
-    <div className="gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-3 hidden md:grid">
+    <div className="gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-3 grid">
       {data?.map((car) => (
         <MidCard key={car.id} isAuth={Boolean(userId)} {...car} />
       ))}
