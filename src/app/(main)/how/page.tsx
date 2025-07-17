@@ -18,7 +18,7 @@ export default function How() {
   return (
     <main className="min-h-dvh max-w-screen-2xl mx-auto px-2 py-24">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-4xl md:text-5xl font-bold text-[#124E78] text-center mb-8">
+        <h1 className="text-4xl md:text-5xl font-bold text-black text-center mb-8">
           ¿Cómo publicar en CarroCR?
         </h1>
 
@@ -26,11 +26,11 @@ export default function How() {
           {/* Step 1 */}
           <div className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
             <div className="flex items-center gap-4">
-              <div className="bg-[#124E78]/10 p-3 rounded-full">
-                <UserPlus className="w-8 h-8 text-[#124E78]" />
+              <div className="bg-black p-3 rounded-full">
+                <UserPlus className="w-8 h-8 text-white" />
               </div>
               <div>
-                <h2 className="text-xl font-semibold text-[#1C1C1C]">
+                <h2 className="text-xl font-semibold text-black">
                   1. Crear una cuenta
                 </h2>
                 <p className="text-[#1C1C1C]/70 mt-2">
@@ -43,11 +43,11 @@ export default function How() {
           {/* Step 2 */}
           <div className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
             <div className="flex items-center gap-4">
-              <div className="bg-[#124E78]/10 p-3 rounded-full">
-                <PlusCircle className="w-8 h-8 text-[#124E78]" />
+              <div className="bg-black p-3 rounded-full">
+                <PlusCircle className="w-8 h-8 text-white" />
               </div>
               <div>
-                <h2 className="text-xl font-semibold text-[#1C1C1C]">
+                <h2 className="text-xl font-semibold text-black">
                   2. Crear un anuncio
                 </h2>
                 <p className="text-[#1C1C1C]/70 mt-2">
@@ -61,11 +61,11 @@ export default function How() {
           {/* Step 3 */}
           <div className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
             <div className="flex items-center gap-4">
-              <div className="bg-[#124E78]/10 p-3 rounded-full">
-                <FileText className="w-8 h-8 text-[#124E78]" />
+              <div className="bg-black p-3 rounded-full">
+                <FileText className="w-8 h-8 text-white" />
               </div>
               <div>
-                <h2 className="text-xl font-semibold text-[#1C1C1C]">
+                <h2 className="text-xl font-semibold text-black">
                   3. Completar información básica
                 </h2>
                 <p className="text-[#1C1C1C]/70 mt-2">
@@ -79,11 +79,11 @@ export default function How() {
           {/* Step 4 */}
           <div className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
             <div className="flex items-center gap-4">
-              <div className="bg-[#124E78]/10 p-3 rounded-full">
-                <SendHorizontal className="w-8 h-8 text-[#124E78]" />
+              <div className="bg-black p-3 rounded-full">
+                <SendHorizontal className="w-8 h-8 text-white" />
               </div>
               <div>
-                <h2 className="text-xl font-semibold text-[#1C1C1C]">
+                <h2 className="text-xl font-semibold text-black">
                   4. Enviar a revisión
                 </h2>
                 <p className="text-[#1C1C1C]/70 mt-2">
@@ -94,15 +94,15 @@ export default function How() {
           </div>
 
           {/* Step 5 - Optional */}
-          <div className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow border-2 border-dashed border-[#124E78]/30">
+          <div className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow border-2 border-dashed border-black/30">
             <div className="flex items-center gap-4">
-              <div className="bg-[#124E78]/10 p-3 rounded-full">
-                <ShieldCheck className="w-8 h-8 text-[#124E78]" />
+              <div className="bg-black p-3 rounded-full">
+                <ShieldCheck className="w-8 h-8 text-white" />
               </div>
               <div>
-                <h2 className="text-xl font-semibold text-[#1C1C1C]">
+                <h2 className="text-xl font-semibold text-black">
                   5. Verificar la cuenta{' '}
-                  <span className="text-sm text-[#124E78]">(Opcional)</span>
+                  <span className="text-sm text-black">(Opcional)</span>
                 </h2>
                 <p className="text-[#1C1C1C]/70 mt-2">
                   Verifica tu cuenta para obtener una insignia de vendedor
@@ -113,15 +113,15 @@ export default function How() {
           </div>
 
           {/* Step 6 - Optional */}
-          <div className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow border-2 border-dashed border-[#124E78]/30">
+          <div className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow border-2 border-dashed border-black/30">
             <div className="flex items-center gap-4">
-              <div className="bg-[#124E78]/10 p-3 rounded-full">
-                <Car className="w-8 h-8 text-[#124E78]" />
+              <div className="bg-black p-3 rounded-full">
+                <Car className="w-8 h-8 text-white" />
               </div>
               <div>
-                <h2 className="text-xl font-semibold text-[#1C1C1C]">
+                <h2 className="text-xl font-semibold text-black">
                   6. Completar información al 100%{' '}
-                  <span className="text-sm text-[#124E78]">(Opcional)</span>
+                  <span className="text-sm text-black">(Opcional)</span>
                 </h2>
                 <p className="text-[#1C1C1C]/70 mt-2">
                   Añade todos los detalles posibles para aumentar la visibilidad
