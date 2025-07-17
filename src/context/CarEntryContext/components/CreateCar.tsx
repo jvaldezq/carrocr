@@ -276,7 +276,7 @@ export const CarForm = (props: FormProps) => {
         </Button>
         <Button
           type="submit"
-          className="bg-primary w-full"
+          className="bg-black w-full"
           disabled={!valid || !dirty}
         >
           Guardar

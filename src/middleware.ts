@@ -1,6 +1,6 @@
 import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
 
-const isProtectedRoute = createRouteMatcher(['/admin(.*)', '/profile(.*)'])
+const isProtectedRoute = createRouteMatcher(['/admin(.*)', '/profile(.*)', '/seller(.*)'])
 
 export default clerkMiddleware(async (auth, req) => {
   console.log('Running middleware for:', req.nextUrl.pathname)
@@ -8,5 +8,5 @@ export default clerkMiddleware(async (auth, req) => {
 })
 
 export const config = {
-  matcher: ['/admin(.*)', '/profile(.*)']
+  matcher: ['/((?!.+\.[\w]+$|_next).*)', '/', '/(api|trpc)(.*)']
 }

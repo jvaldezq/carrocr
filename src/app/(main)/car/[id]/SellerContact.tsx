@@ -3,9 +3,17 @@ import { SignedIn, SignedOut, SignIn } from '@clerk/nextjs';
 import { usePathname } from 'next/navigation';
 import MapsImg from '@/assets/map.webp';
 import { tw } from '@/lib/utils';
+import Link from 'next/link';
 
+type Props = {
+  internalId?: number | null;
+  email?: string | null;
+  phone?: string | null;
+  firstName?: string | null;
+  lastName?: string | null;
+}
 
-export const SellerContact = () => {
+export const SellerContact = ({ internalId = null, email = '', phone = '', firstName = '', lastName = '' }: Props) => {
   const pathname = usePathname()
 
   return (
@@ -50,20 +58,30 @@ export const SellerContact = () => {
 
         <SignedIn>
           <div className='grid md:grid-cols-2 gap-4 mt-10'>
-            <div className='flex flex-col gap-2 relative bg-black/80 p-4 rounded-xl'>
-              <h4 className='text-lg font-semibold text-white'>Headquarter office</h4>
-              <p className='text-sm text-white/80 font-light'>Costa Rica</p>
-            </div>
+            {(firstName || lastName) && (
+              <Link
+                key="seller"
+                href={`/seller/${internalId}`}
+                className='flex flex-col gap-2 relative bg-black/80 p-4 rounded-xl'
+              >
+                <h4 className='text-lg font-semibold text-white'>{`${firstName} ${lastName}`}</h4>
+                <p className='text-sm text-white/80 font-light'>Ver perfil</p>
+              </Link>
+            )}
             <div />
-            <div className='flex flex-col gap-2 relative bg-black/80 p-4 rounded-xl'>
-              <h4 className='text-lg font-semibold text-white'>+1 (415) 555‑0132</h4>
-              <p className='text-sm text-white/80 font-light'>Enviar mensaje</p>
-            </div>
+            {phone && (
+              <a href={`tel:${phone}`} className='flex flex-col gap-2 relative bg-black/80 p-4 rounded-xl'>
+                <h4 className='text-lg font-semibold text-white'>{phone}</h4>
+                <p className='text-sm text-white/80 font-light'>Enviar mensaje</p>
+              </a>
+            )}
             <div />
-            <div className='flex flex-col gap-2 relative bg-black/80 p-4 rounded-xl'>
-              <h4 className='text-lg font-semibold text-white'>support@bydrive.com</h4>
-              <p className='text-sm text-white/80 font-light'>Enviar correo</p>
-            </div>
+            {email && (
+              <a href={`mailto:${email}`} className='flex flex-col gap-2 relative bg-black/80 p-4 rounded-xl'>
+                <h4 className='text-lg font-semibold text-white'>{email}</h4>
+                <p className='text-sm text-white/80 font-light'>Enviar correo</p>
+              </a>
+            )}
           </div>
         </SignedIn>
 

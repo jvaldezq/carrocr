@@ -15,7 +15,6 @@ export const metadata: Metadata = {
   title: 'CarroCR',
   description: 'Tu catálogo de vehículos',
   manifest: '/manifest.json',
-  themeColor: '#FFFFFF', // This is for the theme color in general
   appleWebApp: {
     capable: true,
     statusBarStyle: 'black-translucent',

@@ -1,6 +1,4 @@
 import { fetchRecentCars } from '@/components/RecentCars/services/getRecentCars';
-import { redirect } from 'next/navigation';
-import { getRedirectPathFromErrorCode } from '@/lib/getRedirectPathFromErrorCode';
 import { BigCard } from '@/components/new/BigCard';
 import type { SmallCard } from '@/types/Catalog';
 
@@ -11,8 +9,6 @@ export default async function HomeTopCars() {
   const session = {
     user: '1',
   };
-
-  if (status) redirect(getRedirectPathFromErrorCode(status));
 
   return (
     <div className="grid gap-4 sm:gap-6 md:grid-cols-2">

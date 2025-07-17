@@ -72,18 +72,12 @@ export interface ListingDetails {
   taxesPaidTF: boolean;
   transGearCount: number;
   viewCount: number;
+  userID: string;
 }
 
 export interface AccountData {
   id: number;
-  email: string;
-  phone: string;
-  acctVerified: boolean;
-  profilePicture: string;
-  countryName: string;
-  statename: string;
-  firstName: string;
-  lastName: string;
+  userID: string;
 }
 
 export interface FactorySpecification {

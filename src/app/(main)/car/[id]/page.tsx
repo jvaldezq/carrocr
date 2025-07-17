@@ -1,7 +1,5 @@
 import type { Metadata } from 'next';
 import { fetchCarById } from '@/app/(main)/car/[id]/service/fetchCarById';
-import { redirect } from 'next/navigation';
-import { getRedirectPathFromErrorCode } from '@/lib/getRedirectPathFromErrorCode';
 import Image from 'next/image';
 import { tw } from '@/lib/utils';
 import { MoneyFormatter, NumberFormatter } from '@/lib/NumberFormats';
@@ -9,6 +7,7 @@ import { Activity, Ban, BriefcaseBusiness, Calendar, CalendarClock, Fuel, Handsh
 import { Tooltip } from '@/components/Tooltip';
 import { factoryToolTips } from './mock';
 import { SellerContact } from './SellerContact';
+import { getUserDataById } from '@/lib/getUserById';
 
 
 type Props = {
@@ -19,8 +18,6 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const id = (await params).id;
   const { data, status } = await fetchCarById(id);
-
-  if (status) redirect(getRedirectPathFromErrorCode(status));
 
   const {
     year,
@@ -71,6 +68,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function Car({ params }: Props) {
   const id = (await params).id;
   const { data } = await fetchCarById(id);
+  const user = await getUserDataById(data?.accountData?.userID ?? '');
 
   const {
     model,
@@ -94,6 +92,7 @@ export default async function Car({ params }: Props) {
     inspectionYear,
     restrictionDay,
     sellerComment,
+    accountData,
   } = data ?? {};
 
   return (
@@ -447,7 +446,13 @@ export default async function Car({ params }: Props) {
           </div>
         </div>
 
-        <SellerContact />
+        <SellerContact
+          internalId={accountData?.id}
+          email={user?.email}
+          phone={user?.phone}
+          firstName={user?.firstName}
+          lastName={user?.lastName}
+        />
 
       </div>
     </main>

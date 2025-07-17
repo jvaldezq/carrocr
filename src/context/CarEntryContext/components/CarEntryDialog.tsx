@@ -25,12 +25,12 @@ export const CarEntryDialog = () => {
         )}
       >
         <DialogTitle className="hidden" />
-        <div className="flex flex-col md:flex-row items-center gap-4 p-4 bg-primary">
-          <div className="flex-shrink-0 bg-secondary/10 p-3 rounded-full">
-            <Car className="h-8 w-8 text-secondary" />
+        <div className="flex flex-col md:flex-row items-center gap-4 p-4 bg-black">
+          <div className="flex-shrink-0 shadow-2xl bg-black/10 p-3 rounded-full">
+            <Car className="h-8 w-8 text-white" />
           </div>
           <div>
-            <h1 className="text-xl font-bold text-secondary">
+            <h1 className="text-xl font-bold text-white">
               Crea tu anuncio
             </h1>
             <p className="text-sm text-secondary/80 mt-1">

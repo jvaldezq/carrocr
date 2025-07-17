@@ -105,14 +105,19 @@ export const serverApi = async <
     }
 
     const contentType = res.headers.get('content-type');
-    if (contentType && contentType.includes('application/json')) {
-      const data = (await res.json()) as TResponse;
-      return { data };
+    if (contentType) {
+      if (contentType.includes('application/json')) {
+        const data = (await res.json()) as TResponse;
+        return { data };
+      } else if (contentType.includes('text/plain')) {
+        const text = await res.text();
+        return { data: text as unknown as TResponse };
+      }
     }
-    console.error(`Expected JSON but received different content type 500`);
+    console.error(`Unexpected content type: ${contentType}`);
     return {
       status: 500,
-      message: 'Expected JSON but received different content type',
+      message: `Unexpected content type: ${contentType}`,
     };
   } catch (error) {
     console.error(`serverApi: Fetch failed for ${path}`, error);

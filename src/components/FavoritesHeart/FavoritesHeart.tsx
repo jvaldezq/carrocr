@@ -38,7 +38,7 @@ export const FavoritesHeart = (props: Props) => {
         }
       >
         <Heart
-          id={id.toString()}
+          id={id?.toString()}
           className={cn(
             'stroke-black/40',
             'hover:scale-110',

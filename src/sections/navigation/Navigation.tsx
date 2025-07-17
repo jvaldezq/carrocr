@@ -10,6 +10,7 @@ import { SignIn, SignOutButton, SignedIn, SignedOut, useUser } from '@clerk/next
 import { usePathname } from 'next/navigation';
 import LogoWhite from '@/assets/logo-white.webp';
 import Image from 'next/image';
+import { useCarEntry } from '@/context/CarEntryContext/CarEntryContext';
 
 
 gsap.registerPlugin(SplitText);
@@ -22,6 +23,7 @@ export const Navigation = () => {
   const closeIconRef = useRef(null);
   const { user } = useUser()
   const tlRef = useRef<gsap.core.Timeline | null>(null);
+  const { setOpen: setCarEntryOpen } = useCarEntry();
 
   useLayoutEffect(() => {
     if (open) {
@@ -98,6 +100,13 @@ export const Navigation = () => {
     setOpen(false);
   };
 
+  const handleCarEntry = () => {
+    handleClose();
+    setTimeout(() => {
+      setCarEntryOpen(true);
+    }, 500);
+  };
+
   return (
     <>
       <button className="fixed bottom-[4.3rem] md:bottom-20 right-4 bg-black/90 hover:bg-black rounded-full p-2 md:p-[0.5rem] drop-shadow-lg z-20" onClick={() => setOpen(true)}>
@@ -136,7 +145,7 @@ export const Navigation = () => {
             {
               user ? (
                 <h4 className="text-sm font-light">
-                  {`${user?.firstName} ${user?.lastName?.slice(0, 1)}`}
+                  {`${user?.firstName} ${user?.lastName}`}
                 </h4>
               ) : (
                 <Link href="/" onClick={handleClose}>
@@ -182,7 +191,7 @@ export const Navigation = () => {
             <Link className='font-lilita-one text-xl' id="profile" href="/profile" onClick={handleClose}>PERFIL</Link>
             <Link className='font-lilita-one text-xl' id="profile-drafts" href="/profile/drafts" onClick={handleClose}>MIS ANUNCIOS</Link>
             <Link className='font-lilita-one text-xl' id="profile-favorites" href="/profile/favorites" onClick={handleClose}>MIS FAVORITOS</Link>
-            <div id="car-entry" className="my-6 font-lilita-one text-xl">CREAR ANUNCIO</div>
+            <div id="car-entry" className="my-6 font-lilita-one text-xl cursor-pointer" onClick={handleCarEntry}>CREAR ANUNCIO</div>
             <div className="flex gap-4 items-center text-sm mt-10">
               <Link id="how-to" href="/how" onClick={handleClose}>COMO PUBLICAR?</Link>
               <Link id="contact-us" href="/contact" onClick={handleClose}>CONTACTANOS</Link>
