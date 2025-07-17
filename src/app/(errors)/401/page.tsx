@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { Lock, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 import React from 'react';
+import { auth } from '@clerk/nextjs/server'
 
 export const metadata: Metadata = {
   title: 'Carro CR - 401 Not Authorized',
@@ -10,11 +11,8 @@ export const metadata: Metadata = {
 };
 
 export default async function NotAuthorize() {
-  // TODO: update with clerk
-  // const session = await getSession();
-  const session = {
-    user: '1',
-  };
+  const { userId } = await auth()
+
   return (
     <main className="min-h-dvh max-w-screen-2xl flex items-center justify-center mx-auto px-2 py-24">
       <div className="max-w-2xl w-full text-center">
@@ -31,7 +29,7 @@ export default async function NotAuthorize() {
         </p>
 
         <p className="text-md text-[#1C1C1C]/70 mb-8">
-          {!session?.user
+          {!userId
             ? 'Por favor, inicia sesión o verifica tus credenciales para continuar.'
             : 'Por favor, verifica tus credenciales para continuar.'}
         </p>
@@ -45,7 +43,7 @@ export default async function NotAuthorize() {
             <ArrowLeft size={20} />
             Volver al inicio
           </Link>
-          {!session?.user && (
+          {!userId && (
             <Link
               key="login"
               href="/api/auth/login"
