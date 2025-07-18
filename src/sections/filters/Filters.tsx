@@ -66,7 +66,7 @@ export const Filters = () => {
   return (
     <button
       ref={buttonRef}
-      className="fixed bottom-6 right-4 z-10 bg-black/90 hover:bg-black rounded-full p-2 md:p-[0.5rem] overflow-hidden flex items-center"
+      className="fixed bottom-[70px] right-2 z-10 bg-black/90 hover:bg-black rounded-full p-2 md:p-[0.5rem] overflow-hidden flex items-center"
       aria-label="Search"
     >
       <Search className="w-6 h-6 md:w-8 md:h-8 text-white flex-shrink-0" />

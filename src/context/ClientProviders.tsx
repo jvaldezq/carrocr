@@ -1,19 +1,17 @@
 'use client';
 
 import { ReactNode, Suspense } from 'react';
-import { PreviewContextProvider } from '@/context/PreviewContext/PreviewContext';
 import { CarEntryContextProvider } from '@/context/CarEntryContext/CarEntryContext';
 import { NuqsAdapter } from 'nuqs/adapters/next/pages';
+import { UserProvider } from '@/context/UserContext';
 
 export function ClientProviders({ children }: { children: ReactNode }) {
   return (
     <Suspense fallback={null}>
       <NuqsAdapter>
-        <PreviewContextProvider>
-          <PreviewContextProvider>
-            <CarEntryContextProvider>{children}</CarEntryContextProvider>
-          </PreviewContextProvider>
-        </PreviewContextProvider>
+        <CarEntryContextProvider>
+          <UserProvider>{children}</UserProvider>
+        </CarEntryContextProvider>
       </NuqsAdapter>
     </Suspense>
   );

@@ -1,12 +1,12 @@
 'use client';
 import React, { useCallback, useState } from 'react';
-import { CloudUpload, Info, Upload } from 'lucide-react';
+import { Brush, Camera, CloudUpload, Info, Lightbulb, Proportions, Upload } from 'lucide-react';
 import { Field, FormRenderProps, SupportedInputs } from 'react-final-form';
 import { CarImages, UserListing } from '@/types/User';
 import Image from 'next/image';
 import { usePostImage } from '@/app/(main)/draft/[id]/service/postImage';
 import UploadFile from '@/assets/upload.gif';
-import { cn } from '@/lib/utils';
+import { cn, tw } from '@/lib/utils';
 import { FormInput } from '@/components/Forms/Input/FormInput';
 import DefaultImage from '@/assets/placeholder.webp';
 
@@ -98,26 +98,58 @@ export const ImagesForm = (props: ImagesFormsProps) => {
 
   return (
     <div className="flex flex-col gap-4">
-      <section className="bg-white rounded-lg shadow-md border p-4">
-        <div className="flex items-start gap-4">
-          <div className="flex-shrink-0 bg-primary/10 p-3 rounded-full">
-            <Info className="h-6 w-6 text-primary" />
+      <section className='flex flex-col gap-6'>
+        <div className="flex items-center gap-4">
+          <div className="flex-shrink-0 bg-black p-1.5 rounded-full">
+            <Info className="h-6 w-6 text-white" />
           </div>
-          <div>
-            <h2 className="text-xl font-bold text-tertiary mb-2">
-              Guía de Fotos
-            </h2>
-            <ul className="list-disc list-inside space-y-2 text-tertiary">
-              <li>Buena iluminación</li>
-              <li>Alta resolución y claridad</li>
-              <li>Limpieza y presentación</li>
-              <li>Sigue las indicaciones</li>
-            </ul>
+          <h2 className="text-xl font-bold text-black">
+            Guía de Fotos
+          </h2>
+        </div>
+        <div className='grid sm:grid-cols-2 md:grid-cols-4 items-center md:justify-center gap-4'>
+          <div className="flex items-center gap-3">
+            <div className="bg-black/5 rounded-xl p-3">
+              <Lightbulb className="h-6 w-6 text-black" />
+            </div>
+            <div>
+              <p className="text-sm text-black font-bold">Buena iluminación</p>
+              <p className="text-sm text-black/50">Luz</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-3">
+            <div className="bg-black/5 rounded-xl p-3">
+              <Proportions className="h-6 w-6 text-black" />
+            </div>
+            <div>
+              <p className="text-sm text-black font-bold">Alta resolución y claridad</p>
+              <p className="text-sm text-black/50">Calidad</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-3">
+            <div className="bg-black/5 rounded-xl p-3">
+              <Brush className="h-6 w-6 text-black" />
+            </div>
+            <div>
+              <p className="text-sm text-black font-bold">Limpieza y presentación</p>
+              <p className="text-sm text-black/50">Presentación</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-3">
+            <div className="bg-black/5 rounded-xl p-3">
+              <Camera className="h-6 w-6 text-black" />
+            </div>
+            <div>
+              <p className="text-sm text-black font-bold">Sigue las indicaciones</p>
+              <p className="text-sm text-black/50">Indicaciones</p>
+            </div>
           </div>
         </div>
       </section>
-      <section className="bg-white rounded-lg shadow-md border p-4">
-        <h2 className="text-xl font-bold text-tertiary mb-4">Fotos exterior</h2>
+      <section>
+        <h2 className="text-lg font-semibold mb-4 border-b border-dashed border-black/20 pb-1">
+          Fotos exterior
+        </h2>
 
         <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {IMAGE_SECTIONS.exterior.map((section) => {
@@ -143,7 +175,20 @@ export const ImagesForm = (props: ImagesFormsProps) => {
                 />
                 <p className="text-sm text-tertiary self-start">{label}</p>
                 {isPending ? (
-                  <div className="w-full h-full flex flex-col justify-center items-center gap-2 border-2 border-gray-300 border-dashed rounded-lg">
+                  <div
+                    className={
+                      tw('w-full',
+                        'h-full',
+                        'flex',
+                        'flex-col',
+                        'justify-center',
+                        'items-center',
+                        'gap-2',
+                        'border-2',
+                        'border-gray-300',
+                        'border-dashed',
+                        'rounded-lg')
+                    }>
                     <Image
                       src={UploadFile}
                       alt="Uploader"
@@ -215,8 +260,10 @@ export const ImagesForm = (props: ImagesFormsProps) => {
         </div>
       </section>
 
-      <section className="bg-white rounded-lg shadow-md border p-4">
-        <h2 className="text-xl font-bold text-tertiary mb-4">Fotos interior</h2>
+      <section>
+        <h2 className="text-lg font-semibold mb-4 border-b border-dashed border-black/20 pb-1">
+          Fotos interior
+        </h2>
 
         <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {IMAGE_SECTIONS.interior.map((section) => {
@@ -233,7 +280,19 @@ export const ImagesForm = (props: ImagesFormsProps) => {
               >
                 <p className="text-sm text-tertiary self-start">{label}</p>
                 {isPending ? (
-                  <div className="w-full h-full flex flex-col justify-center items-center gap-2 border-2 border-gray-300 border-dashed rounded-lg">
+                  <div className={
+                    tw('w-full',
+                      'h-full',
+                      'flex',
+                      'flex-col',
+                      'justify-center',
+                      'items-center',
+                      'gap-2',
+                      'border-2',
+                      'border-gray-300',
+                      'border-dashed',
+                      'rounded-lg')
+                  }>
                     <Image
                       src={UploadFile}
                       alt="Uploader"
@@ -254,7 +313,19 @@ export const ImagesForm = (props: ImagesFormsProps) => {
                     onDrop={(event) =>
                       handleDrop(event, key as keyof CarImages)
                     }
-                    className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600 relative"
+                    className={
+                      tw('w-full',
+                        'h-full',
+                        'flex',
+                        'flex-col',
+                        'justify-center',
+                        'items-center',
+                        'gap-2',
+                        'border-2',
+                        'border-gray-300',
+                        'border-dashed',
+                        'rounded-lg')
+                    }
                   >
                     {src && (
                       <Image
@@ -266,7 +337,7 @@ export const ImagesForm = (props: ImagesFormsProps) => {
                       />
                     )}
                     <div
-                      className={cn(
+                      className={tw(
                         'flex flex-col items-center justify-center gap-1 absolute w-full h-full',
                         isDraggedOver
                           ? 'bg-white/[0.7] text-primary'
@@ -305,8 +376,8 @@ export const ImagesForm = (props: ImagesFormsProps) => {
         </div>
       </section>
 
-      <section className="bg-white rounded-lg shadow-md border p-4">
-        <h2 className="text-xl font-bold text-tertiary mb-4">
+      <section>
+        <h2 className="text-lg font-semibold mb-4 border-b border-dashed border-black/20 pb-1">
           Fotos Mecánicas
         </h2>
 
@@ -325,7 +396,20 @@ export const ImagesForm = (props: ImagesFormsProps) => {
               >
                 <p className="text-sm text-tertiary self-start">{label}</p>
                 {isPending ? (
-                  <div className="w-full h-full flex flex-col justify-center items-center gap-2 border-2 border-gray-300 border-dashed rounded-lg">
+                  <div
+                    className={
+                      tw('w-full',
+                        'h-full',
+                        'flex',
+                        'flex-col',
+                        'justify-center',
+                        'items-center',
+                        'gap-2',
+                        'border-2',
+                        'border-gray-300',
+                        'border-dashed',
+                        'rounded-lg')
+                    }>
                     <Image
                       src={UploadFile}
                       alt="Uploader"
@@ -358,7 +442,7 @@ export const ImagesForm = (props: ImagesFormsProps) => {
                       />
                     )}
                     <div
-                      className={cn(
+                      className={tw(
                         'flex flex-col items-center justify-center gap-1 absolute w-full h-full',
                         isDraggedOver
                           ? 'bg-white/[0.7] text-primary'

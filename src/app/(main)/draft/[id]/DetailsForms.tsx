@@ -19,9 +19,9 @@ import { FormTextArea } from '@/components/Forms/TextArea/FormTextArea';
 
 export const DetailsForms = () => {
   return (
-    <div className="flex flex-col gap-4">
-      <section className="bg-white rounded-lg shadow-md border p-4">
-        <h2 className="text-xl font-bold text-tertiary mb-4">
+    <div className="flex flex-col gap-10">
+      <section>
+        <h2 className="text-lg font-semibold mb-4 border-b border-dashed border-black/20 pb-1">
           Información Básica
         </h2>
         <div className="grid sm:grid-cols-2 gap-2">
@@ -49,8 +49,8 @@ export const DetailsForms = () => {
         </div>
       </section>
 
-      <section className="bg-white rounded-lg shadow-md border p-4">
-        <h2 className="text-xl font-bold text-tertiary mb-4">
+      <section>
+        <h2 className="text-lg font-semibold mb-4 border-b border-dashed border-black/20 pb-1">
           Precio | Intercambio
         </h2>
         <div className="grid sm:grid-cols-2 gap-2">
@@ -86,8 +86,8 @@ export const DetailsForms = () => {
         </div>
       </section>
 
-      <section className="bg-white rounded-lg shadow-md border p-4">
-        <h2 className="text-xl font-bold text-tertiary mb-4">
+      <section>
+        <h2 className="text-lg font-semibold mb-4 border-b border-dashed border-black/20 pb-1">
           Detalles del Vehículo
         </h2>
         <div className="grid sm:grid-cols-2 gap-2">
@@ -150,8 +150,8 @@ export const DetailsForms = () => {
         </div>
       </section>
 
-      <section className="bg-white rounded-lg shadow-md border p-4">
-        <h2 className="text-xl font-bold text-tertiary mb-4">
+      <section>
+        <h2 className="text-lg font-semibold mb-4 border-b border-dashed border-black/20 pb-1">
           Comentario del vendedor
         </h2>
         <div className="grid gap-2">

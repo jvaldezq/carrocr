@@ -1,7 +1,6 @@
 import { auth } from '@clerk/nextjs/server';
-import { AutoFiltersType } from '@/components/Layout/AutoFilters/AutoFilters';
 
-interface ServerApiProps<TParams = Record<string, unknown> | AutoFiltersType> {
+interface ServerApiProps<TParams = Record<string, unknown>> {
   path: string;
   params?: TParams;
   method?: 'GET' | 'POST' | 'PUT' | 'DELETE';
@@ -20,7 +19,7 @@ export type ServerApiResponse<T> = {
 
 export const serverApi = async <
   TResponse = unknown,
-  TParams = Record<string, unknown> | AutoFiltersType,
+  TParams = Record<string, unknown>,
 >(
   props: ServerApiProps<TParams>,
 ): Promise<ServerApiResponse<TResponse>> => {

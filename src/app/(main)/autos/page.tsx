@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { AutoFiltersType } from '@/components/Layout/AutoFilters/AutoFilters';
 import { getListings } from './service/getListings';
 import { SpecialCard } from '@/components/new/SpecialCard';
 import { MidCard } from '@/components/new/MidCard';
@@ -18,7 +17,7 @@ export const metadata: Metadata = {
 const Autos = async (props: Props) => {
   const { searchParams } = props;
   const filters = (await searchParams).filters;
-  const { data } = await getListings(filters as unknown as AutoFiltersType);
+  const { data } = await getListings(filters as unknown);
 
   return (
     <main className="min-h-dvh pb-8">

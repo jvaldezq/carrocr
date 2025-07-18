@@ -29,7 +29,8 @@ export default async function Draft({ params }: Props) {
   const image = images?.imgBodyFL ? images?.imgBodyFL : DefaultImage;
 
   return (
-    <main className="min-h-dvh max-w-screen-2xl mx-auto px-2 pt-20">
+    <main className='bg-white'>
+      <section className="max-w-screen-xl mx-auto px-4 flex flex-col">
       <div className="flex flex-col gap-4 md:flex-row justify-between md:justify-start items-start md:items-center mb-8">
         <Image
           src={image}
@@ -40,17 +41,18 @@ export default async function Draft({ params }: Props) {
           priority={true}
         />
         <div>
-          <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-            <h1 className="text-3xl font-bold text-tertiary">
+          <div className="flex flex-col">
+            <h1 className="text-3xl font-bold text-black">
               {make} {model}
             </h1>
-            <h1 className="text-2xl font-bold text-tertiary">{trim}</h1>
+            <h1 className="text-2xl font-bold text-black">{trim}</h1>
           </div>
-          <p className="text-xl text-tertiary">{license}</p>
-          <p className="text-xl text-primary">{year}</p>
+          <p className="text-xl text-black mt-2">{license}</p>
+          <p className="text-xl text-black mt-2 font-semibold">{year}</p>
         </div>
       </div>
       <Details car={data} />
+      </section>
     </main>
   );
 }
