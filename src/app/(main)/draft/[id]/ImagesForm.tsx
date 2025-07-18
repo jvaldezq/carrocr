@@ -97,7 +97,7 @@ export const ImagesForm = (props: ImagesFormsProps) => {
   };
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-16">
       <section className='flex flex-col gap-6'>
         <div className="flex items-center gap-4">
           <div className="flex-shrink-0 bg-black p-1.5 rounded-full">

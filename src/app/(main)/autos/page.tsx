@@ -21,7 +21,7 @@ const Autos = async (props: Props) => {
 
   return (
     <main className="min-h-dvh pb-8">
-      <section className="max-w-screen-x mx-auto px-4 grid md:grid-cols-3 gap-4">
+      <section className="max-w-screen-xl mx-auto px-4 grid md:grid-cols-2 gap-4">
         {
           data?.listings?.map((car) => (
             car.premium ? <MidCard key={car.id} {...car} /> : <SpecialCard key={car.id} {...car} />

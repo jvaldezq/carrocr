@@ -47,7 +47,7 @@ export const MyListingCard = (props: Props) => {
           {`${transType} · ${year} · ${NumberFormatter(mileage)}km`}
         </p>
         <h2 className='text-md md:text-lg font-bold text-black mt-2'>{MoneyFormatter(price, currency)}</h2>
-        <div className="flex gap-4 items-center justify-center col-span-full mt-4">
+        <div className="flex gap-2 items-center justify-start col-span-full mt-4">
           <Tooltip
             tooltipContent={
               "Ver anuncio"

@@ -266,7 +266,8 @@ const SubmitButton = ({
               'items-center',
               'gap-1',
               'w-fit',
-              'bg-white'
+              'bg-white',
+              'hover:bg-white'
             )
           }
         >
