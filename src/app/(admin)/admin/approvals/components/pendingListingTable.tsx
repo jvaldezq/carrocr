@@ -7,48 +7,51 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { useCallback, useState } from 'react';
-import { PendingListingDrawer } from '@/app/(admin)/admin/approvals/components/pendingListingDrawer';
 import { useGetGetListingReview } from '@/app/(admin)/admin/approvals/service/useGetGetListingReview';
+import Link from 'next/link';
 
 export const PendingListingTable = () => {
-  const [drawerOpen, setDrawerOpen] = useState(false);
-  const [id, setId] = useState<string>('');
   const { data } = useGetGetListingReview();
-  const handleClick = useCallback((id: string) => {
-    setDrawerOpen(true);
-    setId(id);
-  }, []);
 
   return (
-    <>
-      <PendingListingDrawer
-        drawerOpen={drawerOpen}
-        id={id}
-        setDrawerOpen={setDrawerOpen}
-      />
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>ID</TableHead>
-            <TableHead>Make</TableHead>
-            <TableHead>Year</TableHead>
+    <Table>
+      <TableHeader>
+        <TableRow>
+          <TableHead>ID</TableHead>
+          <TableHead>Make</TableHead>
+          <TableHead>Year</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {data?.map((listing) => (
+          <TableRow key={listing?.id}>
+            <TableCell className="font-medium">
+              <Link
+                href={`/admin/approvals/${listing?.id}`}
+                className="block w-full h-full hover:text-primary transition-colors"
+              >
+                {listing?.id}
+              </Link>
+            </TableCell>
+            <TableCell>
+              <Link
+                href={`/admin/approvals/${listing?.id}`}
+                className="block w-full h-full hover:text-primary transition-colors"
+              >
+                {listing?.make}
+              </Link>
+            </TableCell>
+            <TableCell>
+              <Link
+                href={`/admin/approvals/${listing?.id}`}
+                className="block w-full h-full hover:text-primary transition-colors"
+              >
+                {listing?.year}
+              </Link>
+            </TableCell>
           </TableRow>
-        </TableHeader>
-        <TableBody>
-          {data?.map((listing) => (
-            <TableRow
-              key={listing?.id}
-              className="hover:bg-primary hover:text-white cursor-pointer"
-              onClick={() => handleClick(`${listing?.id}`)}
-            >
-              <TableCell className="font-medium">{listing?.id}</TableCell>
-              <TableCell>{listing?.make}</TableCell>
-              <TableCell>{listing?.year}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </>
+        ))}
+      </TableBody>
+    </Table>
   );
 };

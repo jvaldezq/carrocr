@@ -2,15 +2,15 @@
 
 import { ReactNode, Suspense } from 'react';
 import { CarEntryContextProvider } from '@/context/CarEntryContext/CarEntryContext';
+import { FavoritesProvider } from '@/context/FavoritesContext/FavoritesContext';
 import { NuqsAdapter } from 'nuqs/adapters/next/pages';
-import { UserProvider } from '@/context/UserContext';
 
 export function ClientProviders({ children }: { children: ReactNode }) {
   return (
     <Suspense fallback={null}>
       <NuqsAdapter>
         <CarEntryContextProvider>
-          <UserProvider>{children}</UserProvider>
+          <FavoritesProvider>{children}</FavoritesProvider>
         </CarEntryContextProvider>
       </NuqsAdapter>
     </Suspense>

@@ -19,7 +19,7 @@ export const useGetModels = (makeId?: number | string) => {
     queryKey: [DATA_GET_MODELS, makeId],
     enabled: !!makeId,
     queryFn: () => getModels(makeId),
-    staleTime: 1000 * 60 * 60 * 24,
+    staleTime: 1,
     retry: 2,
     refetchOnReconnect: false,
   });

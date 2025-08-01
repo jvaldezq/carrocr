@@ -13,7 +13,11 @@ export const useAddToFavoritesMutation = () => {
     mutationFn: (id: number) => addToFavorites(id),
     mutationKey: [ADD_TO_FAV],
     onSuccess: () => {
+      // Invalidate both the old ME query and the new favorite-ids query
       queryClient.invalidateQueries({ queryKey: [ME] }).then(() => {});
+      queryClient
+        .invalidateQueries({ queryKey: [ME, 'favorite-ids'] })
+        .then(() => {});
     },
   });
 };

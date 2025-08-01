@@ -1,7 +1,6 @@
 import { ReactNode } from 'react';
 
 import type { Viewport } from 'next';
-import { Toaster } from '@/components/ui/toaster';
 import { Footer } from '@/components/Layout/Footer';
 
 export const viewport: Viewport = {
@@ -19,7 +18,6 @@ export default async function AdminLayout({
   return (
     <>
       {children}
-      <Toaster />
       <Footer />
     </>
   );

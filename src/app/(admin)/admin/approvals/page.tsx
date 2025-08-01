@@ -1,6 +1,5 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { PendingListingTable } from '@/app/(admin)/admin/approvals/components/pendingListingTable';
-import PendingProfileTable from '@/app/(admin)/admin/approvals/components/pendingProfileTable';
 
 export default async function Approvals() {
   return (
@@ -8,16 +7,12 @@ export default async function Approvals() {
       <h1 className="my-4 font-semibold tracking-widest text-lg">
         Administrative
       </h1>
-      <Tabs defaultValue="account">
+      <Tabs defaultValue="listing">
         <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="account">Listing</TabsTrigger>
-          <TabsTrigger value="password">Profiles</TabsTrigger>
+          <TabsTrigger value="listing">Listing</TabsTrigger>
         </TabsList>
-        <TabsContent value="account">
+        <TabsContent value="listing">
           <PendingListingTable />
-        </TabsContent>
-        <TabsContent value="password">
-          <PendingProfileTable />
         </TabsContent>
       </Tabs>
     </main>
