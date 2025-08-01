@@ -1,11 +1,18 @@
 'use client';
 import React, { useCallback, useState } from 'react';
-import { Brush, Camera, CloudUpload, Info, Lightbulb, Proportions, Upload } from 'lucide-react';
+import {
+  Brush,
+  Camera,
+  CloudUpload,
+  Info,
+  Lightbulb,
+  Proportions,
+  Upload,
+} from 'lucide-react';
 import { Field, FormRenderProps, SupportedInputs } from 'react-final-form';
 import { CarImages, UserListing } from '@/types/User';
 import Image from 'next/image';
 import { usePostImage } from '@/app/(main)/draft/[id]/service/postImage';
-import UploadFile from '@/assets/upload.gif';
 import { cn, tw } from '@/lib/utils';
 import { FormInput } from '@/components/Forms/Input/FormInput';
 import DefaultImage from '@/assets/placeholder.webp';
@@ -58,12 +65,19 @@ export const ImagesForm = (props: ImagesFormsProps) => {
         mutateAsync({
           imageFile: file,
           fileRename: key,
-          listingID: values.id || 0,
-        }).then((res) => {
-          const imageToUpdate = `images.${key}` as keyof UserListing;
-          form.change(imageToUpdate, res);
-          setPendingKey(null);
-        });
+          listingId: values.id || 0,
+        })
+          .then((res) => {
+            const imageToUpdate = `images.${key}` as keyof UserListing;
+            form.change(imageToUpdate, res);
+            setPendingKey(null);
+          })
+          .catch(() => {
+            setPendingKey(null);
+          })
+          .finally(() => {
+            setPendingKey(null);
+          });
       }
     },
     [form, mutateAsync, values.id],
@@ -87,27 +101,32 @@ export const ImagesForm = (props: ImagesFormsProps) => {
       mutateAsync({
         imageFile: file,
         fileRename: key,
-        listingID: values.id || 0,
-      }).then((res) => {
-        const imageToUpdate = `images.${key}` as keyof UserListing;
-        form.change(imageToUpdate, res);
-        setPendingKey(null);
-      });
+        listingId: values.id || 0,
+      })
+        .then((res) => {
+          const imageToUpdate = `images.${key}` as keyof UserListing;
+          form.change(imageToUpdate, res);
+          setPendingKey(null);
+        })
+        .catch(() => {
+          setPendingKey(null);
+        })
+        .finally(() => {
+          setPendingKey(null);
+        });
     }
   };
 
   return (
     <div className="flex flex-col gap-16">
-      <section className='flex flex-col gap-6'>
+      <section className="flex flex-col gap-6">
         <div className="flex items-center gap-4">
           <div className="flex-shrink-0 bg-black p-1.5 rounded-full">
             <Info className="h-6 w-6 text-white" />
           </div>
-          <h2 className="text-xl font-bold text-black">
-            Guía de Fotos
-          </h2>
+          <h2 className="text-xl font-bold text-black">Guía de Fotos</h2>
         </div>
-        <div className='grid sm:grid-cols-2 md:grid-cols-4 items-center md:justify-center gap-4'>
+        <div className="grid sm:grid-cols-2 md:grid-cols-4 items-center md:justify-center gap-4">
           <div className="flex items-center gap-3">
             <div className="bg-black/5 rounded-xl p-3">
               <Lightbulb className="h-6 w-6 text-black" />
@@ -122,7 +141,9 @@ export const ImagesForm = (props: ImagesFormsProps) => {
               <Proportions className="h-6 w-6 text-black" />
             </div>
             <div>
-              <p className="text-sm text-black font-bold">Alta resolución y claridad</p>
+              <p className="text-sm text-black font-bold">
+                Alta resolución y claridad
+              </p>
               <p className="text-sm text-black/50">Calidad</p>
             </div>
           </div>
@@ -131,7 +152,9 @@ export const ImagesForm = (props: ImagesFormsProps) => {
               <Brush className="h-6 w-6 text-black" />
             </div>
             <div>
-              <p className="text-sm text-black font-bold">Limpieza y presentación</p>
+              <p className="text-sm text-black font-bold">
+                Limpieza y presentación
+              </p>
               <p className="text-sm text-black/50">Presentación</p>
             </div>
           </div>
@@ -140,7 +163,9 @@ export const ImagesForm = (props: ImagesFormsProps) => {
               <Camera className="h-6 w-6 text-black" />
             </div>
             <div>
-              <p className="text-sm text-black font-bold">Sigue las indicaciones</p>
+              <p className="text-sm text-black font-bold">
+                Sigue las indicaciones
+              </p>
               <p className="text-sm text-black/50">Indicaciones</p>
             </div>
           </div>
@@ -173,29 +198,29 @@ export const ImagesForm = (props: ImagesFormsProps) => {
                   childrenClassName="hidden"
                   className="hidden"
                 />
-                <p className="text-sm text-tertiary self-start">{label}</p>
+                <p className="text-sm text-tertiary self-start">
+                  {label}{' '}
+                  {section.required && <span className="text-red-500">*</span>}
+                </p>
                 {isPending ? (
                   <div
-                    className={
-                      tw('w-full',
-                        'h-full',
-                        'flex',
-                        'flex-col',
-                        'justify-center',
-                        'items-center',
-                        'gap-2',
-                        'border-2',
-                        'border-gray-300',
-                        'border-dashed',
-                        'rounded-lg')
-                    }>
-                    <Image
-                      src={UploadFile}
-                      alt="Uploader"
-                      height={50}
-                      width={50}
-                    />
-                    <p className="text-sm text-tertiary animate-fade animate-infinite animate-duration-[2000ms] animate-delay-0 animate-ease-linear">
+                    className={tw(
+                      'w-full',
+                      'h-64',
+                      'flex',
+                      'flex-col',
+                      'justify-center',
+                      'items-center',
+                      'gap-2',
+                      'border-2',
+                      'border-gray-300',
+                      'border-dashed',
+                      'rounded-lg',
+                      'bg-gray-50',
+                    )}
+                  >
+                    <Upload className="h-12 w-12 text-gray-400 animate-bounce" />
+                    <p className="text-sm text-tertiary animate-pulse">
                       Subiendo
                     </p>
                   </div>
@@ -209,7 +234,7 @@ export const ImagesForm = (props: ImagesFormsProps) => {
                     onDrop={(event) =>
                       handleDrop(event, key as keyof CarImages)
                     }
-                    className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600 relative"
+                    className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 relative"
                   >
                     {src && (
                       <Image
@@ -247,7 +272,7 @@ export const ImagesForm = (props: ImagesFormsProps) => {
                       id={`file-${key}`}
                       type="file"
                       className="hidden"
-                      accept="image/png, image/jpeg, image/avif, image/webp"
+                      accept="image/png, image/jpeg, image/webp"
                       onChange={(event) =>
                         handleImageUpload(event, key as keyof CarImages)
                       }
@@ -280,9 +305,10 @@ export const ImagesForm = (props: ImagesFormsProps) => {
               >
                 <p className="text-sm text-tertiary self-start">{label}</p>
                 {isPending ? (
-                  <div className={
-                    tw('w-full',
-                      'h-full',
+                  <div
+                    className={tw(
+                      'w-full',
+                      'h-64',
                       'flex',
                       'flex-col',
                       'justify-center',
@@ -291,15 +317,12 @@ export const ImagesForm = (props: ImagesFormsProps) => {
                       'border-2',
                       'border-gray-300',
                       'border-dashed',
-                      'rounded-lg')
-                  }>
-                    <Image
-                      src={UploadFile}
-                      alt="Uploader"
-                      height={50}
-                      width={50}
-                    />
-                    <p className="text-sm text-tertiary animate-fade animate-infinite animate-duration-[2000ms] animate-delay-0 animate-ease-linear">
+                      'rounded-lg',
+                      'bg-gray-50',
+                    )}
+                  >
+                    <Upload className="h-12 w-12 text-gray-400 animate-bounce" />
+                    <p className="text-sm text-tertiary animate-pulse">
                       Subiendo
                     </p>
                   </div>
@@ -313,19 +336,7 @@ export const ImagesForm = (props: ImagesFormsProps) => {
                     onDrop={(event) =>
                       handleDrop(event, key as keyof CarImages)
                     }
-                    className={
-                      tw('w-full',
-                        'h-full',
-                        'flex',
-                        'flex-col',
-                        'justify-center',
-                        'items-center',
-                        'gap-2',
-                        'border-2',
-                        'border-gray-300',
-                        'border-dashed',
-                        'rounded-lg')
-                    }
+                    className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 relative"
                   >
                     {src && (
                       <Image
@@ -363,7 +374,7 @@ export const ImagesForm = (props: ImagesFormsProps) => {
                       id={`file-${key}`}
                       type="file"
                       className="hidden"
-                      accept="image/png, image/jpeg, image/avif, image/webp"
+                      accept="image/png, image/jpeg, image/webp"
                       onChange={(event) =>
                         handleImageUpload(event, key as keyof CarImages)
                       }
@@ -397,26 +408,23 @@ export const ImagesForm = (props: ImagesFormsProps) => {
                 <p className="text-sm text-tertiary self-start">{label}</p>
                 {isPending ? (
                   <div
-                    className={
-                      tw('w-full',
-                        'h-full',
-                        'flex',
-                        'flex-col',
-                        'justify-center',
-                        'items-center',
-                        'gap-2',
-                        'border-2',
-                        'border-gray-300',
-                        'border-dashed',
-                        'rounded-lg')
-                    }>
-                    <Image
-                      src={UploadFile}
-                      alt="Uploader"
-                      height={50}
-                      width={50}
-                    />
-                    <p className="text-sm text-tertiary animate-fade animate-infinite animate-duration-[2000ms] animate-delay-0 animate-ease-linear">
+                    className={tw(
+                      'w-full',
+                      'h-64',
+                      'flex',
+                      'flex-col',
+                      'justify-center',
+                      'items-center',
+                      'gap-2',
+                      'border-2',
+                      'border-gray-300',
+                      'border-dashed',
+                      'rounded-lg',
+                      'bg-gray-50',
+                    )}
+                  >
+                    <Upload className="h-12 w-12 text-gray-400 animate-bounce" />
+                    <p className="text-sm text-tertiary animate-pulse">
                       Subiendo
                     </p>
                   </div>
@@ -430,7 +438,7 @@ export const ImagesForm = (props: ImagesFormsProps) => {
                     onDrop={(event) =>
                       handleDrop(event, key as keyof CarImages)
                     }
-                    className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600 relative"
+                    className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 relative"
                   >
                     {src && (
                       <Image
@@ -468,7 +476,7 @@ export const ImagesForm = (props: ImagesFormsProps) => {
                       id={`file-${key}`}
                       type="file"
                       className="hidden"
-                      accept="image/png, image/jpeg, image/avif, image/webp"
+                      accept="image/png, image/jpeg, image/webp"
                       onChange={(event) =>
                         handleImageUpload(event, key as keyof CarImages)
                       }

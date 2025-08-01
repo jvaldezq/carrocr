@@ -49,7 +49,7 @@ export interface UserListing {
   taxesPaidTF?: boolean;
   engineModifiedTF?: boolean;
   lP_ConversionTF?: boolean;
-  approvalStageID?: APPROVAL_STAGE;
+  approvalStageId?: APPROVAL_STAGE;
   sellerComment?: string | null;
   transType?: string;
   transGearCount?: number;

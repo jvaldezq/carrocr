@@ -1,9 +1,9 @@
 'use client';
 
-import { ArrowLeft, Home } from "lucide-react";
-import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useRef } from "react";
-import gsap from "gsap";
+import { ArrowLeft, Home } from 'lucide-react';
+import { usePathname, useRouter } from 'next/navigation';
+import { useEffect, useRef } from 'react';
+import gsap from 'gsap';
 
 // Custom hook to track navigation history
 const useNavigationHistory = () => {
@@ -24,7 +24,10 @@ const useNavigationHistory = () => {
     } else {
       // On subsequent renders, update previous path
       if (typeof window !== 'undefined') {
-        sessionStorage.setItem('nav-previous-path', previousPathRef.current || '/');
+        sessionStorage.setItem(
+          'nav-previous-path',
+          previousPathRef.current || '/',
+        );
       }
       previousPathRef.current = pathname;
     }
@@ -32,7 +35,7 @@ const useNavigationHistory = () => {
 
   return {
     previousPath: previousPathRef.current,
-    hasPreviousPath: previousPathRef.current !== null
+    hasPreviousPath: previousPathRef.current !== null,
   };
 };
 
@@ -60,7 +63,7 @@ export const Back = () => {
       opacity: 0,
       x: -100,
       display: 'none',
-      scale: 1
+      scale: 1,
     });
 
     // Only animate if not on root
@@ -78,7 +81,7 @@ export const Back = () => {
         onStart: () => {
           // Only show the button when the animation starts
           gsap.set(button, { display: 'flex' });
-        }
+        },
       });
     }
 
@@ -106,7 +109,7 @@ export const Back = () => {
     <button
       ref={buttonRef}
       onClick={handleClick}
-      className="fixed top-10 left-2 bg-black/90 hover:bg-black text-white rounded-full p-3 backdrop-blur-sm transition-all duration-200 flex items-center justify-center shadow-lg hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black/50 opacity-0"
+      className="fixed top-[env(safe-area-inset-top)] mt-2 left-2 bg-black/90 hover:bg-black text-white rounded-full p-3 backdrop-blur-sm transition-all duration-200 flex items-center justify-center shadow-lg hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black/50 opacity-0"
       aria-label={showHome ? 'Go to home' : 'Go back'}
     >
       {showHome ? (
@@ -115,5 +118,5 @@ export const Back = () => {
         <ArrowLeft className="w-5 h-5" aria-hidden="true" />
       )}
     </button>
-  )
-}
+  );
+};

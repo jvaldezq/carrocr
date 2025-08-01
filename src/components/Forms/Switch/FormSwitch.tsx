@@ -70,7 +70,7 @@ export const FormSwitch = (props: FormSwitchProps) => {
           'focus:outline-none',
           'focus:ring-2',
           'focus:ring-0',
-          'data-[state=checked]:bg-primary',
+          'data-[state=checked]:bg-black',
           disabled ? 'opacity-50 cursor-not-allowed' : '',
         )}
         defaultChecked={value}

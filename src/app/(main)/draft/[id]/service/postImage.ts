@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { api } from '@/lib/axios';
 
 export const POST_IMAGE = 'postImage';
@@ -6,14 +6,14 @@ export const POST_IMAGE = 'postImage';
 interface PostImageProps {
   imageFile: File;
   fileRename: string;
-  listingID: number;
+  listingId: number;
 }
 
 const postImage = async (body: PostImageProps): Promise<string> => {
   const formdata = new FormData();
   formdata.append('imageFile', body.imageFile);
   formdata.append('fileRename', body.fileRename);
-  formdata.append('listingID', `${body.listingID}`);
+  formdata.append('listingId', `${body.listingId}`);
 
   const res = await api?.({
     method: 'post',
@@ -27,8 +27,12 @@ const postImage = async (body: PostImageProps): Promise<string> => {
 };
 
 export const usePostImage = () => {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (body: PostImageProps) => postImage(body),
     mutationKey: [POST_IMAGE],
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['draft'] }).then(() => {});
+    },
   });
 };

@@ -2,6 +2,7 @@ import { ReactNode } from 'react';
 
 import { QueryWrapper } from '@/components/QueryWrapper';
 import ServiceWorkerRegistration from '@/components/PWA/ServiceWorkerRegistration';
+import { Toaster } from '@/components/ui/sonner';
 
 import type { Viewport, Metadata } from 'next';
 
@@ -26,7 +27,7 @@ export const metadata: Metadata = {
   icons: {
     icon: '/icon-192x192.png',
     apple: '/icon-192x192.png',
-  }
+  },
 };
 
 export const viewport: Viewport = {
@@ -49,7 +50,10 @@ export default async function RootLayout({
         <head>
           <meta name="application-name" content="CarroCR" />
           <meta name="apple-mobile-web-app-capable" content="yes" />
-          <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+          <meta
+            name="apple-mobile-web-app-status-bar-style"
+            content="default"
+          />
           <meta name="apple-mobile-web-app-title" content="CarroCR" />
           <meta name="format-detection" content="telephone=no" />
           <meta name="mobile-web-app-capable" content="yes" />
@@ -59,9 +63,7 @@ export default async function RootLayout({
         </head>
         <body className="bg-white overflow-x-hidden">
           <ServiceWorkerRegistration />
-          <QueryWrapper>
-            {children}
-          </QueryWrapper>
+          <QueryWrapper>{children}</QueryWrapper>
           <Script
             src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"
             strategy="afterInteractive"
@@ -70,6 +72,7 @@ export default async function RootLayout({
             src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"
             strategy="afterInteractive"
           />
+          <Toaster />
         </body>
         {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID && (
           <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID} />

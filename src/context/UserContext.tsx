@@ -1,8 +1,19 @@
 'use client';
 
-import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  ReactNode,
+  useCallback,
+} from 'react';
 import { useAuth, useUser } from '@clerk/nextjs';
-import { storeToken, getStoredToken, removeStoredToken } from '@/lib/localStorage';
+import {
+  storeToken,
+  getStoredToken,
+  removeStoredToken,
+} from '@/lib/localStorage';
 
 interface UserContextType {
   token: string | null;
@@ -19,12 +30,12 @@ interface UserProviderProps {
 
 export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   const { getToken, isLoaded: authLoaded, isSignedIn } = useAuth();
-  const { user, isLoaded: userLoaded } = useUser();
+  const { isLoaded: userLoaded } = useUser();
   const [token, setToken] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   // Function to refresh token
-  const refreshToken = async () => {
+  const refreshToken = useCallback(async () => {
     if (!isSignedIn) {
       setToken(null);
       removeStoredToken();
@@ -45,7 +56,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
       setToken(null);
       removeStoredToken();
     }
-  };
+  }, [getToken, isSignedIn]);
 
   // Function to clear token
   const clearToken = () => {
@@ -77,7 +88,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     };
 
     initializeToken();
-  }, [authLoaded, userLoaded, isSignedIn]);
+  }, [authLoaded, userLoaded, isSignedIn, refreshToken]);
 
   useEffect(() => {
     if (!isSignedIn || !token) return;
@@ -85,7 +96,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     const refreshInterval = setInterval(refreshToken, 30 * 60 * 1000);
 
     return () => clearInterval(refreshInterval);
-  }, [isSignedIn, token]);
+  }, [isSignedIn, refreshToken, token]);
 
   useEffect(() => {
     const handleFocus = () => {
@@ -96,7 +107,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
 
     window.addEventListener('focus', handleFocus);
     return () => window.removeEventListener('focus', handleFocus);
-  }, [isSignedIn, token]);
+  }, [isSignedIn, refreshToken, token]);
 
   useEffect(() => {
     const handleStorageChange = (e: StorageEvent) => {
@@ -117,9 +128,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   };
 
   return (
-    <UserContext.Provider value={contextValue}>
-      {children}
-    </UserContext.Provider>
+    <UserContext.Provider value={contextValue}>{children}</UserContext.Provider>
   );
 };
 
