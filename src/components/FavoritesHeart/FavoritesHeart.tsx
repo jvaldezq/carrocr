@@ -44,11 +44,12 @@ export const FavoritesHeart = (props: Props) => {
         <Heart
           id={id?.toString()}
           className={cn(
-            'stroke-black/40',
             'hover:scale-110',
             'transition-all',
             'z-40',
-            isFav ? 'fill-error' : 'fill-black/[0.5]',
+            isFav
+              ? 'fill-error stroke-white/40'
+              : 'fill-black/[0.5] stroke-black/40',
           )}
           onClick={handleSaveFavorite}
         />

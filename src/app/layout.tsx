@@ -9,6 +9,7 @@ import type { Viewport, Metadata } from 'next';
 import '@/styles/globals.css';
 import Script from 'next/script';
 import { ClerkProvider } from '@clerk/nextjs';
+import { AxiosAuthProvider } from '@/components/AxiosAuthProvider';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { esES } from '@clerk/localizations';
 
@@ -62,6 +63,8 @@ export default async function RootLayout({
           <link rel="shortcut icon" href="/favicon.ico" />
         </head>
         <body className="bg-white overflow-x-hidden">
+          {/* Provide fresh Clerk token to axios on client */}
+          <AxiosAuthProvider />
           <ServiceWorkerRegistration />
           <QueryWrapper>{children}</QueryWrapper>
           <Script
