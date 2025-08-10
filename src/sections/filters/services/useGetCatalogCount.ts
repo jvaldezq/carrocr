@@ -29,7 +29,7 @@ export const useGetCatalogCount = (params: CatalogParams) => {
       const res = await api.get<CatalogResponse>('/catalog', {
         params: debounced,
       });
-      return res.data.pages.listings ?? 0;
+      return res?.data?.pages?.listings ?? 0;
     },
     // Always enabled; backend returns count when returnCountOnlyTF=true
     staleTime: 5_000,
