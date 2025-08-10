@@ -189,7 +189,6 @@ export const Filters = () => {
       maxPrice: price?.[1],
       page: 1,
       pageSize: 20,
-      returnCountOnlyTF: true,
     };
     if (yearMin) params.minYear = Number(yearMin);
     if (yearMax) params.maxYear = Number(yearMax);
@@ -234,19 +233,18 @@ export const Filters = () => {
 
   const onApply = () => {
     const params = new URLSearchParams();
-    if (yearMin) params.set('yearMin', yearMin);
-    if (yearMax) params.set('yearMax', yearMax);
-    if (makeId) params.set('makeId', makeId);
-    if (modelId) params.set('modelId', modelId);
-    if (trimId) params.set('trimId', trimId);
+    if (yearMin) params.set('minYear', yearMin);
+    if (yearMax) params.set('maxYear', yearMax);
+    if (makeId) params.set('makeID', makeId);
+    if (modelId) params.set('modelID', modelId);
+    if (trimId) params.set('trimID', trimId);
     if (price?.length === 2) {
-      params.set('priceMin', String(price[0]));
-      params.set('priceMax', String(price[1]));
+      params.set('minPrice', String(price[0]));
+      params.set('maxPrice', String(price[1]));
     }
     // Required API params
     params.set('page', '1');
     params.set('pageSize', '20');
-    params.set('returnCountOnlyTF', 'true');
 
     // Optional filters
     if (bodyNames.length) params.set('bodyName', bodyNames.join(','));
@@ -256,7 +254,7 @@ export const Filters = () => {
     if (recentOnly) params.set('recentListingsOnlyTF', 'true');
     if (verifiedOnly) params.set('verifiedAcctsOnlyTF', 'true');
 
-    router.push(`?${params.toString()}`);
+    router.push(`/autos?${params.toString()}`);
     setOpen(false);
   };
 

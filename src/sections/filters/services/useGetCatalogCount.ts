@@ -27,7 +27,7 @@ export const useGetCatalogCount = (params: CatalogParams) => {
     queryKey: key,
     queryFn: async () => {
       const res = await api.get<CatalogResponse>('/catalog', {
-        params: debounced,
+        params: { ...debounced, returnCountOnlyTF: true },
       });
       return res?.data?.pages?.listings ?? 0;
     },

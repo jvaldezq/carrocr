@@ -12,14 +12,14 @@ const Slider = React.forwardRef<
   const thumbCount = Array.isArray(value)
     ? value.length
     : Array.isArray(defaultValue)
-    ? defaultValue.length
-    : 1;
+      ? defaultValue.length
+      : 1;
 
   return (
     <SliderPrimitive.Root
       ref={ref}
-      value={value as any}
-      defaultValue={defaultValue as any}
+      value={value as number[] | undefined}
+      defaultValue={defaultValue as number[] | undefined}
       className={cn(
         'relative flex w-full touch-none select-none items-center',
         className,
