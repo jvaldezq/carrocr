@@ -7,6 +7,7 @@ export const DATA_GET_MODELS = 'get-models';
 export const DATA_POST_MODEL = 'post-model';
 export const DATA_GET_TRIMS = 'get-trims';
 export const DATA_POST_TRIM = 'post-trim';
+export const DATA_FILTER_DEFAULTS = 'data-filter-defaults';
 export const ADMIN_GET_ACCOUNTS_REVIEW = 'get-accounts-review';
 export const ADMIN_GET_ACCOUNT_REVIEW_BY_ID = 'get-account-review-by-id';
 export const ADMIN_GET_LISTINGS_REVIEW = 'get-listings-review';
