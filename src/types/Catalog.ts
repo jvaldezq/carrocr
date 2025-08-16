@@ -1,5 +1,6 @@
 import { CURRENCIES } from '@/lib/NumberFormats';
 import type { CarImages } from './User';
+import { APPROVAL_STAGE } from '@/lib/definitions';
 
 export interface Preview {
   id: number;
@@ -30,6 +31,7 @@ export interface SmallCard {
   trim: string;
   fuelType: string;
   premium: boolean;
+  approvalStage?: APPROVAL_STAGE;
 }
 
 export interface CatalogAll {

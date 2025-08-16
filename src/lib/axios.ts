@@ -9,9 +9,7 @@ export const api = axios.create({
 
 // A function that will be provided at runtime from the client
 // to fetch a fresh auth token (e.g., from Clerk) on every request.
-let tokenProvider:
-  | null
-  | (() => Promise<string | null | undefined>) = null;
+let tokenProvider: null | (() => Promise<string | null | undefined>) = null;
 
 export const setTokenProvider = (
   provider: null | (() => Promise<string | null | undefined>),
@@ -28,7 +26,7 @@ api.interceptors.request.use(async (config: InternalAxiosRequestConfig) => {
       // Ensure we don't send a stale header when no token is available
       delete (config.headers as Record<string, unknown>).Authorization;
     }
-  } catch (e) {
+  } catch (_) {
     // If token retrieval fails, proceed without auth header
   }
   return config;

@@ -46,15 +46,6 @@ export interface ListingCounters {
   total: number;
 }
 
-export enum APPROVAL_STAGE {
-  DRAFT = 'Draft',
-  REVIEW = 'Review',
-  DENY = 'Denied',
-  PUBLISHED = 'Published',
-  DELETED = 'Deleted',
-  ENDED = 'Ended',
-}
-
 export const currencies_options = [
   {
     label: CURRENCIES.CRC,
@@ -247,6 +238,15 @@ export const driveType_options = [
   },
 ];
 
+export enum APPROVAL_STAGE {
+  DRAFT = 'Draft',
+  REVIEW = 'Review',
+  DENY = 'Denied',
+  PUBLISHED = 'Published',
+  DELETED = 'Deleted',
+  ENDED = 'Ended',
+}
+
 export const APPROVAL_TRANSLATIONS = [
   {
     id: 4,
@@ -269,3 +269,13 @@ export const APPROVAL_TRANSLATIONS = [
     key: 'denied',
   },
 ];
+
+// Spanish labels for approval stages
+export const APPROVAL_STAGE_ES: Record<APPROVAL_STAGE, string> = {
+  [APPROVAL_STAGE.DRAFT]: 'Borrador',
+  [APPROVAL_STAGE.REVIEW]: 'Revisión',
+  [APPROVAL_STAGE.DENY]: 'Denegado',
+  [APPROVAL_STAGE.PUBLISHED]: 'Publicado',
+  [APPROVAL_STAGE.DELETED]: 'Eliminado',
+  [APPROVAL_STAGE.ENDED]: 'Finalizado',
+};

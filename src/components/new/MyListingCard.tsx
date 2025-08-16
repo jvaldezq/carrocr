@@ -4,8 +4,9 @@ import DefaultImage from '@/assets/placeholder.webp';
 import { MoneyFormatter, NumberFormatter } from '@/lib/NumberFormats';
 import Link from 'next/link';
 import { tw } from '@/lib/utils';
-import { Eye, Pencil, Trash } from 'lucide-react';
+import { Eye, Pencil } from 'lucide-react';
 import { Tooltip } from '@/components/Tooltip';
+import { APPROVAL_STAGE, APPROVAL_STAGE_ES } from '@/lib/definitions';
 
 type Props = SmallCard & {
   isTemp?: boolean;
@@ -24,9 +25,29 @@ export const MyListingCard = (props: Props) => {
     id,
     trim,
     mileage,
+    approvalStage,
   } = props;
-  console.log('Mis Anuncios', props);
   const image = thumbnail ? thumbnail : DefaultImage;
+  const stage = approvalStage as APPROVAL_STAGE | undefined;
+  const stageLabel = stage ? APPROVAL_STAGE_ES[stage] : undefined;
+  const stageClass = (() => {
+    switch (stage) {
+      case APPROVAL_STAGE.PUBLISHED:
+        return 'bg-emerald-50 text-emerald-700 border-emerald-200';
+      case APPROVAL_STAGE.REVIEW:
+        return 'bg-amber-50 text-amber-800 border-amber-200';
+      case APPROVAL_STAGE.DENY:
+        return 'bg-rose-50 text-rose-700 border-rose-200';
+      case APPROVAL_STAGE.DRAFT:
+        return 'bg-gray-50 text-gray-700 border-gray-200';
+      case APPROVAL_STAGE.DELETED:
+        return 'bg-gray-100 text-gray-500 border-gray-200';
+      case APPROVAL_STAGE.ENDED:
+        return 'bg-blue-50 text-blue-700 border-blue-200';
+      default:
+        return 'bg-gray-50 text-gray-700 border-gray-200';
+    }
+  })();
 
   return (
     <div className="flex gap-4 p-4 border border-solid border-black/[0.06] rounded-xl items-center card">
@@ -50,7 +71,7 @@ export const MyListingCard = (props: Props) => {
           height={120}
         />
       </div>
-      <div>
+      <div className="w-full">
         <h3 className="text-md md:text-lg font-semibold text-black text-pretty">
           {`${make} ${model} ${trim}`}
         </h3>
@@ -61,6 +82,18 @@ export const MyListingCard = (props: Props) => {
           {MoneyFormatter(price, currency)}
         </h2>
         <div className="flex gap-2 items-center justify-start col-span-full mt-4">
+          {stageLabel && (
+            <div className="grow">
+              <span
+                className={tw(
+                  'text-xs px-2 py-1 rounded-full border',
+                  stageClass,
+                )}
+              >
+                {stageLabel}
+              </span>
+            </div>
+          )}
           <Tooltip tooltipContent={'Ver anuncio'}>
             <Link
               key={`view-${id}`}

@@ -1,6 +1,6 @@
 'use client';
 
-import { useLayoutEffect, useRef, useState } from 'react';
+import { useCallback, useLayoutEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
 import Link from 'next/link';
@@ -117,14 +117,14 @@ export const Navigation = () => {
     return () => ctx.revert();
   }, [shouldRender]);
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     if (tlRef.current) {
       tlRef.current.reverse();
     } else {
       setShouldRender(false);
     }
     setOpen(false);
-  };
+  }, []);
 
   const handleCarEntry = () => {
     handleClose();
@@ -285,7 +285,3 @@ export const Navigation = () => {
     </>
   );
 };
-
-function useEffect(arg0: () => Promise<void>, arg1: never[]) {
-  throw new Error('Function not implemented.');
-}

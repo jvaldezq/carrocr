@@ -11,46 +11,117 @@ import {
 } from 'lucide-react';
 import { Field, FormRenderProps, SupportedInputs } from 'react-final-form';
 import { CarImages, UserListing } from '@/types/User';
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image';
 import { usePostImage } from '@/app/(main)/draft/[id]/service/postImage';
 import { cn, tw } from '@/lib/utils';
 import { FormInput } from '@/components/Forms/Input/FormInput';
 import DefaultImage from '@/assets/placeholder.webp';
+import { useDeleteImage } from '@/app/(main)/draft/[id]/service/deleteImage';
 
 const IMAGE_SECTIONS = {
   exterior: [
-    { key: 'imgBodyFL', label: 'Frente Izquierdo', required: true },
-    { key: 'imgBodyFC', label: 'Frente Centro', required: false },
-    { key: 'imgBodyFR', label: 'Frente Derecho', required: true },
-    { key: 'imgBodyRL', label: 'Trasero Izquierdo', required: true },
-    { key: 'imgBodyRC', label: 'Trasero Centro', required: false },
-    { key: 'imgBodyRR', label: 'Trasero Derecho', required: true },
-    { key: 'imgBodySL', label: 'Lateral Izquierdo', required: false },
-    { key: 'imgBodySR', label: 'Lateral Derecho', required: false },
+    {
+      key: 'imgBodyFL',
+      label: 'Frente Izquierdo',
+      required: true,
+      defaultSrc: DefaultImage,
+    },
+    {
+      key: 'imgBodyFC',
+      label: 'Frente Centro',
+      required: false,
+      defaultSrc: DefaultImage,
+    },
+    {
+      key: 'imgBodyFR',
+      label: 'Frente Derecho',
+      required: true,
+      defaultSrc: DefaultImage,
+    },
+    {
+      key: 'imgBodyRL',
+      label: 'Trasero Izquierdo',
+      required: true,
+      defaultSrc: DefaultImage,
+    },
+    {
+      key: 'imgBodyRC',
+      label: 'Trasero Centro',
+      required: false,
+      defaultSrc: DefaultImage,
+    },
+    {
+      key: 'imgBodyRR',
+      label: 'Trasero Derecho',
+      required: true,
+      defaultSrc: DefaultImage,
+    },
+    {
+      key: 'imgBodySL',
+      label: 'Lateral Izquierdo',
+      required: false,
+      defaultSrc: DefaultImage,
+    },
+    {
+      key: 'imgBodySR',
+      label: 'Lateral Derecho',
+      required: false,
+      defaultSrc: DefaultImage,
+    },
   ],
   interior: [
-    { key: 'imgInteriorDash', label: 'Tablero', required: true },
+    {
+      key: 'imgInteriorDash',
+      label: 'Tablero',
+      required: true,
+      defaultSrc: DefaultImage,
+    },
     {
       key: 'imgInteriorCluster',
       label: 'Panel de Instrumentos',
       required: false,
+      defaultSrc: DefaultImage,
     },
     {
       key: 'imgInteriorRadio',
       label: 'Sistema de Infoentretenimiento',
       required: false,
+      defaultSrc: DefaultImage,
     },
-    { key: 'imgInteriorSeatF', label: 'Asientos Delanteros', required: false },
-    { key: 'imgInteriorSeatR', label: 'Asientos Traseros', required: false },
-    { key: 'imgInteriorTrunk', label: 'Cajuela / Maletero', required: false },
+    {
+      key: 'imgInteriorSeatF',
+      label: 'Asientos Delanteros',
+      required: false,
+      defaultSrc: DefaultImage,
+    },
+    {
+      key: 'imgInteriorSeatR',
+      label: 'Asientos Traseros',
+      required: false,
+      defaultSrc: DefaultImage,
+    },
+    {
+      key: 'imgInteriorTrunk',
+      label: 'Cajuela / Maletero',
+      required: false,
+      defaultSrc: DefaultImage,
+    },
   ],
-  mechanical: [{ key: 'imgEngine', label: 'Motor', required: false }],
+  mechanical: [
+    {
+      key: 'imgEngine',
+      label: 'Motor',
+      required: false,
+      defaultSrc: DefaultImage,
+    },
+  ],
 };
 
 type ImagesFormsProps = FormRenderProps<UserListing>;
 
 export const ImagesForm = (props: ImagesFormsProps) => {
   const { mutateAsync } = usePostImage();
+  const { mutateAsync: deleteAsync } = useDeleteImage();
   const { values, form } = props;
   const { images } = values;
 
@@ -117,6 +188,25 @@ export const ImagesForm = (props: ImagesFormsProps) => {
     }
   };
 
+  const handleDelete = async (key: keyof CarImages) => {
+    const current = images?.[key];
+    if (!current || !values.id) return;
+    try {
+      const fileName = (() => {
+        const str = String(current);
+        const idx = str.lastIndexOf('/');
+        return idx >= 0 ? str.slice(idx + 1) : str;
+      })();
+
+      setPendingKey(key);
+      await deleteAsync({ listingId: values.id, imgFileName: fileName });
+      const imageToUpdate = `images.${key}` as keyof UserListing;
+      form.change(imageToUpdate, null);
+    } finally {
+      setPendingKey(null);
+    }
+  };
+
   return (
     <div className="flex flex-col gap-16">
       <section className="flex flex-col gap-6">
@@ -178,10 +268,14 @@ export const ImagesForm = (props: ImagesFormsProps) => {
 
         <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {IMAGE_SECTIONS.exterior.map((section) => {
-            const { key, label } = section;
-            const src = images?.[key as keyof CarImages]
-              ? images?.[key as keyof CarImages]
-              : DefaultImage;
+            const { key, label, required, defaultSrc } = section as {
+              key: keyof CarImages;
+              label: string;
+              required: boolean;
+              defaultSrc: string | StaticImageData;
+            };
+            const value = images?.[key];
+            const src = value ? value : defaultSrc;
             const isDraggedOver = draggingOverKey === key;
             const isPending = pendingKey === key;
             const imageKey = `images.${key}` as keyof UserListing;
@@ -198,9 +292,18 @@ export const ImagesForm = (props: ImagesFormsProps) => {
                   childrenClassName="hidden"
                   className="hidden"
                 />
-                <p className="text-sm text-tertiary self-start">
-                  {label}{' '}
-                  {section.required && <span className="text-red-500">*</span>}
+                <p className="text-sm text-tertiary self-start flex items-center gap-2">
+                  <span>{label}</span>
+                  <span
+                    className={cn(
+                      'text-[10px] px-2 py-0.5 rounded-full border',
+                      required
+                        ? 'bg-red-50 text-red-800 border-red-200'
+                        : 'bg-gray-50 text-gray-700 border-gray-200',
+                    )}
+                  >
+                    {required ? 'Requerida' : 'Opcional'}
+                  </span>
                 </p>
                 {isPending ? (
                   <div
@@ -234,8 +337,26 @@ export const ImagesForm = (props: ImagesFormsProps) => {
                     onDrop={(event) =>
                       handleDrop(event, key as keyof CarImages)
                     }
-                    className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 relative"
+                    className={cn(
+                      'flex flex-col items-center justify-center w-full h-64 border-2 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 relative',
+                      required && !value ? 'border-red-400' : 'border-gray-300',
+                    )}
                   >
+                    {value && (
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          handleDelete(key as keyof CarImages);
+                        }}
+                        disabled={isPending}
+                        className="absolute top-2 right-2 z-10 text-xs px-2 py-1 rounded-md bg-white/90 text-black border border-black/10 hover:bg-white"
+                        aria-label="Eliminar imagen"
+                      >
+                        Eliminar
+                      </button>
+                    )}
                     {src && (
                       <Image
                         src={src}
@@ -292,10 +413,14 @@ export const ImagesForm = (props: ImagesFormsProps) => {
 
         <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {IMAGE_SECTIONS.interior.map((section) => {
-            const { key, label } = section;
-            const src = images?.[key as keyof CarImages]
-              ? images?.[key as keyof CarImages]
-              : DefaultImage;
+            const { key, label, required, defaultSrc } = section as {
+              key: keyof CarImages;
+              label: string;
+              required: boolean;
+              defaultSrc: string | StaticImageData;
+            };
+            const value = images?.[key];
+            const src = value ? value : defaultSrc;
             const isDraggedOver = draggingOverKey === key;
             const isPending = pendingKey === key;
             return (
@@ -303,7 +428,19 @@ export const ImagesForm = (props: ImagesFormsProps) => {
                 className="flex flex-col gap-2 items-center justify-center w-full"
                 key={key}
               >
-                <p className="text-sm text-tertiary self-start">{label}</p>
+                <p className="text-sm text-tertiary self-start flex items-center gap-2">
+                  <span>{label}</span>
+                  <span
+                    className={cn(
+                      'text-[10px] px-2 py-0.5 rounded-full border',
+                      required
+                        ? 'bg-red-50 text-red-800 border-red-200'
+                        : 'bg-gray-50 text-gray-700 border-gray-200',
+                    )}
+                  >
+                    {required ? 'Requerida' : 'Opcional'}
+                  </span>
+                </p>
                 {isPending ? (
                   <div
                     className={tw(
@@ -336,8 +473,26 @@ export const ImagesForm = (props: ImagesFormsProps) => {
                     onDrop={(event) =>
                       handleDrop(event, key as keyof CarImages)
                     }
-                    className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 relative"
+                    className={cn(
+                      'flex flex-col items-center justify-center w-full h-64 border-2 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 relative',
+                      required && !value ? 'border-red-400' : 'border-gray-300',
+                    )}
                   >
+                    {value && (
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          handleDelete(key as keyof CarImages);
+                        }}
+                        disabled={isPending}
+                        className="absolute top-2 right-2 z-10 text-xs px-2 py-1 rounded-md bg-white/90 text-black border border-black/10 hover:bg-white"
+                        aria-label="Eliminar imagen"
+                      >
+                        Eliminar
+                      </button>
+                    )}
                     {src && (
                       <Image
                         src={src}
@@ -394,10 +549,14 @@ export const ImagesForm = (props: ImagesFormsProps) => {
 
         <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {IMAGE_SECTIONS.mechanical.map((section) => {
-            const { key, label } = section;
-            const src = images?.[key as keyof CarImages]
-              ? images?.[key as keyof CarImages]
-              : DefaultImage;
+            const { key, label, required, defaultSrc } = section as {
+              key: keyof CarImages;
+              label: string;
+              required: boolean;
+              defaultSrc: string | StaticImageData;
+            };
+            const value = images?.[key];
+            const src = value ? value : defaultSrc;
             const isDraggedOver = draggingOverKey === key;
             const isPending = pendingKey === key;
             return (
@@ -405,7 +564,19 @@ export const ImagesForm = (props: ImagesFormsProps) => {
                 className="flex flex-col gap-2 items-center justify-center w-full"
                 key={key}
               >
-                <p className="text-sm text-tertiary self-start">{label}</p>
+                <p className="text-sm text-tertiary self-start flex items-center gap-2">
+                  <span>{label}</span>
+                  <span
+                    className={cn(
+                      'text-[10px] px-2 py-0.5 rounded-full border',
+                      required
+                        ? 'bg-red-50 text-red-800 border-red-200'
+                        : 'bg-gray-50 text-gray-700 border-gray-200',
+                    )}
+                  >
+                    {required ? 'Requerida' : 'Opcional'}
+                  </span>
+                </p>
                 {isPending ? (
                   <div
                     className={tw(
@@ -438,8 +609,26 @@ export const ImagesForm = (props: ImagesFormsProps) => {
                     onDrop={(event) =>
                       handleDrop(event, key as keyof CarImages)
                     }
-                    className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 relative"
+                    className={cn(
+                      'flex flex-col items-center justify-center w-full h-64 border-2 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 relative',
+                      required && !value ? 'border-red-400' : 'border-gray-300',
+                    )}
                   >
+                    {value && (
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          handleDelete(key as keyof CarImages);
+                        }}
+                        disabled={isPending}
+                        className="absolute top-2 right-2 z-10 text-xs px-2 py-1 rounded-md bg-white/90 text-black border border-black/10 hover:bg-white"
+                        aria-label="Eliminar imagen"
+                      >
+                        Eliminar
+                      </button>
+                    )}
                     {src && (
                       <Image
                         src={src}
