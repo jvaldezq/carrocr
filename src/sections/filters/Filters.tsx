@@ -25,7 +25,7 @@ import { cn } from '@/lib/utils';
 import { useGetMakes } from '@/context/CarEntryContext/services/useGetMakes';
 import { useGetModels } from '@/context/CarEntryContext/services/useGetModels';
 import { useGetTrims } from '@/context/CarEntryContext/services/useGetTrims';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useGetFilterDefaults } from './services/useGetFilterDefaults';
 import { Switch } from '@/components/ui/switch';
 import {
@@ -39,6 +39,7 @@ export const Filters = () => {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const textRef = useRef<HTMLSpanElement>(null);
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
   // Local UI state for filters
   const searchParams = useSearchParams();
@@ -102,6 +103,42 @@ export const Filters = () => {
   }, [defaults]);
 
   const carTypes = ['SUV', 'Sedan', '4X4'];
+
+  // Determine if any filters are currently active (different from defaults)
+  const hasActiveFilters = useMemo(() => {
+    const priceChanged =
+      !!defaults &&
+      (price?.[0] !== defaults.minPrice || price?.[1] !== defaults.maxPrice);
+
+    return (
+      !!yearMin ||
+      !!yearMax ||
+      !!makeId ||
+      !!modelId ||
+      !!trimId ||
+      bodyNames.length > 0 ||
+      fuelTypes.length > 0 ||
+      transTypes.length > 0 ||
+      states.length > 0 ||
+      recentOnly ||
+      verifiedOnly ||
+      priceChanged
+    );
+  }, [
+    defaults,
+    price,
+    yearMin,
+    yearMax,
+    makeId,
+    modelId,
+    trimId,
+    bodyNames,
+    fuelTypes,
+    transTypes,
+    states,
+    recentOnly,
+    verifiedOnly,
+  ]);
 
   useEffect(() => {
     const button = buttonRef.current;
@@ -217,9 +254,8 @@ export const Filters = () => {
     verifiedOnly,
   ]);
 
-  const { data: resultsCount = 0, isFetching: isCounting } = useGetCatalogCount(
-    catalogParams,
-  );
+  const { data: resultsCount = 0, isFetching: isCounting } =
+    useGetCatalogCount(catalogParams);
 
   const toggle = (
     list: string[],
@@ -283,13 +319,23 @@ export const Filters = () => {
       <DrawerTrigger asChild>
         <button
           ref={buttonRef}
-          className="fixed bottom-[70px] right-2 z-10 bg-black/90 hover:bg-black rounded-full p-2 md:p-[0.5rem] overflow-hidden flex items-center"
+          className={cn(
+            // Keep original positioning and sizing intact
+            'fixed  right-2 z-10 rounded-full p-2 md:p-[0.5rem] overflow-hidden flex items-center',
+            pathname.includes('draft/') ? 'bottom-[70px]' : 'bottom-[10px]',
+            // Only toggle colors when filters are active
+            hasActiveFilters
+              ? 'bg-white text-black border border-black hover:bg-black/90 hover:text-white'
+              : 'bg-black/90 hover:bg-black text-white',
+          )}
           aria-label="Search"
         >
-          <Search className="w-6 h-6 md:w-8 md:h-8 text-white flex-shrink-0" />
+          <Search className="w-6 h-6 md:w-8 md:h-8 flex-shrink-0" />
           <span
             ref={textRef}
-            className="text-white font-medium whitespace-nowrap overflow-hidden ml-2 hidden"
+            className={cn(
+              'font-medium whitespace-nowrap overflow-hidden ml-2 hidden',
+            )}
           >
             Buscar automóvil
           </span>
@@ -299,7 +345,9 @@ export const Filters = () => {
       <DrawerContent className="pb-4 max-h-[85vh]">
         <DrawerHeader className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <DrawerTitle className="text-2xl font-semibold">Filtros</DrawerTitle>
+            <DrawerTitle className="text-2xl font-semibold">
+              Filtros
+            </DrawerTitle>
             <span className="text-sm text-neutral-600">
               {isCounting ? 'Calculando…' : `${resultsCount} resultados`}
             </span>
@@ -318,56 +366,60 @@ export const Filters = () => {
             <div className="grid grid-cols-2 gap-3">
               <div className="relative">
                 <Select
-                key={`ymin-${yearMin ?? 'empty'}`}
-                value={yearMin}
-                onValueChange={(v) => {
-                  setYearMin(v);
-                  if (yearMax && Number(v) > Number(yearMax)) {
-                    setYearMax(v);
-                  }
-                }}
+                  key={`ymin-${yearMin ?? 'empty'}`}
+                  value={yearMin}
+                  onValueChange={(v) => {
+                    setYearMin(v);
+                    if (yearMax && Number(v) > Number(yearMax)) {
+                      setYearMax(v);
+                    }
+                  }}
                 >
-                  <SelectTrigger className={cn('w-full', yearMin ? 'border-black' : '')}>
-                  <SelectValue placeholder="Mínimo" />
+                  <SelectTrigger
+                    className={cn('w-full', yearMin ? 'border-black' : '')}
+                  >
+                    <SelectValue placeholder="Mínimo" />
                   </SelectTrigger>
                   <SelectContent>
-                  {years.map((y) => (
-                    <SelectItem
-                      key={`ymin-${y}`}
-                      value={y}
-                      disabled={!!yearMax && Number(y) > Number(yearMax)}
-                    >
-                      {y}
-                    </SelectItem>
-                  ))}
+                    {years.map((y) => (
+                      <SelectItem
+                        key={`ymin-${y}`}
+                        value={y}
+                        disabled={!!yearMax && Number(y) > Number(yearMax)}
+                      >
+                        {y}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
                 {/* Clear button removed; keep active border style */}
               </div>
               <div className="relative">
                 <Select
-                key={`ymax-${yearMax ?? 'empty'}`}
-                value={yearMax}
-                onValueChange={(v) => {
-                  setYearMax(v);
-                  if (yearMin && Number(v) < Number(yearMin)) {
-                    setYearMin(v);
-                  }
-                }}
+                  key={`ymax-${yearMax ?? 'empty'}`}
+                  value={yearMax}
+                  onValueChange={(v) => {
+                    setYearMax(v);
+                    if (yearMin && Number(v) < Number(yearMin)) {
+                      setYearMin(v);
+                    }
+                  }}
                 >
-                  <SelectTrigger className={cn('w-full', yearMax ? 'border-black' : '')}>
-                  <SelectValue placeholder="Máximo" />
+                  <SelectTrigger
+                    className={cn('w-full', yearMax ? 'border-black' : '')}
+                  >
+                    <SelectValue placeholder="Máximo" />
                   </SelectTrigger>
                   <SelectContent>
-                  {years.map((y) => (
-                    <SelectItem
-                      key={`ymax-${y}`}
-                      value={y}
-                      disabled={!!yearMin && Number(y) < Number(yearMin)}
-                    >
-                      {y}
-                    </SelectItem>
-                  ))}
+                    {years.map((y) => (
+                      <SelectItem
+                        key={`ymax-${y}`}
+                        value={y}
+                        disabled={!!yearMin && Number(y) < Number(yearMin)}
+                      >
+                        {y}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
                 {/* Clear button removed; keep active border style */}
@@ -383,23 +435,28 @@ export const Filters = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
               <div className="relative">
                 <Select
-                key={`make-${makeId ?? 'empty'}`}
-                value={makeId}
-                onValueChange={(v) => {
-                  setMakeId(v);
-                  setModelId(undefined);
-                  setTrimId(undefined);
-                }}
+                  key={`make-${makeId ?? 'empty'}`}
+                  value={makeId}
+                  onValueChange={(v) => {
+                    setMakeId(v);
+                    setModelId(undefined);
+                    setTrimId(undefined);
+                  }}
                 >
-                  <SelectTrigger className={cn('w-full', makeId ? 'border-black' : '')}>
-                  <SelectValue placeholder="Marca" />
+                  <SelectTrigger
+                    className={cn('w-full', makeId ? 'border-black' : '')}
+                  >
+                    <SelectValue placeholder="Marca" />
                   </SelectTrigger>
                   <SelectContent>
-                  {makes?.map((m) => (
-                    <SelectItem key={`make-${m.value}`} value={String(m.value)}>
-                      {m.label}
-                    </SelectItem>
-                  ))}
+                    {makes?.map((m) => (
+                      <SelectItem
+                        key={`make-${m.value}`}
+                        value={String(m.value)}
+                      >
+                        {m.label}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
                 {/* Clear button removed; keep active border style */}
@@ -407,26 +464,28 @@ export const Filters = () => {
 
               <div className="relative">
                 <Select
-                key={`model-${modelId ?? 'empty'}`}
-                value={modelId}
-                onValueChange={(v) => {
-                  setModelId(v);
-                  setTrimId(undefined);
-                }}
-                disabled={!makeId}
+                  key={`model-${modelId ?? 'empty'}`}
+                  value={modelId}
+                  onValueChange={(v) => {
+                    setModelId(v);
+                    setTrimId(undefined);
+                  }}
+                  disabled={!makeId}
                 >
-                  <SelectTrigger className={cn('w-full', modelId ? 'border-black' : '')}>
-                  <SelectValue placeholder="Modelo" />
+                  <SelectTrigger
+                    className={cn('w-full', modelId ? 'border-black' : '')}
+                  >
+                    <SelectValue placeholder="Modelo" />
                   </SelectTrigger>
                   <SelectContent>
-                  {models?.map((m) => (
-                    <SelectItem
-                      key={`model-${m.value}`}
-                      value={String(m.value)}
-                    >
-                      {m.label}
-                    </SelectItem>
-                  ))}
+                    {models?.map((m) => (
+                      <SelectItem
+                        key={`model-${m.value}`}
+                        value={String(m.value)}
+                      >
+                        {m.label}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
                 {/* Clear button removed; keep active border style */}
@@ -434,20 +493,25 @@ export const Filters = () => {
 
               <div className="relative">
                 <Select
-                key={`trim-${trimId ?? 'empty'}`}
-                value={trimId}
-                onValueChange={setTrimId}
-                disabled={!modelId}
+                  key={`trim-${trimId ?? 'empty'}`}
+                  value={trimId}
+                  onValueChange={setTrimId}
+                  disabled={!modelId}
                 >
-                  <SelectTrigger className={cn('w-full', trimId ? 'border-black' : '')}>
-                  <SelectValue placeholder="Edición" />
+                  <SelectTrigger
+                    className={cn('w-full', trimId ? 'border-black' : '')}
+                  >
+                    <SelectValue placeholder="Edición" />
                   </SelectTrigger>
                   <SelectContent>
-                  {trims?.map((t) => (
-                    <SelectItem key={`trim-${t.value}`} value={String(t.value)}>
-                      {t.label}
-                    </SelectItem>
-                  ))}
+                    {trims?.map((t) => (
+                      <SelectItem
+                        key={`trim-${t.value}`}
+                        value={String(t.value)}
+                      >
+                        {t.label}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
                 {/* Clear button removed; keep active border style */}
@@ -462,9 +526,8 @@ export const Filters = () => {
                 Precio
               </h3>
               <div className="text-xs text-neutral-500">
-                ${price[0]?.toLocaleString?.() ?? ''} - ${
-                  price[1]?.toLocaleString?.() ?? ''
-                }
+                ${price[0]?.toLocaleString?.() ?? ''} - $
+                {price[1]?.toLocaleString?.() ?? ''}
               </div>
             </div>
             <Slider
@@ -512,7 +575,9 @@ export const Filters = () => {
                 <button
                   key={opt.value}
                   type="button"
-                  onClick={() => toggle(transTypes, String(opt.value), setTransTypes)}
+                  onClick={() =>
+                    toggle(transTypes, String(opt.value), setTransTypes)
+                  }
                   className={cn(
                     'border rounded-md px-3 py-2 text-sm',
                     transTypes.includes(String(opt.value))
@@ -536,7 +601,9 @@ export const Filters = () => {
                 <button
                   key={opt.value}
                   type="button"
-                  onClick={() => toggle(fuelTypes, String(opt.value), setFuelTypes)}
+                  onClick={() =>
+                    toggle(fuelTypes, String(opt.value), setFuelTypes)
+                  }
                   className={cn(
                     'border rounded-md px-3 py-2 text-sm',
                     fuelTypes.includes(String(opt.value))
@@ -586,7 +653,10 @@ export const Filters = () => {
               </div>
               <div className="flex items-center justify-between border rounded-md px-3 py-2">
                 <span className="text-sm">Solo cuentas verificadas</span>
-                <Switch checked={verifiedOnly} onCheckedChange={setVerifiedOnly} />
+                <Switch
+                  checked={verifiedOnly}
+                  onCheckedChange={setVerifiedOnly}
+                />
               </div>
             </div>
           </section>

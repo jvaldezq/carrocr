@@ -94,14 +94,14 @@ export const CreateCar = () => {
   if (isPending || isSuccess) {
     return (
       <div className="h-96 w-full flex flex-col gap-2 justify-center items-center p-4">
-        <CarFront className="text-primary animate-bounce animate-infinite animate-duration-1000 animate-delay-0 animate-ease-linear" />
+        <CarFront className="text-black animate-bounce animate-infinite animate-duration-1000 animate-delay-0 animate-ease-linear" />
         <div className="w-full bg-gray-200 rounded-full h-2.5">
           <div
-            className="bg-primary h-2.5 rounded-full transition-all duration-500 ease-linear"
+            className="bg-black h-2.5 rounded-full transition-all duration-500 ease-linear"
             style={{ width: `${progress}%` }}
           ></div>
         </div>
-        <h1 className="text-sm font-light text-primary">CREANDO ANUNCIO</h1>
+        <h1 className="text-sm font-light text-black">CREANDO ANUNCIO</h1>
       </div>
     );
   }

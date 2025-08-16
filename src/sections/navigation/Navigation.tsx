@@ -149,7 +149,12 @@ export const Navigation = () => {
   return (
     <>
       <button
-        className="fixed bottom-[115px] md:bottom-[125px] right-2 bg-black/90 hover:bg-black rounded-full p-2 md:p-[0.5rem] drop-shadow-lg z-20"
+        className={tw(
+          'fixed  right-2 bg-black/90 hover:bg-black rounded-full p-2 md:p-[0.5rem] drop-shadow-lg z-20',
+          pathname.includes('draft/')
+            ? 'bottom-[115px] md:bottom-[125px]'
+            : 'bottom-[55px] md:bottom-[65px]',
+        )}
         onClick={() => setOpen(true)}
       >
         <Menu className="w-6 h-6 md:w-8 md:h-8 text-white" />
